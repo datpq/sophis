@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+	Test purpose : import the last of an instrument
+	Expected result : the last is saved in database
+-->
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+             xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+             xmlns:folio="http://www.sophis.net/folio" xmlns:user="http://www.sophis.net/user"
+             xmlns:valuation="http://www.sophis.net/valuation" xmlns:correlation="http://www.sophis.net/correlation"
+             xmlns:market_data="http://www.sophis.net/market_data" xmlns:volatility="http://www.sophis.net/volatility"
+             xmlns:preferences="http://www.sophis.net/preferences">
+
+	<fpml:header>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">SENDER</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+
+	<valuation:market>
+	    <valuation:quotedAssetSet>
+			<valuation:instrumentSet>
+				<valuation:fxRateAsset valuation:id="FxRateAsset1">
+					<valuation:quotedCurrencyPair>
+						<instrument:currency1>LYD</instrument:currency1>
+						<instrument:currency2>KES</instrument:currency2>
+			            <instrument:quoteBasis>Currency1PerCurrency2</instrument:quoteBasis>
+					</valuation:quotedCurrencyPair>
+				</valuation:fxRateAsset>
+	        </valuation:instrumentSet>
+			<valuation:assetQuote>
+				<valuation:objectReference valuation:href="FxRateAsset1"/>
+				<valuation:quote>
+					<valuation:value>1.09</valuation:value>
+					<valuation:side>Last</valuation:side>
+					<valuation:currency>LYD</valuation:currency>
+				</valuation:quote>
+			</valuation:assetQuote>
+		</valuation:quotedAssetSet>
+	</valuation:market>
+</exch:import>

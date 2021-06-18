@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+	Test purpose : Import a trade
+	Expected result : Trade described below shall be inserted in db
+-->
+<exch:importMarketData version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 			xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+ 			xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" exch:batchType="AllRegardlessOfErrors">
+
+	<fpml:header>
+		<fpml:conversationId conversationIdScheme=""/>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">BARCLAYS</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+
+	<ns0:volatilityData ns2:persistenceType="UpdateOrCreate" xmlns:ns0="http://www.sophis.net/volatility" xmlns:ns1="http://www.sophis.net/Instrument" xmlns:ns2="http://sophis.net/sophis/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<ns0:identifier>
+			<ns1:sophis>68625663</ns1:sophis>
+		</ns0:identifier>
+		<ns0:snapshotBaseline>
+			<ns2:snapshotDate>2015-08-04</ns2:snapshotDate>
+		</ns0:snapshotBaseline>
+		<ns0:calculationParameters>
+			<ns0:strikeInPercentSpotPrice />
+			<ns0:model>Standard</ns0:model>
+		</ns0:calculationParameters>
+		<ns0:volatilitySurface ns0:surface="CallResult" ns0:haveSpecificSmiles="false">
+			<ns0:model>Absolute</ns0:model>
+			<ns0:volatilityPoint>
+				<ns0:date>
+					<ns2:relativeDate>
+						<ns2:periodMultiplier>10</ns2:periodMultiplier>
+						<ns2:periodEnum>Day</ns2:periodEnum>
+						<ns2:dayType>Business</ns2:dayType>
+						<ns2:businessDayConvention>FOLLOWING</ns2:businessDayConvention>
+					</ns2:relativeDate>
+				</ns0:date>
+				<ns0:atTheMoney>20</ns0:atTheMoney>
+			</ns0:volatilityPoint>
+		</ns0:volatilitySurface>
+	</ns0:volatilityData>
+</exch:importMarketData>

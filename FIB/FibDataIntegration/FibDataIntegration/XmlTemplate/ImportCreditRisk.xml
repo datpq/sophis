@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<exch:importMarketData version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+                       xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" exch:batchType="AllRegardlessOfErrors">
+
+  <fpml:header>
+    <fpml:conversationId conversationIdScheme=""/>
+    <fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+    <fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sentBy>
+    <fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+    <fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>
+  </fpml:header>
+
+  <ns0:creditData ns2:persistenceType="UpdateOrCreate" xmlns:ns0="http://www.sophis.net/CreditRisk" xmlns:ns1="http://www.sophis.net/Instrument" xmlns:ns2="http://sophis.net/sophis/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ns0:issuer>
+      <ns1:sophis>68626401</ns1:sophis>
+    </ns0:issuer>
+    <ns0:CDSFixedRate>0.000000000</ns0:CDSFixedRate>
+    <ns0:tableOfRecoveryRates>
+      <ns0:row>
+        <ns0:seniority>
+          <ns1:reference ns1:name="Cma">011</ns1:reference>
+          <!-- <ns1:reference ns1:name="TICKER">FIB Junior</ns1:reference> -->
+        </ns0:seniority>
+        <ns0:defaultEvent>
+          <ns1:reference ns1:name="Bloomberg">No Restructuring</ns1:reference>
+          <!-- <ns1:reference ns1:name="TICKER">NR</ns1:reference> -->
+        </ns0:defaultEvent>
+        <ns0:recoveryRate>0.400000000</ns0:recoveryRate>
+      </ns0:row>
+    </ns0:tableOfRecoveryRates>
+    <ns0:tableOfCDSMarketPlots>
+      <ns0:curvesByCurrency>
+        <ns0:currency>EUR</ns0:currency>
+		<ns0:curveDefinition>		 
+          <ns0:seniority>
+            <ns1:reference ns1:name="Cma">012</ns1:reference>
+            <!-- <ns1:reference ns1:name="TICKER">NR</ns1:reference> -->
+          </ns0:seniority>
+          <ns0:defaultEvent>
+            <ns1:reference ns1:name="Cma">MM</ns1:reference>
+            <!-- <ns1:reference ns1:name="TICKER">NR</ns1:reference> -->
+          </ns0:defaultEvent>
+          <ns0:marketPlot>
+            <ns0:maturity>
+              <ns2:adjustableDate>
+                <ns2:unadjustedDate>1y</ns2:unadjustedDate>
+				<ns2:dateAdjustments>
+					<ns2:businessDayConvention>FOLLOWING</ns2:businessDayConvention>
+				</ns2:dateAdjustments>
+				
+              </ns2:adjustableDate>
+            </ns0:maturity>
+            <ns0:rate>0.006009400</ns0:rate>
+            <ns0:bidRate>0.005630700</ns0:bidRate>
+            <ns0:askRate>0.006388100</ns0:askRate>	
+			<ns0:dayCountBasis>30U/360</ns0:dayCountBasis>
+			<ns0:yieldCalculation>Actuarial</ns0:yieldCalculation>
+			<ns0:periodicityType>Annual</ns0:periodicityType>
+			<ns0:confidence>0.3</ns0:confidence>
+			<ns0:isUsed>false</ns0:isUsed>
+          </ns0:marketPlot>     
+        </ns0:curveDefinition>
+	  </ns0:curvesByCurrency>
+	  <!-- <ns0:curvesByCurrency> -->
+        <!-- <ns0:currency>EUR</ns0:currency> -->
+        
+	  <!-- </ns0:curvesByCurrency> -->
+    </ns0:tableOfCDSMarketPlots>
+  </ns0:creditData>
+</exch:importMarketData>

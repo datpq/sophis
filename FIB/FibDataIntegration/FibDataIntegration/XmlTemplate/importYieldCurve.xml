@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+             xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+             xmlns:folio="http://www.sophis.net/folio" xmlns:user="http://www.sophis.net/user"
+             xmlns:valuation="http://www.sophis.net/valuation" xmlns:correlation="http://www.sophis.net/correlation"
+             xmlns:market_data="http://www.sophis.net/market_data" xmlns:volatility="http://www.sophis.net/volatility"
+             xmlns:preferences="http://www.sophis.net/preferences" xmlns:yield_curve="http://www.sophis.net/yieldCurve" >
+
+	<fpml:header>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">EMC</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2020-01-08T12:00:00</fpml:creationTimestamp>
+	</fpml:header>
+
+		<valuation:market>
+	      <valuation:quotedAssetSet/>
+	      <valuation:currencies>
+	        <valuation:currencyAsset valuation:id="CurrencyAsset1">
+	          <valuation:currency>MAD</valuation:currency>
+	        </valuation:currencyAsset>
+	      </valuation:currencies>
+
+      <market_data:yieldCurveValuation>
+        <valuation:objectReference valuation:href="CurrencyAsset1"/>
+        <market_data:family>Courbe BDT BAM</market_data:family>
+        <yield_curve:yieldCurve>
+          <yield_curve:name>Courbe BDT BAM</yield_curve:name>
+          <yield_curve:points>
+          <yield_curve:point>
+			<yield_curve:term>
+				<yield_curve:tenor>
+					<common:periodMultiplier>1</common:periodMultiplier>
+					<common:periodEnum>Year</common:periodEnum>
+				</yield_curve:tenor>
+			</yield_curve:term>
+            <yield_curve:yield>255.700000000000</yield_curve:yield>
+            <yield_curve:extraFields>
+              <yield_curve:rateCode>0</yield_curve:rateCode>
+              <yield_curve:isUsed>true</yield_curve:isUsed>
+            </yield_curve:extraFields>
+            <yield_curve:isBond>false</yield_curve:isBond>
+          </yield_curve:point>
+        </yield_curve:points>
+        </yield_curve:yieldCurve>
+      </market_data:yieldCurveValuation>
+		</valuation:market>
+</exch:import>
