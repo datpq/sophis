@@ -1,0 +1,11 @@
+bin
+obj
+packages
+*.suo
+x64
+x86
+*.bak
+*.user
+/TKO-SphToolkitProjects/Output
+*.dll
+*.pdb

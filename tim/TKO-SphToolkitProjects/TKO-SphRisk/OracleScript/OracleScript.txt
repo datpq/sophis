@@ -1,0 +1,37 @@
+﻿create or replace PACKAGE "TKO_HELPER_FUNCTION" AS 
+  
+  PROCEDURE TKOGETNUMRATING(PRating in varchar2,LRating out number);
+  
+  PROCEDURE TkoTitresForceBetaUpdate(newBeta IN NUMBER,newsicovam IN NUMBER);
+  
+  PROCEDURE TkoRetriveTikehauConfiguration(ConfigRefCursor OUT SYS_REFCURSOR);
+  
+  PROCEDURE TkoGetInstrumentList(HistoriqueRefCursor OUT SYS_REFCURSOR);
+  
+  PROCEDURE TkoRetriveBetaFromHistorique(ColumnName IN VARCHAR2, ColumnValue IN VARCHAR2, AllotmentValue IN VARCHAR2, HistoriqueRefCursor OUT SYS_REFCURSOR);
+  
+  PROCEDURE TkoGetFundInvestorShares(InvestorRefCursor OUT SYS_REFCURSOR);
+  
+  PROCEDURE TkoSynchroBloombergIndicators(InstrumentRefCursor OUT SYS_REFCURSOR);
+  
+END TKO_HELPER_FUNCTION;
+
+
+ PROCEDURE TkoSynchroBloombergIndicators(InstrumentRefCursor OUT SYS_REFCURSOR)
+  IS
+ BEGIN
+ 
+    OPEN InstrumentRefCursor FOR 
+          SELECT DISTINCT sicovam as SOPHISREF, 
+           reference, 
+           libelle, 
+           mnemo_v2 as BBG_REF, 
+           affectation, finper 
+           from TITRES 
+           Where sicovam in (select sicovam from histomvts where OPCVM in (select ident from folio start with ident in ('15541','13134') connect by mgr = prior ident)) and type = 'O' and affectation = 24 and finper >= TO_date(sysdate) ;
+    
+ END  TkoSynchroBloombergIndicators;
+
+
+
+

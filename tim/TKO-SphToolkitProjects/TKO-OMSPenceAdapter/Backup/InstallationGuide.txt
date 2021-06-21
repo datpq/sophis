@@ -1,0 +1,5 @@
+﻿Deployement (specific TKT RMA) :
+================================
+[RichMarketAdapter]
+filter[0].assembly = SampleRMAFilter
+filter[0].class =SampleRMAFilter.CcyFilter
