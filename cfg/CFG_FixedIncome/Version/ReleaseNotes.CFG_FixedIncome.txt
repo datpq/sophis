@@ -1,0 +1,240 @@
+Version 2.0.0.8 :
+===================
+Delivery date (YYYYMMDD): 20160406
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+ -  fixed rounding issues for SF 01674043 & SF 01513247
+ 
+Version 2.0.0.7 :
+===================
+Delivery date (YYYYMMDD): 20160406
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+ - fix for SF 01674043 - ZC Rate on the bond is now correctly retrieved
+
+Version 2.0.0.6 :
+===================
+Delivery date (YYYYMMDD): 20160406
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+ - fixes for SF 01674043 & SF 01513247
+ 
+Version 2.0.0.5 :
+===================
+Delivery date (YYYYMMDD): 20160331
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+ - fix for SF 01674043: ajusted Present Value for 'Titre MAD remboursable in fine' bond model
+
+Version 2.0.0.2 :
+===================
+Delivery date (YYYYMMDD): 20151005
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Added 3 decimals rounding on YTM
+
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130228
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_MoroccanFixedIncome
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No):
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+
+Version 1.3.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120430	
+Software version: Value 4.3.1			
+
+Modifications :
+---------------
+
+   + Recompile in 431    
+
+Version 1.2.2.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120420	
+Software version: Value 4.1.2			
+
+Fixed bugs :
+------------
+
+   + Correction du problème de la duration égale à 1 pour le modèle "Titre MAD remboursable in fine". 
+   + Correction du calcul de la duration pour le modèle "Titre MAD amortissable" dans le cas d'une révision.
+
+Version 1.2.1.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120404	
+Software version: Value 4.1.2			
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.2.0.3 :
+===================
+
+Delivery date (YYYYMMDD): 20120323	
+Software version: Value 4.1.2			
+
++ Revisable clause is now exclusive on revision date (it will take the next one)
+
+
+Version 1.2.0.2 :
+===================
+
+Delivery date (YYYYMMDD): 20110127	
+Software version: Value 4.1.2			
+
++ Extended amortization algorithm (equal annuities) for model "Titre MAD amortissable" when "nb of securities" is defined
+
+
+Version 1.2.0.1 :
+===================
+
+Delivery date (YYYYMMDD): 20110107	
+Software version: Value 4.1.2			
+
++ Added amortization algorithm (equal annuities) for model "Titre MAD amortissable"
+
+
+Version 1.2.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101201	
+Software version: Value 4.1.2			
+
+
+Version 1.1.0.4 :
+===================
+
+Delivery date (YYYYMMDD): 20101129	
+Software version: Value 4.1.1			
+
++ Changed interpolation algorithm - kept the old one commented for a quick recompile if necessary
+
+
+Version 1.1.0.3 :
+===================
+
+Delivery date (YYYYMMDD): 20101102	
+Software version: Value 4.1.1			
+
++ Corrected issue when saving instrument
+
+
+Version 1.1.0.1 :
+===================
+
+Delivery date (YYYYMMDD): 20101029	
+Software version: Value 4.1.0			
+
++ YTM handling for Revisable bonds
+
+
+Version 1.1.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101025	
+Software version: Value 4.1.0			
+
++ Added a new clause "Revision" to handle revisable bonds
++ Auto regenerate redemption when saving instrument for revisable instruments
++ Alerts of revisable dates 2 days prior to revision
+
+
+Version 1.0.0.2 :
+===================
+
+Delivery date (YYYYMMDD): 20100924	
+Software version: Value 4.1.0			
+
++ Changed rate interpolation for the 3 yield curves: when a point is between 2 points, each with different day count basis, Act/Act prevails. 
+So there is a need to convert the point with a smaller maturity.
++ Changed the bootstrapping method for the ZC MAD curve, using a closed formula instead.
+
+
+Version 1.0.0.1 :
+===================
+
+Delivery date (YYYYMMDD): 20100915	
+Software version: Value 4.1.0			
+
++ Suppressed yield curve point check, which was crashing
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20100913	
+Software version: Value 4.1.0			
+New features (creation, modification, deletion):
+
++ Yield curve model "Ligne a Ligne MAD"
++ Yield curve model "Points Fixes MAD"
++ Yield curve model "ZC MAD"
++ Bond model "Titre MAD remboursable in fine"
++ Bond model "Titre MAD amortissable"
++ Adding a credit spread on the Bond Dialog
++ Extend Point definition for yield curve: new "value date" column

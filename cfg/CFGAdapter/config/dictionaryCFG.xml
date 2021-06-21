@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DICT xmlns="http://sophis.net/sophis/quotesource" dicttype="String">
+
+  <!--  Default field list, extend this list to add new fields to QS quotes.
+        sophisTag is a four letter accronym to identify the value in Sophis.
+        fid is the external field identifier, parsed as integer or a string depending on DICT.dictype attribute.
+        datatype is the type (sophis) in which the value will be converted.
+        supported types are double, long, time, date & string.
+   -->
+  <DEFAULT_FID_LIST>
+    <!-- FROM REUTERSDictionary.xml
+    <DEFAULT_FID sophisTag="BID " fid="22"  datatype="double"/>
+    <DEFAULT_FID sophisTag="ASK " fid="25"  datatype="double"/>
+    <DEFAULT_FID sophisTag="MIDP" fid="134" datatype="double"/>
+    <DEFAULT_FID sophisTag="LAST" fid="6"   datatype="double"/>
+    <DEFAULT_FID sophisTag="CLOS" fid="21"  datatype="double"/>
+    <DEFAULT_FID sophisTag="HIGH" fid="12"  datatype="double"/>
+    <DEFAULT_FID sophisTag="LOW " fid="13"  datatype="double"/>
+    <DEFAULT_FID sophisTag="OPEN" fid="19"  datatype="double"/>
+    <DEFAULT_FID sophisTag="VOLU" fid="32"  datatype="long"/>
+    <DEFAULT_FID sophisTag="TISC" fid="18"  datatype="time"/>
+    <DEFAULT_FID sophisTag="NAME" fid="3"   datatype="string"/> 
+    <DEFAULT_FID sophisTag="BIDS" fid="30"  datatype="long"/>
+    <DEFAULT_FID sophisTag="ASKS" fid="31"  datatype="long"/>
+    <DEFAULT_FID sophisTag="DASC" fid="16"  datatype="date"/>
+    <DEFAULT_FID sophisTag="LTOT" fid="178" datatype="long"/>
+    <DEFAULT_FID sophisTag="CURR" fid="15"  datatype="string"/>
+    <DEFAULT_FID sophisTag="MKID" fid="4"   datatype="string"/>
+    -->
+
+    <DEFAULT_FID sophisTag="CODE" fid="ISIN" datatype="string"/>
+    <!-- <DEFAULT_FID sophisTag="DASC" fid="DATETIME" datatype="date"/> -->
+    <DEFAULT_FID sophisTag="TISC" fid="TIME"  datatype="time"/>
+    <DEFAULT_FID sophisTag="DASC" fid="DAY"  datatype="date"/>
+    <DEFAULT_FID sophisTag="LAST" fid="VALCRS" datatype="double"/>
+    <DEFAULT_FID sophisTag="LTOT" fid="INDCRS" datatype="double"/>
+    <DEFAULT_FID sophisTag="SIZE" fid="CUMQUANTI" datatype="long"/>
+    <DEFAULT_FID sophisTag="VOLU" fid="CUMVOL" datatype="long"/>
+    <DEFAULT_FID sophisTag="PLH " fid="PLH" datatype="long"/>
+    <DEFAULT_FID sophisTag="LOW " fid="PLB" datatype="double"/>
+    <DEFAULT_FID sophisTag="OPEN" fid="OPEN" datatype="double"/>
+    <DEFAULT_FID sophisTag="HIGH" fid="HIGH" datatype="double"/>
+    <DEFAULT_FID sophisTag="CLOS" fid="CLOSE" datatype="double"/>
+    <DEFAULT_FID sophisTag="MID " fid="VWAP" datatype="double"/>
+  </DEFAULT_FID_LIST>
+
+  <!-- Average Values -->
+  <!--
+  <AVERAGE_FID_LIST>
+    <AVERAGE_FID sophisTag="MIDC">
+      <FIELD>BID</FIELD>
+      <FIELD>ASK</FIELD>
+    </AVERAGE_FID>
+  </AVERAGE_FID_LIST>
+  -->
+
+  <!-- Composite Field allows creating fields from formula (A*B+C*D)*E/F 
+       Formula terms can be either default fields (use sophisTag) or constants -->
+  <!--
+  <COMPO_FID_LIST>
+  	<COMPO_FID sophisTag="MIDO">
+  		<A>BID</A>
+  		<B constant="true">1</B>
+  		<C>ASK</C>
+  		<D constant="true">1</D>
+      <E constant="true">1</E>
+      <F constant="true">2</F>
+  	</COMPO_FID>
+  </COMPO_FID_LIST>
+  -->
+
+
+
+</DICT>

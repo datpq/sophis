@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<fIA:fundInvestorAccount  common:persistenceType="UpdateOrCreate"
+	 xmlns:party="http://www.sophis.net/party" 
+	 xmlns:fIA="http://www.sophis.net/fundInvestorAccount" 
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:common="http://sophis.net/sophis/common"
+	 xsi:schemaLocation="http://www.sophis.net/fundInvestorAccount 
+	file:///D:/cc_data/et_TOOLKIT/VOBToolkitValue/CFG%20Gestion/CFG_FundInvestorAccounts/schema/fundInvestorAccount.xsd"
+	>
+    <fIA:investor>
+		 <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10000144</party:partyId>
+        <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">Counterparty1</party:partyId>
+        <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/reference">CP1</party:partyId>
+        <party:customPartyId party:name="OMGEO Code" party:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMGCPTY1</party:customPartyId>
+    </fIA:investor>
+	<fIA:depositary>
+	<party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10000180</party:partyId>
+        <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">GEN_Entity1</party:partyId>
+        <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/reference">GEN_Entity1</party:partyId>
+	</fIA:depositary>
+	<fIA:account fIA:name="myAccount" fIA:libelle="myLibelleInComment">
+		<fIA:validFrom>2010-09-17</fIA:validFrom>
+		<fIA:validTo>2013-09-17</fIA:validTo>
+	</fIA:account>
+</fIA:fundInvestorAccount>

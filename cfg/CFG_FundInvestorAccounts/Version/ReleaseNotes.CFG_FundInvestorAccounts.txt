@@ -1,0 +1,128 @@
+Version 2.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Software version:	 4.1.2
+Client projects name: CFG FundInvestorAccount
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 2.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101222
+Software version:	 4.1.2
+Client projects name: CFG FundInvestorAccount
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
++ Migration 4.1.2
+
+Version 2.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101028
+Software version:	 2.0.0.0
+Client projects name: CFG FundInvestorAccount
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes (only to Delete FundInvestorAccount, or Client)
+Distinctive feature: 
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
++ Migration 4.1.1
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101006
+Source control label:		CFG_FundInvestorAccounts_v1.0.0.0
+Software version:	 1.0.0.0
+Client projects name: CFG FundInvestorAccount
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes (only to Delete FundInvestorAccount, or Client)
+Distinctive feature: 
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
+================================================
+sample xml : 
+================================================
+
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" 
+			 xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:common="http://sophis.net/sophis/common"
+             xmlns:party="http://www.sophis.net/party"
+			 xmlns:fIA="http://www.sophis.net/fundInvestorAccount" 
+			 exch:batchType="NoSession">
+	<fpml:header>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">BARCLAYS</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2010-10-03T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+	<exch:extensibleElement>
+		<fIA:fundInvestorAccount  common:persistenceType="UpdateOrCreate">
+			<fIA:investor>
+				<party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">AXA</party:partyId>
+			</fIA:investor>
+			<fIA:depositary>
+				<party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">CIC</party:partyId>
+			</fIA:depositary>
+			<fIA:account fIA:name="AXA-CIC_Account" fIA:libelle="AXA-CIC_Libelle4">
+				<fIA:validFrom>2010-04-04</fIA:validFrom>
+				<fIA:validTo>2013-04-04</fIA:validTo>
+			</fIA:account>
+		</fIA:fundInvestorAccount>
+	</exch:extensibleElement>
+</exch:import>
+
+================================================
+Realised Tests with all IntegrationService modes:
+================================================
+- Create
+	Fund Only	ok	
+	Fund + Depositary	ok	
+	Fund + Depositary + Investor	ok	
+
+- CreateOrUpdate
+	update Fund Comments	ok	
+	create Fund Only	ok	
+	create Fund + Depositary	ok	
+	create Fund + Depositary + Investor	ok	
+
+- CheckOrCreate
+	check ok 
+	create Fund Only	ok	
+	create Fund + Depositary	ok	
+	create Fund + Depositary + Investor	ok	
+	
+- Check		ok	
+
+- FindOrCreate
+	find ok
+	create Fund Only	ok	
+	create Fund + Depositary	ok	
+	create Fund + Depositary + Investor	ok	
+

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{896aac6f-f73d-4747-94af-0d291acbe095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ed88ba81-971d-4647-8ff7-5d2003e90f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{382cd731-e200-4f6f-90bf-cd173bc7af0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{84337c13-5e2c-4dd9-89a7-6df833962c53}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_AccountEODVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxAccountEODResultDlg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxAccountEODScenario.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxAccountEODScenarioDlg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_AccountEOD.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_AccountEOD.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_AccountEOD.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_AccountEODVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_AccountEODScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_AccountEODScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\CSxAccountEODResultDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxAccountEODScenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxAccountEODScenarioDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_AccountEODMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

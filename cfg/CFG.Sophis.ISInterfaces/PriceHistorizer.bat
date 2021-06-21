@@ -1,0 +1,1 @@
+SophisValue.exe -S'Price Historizer' -CFG_SOPHIS_IS_INTERFACESHistorizationInstrumentsFilter "SICOVAM = 67603610"

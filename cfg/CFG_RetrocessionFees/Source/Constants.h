@@ -1,0 +1,5 @@
+#define SIZE_NAME_ELEMENT		100
+#define  NAME_SIZE				40
+#define EDIT_RETROCESSION_FEES_USER_RIGHT		"Edit Retrocession Fees"
+#define COMPUTE_RETROCESSION_FEES_USER_RIGHT	"Compute Retrocession Fees"
+#define QUERY_BUFFER_SIZE 1024

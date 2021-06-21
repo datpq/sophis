@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" 
+			 xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:common="http://sophis.net/sophis/common"
+             xmlns:party="http://www.sophis.net/party"
+			 xmlns:fIA="http://www.sophis.net/fundInvestorAccount" 
+			 exch:batchType="NoSession">
+	<fpml:header>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">BARCLAYS</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2010-10-03T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+	<exch:extensibleElement>
+		<fIA:fundInvestorAccount  common:persistenceType="UpdateOrCreate">
+			<fIA:investor>
+				<party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">AG2R</party:partyId>
+			</fIA:investor>
+			<fIA:depositary>
+				<party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/name">CACEIS</party:partyId>
+			</fIA:depositary>
+			<fIA:account fIA:name="myAccount" fIA:libelle="myLibelleInComment">
+				<fIA:validFrom>2010-09-17</fIA:validFrom>
+				<fIA:validTo>2013-09-17</fIA:validTo>
+			</fIA:account>
+		</fIA:fundInvestorAccount>
+	</exch:extensibleElement>
+</exch:import>

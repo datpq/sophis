@@ -1,0 +1,64 @@
+
+Installation
+------------
+
++ Installer les 2 dlls CFG_SophisISInterfaces et CFG.Sophis.ISInterfaces sur le client et sur le serveur de l'IS. Ces dlls se trouvent dans le répertoire ./Sophis/bin
+
++ Les 2 dlls doivent être déclarées dans le fichier .ini du client et dans le fichier .ini de l'IS comme suit :
+
+  [DLL]
+  count = 1
+  dll_0 = CFG_SophisISInterfaces
+  
+  [ASSEMBLY_DLL]
+  count = 1
+  dll_0 = CFG.Sophis.ISInterfaces
+
++ Appliquer le script CFG.Sophis.ISInterfacesScript.sql sur la base de données. Ce script se trouve dans le répertoire sql.
+
++ Lancer un client Value et importer la méthode SOA définie dans le fichier SOAMethods/CFG.Sophis.ISInterfaces.SOAMethodsDescription.xml (Menu Data->SOA Methods Designer->Import).
+
++ Paramétrer les universal références "CFGExternalRef", "CFGActionType" et "CFGIntegrStatus" (menu Data->Universal References). Prendre le model "Other reference".
+
++ Redémarrer l'IS
+
+
+New features : 
+--------------
+
++ Initial version.
+
++ Ce toolkit contient un scenario qui s'appelle "Price Historizer". Il est disponible dans le menu MANAGER/USER. 
+
+  Il calcule le prix théorique des bonds, le ytm, le courru, la duration et la sensibilité. Ces données sont stockées dans la table HISTORY dans des colonnes toolkits. 
+
++ Par défaut, le calcul se fait sur l'ensemble des bonds. Il est possible de filtrer sur un sous ensemble de bonds en utilisant le paramètre HistorizationInstrumentsFilter
+  
+  du fichier .ini (cf exemple ci-dessous)
+
++ La date de calcul par défaut est la date Sophis. Il est néanmoins possible de modifier cette cette date via le paramètre HistorizationDate du fichier .ini
+
++ La sensibilité calculée par défaut est celle de la user colonne "Sensibilité*". Attention si le bond n'est pas en position à la date de calcul, 
+  
+  un message d'erreur du type "Invalid argument : Not a known type 5" s'affiche et la valeur stockée pour la sensibilité sera égale à 0.
+  
+  Il est possible de modifier la user colonne utilisée pour le calcul de la sensibilité via le paramètre SensitivityUserColumn du fichier .ini
+
+
++ Ce toolkit permet également de gérer l'interface référentiel bonds via:
+   
+   - La création de 3 external references : "CFGExternalRef", "CFGActionType" et "CFGIntegrStatus".
+   - La mise en place d'une instrument action qui met à jour les champs CFGActionType et CFGIntegrStatus à chaque modification d'instrument.
+   - CFGActionType = 1 en cas de création d'instrument; 2 en cas de modification.
+   - CFGIntegrStatus est mis à "KO" en cas de création ou de modification afin de permettre aux interfaces de n'extraire que les instruments créés ou modifiés via XML Query message.
+   - Lorsqu'une application tierce consomme un message elle doit déposer un message XML contenant l'ID Sophis du bond, la currency, le champs CFGExternalRef (Reference 
+     de l'instrument dans le système tiers) et CFGIntegrStatus ("OK" ou "KO").
+
+
+Parameters :
+------------
+
+[CFG_SOPHIS_IS_INTERFACES]
+HistorizationInstrumentsFilter = SICOVAM in (67603610,67603611,67603629) # Where clause filter for TITRES table
+HistorizationDate = 22/02/2012 # Format of date is DD/MM/YYYY. Default value is Sophis date
+SensitivityUserColumn = Sensibilité* # Default value is "Sensibilité*"

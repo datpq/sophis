@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_FundInvestorAccounts\SQL
+2
+4
+2b:Rollback_CFG_FundInvestorAccountsScript.sql|1|15f598848e0|3c|3a63121c|2c495e9c595d42668e8f1d49e862a0da|0
+23:CFG_Delete_FundInvestorAccounts.sql|1|15f598848f0|2da|53f9709c|008ce0cc25754f32853f4ee6d2891a47|0
+15:CFG_Delete_Client.sql|1|15f598848fd|fe|6d8d282e|f46d0799541c4ec784b307f944f8a51b|0
+22:CFG_FundInvestorAccountsScript.sql|1|15f598848d2|3c|3a63121c|d9343e7376bc4c3ebda5ce9d1c6eaee7|0

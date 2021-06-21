@@ -1,0 +1,215 @@
+Version 1.0.5.4 :
+===================
+
+Delivery date (YYYYMMDD):	20130108
+Source control label:		
+Software version:	4.1.2
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fix:
+--------
+	+ Fix date issue with Citrix
+		
+
+Version 1.0.5.3 :
+===================
+
+Delivery date (YYYYMMDD):	20121221
+Source control label:		
+Software version:	4.1.2
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+	+ CFG_AccountClosing.SourceFiles.AccountOpeningScenario.ProceedToOpening
+		Remove adding a day to the closing date.
+		
+		
+Version 1.0.5.2 :
+===================
+
+Delivery date (YYYYMMDD):	20121210
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+	+ CFG_AccountClosing.SourceFiles.AccountOpeningScenario.ProceedToOpening
+		Stop adding a day on the closing date.
+		
+	
+
+Version 1.0.5.1 :
+===================
+
+Delivery date (YYYYMMDD):	20121206
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+	+ If no closing date are defined, skip the fund
+	
+	
+	
+Version 1.0.5.0 :
+===================
+
+Delivery date (YYYYMMDD):	20121127
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+	+ Closing Date = MAX(Posting_Date)-1 instead of MAX(Positing_Date)
+	+ Opening Date = MAX(Posting_Date) instead of MAX(Posting_Date)+1
+	+ Stop adding one day in Opening scenario
+	
+	
+	
+Version 1.0.4.0 :
+===================
+
+Delivery date (YYYYMMDD):	20121008
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+
+Modifications :
+---------------
+	+ Error  in scenario "Accounting Opening" reported in case 00895321 corrected.
+	
+	
+
+Version 1.0.3.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+	+ recompile toolkit with patch 16
+
+
+
+Version 1.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120220
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancements/Fixed bug :
+------------------------
+
+	+ Case 00642144 : BO Accounting Closing/opening/ distribution -format des posting dates
+
+	+ Case 00656236 : BO distribution de résultat : dividendes exceptionnels
+
+	+ Case 00642143 : Accounting Opening-CLosing et distribution : Cursors laissés ouverts
+	
+	+ Case 00655506 : BO Distribution du résultat
+
+
+
+Version 1.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20111223
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancements :
+-------------
++ Case 00622433 :
+     La posting date des postings de closing doit etre date de cloture +1jour ouvré (actuellement elles sont à date de cloture)
+     La posting date des postings de opening doit etre à posting date de closing +1 jour ouvré (actuellement elles sont à date de cloture+1j)
+     
++ La liste des comptes à solder et à incorporer est paramétrable. Cette liste doit être spécifiée au niveau du fichier de configuration .ini. Par défaut, la liste des comptes
+  à solder est : 180,1702,160,1601,1608,17011
+
+[CFG_AccountingClosing]
+AccountsToSettle = 180,1702,160,1601,1608,17011   
+  
++ Ajout d'une colonne pour distinguer les comptes à solder des comptes à utiliser pour la distribution du résultat.
+
++ La valeur du compte 1601 (R.A.N SUR ARRONDISSEMENT DE COUPONS) doit être capitalisable. En effet on doit pouvoir ajouter la valeur de ce compte ou une 
+  partie de la valeur au montant captalisable (Amount capitalized).
+  
+  - « Amount capitalized » doit avoir une valeur inférieure ou égale à « Amount to distribute » - valeur compte 430
+
+  - La valeur du compte 1608 est égale à « Amount to distribute » - ( valeur du compte 430 + « Amount capitalized »)
+  
+  
+
+Version 1.0.0.0 :
+===================
+Delivery date (20110906):			
+Software version:	Sophis Value 4.1.2
+Client projects name:CFG_AccountClosing
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (No) 
+Installation on Client (Yes) 
+SQL Scripts (No) 
+
+New features (creation, modification, deletion):
+To create posting for  accounts opening , closing and distribution, please create  the following posting types in sophis value:
+Closing.
+Opening.
+Distribution.
+ 
+Parameters: account that are impacted by the closing and opening scenario :
+
+
+[CFG_AccountingClosing]
+ClosingAccountsList = 615,6151,6152,6158,6159,618,6181,61811,61812,6189,620,6201,6209,631,6311,6319,632,6321,6329,638,6381,638500,638510,6389,6393,63931,63932,63933,651,6511,6512,6513,6514,6515,6516,65161,65162,65163,65164,65165,6517,652,6521,6523,6524,65241,65243,65244,65248,6525,6526,65261,65268,6527,6528,6529,653,6531,6539,654,6541,6542,6548,6549,655,6551,6552,6558,6559,656,6561,65611,65612,65613,656111,656112,656113,656114,656115,656116,656117,656118,6569,658,6581,6589,659,659100,659200,711,7111,71111,71112,7112,7119,712,7121,71211,71212,7125,7126,7127,7129,713,7131,7132,7133,7134,7135,7139,714,7141,71411,71412,7142,71421,71422,7149,716,7161,71611,71612,7162,71621,71621,7158,7159,718,71881,71882,7189,7190,720,7201,7209,731,7311,73111,7319,732,7321,7329,738,738500,738510,7388,73881,73882,7389,751,7511,7519,759,759100,759200,840,870,881,8811,8812,882,8821,8825,890
+OpeningAccountsList = 112,1123,1124,113,1131,1132,1139,11391,11392,114,1141,1142,116,1161,1162,1166,117,1171,11711,11712,1172,11721,117211,117212,11722,117221,117222,11723,11724,117241,1172411,1172412,117242,1172421,1172422,11725,117251,1172511,1172512,117252,1172521,1172522,11725,11728,117281,117282,117231,117232,117233,117234,1173,11731,117311,117312,11732,117321,117322,11733,11734,117341,1173411,1173412,117342,1173421,1173422,11735,117351,1173511,1173512,117352,1173521,1173522,11738,117381,117382,117331,117332,117333,117334,1176,1177,190,1901,1909
+
+
+

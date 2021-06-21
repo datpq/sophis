@@ -1,0 +1,94 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_Corporate_Data_Viewer
+DLL  ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No):No 
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_Corporate_Data_Viewer
+DLL  ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No):No 
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.1.0.0 :
+===================
+Delivery date (YYYYMMDD): 20120430	
+Source control label:		
+Software version:	Value 4.3.1
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Use DBContext for Oracle connexion
+Parameters:
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.0.2.0 :
+===================
+Delivery date (YYYYMMDD): 20120404	
+Source control label:		
+Software version:	Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Use DBContext for Oracle connexion
+Parameters:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.1.0 :
+===================
+Delivery date (YYYYMMDD): 20110304	
+Source control label:		
+Software version:	Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Use DBContext for Oracle connexion
+Parameters:
+
+Version 1.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20110117	
+Source control label:		
+Software version:	Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Initial version
+Parameters:

@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFGAdapter\source\rights
+2
+4
+17:CFGTopicAccessRight.cpp|1|15f59886089|3a5|1954ed5b|ae5639d134c347888878802b99097132|0
+15:CFGTopicAccessRight.h|1|15f59886093|757|e89d1ff0|5b7e2d9c0808456c8189bfb6c2643ba5|0
+14:CFGUserAccessRight.h|1|15f5988607e|50f|82b47173|55db863440414d09874669bcf57fcb20|0
+16:CFGUserAccessRight.cpp|1|15f59886071|2ab|1613afff|528642b26e334fa79c40bb3bdd90208b|0

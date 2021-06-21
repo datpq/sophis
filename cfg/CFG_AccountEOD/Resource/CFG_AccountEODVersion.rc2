@@ -1,0 +1,55 @@
+#ifndef _VERSION_LOG_RC2_
+#define _VERSION_LOG_RC2_
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include "../Version/CFG_AccountEODVersion.h"
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION CFG_AccountEOD_VERSION
+ PRODUCTVERSION BUILDVERSIONINT
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "CompanyName", "Sophis"
+            VALUE "FileDescription", 	CFG_AccountEOD_TOOLKIT_DESCRIPTION
+            VALUE "FileVersion", 	CFG_AccountEOD_VERSION_STR
+            VALUE "InternalName", 	"CFG_AccountEOD"
+            VALUE "LegalCopyright", 	COPYRIGHT
+            VALUE "OriginalFilename", 	"CFG_AccountEOD.rc"
+			VALUE "ProductName", 	"Risque"
+            VALUE "ProductVersion", 	BUILDVERSION
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // Neutral resources
+	
+#endif

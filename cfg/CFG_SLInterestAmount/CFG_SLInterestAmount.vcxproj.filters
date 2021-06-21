@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{618d0f00-4c5b-4012-a113-46e9b54def58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{11c8ac03-f1bf-414f-b9d0-5ccb6c8969f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{06f4eeb4-d8cb-4078-b3b0-59a83749b69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{e1fe98a7-55d1-40f7-9699-b3c11950adc1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_SLInterestAmountVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxInterest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxSLInterestAmountScenario.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxTools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_SLInterestAmount.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_SLInterestAmount.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_SLInterestAmount.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_SLInterestAmountVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_SLInterestAmountScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_SLInterestAmountScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\CSxInterest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxSLInterestAmountScenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxTools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_SLInterestAmountMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

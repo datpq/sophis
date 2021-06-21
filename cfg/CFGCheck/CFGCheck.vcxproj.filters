@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{95f2616c-7f98-46f5-8a5b-efb8ccfe6cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{6d29a17a-e462-4ba6-a604-4c6171295a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{82fde08c-6162-4151-91e0-3ffafbbd009f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{571f38e0-7552-46e8-8169-1975dfe59246}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFGCheckVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BOModifiableFields.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckCoupon.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckDevise.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckListedBond.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPosition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPrice.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FOModifiableFields.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MandatoryCounterpart.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareDialog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortSellManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SRCompliance.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFGCheck.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFGCheck.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFGCheck.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFGCheckVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFGCheckScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFGCheckScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BOModifiableFields.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckCoupon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckDevise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckListedBond.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPosition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPrice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FOModifiableFields.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MandatoryCounterpart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortSellManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SRCompliance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFGCheckMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

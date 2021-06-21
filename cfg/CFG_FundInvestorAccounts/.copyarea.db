@@ -1,0 +1,17 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_FundInvestorAccounts
+2
+d
+6:sample|2|0|0|0|df2c4c505fb74202b0c3100f1df32aa9|0
+1f:CFGFundInvestorAccountHandler.h|1|15f5988473a|161b|e2766595|d2fa8433cc0b466c9f51a256dbfd7877|0
+20:CFG_FundInvestorAccountsMain.cpp|1|15f598846ea|3be|898036a9|09a2563e312b4989bde47b6d716f4682|0
+1c:CFG_FundInvestorAccounts.suo|1|15f59884836|4600|3ad20eab|93396960f67e4c38baa3ff2f8a80952d|0
+1c:CFG_FundInvestorAccounts.sln|1|15f5988472d|4f3|46947b57|941db159b51f413f8291af7e0414f6c3|0
+3:SQL|2|0|0|0|a4e177cc76cb48429bf9391569f4c7b2|0
+21:CFGFundInvestorAccountHandler.cpp|1|15f59884595|4a07|e050aa0e|f481a0c53d314387897cc531a5f569b5|0
+6:schema|2|0|0|0|fd851ea39c5e479889d2654cbeb34848|0
+7:Version|2|0|0|0|33fbc2a63c964e46ae3077409e4f880f|0
+1b:CreateDeploymentPackage.bat|1|15f59884588|5a5|fc8eba41|92562f0fdf8540d692ebd696fecf5328|0
+8:Resource|2|0|0|0|fbf0fbaacc504057bcd3736bb5dccd81|0
+1f:CFG_FundInvestorAccounts.vcproj|1|15f598846fc|3453|15ac12ed|a065c7802a92413299dee0f0dcd09f18|0
+e:entrypoint.cpp|1|15f598846dd|5c7|6389ce4a|c3e1be65ff5d48b6827d8d9b2e3ff02f|0

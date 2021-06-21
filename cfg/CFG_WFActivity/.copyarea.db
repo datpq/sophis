@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_WFActivity
+2
+6
+e:FIXActivity.cs|1|15f5988847e|304d|275a021a|54487136c2e74a45abff54bcfee06fd8|0
+7:Version|2|0|0|0|04043c60834e49ac842a56ab9ab5d5cc|0
+17:FIXActivity.Designer.cs|1|15f598884a2|36f|fe582b3c|68d17b6dbde8496bb70b6bd2ce570cd2|0
+a:Properties|2|0|0|0|b1ae1a0ae9a041439c73b47cde5bde75|0
+12:CFG_WFActivity.sln|1|15f598884af|395|84e61787|96bc2ae0844a490e9f2f1cbb5ee9777f|0
+15:CFG_WFActivity.csproj|1|15f5988848d|1676|b4bf4763|f305cd64a9aa4e16a0c73040f3cbfb05|0

@@ -1,0 +1,61 @@
+Version 3.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):20200515	
+Software version: VALUE v4.3.2.7 & DRT v6.3.1
+Client projects name: CFG Gestion - DRT Toolkit
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+
+Modifications :
+---------------
+
+	+ recompilation for 4.3.2.7 on the original code
+
+
+Version 1.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):20120405	
+Software version: VALUE v4.1.2.16 & DRT v6.1.2.16	
+Client projects name: CFG Gestion - DRT Toolkit
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Distinctive feature: New Quote source "CFG"
+Parameters: Please refer to the installation guide
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):20101110	
+Software version: VALUE v4.1.1.0 & DRT v6.1.0.3	
+Client projects name: CFG Gestion - DRT Toolkit
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Distinctive feature: New Quote source "CFG"
+Parameters: Please refer to the installation guide 
+
+Bug fixs:
+---------
++ Build in Win32 for x64 hardward
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):20101109	
+Source control label:	CFG_ADAPTER_v1.0.0.0	
+Software version: VALUE v4.1.1.0 & DRT v6.1.0.3	
+Client projects name: CFG Gestion - DRT Toolkit
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Distinctive feature: New Quote source "CFG"
+Parameters: Please refer to the installation guide 

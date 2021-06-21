@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<exch:queryMessage version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+            xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+            xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+            xmlns:folio="http://www.sophis.net/folio" xmlns:user="http://www.sophis.net/user" xsi:schemaLocation="http://sophis.net/sophis/gxml/dataExchange file:///f:/deploys/sophis5.3.2/sophis/GXML/XMLGatewayServer_v5.3.3/data/schema/dataExchange.xsd">
+	    
+
+	<fpml:header>
+		<fpml:conversationId conversationIdScheme=""/>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">BARCLAYS</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+		
+	<exch:instrument>SELECT T.SICOVAM from TITRES T, extrnl_references_instruments I, extrnl_references_definition D where T.SICOVAM =I.sophis_ident and I.REF_IDENT = D.REF_IDENT and D.ref_name = 'CFGIntegrStatus' and I.VALUE = 'KO'</exch:instrument>	
+
+</exch:queryMessage>

@@ -1,0 +1,228 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_SophisISInterfaces
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_SophisISInterfaces
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.0.1.4 :
+=================
+
+Delivery date (YYYYMMDD):	20121121
+Software version:	412 64b
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug Fixes:
+----------
++ Always force long term rate for "Zero Coupon Curve"
+
+
+Version 1.0.1.3 :
+=================
+
+Delivery date (YYYYMMDD):	20121031
+Software version:	412 64b
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug Fixes:
+----------
++ In case if rate interpolated with both long term and short term rate 
+	- use short term rate convention for long rate if the interpolated rate is before 1y 
+	- use long  term rate convention for short rate if the interpolated rate is after 1y 
+
+
+Version 1.0.1.1 :
+=================
+
+Delivery date (YYYYMMDD):	20120924
+Software version:	412
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug Fixes:
+----------
++ In case if rate interpolated with both long term and short term rate use short term rate convention (even if the rate is long)
++ Don't apply the spread again on the yield curve point
++ When doing interpolation using a short term rate and long term rate, use the basis and yield calculation of the short term rate to convert the long term rate
++ Don't force basis and yield calculation during the compute
+
+
+Version 1.0.1.0 :
+=================
+
+Delivery date (YYYYMMDD):	20120920
+Software version:	412
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+
+Enhamcement:
+------------
++ Use the short term rate and long term rate parameter for the calculation of the Toolkit Yield Curve model (CFG ZC Simulation)
+  Specification CFG Gestion - Interface Integration Service v1.5.doc from the 03/09/2012)
++ For the calculation of the bond use "COURBE BDT BAM" as the default yield curve family if no family as been specified
++ For the calculation of the bond use the basis and yield calculation from the yield curve of the family (using the Long Term Rate)
++ For the interpolation of the rate used in the calculation of the bond use the default yield curve parameter from bond yield curve family 
++ When pricing an instrument in the paste, don't use rate and fair value history/audit
++ When doing interpolation using a short term rate and long term rate, use the basis and yield calculation of the long term rate to convert the short term rate
+
+
+Version 1.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120430
+Source control label:		
+Software version:	431
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+New features :
+--------------
+
+ + Recompile in 431
+
+Version 1.0.0.5 :
+===================
+
+Delivery date (YYYYMMDD):	20120413
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+New features :
+--------------
++ No modification. Only increase version number to match CFG.Sophis.ISInterfaces.dll version.
+
+
+Version 1.0.0.4 :
+===================
+
+Delivery date (YYYYMMDD):	20120406
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+New features :
+--------------
+
++ Add a new yield curve model named "CFG ZC Simulation" to be able to simulate ZC yield curves.
+
+
+Version 1.0.0.3 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+
+Version 1.0.0.1 :
+===================
+
+Delivery date (YYYYMMDD):	20120229
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+Modifications
+-------------
+
++ Rewrite CSxISInterfacesInstrumentAction in C++ to fix some .Net issues (Previous version was in C# in CFG.Sophis.ISInterfaces.dll).
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120227
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+New features (creation, modification, deletion): Initial version
+
+Installation
+------------
+
++ Installer cette dll sur le client et sur le serveur de l'IS.
+
++ La dll doit etre déclarée dans le fichier .ini du client et dans le fichier .ini de l'IS comme suit :
+
+  [DLL]
+  count = 1
+  dll_0 = CFG_SophisISInterfaces
+  
++ Redemarrer l'IS
+

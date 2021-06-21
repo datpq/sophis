@@ -1,0 +1,618 @@
+Version 5.0.1.0 :
+===================
+Delivery date (YYYYMMDD): 20130621
+Software version:	Value 4.3.2.7
+Client projects name: CFG_Accounting
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos 
+
+Modification:
+-------------
++ Add new PNL Posting Amount : Accrued Amount (based on portfolio column "Accrued Amount"
+
+
+Version 5.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_Accounting
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos 
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 5.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_Accounting
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos 
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+Version 4.0.0.0 :
+==================
+Delivery date (YYYYMMDD):	20120430
+Software version:	4.3.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos 
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 3.14.0.0 :
+==================
+Delivery date (YYYYMMDD):	20120404
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos 
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 3.13.2.0 :
+==================
+Delivery date (YYYYMMDD):	20111121
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+Specific feature: Dependency between DLL CFG_Accounting v3.13.2.0 and CFG_Repos v1.2.7.0
+
+Description:
+- Move the functionnality "after a launch forecast, the business events of the amortizables bonds impacted are set to "Partial Redemption"" to CFG_Repos (because of a conflict between the 2 dlls)
+
+Version 3.13.1.0 :
+==================
+Delivery date (YYYYMMDD):	20111114
+Software version:	4.1.2.5
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Description:
+- Move 2 server tags : TRANSACTION.OPERATIONTYPE et INSTRUMENT.PRODUCTTYPE to CFG_Tags DLL
+
+Version 3.13.0.0 :
+==================
+Delivery date (YYYYMMDD):	20111114
+Software version:	4.1.2.5
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Description:
+- Add 2 server tags : TRANSACTION.OPERATIONTYPE et INSTRUMENT.PRODUCTTYPE
+- After a launch forecast, the business events of the amortizables bonds impacted are set to "Partial Redemption"
+
+Version 3.12.9.0 :
+==================
+Delivery date (YYYYMMDD):	20110810
+Software version:	4.1.2.5
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ "CFG Revaluation Asset in Stock" Don't filter anymore position with id equals to 0 but only virtual and lended
++ Add new kernet action condition : "Has a Counterparty in Ticket"
+
+Version 3.12.8.0 :
+==================
+Delivery date (YYYYMMDD):	20110810
+Software version:	4.1.2.5
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Modifications
+-------------
+	+ For Accounting Quantity manage the following case
+		If Amortizable & Bond & Final & Business Event Redemption => -Quantity
+		If Amortizable & Bond & Not Final & Business Event Partial Redemption => 0.0
+		Else Default behavior
+	
+Version 3.12.7.0 :
+==================
+Delivery date (YYYYMMDD):	20110705
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Modifications
+-------------
+	+ Add Auxiliary ledger sorting method by posting date and trade id.
+
+Version 3.12.6.0 :
+==================
+Delivery date (YYYYMMDD):	20110525
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ Correction of SR amount : 
+	- Net amount = Gross amount + fees
+	- Fees = Internal Fees
++ add log for theoritical value
+
+
+Version 3.12.5.0 :
+==================
+Delivery date (YYYYMMDD):	20110506
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ When coupon of bond was null, returned asset value was 0.
+
+
+Version 3.12.4.0 :
+==================
+Delivery date (YYYYMMDD):	20110428
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ Fix CFG_Revaluation_Asset_in_Stock amount : we don't use the securities report anymore.
++ When prices date is checked, we now get the last with theoritical * notional * floatingFactor
+
+
+Version 3.12.3.1 :
+==================
+Delivery date (YYYYMMDD):	20110426
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ Utilisation de la check box Is An Entity afin de controler si une contrepartie est interne
+
+Version 3.12.3.0 :
+==================
+Delivery date (YYYYMMDD):	20110304
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ Fix internal thirdparty detection in the Broker Fees Condition "Is Internal Counterparty"
+
+
+Version 3.12.2.0 :
+==================
+Delivery date (YYYYMMDD):	20110304
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Bug fix:
+--------
++ AcountingQuantityBond - Return the opposite of the quantity for the final redemption
++ AcountingQuantityBond - Fix issue on final bond detection
+
+
+Version 3.12.1.0 :
+==================
+Delivery date (YYYYMMDD):	20110303
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modifications
+-------------
+- Adjust amortization detection algorithm 
+
+
+Version 3.12.0.0 :
+==================
+Delivery date (YYYYMMDD):	20110223
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modifications
+-------------
+- In the accounting quantity "AcountingQuantityBond" do the default behaviour if the business event is different from Redemption.
+
+
+Version 3.11.0.0 :
+==================
+Delivery date (YYYYMMDD):	20110218
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modifications
+-------------
+- New account quantity "AcountingQuantityBond" for amortized and final bond
+
+
+Version 3.10.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110214
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modifications
+-------------
+- Condition trade "CFG Is Partial Redemtion"
+- Condition trade "CFG Is Final Redemtion"
+
+
+Version 3.9.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110131
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of the Forex Rule.
+
+
+Version 3.8.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110127
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of all the regulation amount : Take into account Subscription (1123) and Redemption (1124).
+
+
+Version 3.7.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110127
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of all the regulation amount : add absolute value to the nbUnits.
+
+
+Version 3.6.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110125
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of the amount : CFGRedemptionBalance. Change of signs.
+
+
+Version 3.5.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110117
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of the amount : CFG_RepoStock_Loan_Asset_Value. Now we take the context date (prices date) and not the system date.
+
+
+Version 3.4.0.0 :
+===================
+Delivery date (YYYYMMDD):	20110113
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of the amount : CFG_RepoStock_Loan_Asset_Value. Now if the preference fUseHistoricalFairValue in prices date is checked,
+  we take into account the fact that now the price is in percent.
+  
+
+Version 3.3.0.0 :
+===================
+Delivery date (YYYYMMDD):	20101222
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Modification of the amount : CFG_RepoStock_Loan_Asset_Value. Now it takes into account the preference fUseHistoricalFairValue in prices date.
+- New posting amount "CFG Unsettled Balance" implemented.
+
+
+Version 3.2.0.0 :
+===================
+Delivery date (YYYYMMDD):	20101215
+Software version:	4.1.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Replace < by <= in posting_date.
+- Change the formula for computing balance for SR.
+- Add a condition (CFG Is A Redemption) for account entities in SR. this condition returns true if the SR is a redemption, false if it's a subscription.
+
+
+Version 3.1.0.0 :
+===================
+Delivery date (YYYYMMDD):	20101123
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Create a new broker fees condition to check if the counterparty is internal
+
+
+Version 3.0.0.4 :
+===================
+Delivery date (YYYYMMDD):	20101106
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Take the shares count of a fund at the day before the NevDate of the SR.
+- For the "CFG S/R Nominal" amount, amount is now Units bought/sold * Initial NAV/Share and not Net amount * Initial NAV/Share anymore
+- Creation of a new condition for trade "Bo Status 'Fees Paid'" about backOffice Status (property 'CFG_Status_Fees_Paid' (default : 'Fees Paid') in section 'ACCOUNTING').
+- Modification of a the condition for trade "Bo Status 'Paid'" : property 'CFG_Status' (default : 'Paid') is now 'CFG_Status_Paid'.
+
+
+Version 3.0.0.3 :
+===================
+Delivery date (YYYYMMDD):	20101105
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Bug Fixing
+-------------
+- Use fund's entity instead of fund code for SR Amount
+
+
+Version 3.0.0.2 :
+===================
+Delivery date (YYYYMMDD):	20101105
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Bug Fixing
+-------------
+- Fix amounts generation on "CFG S/R Nominal" use Initial NAV/Share
+
+
+Version 3.0.0.1 :
+===================
+Delivery date (YYYYMMDD):	20101104
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Bug Fixing
+-------------
+- Fix amounts generation on "CFG Subscription Balance" and "CFG Redemption Balance"
+- and fix bug on posting_date
+
+
+Version 3.0.0.0 :
+===================
+Delivery date (YYYYMMDD):	20101103
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+-------------
+Modification
+-------------
+- Add 10 SR Amount Type (cf Specification : CFG Accounting Specification v1.2.doc)
+- Add Condition for trade "Bo Status 'Paid'" about backOffice Status (property 'CFG_Status' (default : 'Paid') in section 'ACCOUNTING').
+
+	
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD):	20101028
+Software version:	4.1.1
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
++ Migration to Sophis Value 4.1.1
+
++ Bug Fix:
+----------
+	- For Forex Rule when no instrument defined use Toolkit rule
+	- For Forex Rule fix issue when calling Toolkit rule
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101012
+Software version:	4.1.0.2
+Installation on Server: Yes
+Installation on Client: Yes
+SQL Script: No
+Client projects name: CFG_Accounting
+Language: C++ ([DLL] Section)
+
+Creation :
+------------
+
+cf Specification : CFG Accounting Specification v1.1.doc
+
+	POSTING_AMOUNT_FOR_PNL : "CFG SF Accrued Total Interest"
+	POSTING_AMOUNT_FOR_PNL : "CFG Repo/Stock Loan Asset Value"
+  
+  POSTING_AMOUNT_FOR_TRADE : "CFG Repo Underlying Instrument"
+	
+  CONDITION_POSITION : "CFG Is SL Repo Leg"
+	CONDITION_POSITION : "CFG Is Not SL Repo Leg"
+	CONDITION_POSITION : "CFG Is DAT > 2 years"
+	CONDITION_POSITION : "CFG Is DAT <= 2years"
+	
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT1"
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT2"
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT3"
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT4"
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT5"
+	CONDITION_POSITION : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT6" ............
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT1"
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT2"
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT3"
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT4"
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT5"
+	CONDITION_TRADE : "CFG IS UNDERLYING ALLOTMENT ALLOTMENT6" ...............
+
+	FOREX_RULE : "CFG Forex Rule"
+
+

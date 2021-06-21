@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{8023c2fe-2e6f-463f-8053-5ec884f2db50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{78815a8e-e32e-4610-aa64-f4d183a64ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{b987813a-eb88-4d92-9324-445d2702602c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{7bfc77b6-64fe-42ba-a203-7e6bcb745736}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_RetrocessionFeesVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Constants.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxCustomMenu.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxRetrocessionFees.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxRetrocessionFeesDlg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxRetrocessionFeesScenario.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxTools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_RetrocessionFees.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_RetrocessionFees.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_RetrocessionFees.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_RetrocessionFeesVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_RetrocessionFeesScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\CFG_RetrocessionFeesScript_2.0.1.0_To_2.0.2.0.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\CFG_RetrocessionFeesScript_2.0.4.0_To_2.0.5.0.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_RetrocessionFeesScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\CSxCustomMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxRetrocessionFees.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxRetrocessionFeesDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxRetrocessionFeesScenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxTools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_RetrocessionFeesMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

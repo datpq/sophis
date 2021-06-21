@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFGAdapter\Reference_libs
+2
+3
+17:SophisConfiguration.dll|1|15f59886129|11600|6666094b|04153c2ec9d9415dbf4157e8b2bad964|0
+22:SophisQuoteSourceConfiguration.dll|1|15f59886138|4400|ca2d4174|70921ed317fb4c07996a2f3f249ec36e|0
+22:SophisQuoteSourceConsolePlugin.dll|1|15f598860a4|10600|bc79dfbb|810ae9af48a64f1891a006c0d7a3f28a|0

@@ -1,0 +1,247 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_MirroringRule
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_MirroringRule
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+
+Version 1.1.0.0 :
+===================
+
+Delivery date :	20120430
+Software version : Value 4.3.1	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+Specific feature : Dependancy with CFG_Repos from v1.2.8.0
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.0.5.0 :
+===================
+
+Delivery date :	20120404
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+Specific feature : Dependancy with CFG_Repos from v1.2.8.0
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.4.1 :
+===================
+
+Delivery date :	20120210
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+Specific feature : Dependancy with CFG_Repos from v1.2.8.0
+
+Bug fix :
+---------
++ Add extra logs
+
+
+Version 1.0.4.0 :
+===================
+
+Delivery date :	20120202
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+Specific feature : Dependancy with CFG_Repos from v1.2.8.0
+
+Bug fix :
+---------
++ Add a new mirroring rule : CFG Obligation to 
+	copy the following fields from the mirrored transaction to the mirrored transaction
+		- Quantity
+	recalculate the TVA fields
+
+	
+Version 1.0.3.0 :
+===================
+
+Delivery date :	20120127
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Bug fix :
+---------
++ Add a new mirroring rule : CFG Obligation to copy the following fields from the main transaction to the mirrored transaction
+	- Trade date
+	- Payment date
+	- Quantity
+	- Price
+	- TVA Toolkit
+	- Fees
+
+
+Version 1.0.2.5 :
+===================
+
+Delivery date :	20110703
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Bug fix :
+---------
++ Recalculate Toolkit field of mirroring trades before Sophis db save
+
+Version 1.0.2.4 :
+===================
+
+Delivery date :	20110426
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Modification:
+-------------
++ Utilisation de la check box Is An Entity afin de controler si une contrepartie est interne
+
+Version 1.0.2.3 :
+===================
+
+Delivery date :	20110414
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Modification:
+-------------
++ The Mirroring Rule builder "Standard Fees" copies the toolkit fields (BROKER_TVA,GROSS_TVA,MARKET_TVA,COUNTERPARTY_TVA,SPREAD_HT,	CFG_REPO_AMOUNT,CFG_INTEREST_AMOUNT) to the mirror deal.
+
+
+Version 1.0.2.2 :
+===================
+
+Delivery date :	20110304
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Modification:
+-------------
++ Adjsut Site calculation for mirror rule condition "IsInternalCounterparty"
+
+
+Version 1.0.2.1 :
+===================
+
+Delivery date :	20110304
+Software version : Value 4.1.2	
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+Modification:
+-------------
++ Improves mirror rule condition "IsInternalCounterparty" log
+
+
+Version 1.0.2.0 :
+===================
+
+Delivery date :	20110303
+Software version : Value 4.1.2.
+Client projects name : CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes 
+Installation on Client : Yes
+SQL Scripts (No): 
+
+New features :
+Creation of a mirror rule condition named "IsInternalCounterparty".
+
+
+Version 1.0.1.0 :
+===================
+
+Delivery date :20110114
+Software version: Sophis value 4.1.2.
+Client projects name: CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes
+Installation on Client : Yes
+SQL Scripts : No
+
+Modification :
+----------------
+The Mirroring Rule builder "Standard Fees" recomputes the fees in the mirror ticket based on its parameters. 
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date : 20101231	
+Software version: Sophis value 4.1.2.
+Client projects name: CFG Gestion - MirroringRule
+DLL Section in ini file : [DLL]
+Installation on Server : Yes
+Installation on Client : Yes
+SQL Scripts : No
+
+New features :
+----------------
+Creation of a Mirroring Rule builder named "Standard Fees", it keeps the same fees amount in the mirror ticket. 

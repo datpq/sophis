@@ -1,0 +1,450 @@
+Version 2.0.0.2 :
+===================
+Delivery date (YYYYMMDD): 20150210
+Software version:	Value 4.3.2.7
+Client projects name: CFG_Repos
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+Rounding of UpdateInterestAmount
+
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130228
+Software version:	Value 4.3.2.7
+Client projects name: CFG_Repos
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_Repos
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.3.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120430
+Software version: 4.3.1
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.2.9.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120404
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting and CFG_Repos
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.2.8.0 :
+===================
+
+Delivery date (YYYYMMDD): 20120202
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting v3.13.2.0 and CFG_Repos v1.2.7.0
+
+Modification:
+-------------
++ Export TVA Calculator Engine for CFG Obligation mirroring rule
+
+
+Version 1.2.7.0 :
+===================
+
+Delivery date (YYYYMMDD): 20111121
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Specific feature: Dependency between DLL CFG_Accounting v3.13.2.0 and CFG_Repos v1.2.7.0
+
+Modification:
+-------------
++ After a launch forecast, the business events of the amortizables bonds impacted are set to "Partial Redemption"
+
+Version 1.2.6.0 :
+===================
+
+Delivery date (YYYYMMDD): 20111018
+Software version: 4.1.2.10
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
++ Adjust mirrored deal interest amount / TVA depending on the loan type (repo or loan).
+
+Version 1.2.5.7 :
+===================
+
+Delivery date (YYYYMMDD): 20110927
+Software version: 4.1.2.10
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features :
+--------------
++ Trade date/Start date synchronisation. 
++ Trade date and Value date fields not modifiable.
+
+Version 1.2.5.6 :
+===================
+
+Delivery date (YYYYMMDD): 20110920
+Software version: 4.1.2.10
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Fix repo interest amount not calculated properly when the repo is created by the Integration Service.
+
+Version 1.2.5.5 :
+===================
+
+Delivery date (YYYYMMDD): 20110812
+Software version: 4.1.2.10
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Fix mirroring ref master trade detection issue
+
+
+Version 1.2.5.4 :
+===================
+
+Delivery date (YYYYMMDD): 20110811
+Software version: 4.1.2.10
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Improve log during interest amount calculation (class CSxInterest)
+
+
+Version 1.2.5.3 :
+===================
+
+Delivery date (YYYYMMDD): 20110703
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Don't erase commission rate when open mirrored trade (at creation)
+
+
+Version 1.2.5.2 :
+===================
+
+Delivery date (YYYYMMDD): 20110703
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Reset Toolkit field for mirroring trades
+
+
+Version 1.2.5.1 :
+===================
+
+Delivery date (YYYYMMDD): 20110531
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixes :
+-----------
++ Keep toolkit field for mirroring trades
+
+
+Version 1.2.5.0 :
+===================
+
+Delivery date (YYYYMMDD): 20110510
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features :
+--------------
++ Enhancement described in userdesk 67422
+
+
+Version 1.2.4.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101231
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features :
+--------------
++ Add work around for TTP 75112
+
+
+Version 1.2.3.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101222
+Software version: 4.1.2
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features :
+--------------
++ Recompiled with Value 4.1.2.2
+
+
+Version 1.2.2.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101202
+Software version: 4.1.1
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_ReposScript_1.2.1.0_To_1.2.2.0.sql
+
+New features :
+--------------
++ Compute Interest Amount and Final Amount at the SL ticket level with moroccan convention :
+	- Intérêts HT = arrondi( Prix unitaire * tx de pension HT * nb de jours courus / 360;2) * Qté 
+	- intérêts TTC = Intérêts HT*(1+TVA Rate for 'mise en pension') 
++ Fix the bug on the Amount when Spot modification.
++ Adjust repo interest automatic tickets with the right interest amount according to CFG formula above.
+
+
+Version 1.2.1.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101108
+Software version: 4.1.1
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_ReposScript.sql
+
+New features :
+--------------
++ Merge CFG_Tva_Storage into CFG_Repos dll.
++ Note that one must disable the CFG_Tva_Storage as it is not used any more.
+
+
+Version 1.2.0.1 :
+===================
+
+Delivery date (YYYYMMDD): 20101104
+Software version: 4.1.1
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features :
+--------------
++ Fix signing issues
+
+
+Version 1.2.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20101103
+Software version: 4.1.1
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+
+New features :
+--------------
++ New modelisation of repo.
++ Handle spread HT toolkit field for this new model.
+
+
+Version 1.1.1.4 :
+===================
+
+Delivery date (YYYYMMDD): 20101020
+Software version: 4.1.0
+Platform Version: x86, x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+
+New features :
+--------------
++ Calculate TVA amounts for automatic tickets.
+
+
+Version 1.1.0.4 :
+===================
+
+Delivery date (YYYYMMDD): 20101015
+Software version: 4.1.0
+Platform Version: x86, x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+
+New features :
+--------------
++ Add a portfolio column used for Reporting which displays the incomes HT.
++ Add new fields in the screens: LoadAndRepo and DealInputs
++ The toolkit computes and displays the spread HT value after having filled a "Repo Spread Modification". 
+
+
+Installation :
+--------------
+This toolkit contains 1 dll in C++. 
+This toolkit must be added to the ini (global.ini or risk.ini) file of Sophis client in the section [DLL].
+For example :
+[DLL]
+count = 1
+dll_0 = CFG_Repos.dll
+
+This toolkit can be use for a reporting, thus is must also be added to the client used to generate the report.
+
+
+Version 1.0.0.4 :
+===================
+
+Delivery date (YYYYMMDD): 20101006
+Software version: 4.1.0
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixed:
+
++ Handle modification events
++ Handle maturity modification
++ Check that maturity date is filled
+
+
+Version 1.0.0.3 :
+===================
+
+Delivery date (YYYYMMDD): 20100913
+Software version: 4.1.0
+Platform Version: x64
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixed:
++ Compilation in x64
+
+
+Version 1.0.0.2 :
+===================
+
+Delivery date (YYYYMMDD): 20100908
+Software version: 4.1.0
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixed:
++ Handle 4 type of quotation (in amount with and without accrued, in percent with and without accrued)
++ Don't manage different currency between SL and Collateral Underlying
+
+
+Version 1.0.0.1 :
+===================
+
+Delivery date (YYYYMMDD): 20100902
+Software version: 4.1.0
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Bug fixed:
+Listen to modification of the Quantity on Repo
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD): 20100902
+Software version: 4.1.0
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+New features (creation, modification, deletion): Initial version
+Cette premiere version gère les fonctionnalités suivantes :
+	+ Ajustement du montant en principal avec le montant en collatéral
+	+ Check deal
+

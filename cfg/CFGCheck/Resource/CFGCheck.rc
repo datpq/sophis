@@ -1,0 +1,172 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "../Version/CFGCheckVersion.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// French (France) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""CFGCheckVersion.rc2""\r\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x0L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040c04b0"
+        BEGIN
+            VALUE "FileDescription", "CFGCheck (x86)"
+            VALUE "FileVersion", "1.1.0.0"
+            VALUE "InternalName", "CFGCheck"
+            VALUE "LegalCopyright", "Copyright © Sophis 1993-2010"
+            VALUE "OriginalFilename", "CFGCheck.rc"
+            VALUE "ProductName", "CFGCheck"
+            VALUE "ProductVersion", "6.1.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x40c, 1200
+    END
+END
+
+#endif    // French (France) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""../Version/CFGCheckVersion.h""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SHARE_DIALOG DIALOGEX 50, 46, 248, 323
+STYLE DS_SETFONT | DS_CENTERMOUSE | WS_CHILD | WS_VISIBLE
+FONT 8, "Ms Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        101,50,7,92,14,ES_AUTOHSCROLL
+    EDITTEXT        102,50,25,191,14,ES_AUTOHSCROLL
+    EDITTEXT        103,50,43,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        114,50,60,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    COMBOBOX        112,201,60,40,224,CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        113,50,79,92,205,CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        117,201,79,40,212,CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        104,50,97,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        120,50,115,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        121,50,134,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    CONTROL         "",133,"CSCtrlHyperLink",WS_TABSTOP,142,134,99,14
+    EDITTEXT        124,50,172,191,40,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN
+    PUSHBUTTON      "",128,50,216,11,11,BS_ICON
+    COMBOBOX        126,50,231,99,188,CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "",129,153,231,11,12,BS_ICON
+    PUSHBUTTON      "Volatility",116,7,252,74,14
+    PUSHBUTTON      "Credit Risk Data",9000,85,252,74,14
+    PUSHBUTTON      "Business Sector",131,164,252,77,14
+    PUSHBUTTON      "Repo Curve",130,7,270,74,14
+    PUSHBUTTON      "Related Issuers",185,85,270,74,14
+    PUSHBUTTON      "Rating",119,164,270,77,14
+    PUSHBUTTON      "Dividends Table",106,7,289,74,14
+    LTEXT           "Reference",107,7,9,40,10,NOT WS_GROUP
+    LTEXT           "Name",108,7,27,20,8,NOT WS_GROUP
+    LTEXT           "Beta",109,7,45,16,8,NOT WS_GROUP
+    LTEXT           "Accounting Ref. Date",110,7,97,40,16,NOT WS_GROUP
+    LTEXT           "Comments",111,7,174,40,8,NOT WS_GROUP
+    LTEXT           "Trading Unit",115,7,63,40,8,NOT WS_GROUP
+    LTEXT           "Original CCY",118,157,81,40,8,NOT WS_GROUP
+    LTEXT           "Model",125,7,233,40,8,NOT WS_GROUP
+    LTEXT           "Tax Credit",127,7,216,40,8,NOT WS_GROUP
+    LTEXT           "Shares Outstanding ",122,7,115,40,16,NOT WS_GROUP
+    LTEXT           "Issuer Ref",123,7,136,40,8,NOT WS_GROUP
+    LTEXT           "Market",IDC_STATIC,7,81,23,8
+    LTEXT           "Currency",IDC_STATIC,157,62,29,8
+    EDITTEXT        IDC_RATE_GAP,50,152,92,14,ES_RIGHT | ES_AUTOHSCROLL
+    LTEXT           "Rate Gap",142,7,154,40,8,NOT WS_GROUP
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "CFGCheckVersion.rc2"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,130 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "../Version/CFG_ManagementFeesVersion.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// French (France) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""CFG_ManagementFeesVersion.rc2""\r\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CFG_MANAGEMENT_TAB DIALOGEX 0, 0, 167, 156
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    COMBOBOX        103,80,14,78,106,CBS_DROPDOWNLIST | WS_TABSTOP
+    COMBOBOX        104,80,32,78,106,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Management fee",IDC_STATIC,0,3,163,147
+    CONTROL         "NAV",101,"Button",BS_AUTORADIOBUTTON | WS_GROUP,9,15,31,10
+    CONTROL         "Portfolio Column",102,"Button",BS_AUTORADIOBUTTON,9,33,67,10
+    PUSHBUTTON      "Add",106,40,129,35,12
+    PUSHBUTTON      "Remove",107,85,129,35,12
+    CONTROL         "Standard",108,"Button",BS_AUTORADIOBUTTON | WS_GROUP,9,49,45,10
+    CONTROL         "Per level",109,"Button",BS_AUTORADIOBUTTON,55,49,39,10
+    LTEXT           "Rate (in %)",110,10,66,35,8
+    EDITTEXT        111,80,64,78,14,ES_AUTOHSCROLL
+    LTEXT           "when value between",112,10,84,67,8
+    EDITTEXT        113,79,82,78,14,ES_AUTOHSCROLL
+    LTEXT           "and",114,63,103,13,8
+    EDITTEXT        115,79,100,78,14,ES_AUTOHSCROLL
+    CONTROL         "",105,"CSCtrlGrille",WS_BORDER,7,62,149,62
+    CONTROL         "Day to day",116,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,49,55,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_CFG_MANAGEMENT_TAB, DIALOG
+    BEGIN
+        RIGHTMARGIN, 165
+        BOTTOMMARGIN, 147
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // French (France) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""../Version/CFG_ManagementFeesVersion.h""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "CFG_ManagementFeesVersion.rc2"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

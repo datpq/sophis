@@ -1,0 +1,70 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_SLInterestAmount
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_SLInterestAmount
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.0.0.1 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110816
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
+[CFG_SLInterestAmount]
+OutputDirectory = D:\risque_value\tmp  # default value is "."
+FileName = Results.txt # default value is "SLInterestAmount.txt"

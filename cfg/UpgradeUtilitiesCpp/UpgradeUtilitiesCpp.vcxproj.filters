@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{4e02bd35-bbf2-4c24-abc1-34525b3d01d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{ea02b1f6-d8b6-43ca-97e3-ac04a8859a37}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{8b536a27-85d5-447a-bcdf-973ea1869cc1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="UpgradeUtilitiesCppMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="UpgradeExtension.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.UpgradeUtilitiesCpp.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\UpgradeUtilitiesCpp.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\UpgradeUtilitiesCppVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeExtension.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_UpgradeUtilitiesCppScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\UpgradeUtilitiesCppScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\UpgradeUtilitiesCppVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\UpgradeUtilitiesCpp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

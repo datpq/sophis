@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{9e794229-d56d-464f-8c56-f19fcc297d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8497b2c7-3bd1-49ff-9f45-024452c3580e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0895b5de-6e09-429f-b5df-1b3c3b7573e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{408c6b7f-edbe-4f54-be6d-b5a03d24f112}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_MirroringRuleVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFGObligationsMirroringRule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MirroringFeesBuilder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MirroringRuleCondition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TKTFieldAction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_MirroringRule.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_MirroringRule.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_MirroringRule.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_MirroringRuleVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_MirroringRuleScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_MirroringRuleScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CFGObligationsMirroringRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MirroringFeesBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MirroringRuleCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TKTFieldAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_MirroringRuleMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,358 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFGCheck
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFGCheck
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
+Toolkit recompiled with version 4.3.2
+
+Version 1.4.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120430
+Source control label: 
+Software version:	Value 4.3.1
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.3.8.4 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.3.8.3 :
+===================
+
+Delivery date (YYYYMMDD):	20120210
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancement:
+------------
++ Update error message in SR Check Modification
+
+Version 1.3.8.2 :
+===================
+
+Delivery date (YYYYMMDD):	20120202
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancement:
+------------
++ Update error message in SR Check Deletion
+
+
+Version 1.3.8.1 :
+===================
+
+Delivery date (YYYYMMDD):	20120130
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancement:
+------------
++ Add extra log for SR Modification Check
++ Fix SR Quantity check
++ Always check SR even if there's no modification
++ Filter SR with backoffice status = 174
+
+
+Version 1.3.8.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120118
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancement:
+------------
++ Check the quantity < 1.0 instead of the nav
+
+
+Version 1.3.7.5 :
+===================
+
+Delivery date (YYYYMMDD):	20120113
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhancement:
+------------
++ Add extra log for the SR Check
++ Improve nav calculation for the SR check
+
+
+Version 1.3.7.4 :
+===================
+
+Delivery date (YYYYMMDD):	20120105
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Bug fixed:
+----------
+
+Fix the bug on short position check (Case 00637876).
+
+
+Version 1.3.7.3 :
+===================
+
+Delivery date (YYYYMMDD):	20110920
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Enhancement:
+
+Add the possibility to filter a kernel action on the existence of a counterpart
+
+Version 1.3.7.2 :
+===================
+
+Delivery date (YYYYMMDD):	20110809
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Enhancement:
+
++ Check short position for purchase/sale and SL Initiation only
+
+Version 1.3.7.1 :
+===================
+
+Delivery date (YYYYMMDD):	20110712
+Source control label: 
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Enhancement:
++ Check price for purchase/sale and SL Initiation only
++ Remove control on modification and cancelation of coupon
++ Remove control on cash (CheckCash) when creating, modifying or deleting a transaction.
+
+Version 1.3.7.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110503
+Source control label: CFG Check Lot4 v1360
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+
+New features (creation, modification, deletion): 
+
++ Userdesk 67953  : 
+
+	la génération automatique d'un coupon entraine une alerte checkdeal systématique (coupon à +/- 3 jours).
+	Il faut filtrer le business event pour ne pas appliquer ce check deal à la génération automatique des coupons.
+
+					
+Version 1.3.6.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110418
+Source control label: CFG Check Lot4 v1360
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+Bug fixed:
++ Issue on portfolios used by mark P&L rules
+New features (creation, modification, deletion): 
+
+
+Version 1.3.5.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110322
+Source control label: CFG Check Lot4
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+Bug fixed:
++ Fix on Sophis dates
+New features (creation, modification, deletion): 
++ Remove check on listed bond (already handled by Value)
+
+
+Version 1.3.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110128
+Source control label: CFG Check Lot4
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): 
++ Check devise
++ Field BO remark modification
++ Subscription/Redemption compliances : creation, modification and deletion
+
+User Rights Available:
+- CFG Check Position
+- CFG Check Coupon
+- CFG Check Deal
+- CFG Check Currency
+
+
+Version 1.2.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110114
+Source control label: CFG Check Piice
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): 
++ Check price gap related to mark to market for StockLoan and theorical price for bonds.
++ New property in section 'CFG_CHECK' named 'CFG_Price_Gap' in percent.
+
+Parameters:
+
+[CFG_CHECK]
+CFG_Price_Gap = 5 # Default value is 5
+
+
+Version 1.1.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101231
+Source control label: CFG Check Coupon		
+Software version:	Value 4.1.2
+Client projects name: CFGCheck
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): 
+
++ Check deals related to coupons for Stock Loan and Security.
++ The user right that allows to force the creation/modification/deletion is called "CFG Check Coupon"
++ New property in section 'CFG_CHECK' named 'CFG_Business_Days' which expands the instrument life duration.
+
+Parameters:
+
+[CFG_CHECK]
+CFG_Business_Days = 2 # Default value is 3
+
+
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101222
+Source control label: 		
+Software version:	Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Initial version
+Parameters:
+
++ Initial version
++ Les check deals relatifs au contrôle de positions titres
++ The user right that allows to force the creation/modification/deletion is called "CFG Check Deal"

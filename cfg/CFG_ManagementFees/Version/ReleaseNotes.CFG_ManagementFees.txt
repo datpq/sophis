@@ -1,0 +1,399 @@
+Version 3.0.0.7 :
+=================
+Delivery date (YYYYMMDD): 20131216
+Software version:	Value 4.3.2.7
+Client projects name: CFG_ManagementFees
+Configuration File (APIConfiguration/Toolkit/DLLs|APIConfiguration/Toolkit/AssemblyDLLs): APIConfiguration/Toolkit/DLLs
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+ + Fix issue with limit calculation
+   The new formula is CFG Management Fees + Excluded < Limit
+ 
+ 
+ Version 3.0.0.6 :
+=================
+Delivery date (YYYYMMDD): 20131211
+Software version:	Value 4.3.2.7
+Client projects name: CFG_ManagementFees
+Configuration File (APIConfiguration/Toolkit/DLLs|APIConfiguration/Toolkit/AssemblyDLLs): APIConfiguration/Toolkit/DLLs
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+ + Fix issue with per level management fees calculation.
+ 
+ 
+Version 3.0.0.5 :
+=================
+Delivery date (YYYYMMDD): 20131210
+Software version:	Value 4.3.2.7
+Client projects name: CFG_ManagementFees
+Configuration File (APIConfiguration/Toolkit/DLLs|APIConfiguration/Toolkit/AssemblyDLLs): APIConfiguration/Toolkit/DLLs
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+ + Fix error when selecting NAV in "CFG Management Fees" from "Fund Fess Formulae"
+ 
+ 
+Version 3.0.0.4 :
+==================
+Delivery date (YYYYMMDD): 20131202
+Software version:	Value 4.3.2.7
+Client projects name: CFG_ManagementFees
+Configuration File (APIConfiguration/Toolkit/DLLs|APIConfiguration/Toolkit/AssemblyDLLs): APIConfiguration/Toolkit/DLLs
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+ + Fix issue with Management fees per level
+ + Fix issue with Management fees on fund classes
+ 
+
+Version 3.0.0.3 :
+===================
+Delivery date (YYYYMMDD): 20130916
+Software version:	Value 4.3.2.7.18
+Client projects name: CFG_ManagementFees
+DLL  (DLLs/AssemblyDLLs): DLLs
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): Yes (CFG_ManagementFeesScript_3.0.0.2_To_3.0.0.3.sql)
+
+Modification:
+--------------
+ + Fix issue on past EOD calculation with different fees period (on new CFGManagementFees already setup) => SQL Script
+ + Fix issue on past EOD calculation with different fees period (on new CFGManagementFees) => New version for the DLL
+
+
+Version 3.0.0.2 :
+===================
+Delivery date (YYYYMMDD): 20130911
+Software version:	Value 4.3.2.7.18
+Client projects name: CFG_ManagementFees
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+ + Fix issue on past EOD calculation with different fees period 
+
+
+Version 3.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_ManagementFees
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 3.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_ManagementFees
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+--------------
+Toolkit recompiled with version 4.3.2
+
+
+
+Version 2.1.0.0 :
+===================
+Delivery date (YYYYMMDD):	20120430
+Software version:	Sophis Value 4.3.1
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 2.0.4.4 :
+===================
+
+Delivery date (YYYYMMDD):	20121221
+Software version:	Sophis Value 4.1.2
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Bug fix :
+---------
+	+ Fix issue when removing excluded fees
+	
+	
+Version 2.0.4.3 :
+===================
+
+Delivery date (YYYYMMDD):	20121221
+Software version:	Sophis Value 4.1.2
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+New features : 
+--------------
+	+ Enrich the log during the calculation of the management fees
+	
+
+Version 2.0.4.2 :
+===================
+
+Delivery date (YYYYMMDD):	20121221
+Software version:	Sophis Value 4.1.2
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+New features : 
+--------------
+	+ Enrich the log during the calculation of the management fees
+	
+	
+Version 2.0.4.1 :
+===================
+
+Delivery date (YYYYMMDD):	20121221
+Software version:	Sophis Value 4.1.2
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+New features : 
+--------------
+	+ Enrich the log during the calculation of the management fees
+
+	
+Version 2.0.4.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Modifications :
+---------------
+	+ Recompile toolkit with patch 16
+
+
+Version 2.0.3.3 :
+===================
+
+Delivery date (YYYYMMDD):	20110817
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Bug fix:
+--------
++ Change the computation formula :
+
+Si la somme de tous les fees (tous ceux avec un champ comment exclus + cfgmanagement fees) est > 2.4% de la base de calcul alors:
+Recalculer cfgmanagementfees=2.4% de la base de calcul- somme des fees (en excluant cfgmanagementfees calculé precedemment)
+
+Laisser la possibilite au cfgmanagementfees d'etre negatif.
+
+
+Version 2.0.3.2 :
+===================
+
+Delivery date (YYYYMMDD):	20110629
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Bug fix:
+--------
++ Deactivate the 
+
+Version 2.0.3.1 :
+===================
+
+Delivery date (YYYYMMDD):	20110203
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Bug fix:
+--------
++ Ne prend pas en compte les frais provisionnés pour la calcul des management fees toolkit.
+
+
+
+Version 2.0.3.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101222
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
++ Recompiled with Value 4.1.2.2
+
+Version 2.0.2.1 :
+===================
+
+Delivery date (YYYYMMDD):	20101129
+Software version:	Sophis Value 4.1.1
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
++ Change rate precision to 5 decimals for "Per level fees".
+
+Version 2.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101118
+Software version:	Sophis Value 4.1.1
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_ManagementFeesScript_2.0.1.0_To_2.0.2.0.sql
+Distinctive feature: 
+Bug fixed:
+New features : 
+
++ Manage both "Standard" and "Per level" CFG management fees (userdesk 54001).
+
+Version 2.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101109
+Software version:	Sophis Value 4.1.1
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
++ Fix day to day fees management
+
+Version 2.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101028
+Software version:	Sophis Value 4.1.1
+Client projects name:
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
++ Migration to Sophis Value 4.1.1
+
+Version 1.1.0.1 :
+===================
+
+Delivery date (YYYYMMDD):	20101020
+Source control label:		
+Software version:	Value 4.1.0
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature: 
+Bug fixed:
+New features : 
+
+Export CSxManagementFees class
+
+Version 1.1.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20100929
+Source control label:		
+Software version:	Value 4.1.0
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_ManagementFeesScript_1.0.0.0_To_1.1.0.0.sql
+Distinctive feature: 
+Bug fixed:
+New features : Définition de frais constants par palier. 
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20100804
+Source control label:		
+Software version:	Value 4.1.0
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_ManagementFeesScript.sql
+Distinctive feature: 
+Bug fixed:
+New features (creation, modification, deletion): Initial version
+
+Parameters:
+
+
++ Ce toolkit implémente un nouveau type de frais ("CFGManagement") pour les fonds. 
+
++ Le calcul de ce frais de gestion se fait en faisant la différence du frais de gestion global (définit dans "CFGManagement") auquel on retranche la somme des
+
+  autres frais. Si l'on souhaite exclure l'un des frais de la soustraction, il suffit de rajouter le mot clé "[Exclus]" dans le commentaire.
+
++ Le fonctionnement de cette dll nécessite l'application du script CFG_ManagementFeesScript.sql sur la base de données.

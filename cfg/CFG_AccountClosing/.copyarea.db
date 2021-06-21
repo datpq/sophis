@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_AccountClosing
+2
+9
+7:version|2|0|0|0|a24d7fae5b654d1ab68bede3da34ac58|0
+19:CFG_AccountClosingMain.cs|1|15f598874bf|427|30144488|75037c80d3cd4addab6f970d30a36a45|0
+16:CFG_AccountClosing.sln|1|15f598874b3|39d|6d761e60|13cfd158c2f24398803bae5f74dd2808|0
+a:Properties|2|0|0|0|c79e4c95df404ce1ab5c2c678eee492e|0
+19:CFG_AccountClosing.csproj|1|15f598874d3|27c1|ff40ff7d|efbb2a0c895a47bbb86dfbb74cb3f94d|0
+1b:CreateDeploymentPackage.bat|1|15f598873df|63c|ef41c33b|fdc133f678c2406d86db64f270f821e9|0
+6:config|2|0|0|0|372afd8f5ede434ea97969196dd3b659|0
+3:SQL|2|0|0|0|429b3acc2c76492594a172df0c158f35|0
+b:SourceFiles|2|0|0|0|746a38a54c574a81a9a511093611903e|0

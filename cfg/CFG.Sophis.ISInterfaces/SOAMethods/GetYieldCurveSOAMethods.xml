@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ns0:SoaMethodTemplates xmlns:ns0="http://www.sophis.net/reporting">
+
+  <ns0:SoaMethodTemplate ns0:name="CFG_GetYieldCurve">
+    <ns0:parameters>
+      <ns0:parameter ns0:bind="" ns0:name="Date"/>
+      <ns0:parameter ns0:bind="" ns0:name="Currency"/>
+      <ns0:parameter ns0:bind="" ns0:name="CurveFamily"/>
+      <ns0:parameter ns0:bind="" ns0:name="CurveName"/>
+    </ns0:parameters>
+    <ns0:sources>
+      <ns0:source ns0:name="cfgGetYieldCurve" ns0:type="CFG_GetYieldCurve">
+        <ns0:field ns0:bind="Date" ns0:name="Date"></ns0:field>
+        <ns0:field ns0:bind="Currency" ns0:name="Currency">MAD</ns0:field>
+        <ns0:field ns0:bind="CurveFamily" ns0:name="CurveFamily">COURBE BDT BAM</ns0:field>
+        <ns0:field ns0:bind="CurveName" ns0:name="CurveName"></ns0:field>
+      </ns0:source>
+    </ns0:sources>
+  </ns0:SoaMethodTemplate>
+
+</ns0:SoaMethodTemplates>

@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFGAdapter\source\CFGAdapterConfiguration
+2
+5
+a:Properties|2|0|0|0|bc2c5650c1f34de5bdc5e68dfc6f97f9|0
+1e:CFGAdapterConfiguration.csproj|1|15f5988602d|e4a|ea0fa9aa|adcd81d9f66d4687a19b99a73222cf9e|0
+1a:CFGAdapterConfiguration.cs|1|15f59886047|1865|901831a1|197543432c1846909225ab1e4521fe26|0
+1e:CFGAdapterConfigurationNode.cs|1|15f59886039|5fe|c7f0e42e|61a72a528638462f8d3ccc610165db58|0
+f:Impersonator.cs|1|15f59886053|1a16|3545a71f|7cef9921dd6e41278c1c0a620509bf93|0

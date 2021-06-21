@@ -1,0 +1,17 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFGAdapter\source
+2
+d
+13:LivePriceListener.h|1|15f59885efe|96|48442c39|7358608fad7a414689f5270553365f5b|0
+e:TickerItem.cpp|1|15f59885ec1|14ce|5e3450b6|b4de225ff1994b16a271e088bb27ea5c|0
+11:PollingThread.cpp|1|15f59885f34|6c1|24bed3ff|dcbce36817e349898223c154324df368|0
+f:PollingThread.h|1|15f59885fa8|448|ad1644bd|3f2be3e062b44b719bfa3b23ddd04eda|0
+c:CFGAdapter.h|1|15f59885f6b|208f|b8743ed5|7d15858c68e04e8284c991d6b181c181|0
+e:CFGAdapter.cpp|1|15f59885ef1|33e0|7cb06e3e|ea11c0cb7b4745c89c718e5fa2594a3d|0
+b:CFGSource.h|1|15f59885e02|c93|f91bdb37|7856ca5b0697488e8f9553ec414d8688|0
+c:TickerItem.h|1|15f59885eb1|7bb|a7fa5f4b|92879084309f453eb6c9f009bdf196bb|0
+d:CFGSource.cpp|1|15f59885e0e|4630|49987a46|1d8a4a0d595a44bcabd3863fea2659c4|0
+6:rights|2|0|0|0|c74ea641dac248128dee6b0f1628a2a8|0
+d:CSxDBClient.h|1|15f59885ea1|578|a248b8b9|077dbaff909c4096a5f342d30fe33ac2|0
+f:CSxDBClient.cpp|1|15f59885df7|2354|e17065f9|8e895eb77c6a439fa8d4828dc21ead96|0
+17:CFGAdapterConfiguration|2|0|0|0|87112c2cf0ad413694f55c21ff829cc1|0

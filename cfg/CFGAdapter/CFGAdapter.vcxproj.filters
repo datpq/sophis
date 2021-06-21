@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{7a4fcb05-7797-40d5-ba17-a6c1b6ef897b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{9f4a045d-1b9a-4a85-97d2-dd91d060e7a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{0e2ebc00-64cd-439a-93db-7fb7d90d9f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\rights">
+      <UniqueIdentifier>{7aabf73b-cfe0-4b2a-8430-fa366e32da0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{0a9a83cc-68e7-4e4d-8275-1c15416615c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{3f09d47a-3c40-4d50-87e4-15d9d89d1246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="doc">
+      <UniqueIdentifier>{53ed8e18-a2cb-4dc0-9c53-92066603183b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFGVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CFGAdapter.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CFGSource.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PollingThread.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\rights\CFGTopicAccessRight.h">
+      <Filter>source\rights</Filter>
+    </ClInclude>
+    <ClInclude Include="source\rights\CFGUserAccessRight.h">
+      <Filter>source\rights</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFGAdapter.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFGVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="config\QuoteSource[CFG].ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="doc\CFG Gestion - DRT Toolkit_UserGuide.doc">
+      <Filter>doc</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\CFGAdapter.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CFGSource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PollingThread.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rights\CFGTopicAccessRight.cpp">
+      <Filter>source\rights</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rights\CFGUserAccessRight.cpp">
+      <Filter>source\rights</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="config\dictionaryCFG.xml">
+      <Filter>config</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="SQL\CFGAdapter.sql">
+      <Filter>SQL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SQL\Rollback_CFGAdapter.sql">
+      <Filter>SQL</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

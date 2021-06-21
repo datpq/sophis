@@ -1,0 +1,277 @@
+Version 3.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_RetrocessionFees
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No):No 
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+---------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 3.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_RetrocessionFees
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No):No 
+Installation on Client (Yes/No):Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+---------------
+Toolkit recompiled with version 4.3.2
+
+Version 2.1.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120430
+Software version:	Sophis Value 4.3.1
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 2.0.8.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 2.0.7.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120402
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
+
++ Case 00678894 : calcul du nb parts SR.
+
+Version 2.0.6.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120322
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
+
++ Méthode prorata et méthode moyenne AM : Calcul du nombre de  parts total et du nombre de parts apporteur d'affaire : rajout d'un filtre pour ne prendre en compte que 
+
+  les S/R appartement à un groupe de statuts particulier.     
+  
+  Nouveau paramètre dans le fichier .ini :
+   
+  [CFG_RETROCESSION_FEES]
+  SRBOStatusGroup = BO status group name #Default value = ALL But Virtual Trade
+
+Version 2.0.5.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120220
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_RetrocessionFeesScript_2.0.4.0_To_2.0.5.0.sql
+
+Installation :
+--------------
+
+	+ Appliquer le script CFG_RetrocessionFeesScript_2.0.4.0_To_2.0.5.0.sql sur la base de données.
+	
+Modifications
+-------------
+
+Case 00649276 : 		
+	
+	+ Modification de l'assiette de calcul des  2 méthodes moyenne AM et CGR : pondération l'actif moyen par le nombre de jours.
+	
+	+ rajout d'un level4/Rate4 au niveau de l'écran de configuration pour pouvoir paramétrer le cas en production d'ALMA.
+	
+	+ Utilisation du ticket avec le business event "Provision Retrocession Promo" pour calculer la rétrocession au promoteur 
+	  retranchée des frais de gestion pour le calcul du PNBj dans la méthode Prorata.	  	
+	  
+    + Possibilité de paramétrer le business event des tickets de frais de gestion dans le fichier .ini :
+    
+      [CFG_RETROCESSION_FEES]
+      ManagementFeesSteGestionBEName = Nom du business event # Valeur par defaut = Provision Frais SteGestion
+      ManagementFeesCDVMBEName = Nom du business event # Valeur par defaut = Provision Frais CDVM
+      ManagementFeesDDGBEName = Nom du business event # Valeur par defaut = Provision Frais DDG
+      ManagementFeesMCLBEName = Nom du business event # Valeur par defaut = Provision Frais MCL
+      RetrocessionPromoterFeesBEName = Nom du business event # Valeur par defaut = Provision Retrocession Promo
+      
+	      
+
+
+Version 2.0.4.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120201
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
++ Correction bug dans la récupération du nombre de parts associées à un business partner donné. Utilisation du champ THIRD2 à la place du champ THIRD1.
+
+Version 2.0.3.2 :
+===================
+
+Delivery date (YYYYMMDD):	20120131
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
++ Correction bug dans la methode de calcul "Moyenne pondérée"
+
+Version 2.0.3.1 :
+===================
+
+Delivery date (YYYYMMDD):	20120130
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
++ Ajout de messages de logs pour le debug
+
+Version 2.0.3.0 :
+===================
+
+Delivery date (YYYYMMDD):	20111017
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modifications
+-------------
++ Ajustement des calculs
+
+Version 2.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110523
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_RetrocessionFeesScript_2.0.1.0_To_2.0.2.0.sql
+
+Parameters
+----------
+
+[CFG_RETROCESSION_FEES]
+FundList = 168, 178, 63123467 # Funds sicovam
+StartDate = 07/03/2011 # equal to sophis date by default. Format : DD/MM/YYYY
+EndDate = 18/03/2011 # equal to start date by default. Format : DD/MM/YYYY
+
+Modifications
+-------------
++ Ajustement des calculs
+
+Version 2.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101222
+Software version:	Sophis Value 4.1.2
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
++ Migration to Sophis Value 4.1.2
+
+Version 2.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101028
+Software version:	Sophis Value 4.1.1
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
++ Migration to Sophis Value 4.1.1
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20101020
+Source control label:		
+Software version:	4.1.0
+Client projects name:
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG_RetrocessionFeesScript.sql
+
+New features : 
+--------------
+
+Initial version
+
+This toolkit contains 2 scenarios :
+
+1- Retrocession Fees Configuration
+2- Retrocession Fees Calculation
+
+- The calculation scenario should be lauched after the EOD process.
+- Each fund should have only one fund promoter.
+- One fund can have several "apporteurs d'affaires"
+
+
+Parameters:
+-----------
+
+The calculation scenario can be launched with optional parameters that can be defined in the risk.ini file as follow :
+
+[CFG_RETROCESSION_FEES]
+FundList =  67447499,67447469,67447599,67447783		# List of fund codes
+Date = 01/09/2010									# Calculation date. It should be at format DD/MM/YYYY
+NumberOfDays = 31									# Number of days for the period
+
+You can specify user rights for both scenarios:
+
+1- Retrocession Fees Configuration => user rights name : "Edit Retrocession Fees" (access,read,write)
+2- Retrocession Fees Calculation => user rights name : "Compute Retrocession Fees" (access)

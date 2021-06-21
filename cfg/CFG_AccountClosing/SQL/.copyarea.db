@@ -1,0 +1,6 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_AccountClosing\SQL
+2
+2
+1c:CFG_AccountClosingScript.sql|1|15f598878ad|3c|3a63121c|48230328e2c1427183210dd55ade7f77|0
+25:Rollback_CFG_AccountClosingScript.sql|1|15f5988787b|3c|3a63121c|ac3958f37a71476ba56377254caeb071|0

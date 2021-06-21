@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{d889f117-0f3d-49c6-84ff-8984bedb962c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{d81bcf10-be16-4e45-82f2-35be70e38a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6813aa0b-d21a-4b7c-b341-40882ae53160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{8cf48bcd-ee95-4d21-8f19-a36b3bd52044}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_AccountingVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokerFeesCondition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Conditions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Forex_Rule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_PostingAmounts.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Scenario.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxAccountingQuantity.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxALSortByPostingDateAndTradeId.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HasCounterpartyCondition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_Accounting.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_Accounting.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_Accounting.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_AccountingVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_AccountingScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_AccountingScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="CreateDeploymentPackage.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BrokerFeesCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Conditions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Forex_Rule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_PostingAmounts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Scenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSxAccountingQuantity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSxALSortByPostingDateAndTradeId.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HasCounterpartyCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_AccountingMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>

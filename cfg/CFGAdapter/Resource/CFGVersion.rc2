@@ -1,0 +1,54 @@
+#ifndef _VERSION_LOG_RC2_
+#define _VERSION_LOG_RC2_
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include "../Version/CFGVersion.h"
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION CFG_VERSION
+ PRODUCTVERSION BUILDVERSIONINT
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "FileDescription", 	CFG_TOOLKIT_DESCRIPTION
+            VALUE "FileVersion", 	CFG_VERSION_STR
+            VALUE "InternalName", 	"CFG"
+            VALUE "LegalCopyright", 	COPYRIGHT
+            VALUE "OriginalFilename", 	"CFG.rc"
+            VALUE "ProductName", 	CFG_TOOLKIT_DESCRIPTION
+            VALUE "ProductVersion", 	BUILDVERSION
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // Neutral resources
+	
+#endif

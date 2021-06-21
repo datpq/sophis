@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{6f10e4c2-8564-4845-affb-77e9a2274a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{968a088c-657e-4b2d-89bc-ee3beef4c140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0aefdba6-60d4-4a21-8823-21c14cd5d41f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Yield Curve Models">
+      <UniqueIdentifier>{fc2944f4-79fb-4766-83ee-637bff8793c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{2e80a391-9fd3-4001-b0a9-7cb729d74063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Globals">
+      <UniqueIdentifier>{46a9fafb-8720-4079-acd7-9aa4a3fcdabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bond Models">
+      <UniqueIdentifier>{07f02454-cfcd-483a-af55-9794d722ee45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bond Dialog">
+      <UniqueIdentifier>{a4090058-cb68-44e1-834c-ed07bb1ff1dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bond Actions">
+      <UniqueIdentifier>{9832615a-c322-41d3-92e3-86de390c39c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DayCountBasis">
+      <UniqueIdentifier>{c54a05c1-004c-4b76-805a-02821dad4c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{d53135dd-6c4f-4898-b4fd-73e4f0f178c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\CFG_FixedIncomeVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_YieldCurveData.h">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_YieldCurveFixedPoints.h">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_YieldCurveLinebyLine.h">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_YieldCurveZCMAD.h">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Maths.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_GlobalFunctions.h">
+      <Filter>Source Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_BondMarketData.h">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_ConstantAmortizedBond.h">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_RevisionClause.h">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_StaticSpreadBond.h">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_BondDialog.h">
+      <Filter>Source Files\Bond Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_RevisableBondAction.h">
+      <Filter>Source Files\Bond Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_DayCountBasis.h">
+      <Filter>Source Files\DayCountBasis</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_YCDataTable.h" />
+    <ClInclude Include="CFG_YCScenario.h" />
+    <ClInclude Include="CFG_YCScenarioDlg.h" />
+    <ClInclude Include="CFG_YieldCurveDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReleaseNotes.CFG_FixedIncome.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\CFG_FixedIncome.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_FixedIncome.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_FixedIncomeVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_FixedIncomeScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_FixedIncomeScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CFG_YieldCurveData.cpp">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_YieldCurveFixedPoints.cpp">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_YieldCurveLinebyLine.cpp">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_YieldCurveZCMAD.cpp">
+      <Filter>Source Files\Yield Curve Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Maths.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_GlobalFunctions.cpp">
+      <Filter>Source Files\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_ConstantAmortizedBond.cpp">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_RevisionClause.cpp">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_StaticSpreadBond.cpp">
+      <Filter>Source Files\Bond Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_BondDialog.cpp">
+      <Filter>Source Files\Bond Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_RevisableBondAction.cpp">
+      <Filter>Source Files\Bond Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_DayCountBasis.cpp">
+      <Filter>Source Files\DayCountBasis</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_FixedIncomeMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="CFG_YCDataTable.cpp" />
+    <ClCompile Include="CFG_YCScenario.cpp" />
+    <ClCompile Include="CFG_YCScenarioDlg.cpp" />
+    <ClCompile Include="CFG_YieldCurveDlg.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2 @@
+#define NAME_SIZE 256
+#define SIZE_BUFFER 1024

@@ -1,0 +1,30 @@
+ClearCase CopyAreaDB|4
+VOBToolkitValue\CFG Gestion\CFG_AccountClosing\SourceFiles
+2
+1a
+17:InterfaceFermeture.resx|1|15f59887515|2502|5f2636b5|dc362d7cb5c84bafbfbe9250c0f019df|0
+13:ClosingManager.resx|1|15f5988777d|2502|5f2636b5|cd9f115748764b79b8e7b9193e5844be|0
+15:InterfaceOuverture.cs|1|15f598876b8|2e22|4765c02d|0aa3cbfbce194137b92773d9bba3aba3|0
+17:AffectationManager.resx|1|15f59887825|2502|5f2636b5|c33f07f0baa14fb4b4fbaf540e00cc27|0
+22:DistributionDatePicker.Designer.cs|1|15f59887756|e4b|5ac82715|e1490136a711438bb6ba55447d56de0c|0
+19:AccountOpeningScenario.cs|1|15f598875ee|6c78|bab73577|35f7bb72dada479189d30f89d9476a8c|0
+1e:InterfaceFermeture.Designer.cs|1|15f59887523|288a|c826e471|9d9b08c69d0746aca78c9cd724f5f2ac|0
+8:Form1.cs|1|15f59887509|17c|8e81780b|fb9b286050ec43538e765e1a96c0c4aa|0
+1e:AffectationManager.Designer.cs|1|15f59887835|13f6|fb410556|520ffbc5d0054f63b14686c060ef6723|0
+11:OpeningManager.cs|1|15f5988776f|20ff|f297caec|5404a9f2982d458cb25aaf707a12ff96|0
+1b:DistributionDatePicker.resx|1|15f5988773e|2502|5f2636b5|544928eb53524544a651f1ccb4e535b2|0
+1c:AccountingClosingScenario.cs|1|15f598876e8|6530|cd04fd62|4def1f4fb1db4556889894e694c1b853|0
+28:InterfaceAffectationResultat.Designer.cs|1|15f598875bb|34ed|b7c3984c|8bf87d3784134cb49efaa11126150656|0
+11:ClosingManager.cs|1|15f59887788|1cb5|91a4c29c|81d9ba04d18b4d4f8ae66e8fa26097d8|0
+19:DistributionDatePicker.cs|1|15f59887749|466|2b4c4b7c|5a1638b0520b41ee82082cc35ee77543|0
+1a:ClosingManager.Designer.cs|1|15f59887794|13ce|1e34f582|76f47dbcc22248b0b3d4490f4471b69c|0
+13:OpeningManager.resx|1|15f598877a3|2502|5f2636b5|87e1c9eb357b4e039305063574ee68af|0
+21:InterfaceAffectationResultat.resx|1|15f59887726|2502|5f2636b5|302e13a6643f428fbf52772ba3a7d1e8|0
+1a:OpeningManager.Designer.cs|1|15f59887762|13cf|930f56c|241c6df5bae7470ba1c0bd23cd622ca5|0
+15:InterfaceFermeture.cs|1|15f59887654|3090|7918f44|cf0e4479ce124d87beb134ef708e66e3|0
+15:AffectationManager.cs|1|15f5988786d|2215|849915f1|6289e097f99b405cbacfed1a9db57b31|0
+1f:InterfaceAffectationResultat.cs|1|15f598875fa|4e6e|9d4081b8|22764a42e3d8456e867600227c2dd937|0
+17:InterfaceOuverture.resx|1|15f5988771b|2502|5f2636b5|35d2c92cbb284f55982d832c0e226b72|0
+11:Form1.Designer.cs|1|15f59887688|4a6|8db05713|934c6bc20c8d47afb5451bd1b595b978|0
+1e:InterfaceOuverture.Designer.cs|1|15f59887731|2898|54f5e9c3|4f10b325590e4e5189b2ccfccca7e131|0
+1e:AffectationResultatScenario.cs|1|15f598875ab|506a|bbce3fe9|457e22a9789c4af8bba97fa8ae715fcb|0

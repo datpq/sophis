@@ -1,0 +1,347 @@
+Version 2.0.0.2 :
+===================
+Delivery date (YYYYMMDD): 20162104
+Software version:	Value 4.3.2.7
+Client projects name: CFG_AccountEOD
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Fixed issues  :
+---------------
+
+	+ Case 01665454 : Fixed issue with wrong NAV calculated from accounting postings
+	
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20132702
+Software version:	Value 4.3.2.7
+Client projects name: CFG_AccountEOD
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_AccountEOD
+DLL  ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.1.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120430
+Source control label:		
+Software version:	4.3.1
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.0.12.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120831
+Source control label:		
+Software version:	4.1.2.17
+Client projects name:
+DLL Section in ini file : [DLL]
+Installation on Server : No
+Installation on Client : Yes
+SQL Scripts : No
+Distinctive feature:
+
+In this version, the EOD can be launched during week ends and holidays.
+
+Version 1.0.11.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120809
+Source control label:		
+Software version:	4.1.2.17
+Client projects name:
+DLL Section in ini file : [DLL]
+Installation on Server : No
+Installation on Client : Yes
+SQL Scripts : No
+Distinctive feature:
+
+EOD frequency parameters are defined in the Comments of the "NAV Frequency" fund indicator .
+
+
+
+
+
+Version 1.0.10.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120525
+Source control label:		
+Software version:	4.1.2.17
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+To implement control:The Indicator NAV Frequecy is taken
+
+Fixed issues  :
+---------------
+
+	+ Case 00706393 : Comptabilité: Posting Reval d'obligation mises en pension au 17/04 pr le fonds REN
+	+ Case 00707870 : BO Accounting : Msg d'erreur qd EOD lancée pr plusieurs des fonds
+
+Version 1.0.9.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120430
+Source control label:		
+Software version:	4.1.2.16
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Fixed issues  :
+---------------
+
+	+ Case 00699485 : Problème sur requete SQL
+
+Version 1.0.8.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.7.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120321
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Fixed bug :
+-----------
+
+	+ Case 634626 : + Ecritures comptables des SR. Améliorartion du filtre et de l'ordre de selection des S/R.
+	                
+	                + Gestion des S/R lors du rollback.
+                    
+                    + Nouveaux paramètres :
+                    
+                          [CFG_AccountEOD]
+                          SREODProcessStatusGroup = ALL
+                          SREODCancelStatusGroup = ALL                          
+                          SREODProcessEventID = 19
+                          SREODCancelEventID = 21              
+
+Version 1.0.6.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120207
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Fixed bug :
+-----------
+
+	+ Case 649289 : Message de warning n'apparaît pas lorsque Prices Date modifiée dans le passé.
+	
+Version 1.0.5.0 :
+===================
+
+Delivery date (YYYYMMDD):	20120130
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Fixed bug :
+-----------
+
+	+ Case 00625666 : Extourne des opérations comptables pour les fonds hebdomadaire.
+					  Pour corriger ce problème il faut modifier la requête 7 et la requête 8  de la fonction RollBack. A la place de la EODDate, 
+					  il faut utiliser la rollbackDate.
+					 
+	+ Case 00634626 : Génération des écritures comptables des SR à la EOD
+					  Au debut de l'etape 5 de la fonction ProcessData, on applique un event BO sur les S/R qui sont dans un statut BO appartenant à un status group particulier, pour chaque fonds selectionné.
+					  L'Id de l'event et le status group sont paramétrés dans le fichier risk.ini comme suit :
+					  
+					  [CFG_AccountEOD]
+					  BOKernelEventId = 1 # Id sophis de l'event a appliquer 
+					  BOStatusGroup = ALL # Nom du groupe de statut des S/R auxquelles on applique l'event
+					  
+    + Case 649289 :  BO Accounting : Contrôle de date de lancement.
+					 L'utilisateur ne peut pas lancer une EOD à une date inférieure strictement à la date Sophis (qui par défaut est égale à la date du jour).
+
+Version 1.0.4.0 :
+===================
+
+Delivery date (YYYYMMDD):	20111208
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Fixed bug :
+-----------
+
+	+ Case 00622436 : Accounting EOD screen is not system modal any more.
+	+ EOD frequency parameters are defined as "User-defined Indicators" :
+          
+          ++ example of parameterization for weekly funds:
+          
+             Name = Accounting EOD frequency ; Reference = weekly 
+             Name = Day of the week ; Reference = wednesday
+          
+          ++ example of parameterization for daily funds :
+          
+             Name = Accounting EOD frequency ; Reference = daily
+
+Version 1.0.3.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110808
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+New features :
+--------------
+
+	+ Rollback if EOD date <= Last EOD date.
+	
+
+Version 1.0.2.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110712
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+New features :
+--------------
+
+	+ Display results for each fund and enable user to rollback.
+
+	+ Weekly funds management and additional checks.
+
+Version 1.0.1.1 :
+===================
+
+Delivery date (YYYYMMDD):	20110518
+Source control label:		
+Software version:	4.1.2.5
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Bug fixed:
+Filter on the acocunt entity to determine the rollback date
+
+Version 1.0.1.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110429
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Bug fixed:
+When the user was launching the EOD with prices date equal to the EOD Date the scenario was not forcing the use of stored theoretical prices
+
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20110429
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:
+
+Initial version

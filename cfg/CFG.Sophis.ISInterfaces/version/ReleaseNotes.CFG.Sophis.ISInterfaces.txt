@@ -1,0 +1,348 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG.Sophis.ISInterfaces
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2.7
+
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG.Sophis.ISInterfaces
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+
+Version 1.0.1.2 :
+===================
+Delivery date (YYYYMMDD): 20121005
+Software version:	412
+Client projects name:CFG.Sophis.ISInterfaces
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhamcement
+--------------
++ Force long term for "COURBE ZERO COUPON" family
+
+Version 1.0.1.0 :
+===================
+Delivery date (YYYYMMDD): 20120918
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Enhamcement
+--------------
++ Use the short rate and long rate parameter for the calculation of the Toolkit Yield Curve model (CFG ZC Simulation)
+  Specification CFG Gestion - Interface Integration Service v1.5.doc from the 03/09/2012)
++ When asking a yield curve in the paste, don't use instrument and fair value history 
+
+
+Version 1.0.0.5 :
+===================
+Delivery date (YYYYMMDD): 20120413	
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Installation
+------------
+
++ Installer les dlls CFG.Sophis.ISInterfaces.dll et CFG_SophisISInterfaces.dll sur le client et sur le serveur de l'IS.
+
++ Lancer un client Value et importer la méthode SOA définies dans le fichier SOAMethods/GetYieldCurveSOAMethods.xml (Menu Data->SOA Methods Designer->Import).
+
++ Redémarrer l'IS.
+
+New features :
+--------------
+
+Add a new XML source named "CFG_GetYieldCurve"
+----------------------------------------------
+
++ This source gets the ZC yield curve according to different parameters :
+  
+  - Date (string) : yield curve date. Format should be DD/MM/YYYY
+  - Currency (string) : yield curve currency. example : "MAD"
+  - CurveFamily (string) : Yield curve family name
+  - CurveName (string) : Yield curve name
+                                             
+                     
++ Returned XML contains the ZC yield curve. The mode and day count basis are the same as the one defined in the user preferences (Menu File->Preferences->Tab Rho->Basis and Mode Preferences->Zero Coupon).
+
++ Pour exporter une courbe ZC via le fileConnector, un exemple est disponible dans le répertoire doc/Interface Referentiel - Curve
+
+
+Version 1.0.0.4 :
+===================
+Delivery date (YYYYMMDD): 20120406	
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Installation
+------------
+
++ Installer les dlls CFG.Sophis.ISInterfaces.dll et CFG_SophisISInterfaces.dll sur le client et sur le serveur de l'IS.
+
++ Lancer un client Value et importer les méthodes SOA définies dans les fichiers SOAMethods/ComputeTheoreticalSOAMethods.xml, 
+  SOAMethods/GetPriceFromYtmSOAMethods.xml et SOAMethods/GetYtmFromPriceSOAMethods.xml (Menu Data->SOA Methods Designer->Import).
+
++ Redémarrer l'IS.
+
+New features :
+--------------
+
+1 - Add a new XML source named "CFG_ComputeTheoretical"
+-------------------------------------------------------
+
++ This source computes the bond theoretical price according to different parameters :
+  
+  - Date (string) : computation date. Format should be DD/MM/YYYY
+  - InstrumentReference (string) : Sophis bond reference
+  - CurveFamily (string) : Yield curve family name to use. If CurveFamily = "", then we use the bond's yield curve family
+  - PricingModel (int) : Bond model to use. Possible values are :                                             
+                                             + 0 : Use the bond's model 
+                                             + 1 : Titre MAD remboursable in fine
+                                             + 2 : Titre MAD amortissable
+                                             + 3 : MtoM + Greeks MtoM
+                                             + 4 : MtoM + Greeks Theo
+                                             + 5 : Standard
+                                             
+  - QuotationType (int) : Possible values are : 
+                    + 0 : Use the bond's quotation type
+                    + 1 : In amount
+                    + 2 : In percent
+                    + 3 : In percent with accrued
+                    
+  - Spread (double) : CFG Risk spread.
+  
+  - Maturities (string): List of maturities. The separator must be ";". Example : "56d;3m;6m;12m;2y;3y;5y;7y;10y;15y;20y;30y"                         
+  
+  - Rates (string) : List of ZC rates corresponding to each previous maturity.
+                     The rates should be in actuarial mode and the day count basis sould be ACT/ACT (AFB)
+                     The separator must be ";". 
+                     Example : "2.25;2.35;2.5;2.85;3.12;3.44;3.76;3.89;4.15;5.5;6;7.68"                     
+                     
++ If Maturities = "" and Rates = "", the ZC yield curve is not overloaded
+                     
++ Returned XML contains the following results :
+  
+  - Price
+  - Yield to maturity
+  - Accrued coupon
+  - Duration                                                                   
+  - Sensitivity
+
+
+2- Add a new XML source named "CFG_GetPriceFromYtm"
+---------------------------------------------------
+
++ This source computes the bond theoretical price according to different parameters :
+  
+  - Date (string) : computation date. Format should be DD/MM/YYYY
+  - InstrumentReference (string) : Sophis bond reference  
+  - PricingModel (int) : Bond model to use. Possible values are :                                             
+                                             + 0 : Use the bond's model 
+                                             + 1 : Titre MAD remboursable in fine
+                                             + 2 : Titre MAD amortissable
+                                             + 3 : MtoM + Greeks MtoM
+                                             + 4 : MtoM + Greeks Theo
+                                             + 5 : Standard
+                                             
+  - QuotationType (int) : Possible values are : 
+                    + 0 : Use the bond's quotation type
+                    + 1 : In amount
+                    + 2 : In percent
+                    + 3 : In percent with accrued
+                    
+  - Ytm (double) : Yield to maturity.The ytm should be expressed in the same mode and basis than the ones defined in the bond (Field Basis and Mode in Tab Calculation->Yield To maturity).
+
++ Returned XML contains the theoretical price.
+
+
+3- Add a new XML source named "CFG_GetYtmFromPrice"
+---------------------------------------------------
+
++ This source computes the bond YTM according to different parameters :
+  
+  - Date (string) : computation date. Format should be DD/MM/YYYY
+  - InstrumentReference (string) : Sophis bond reference  
+  - PricingModel (int) : Bond model to use. Possible values are :                                             
+                                             + 0 : Use the bond's model 
+                                             + 1 : Titre MAD remboursable in fine
+                                             + 2 : Titre MAD amortissable
+                                             + 3 : MtoM + Greeks MtoM
+                                             + 4 : MtoM + Greeks Theo
+                                             + 5 : Standard
+                                             
+  - QuotationType (int) : Possible values are : 
+                    + 0 : Use the bond's quotation type
+                    + 1 : In amount
+                    + 2 : In percent
+                    + 3 : In percent with accrued
+                    
+  - Price (double) : Bond price (in quotation type)
+
++ Returned XML contains the YTM. The YTM is expressed in the same mode and basis than the ones defined in the bond (Field Basis and Mode in Tab Calculation->Yield To maturity).   
+  
+
+Modifications :
+---------------
+
+
++ Scenario "Price Historizer" : Sensitivity computation : use direct formula : -100*Rho/(Theoretical + Accrued coupon)
+         
+
+Fixed bug :
+-----------
+
++ Case 00678064 : Price Historizer : Prix en Pourcentage des titres amoritissables
+
++ Case 00680303 et 00680133 : On ne passe plus par la user colonne "Sensibilité*" pour calculer la sensibilité d'un bond. On utilise directement la formule -100*Rho/(Theo + Accrued coupon)
+                              Par conséquent, le problème de la colonne sensibilié à 0 est résolu dans cette version.
+
+
+Version 1.0.0.3 :
+===================
+Delivery date (YYYYMMDD): 20120404	
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+
+Version 1.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20120229	
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+Distinctive feature:
+
+Modifications :
+---------------
+
++ Move CSxISInterfacesInstrumentAction in CFG_SophisISInterfaces.dll (C++ dll) to fix some .Net issues.
+
+
+Version 1.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20120227	
+Source control label:		
+Software version:	412
+Client projects name:
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes => CFG.Sophis.ISInterfacesScript.sql
+Distinctive feature:
+Bug fixed:
+
+
+Installation
+------------
+
++ Installer la dll sur le client et sur le serveur de l'IS.
+
++ Cette dll doit etre déclarées dans le fichier .ini du client et dans le fichier .ini de l'IS comme suit :  
+  
+  [ASSEMBLY_DLL]
+  count = 1
+  dll_0 = CFG.Sophis.ISInterfaces
+
++ Appliquer le script CFG.Sophis.ISInterfacesScript.sql sur la base de données. Ce script se trouve dans le répertoire sql.
+
++ Lancer un client Value et importer la méthode SOA définie dans le fichier SOAMethods/CFG.Sophis.ISInterfaces.SOAMethodsDescription.xml (Menu Data->SOA Methods Designer->Import).
+
++ Paramétrer les universal références "CFGExternalRef", "CFGActionType" et "CFGIntegrStatus" (menu Data->Universal References). Prendre le model "Other reference".
+
++ Redémarrer l'IS
+
+
+New features : 
+--------------
+
++ Initial version.
+
++ Ce toolkit contient un scenario qui s'appelle "Price Historizer". Il est disponible dans le menu MANAGER/USER. 
+
+  Il calcule le prix théorique des bonds, le ytm, le courru, la duration et la sensibilité. Ces données sont stockées dans la table HISTORY dans des colonnes toolkits. 
+
++ Par défaut, le calcul se fait sur l'ensemble des bonds. Il est possible de filtrer sur un sous ensemble de bonds en utilisant le paramètre HistorizationInstrumentsFilter
+  
+  du fichier .ini (cf exemple ci-dessous)
+
++ La date de calcul par défaut est la date Sophis. Il est néanmoins possible de modifier cette cette date via le paramètre HistorizationDate du fichier .ini
+
++ La sensibilité calculée par défaut est celle de la user colonne "Sensibilité*". Attention si le bond n'est pas en position à la date de calcul, 
+  
+  un message d'erreur du type "Invalid argument : Not a known type 5" s'affiche et la valeur stockée pour la sensibilité sera égale à 0.
+  
+  Il est possible de modifier la user colonne utilisée pour le calcul de la sensibilité via le paramètre SensitivityUserColumn du fichier .ini
+  
+
++ Ce toolkit permet également de gérer l'interface référentiel bonds via:
+   
+   - La création de 3 external references : "CFGExternalRef", "CFGActionType" et "CFGIntegrStatus".
+   - La mise en place d'une instrument action qui met à jour les champs CFGActionType et CFGIntegrStatus à chaque modification d'instrument.
+   - CFGActionType = 1 en cas de création d'instrument; 2 en cas de modification.
+   - CFGIntegrStatus est mis à "KO" en cas de création ou de modification afin de permettre aux interfaces de n'extraire que les instruments créés ou modifiés via XML Query message.
+   - Lorsqu'une application tierce consomme un message elle doit déposer un message XML contenant l'ID Sophis du bond, la currency, le champs CFGExternalRef (Reference 
+     de l'instrument dans le système tiers) et CFGIntegrStatus ("OK" ou "KO").
+
+
+
+Parameters :
+------------
+
+[CFG_SOPHIS_IS_INTERFACES]
+HistorizationInstrumentsFilter = SICOVAM in (67603610,67603611,67603629) # Where clause filter for TITRES table
+HistorizationDate = 22/02/2012 # Format of date is DD/MM/YYYY. Default value is Sophis date
+SensitivityUserColumn = Sensibilité* # Default value is "Sensibilité*"

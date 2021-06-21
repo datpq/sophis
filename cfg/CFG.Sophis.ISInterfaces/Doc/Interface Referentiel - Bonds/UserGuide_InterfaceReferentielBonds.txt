@@ -1,0 +1,43 @@
+
+L'interface s'utilise comme suit :
+
++ Pour récupérer la liste des bonds à créer ou à mettre à jour, il faut déposer le fichier ExportCreatedAndModifiedBonds.xml dans le répertoire in
+  
+  de l'intégration service. En cas de succès, un fichier de réponse est créé dans le répertoire out. En cas d'erreur, le fichier de réponse sera
+
+  créé dans le répertoire error ou le répertoire critical.
+
+  En cas de succès, le fichier de réponse contient la description de l'ensemble des bonds à créer ou à mettre à jour dans votre systeme externe.
+
+  Si la référence CfgactionType = 1 => création
+  
+  Si la référence CfgactionType = 2 => Modification
+
+
++ Une fois que vous avez mis à jour votre système externe, il faut mettre à jour les bonds dans Sophis avec la référence des bonds dans le système externe 
+
+  ainsi que le statut d'intégration.
+
+  Le fichier UpdateBonds.xml est un exemple qui contient les 4 scenario possibles :
+
+  1 - Le bond est créé avec succès  (sicovam = 67603610 dans l'exemple).
+
+  2 - Le bond est mis à jour avec succès (sicovam = 67608614 dans l'exemple)
+
+  3 - Le système externe n'a pas réussi à créer le bond (sicovam = 67608621 dans l'exemple)
+
+  4 - Le système externe n'est pas parvenu à mettre à jour le bond (sicovam = 67608630 dans l'exemple)
+
+  Attention à toujours renseigner le champ "CfgactionType" avec la meme valeur que celle du fichier d'export.
+
+
++ Pour récupérer la liste des instruments supprimés, il faut utiliser le fichier ExportDeletedInstruments.xml
+
+
++ Lorsqu'un fichier xml est déposé dans le répertoire in, il faut toujours verifier que le message a été traité avec succès par l'IS (répertoire out, error et critical).
+
+  Il faut également verifier que le message dans le repertoire "out" ne contient pas d'erreurs partielles ("ExportMessageAccepted", "ImportMessageAccepted", 
+
+  "ExportMessagePartiallyAccepted", "ImportMessagePartiallyAccepted").
+
+ 

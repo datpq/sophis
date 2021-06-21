@@ -1,0 +1,16 @@
+Debug
+*.suo
+*.sdf
+*.opensdf
+*_Debug
+Output/
+CFG.Sophis.ISInterfaces/bin/
+*.aps
+.vs/
+CFGAdapter/obj/
+CFGCheck/x64/
+CFGAdapter/x64/
+CFGAdapter/source/CFGAdapterConfiguration/bin/
+CFGAdapter/source/CFGAdapterConfiguration/obj/
+CFGAdapter/CFGAdapter.suo
+CFG_FixedIncome/x64/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ns0:SoaMethodTemplates xmlns:ns0="http://www.sophis.net/reporting">
+
+  <ns0:SoaMethodTemplate ns0:name="CFG_SQLQuery">
+    <ns0:parameters>
+      <ns0:parameter ns0:bind="" ns0:name="SQLQuery"/>
+    </ns0:parameters>
+    <ns0:sources>
+      <ns0:source ns0:name="default0" ns0:type="SQL">
+        <ns0:field ns0:bind="" ns0:name="fUserName"></ns0:field>
+        <ns0:field ns0:bind="" ns0:name="fCryptedPassword"></ns0:field>
+        <ns0:field ns0:bind="" ns0:name="fDBInstance"></ns0:field>
+        <ns0:field ns0:bind="SQLQuery" ns0:name="fSqlRequest"></ns0:field>
+      </ns0:source>
+    </ns0:sources>
+  </ns0:SoaMethodTemplate>
+
+</ns0:SoaMethodTemplates>

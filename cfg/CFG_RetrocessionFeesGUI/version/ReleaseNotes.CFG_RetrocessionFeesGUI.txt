@@ -1,0 +1,106 @@
+Version 2.0.0.1 :
+===================
+Delivery date (YYYYMMDD): 20130227
+Software version:	Value 4.3.2.7
+Client projects name: CFG_RetrocessionFeesGUI
+DLL  ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+-------------
+Toolkit recompiled with version 4.3.2.7
+
+Version 2.0.0.0 :
+===================
+Delivery date (YYYYMMDD): 20121115
+Software version:	Value 4.3.2
+Client projects name: CFG_RetrocessionFeesGUI
+DLL  ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Installation on Server (Yes/No): No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+
+Modification:
+------------------------------------------------
+Toolkit recompiled with version 4.3.2
+
+Version 1.0.1.0 :
+===================
+Delivery date (YYYYMMDD):	20120430
+Source control label:		
+Software version:	4.3.1
+Client projects name:
+Installation on Server (Yes/No):  No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): 
+Parameters:
+
+Modifications :
+---------------
+
+	+ Recompile in 431
+
+Version 1.0.0.1 :
+===================
+Delivery date (YYYYMMDD):	20120404
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+Installation on Server (Yes/No):  No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): 
+Parameters:
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.0.0 :
+===================
+Delivery date (YYYYMMDD):	20120220
+Source control label:		
+Software version:	4.1.2
+Client projects name:
+Installation on Server (Yes/No):  No
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No
+DLL Section in ini file ([DLL]/[ASSEMBLY_DLL]): [ASSEMBLY_DLL]
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion): Initial version
+Parameters:
+
+Installation
+------------
+	
+	+ Dll .Net donc à déclarer dans la section ASSEMBLY_DLL du fichier .ini:
+
+	[ASSEMBLY_DLL]
+	count = 1
+	dll_0 = CFG_RetrocessionFeesGUI
+
+New feartures :
+---------------
+
+	+ Ajout d'un ecran permettant visualiser les résultats des frais de retrocession. Cet ecran est accessible via le scenario "Retrocession Fees Results" 
+	se trouvant dans le menu Manager ou User.
+
+	+ Possibilité de visualiser le détail des calculs lorsque l'on double clique sur une ligne.
+
+	+ Possibilité de faire un copier/coller des résultats dans excel.
+
+	+ Possibilité d'effectuer des tris sur les colonnes.
+
+	+ Possibilité d' effectuer des groupements sur plusieurs colonnes et de visualiser les résultats sous forme hierarchique.
+ 

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(ToolkitPath)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\source\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="Source\CSxCustomMenu.cpp" />
+    <ClCompile Include="Source\CSxManagementFees.cpp" />
+    <ClCompile Include="Source\CSxManagementFeesGUI.cpp" />
+    <ClCompile Include="CFG_ManagementFeesMain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\CFG_ManagementFees.txt" />
+    <Text Include="Version\ReleaseNotes.CFG_ManagementFees.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Source\CFG_ManagementFeesExports.h" />
+    <ClInclude Include="Source\Constants.h" />
+    <ClInclude Include="Source\CSxCustomMenu.h" />
+    <ClInclude Include="Source\CSxManagementFees.h" />
+    <ClInclude Include="Source\CSxManagementFeesGUI.h" />
+    <ClInclude Include="Version\CFG_ManagementFeesVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_ManagementFeesVersion.rc2" />
+    <None Include="SQL\CFG_ManagementFeesScript.sql" />
+    <None Include="SQL\CFG_ManagementFeesScript_1.0.0.0_To_1.1.0.0.sql" />
+    <None Include="SQL\CFG_ManagementFeesScript_2.0.1.0_To_2.0.2.0.sql" />
+    <None Include="SQL\CFG_ManagementFeesScript_3.0.0.2_To_3.0.0.3.sql" />
+    <None Include="SQL\Rollback_CFG_ManagementFeesScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_ManagementFees.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{87cf8f3b-e822-48d5-ac89-8660fab64e17}</ProjectGuid>
+    <ProjectName>CFG_ManagementFees</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Misys.cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Sophis.lib;SophisTools.lib;SophisRiskTools.lib;SophisAssetManagement.lib;SophisAssetManagementGUI.lib;SophisPortfolioGUI.lib;SophisDBC.lib;SophisAPI.lib;SophisFundBase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">copy "$(TargetDir)$(TargetName)$(TargetExt)" "$(ProjectDir)..\Output\"
+copy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\Output\"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

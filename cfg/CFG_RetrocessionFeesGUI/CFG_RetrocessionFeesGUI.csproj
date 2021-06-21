@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{306F2B88-70DF-48B6-909C-B8211070D361}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CFG_RetrocessionFeesGUI</RootNamespace>
+    <AssemblyName>CFG_RetrocessionFeesGUI</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\VOBToolkitMisc\SophisKey\SophisKey.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v18.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\DevExpress.Data.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v18.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\DevExpress.Utils.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v18.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\DevExpress.XtraEditors.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v18.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\DevExpress.XtraGrid.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(Repository64)\Oracle.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Sophis.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core.Data">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Core.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Windows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DotNetCore">
+      <HintPath>$(ToolkitPath)\..\..\Sophis.DotNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\SophisDotNetToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitGUI">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\SophisDotNetToolkitGUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetValue">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\SophisDotNetValue.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisGuiCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\SophisGuiCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisWcfFramework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\SophisWcfFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows.Widgets">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Windows.Widgets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows.Widgets.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Windows.Widgets.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CFG_RetrocessionFeesGUIMain.cs" />
+    <Compile Include="CSxRetrocessionFeesGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CSxRetrocessionFeesGUI.Designer.cs">
+      <DependentUpon>CSxRetrocessionFeesGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CSxRetrocessionFeesResultsGUIScenario.cs" />
+    <Compile Include="CSxRetrocessionFeesResultsHandler.cs" />
+    <Compile Include="CSxRetroFeesDetailedResultsGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CSxRetroFeesDetailedResultsGUI.Designer.cs">
+      <DependentUpon>CSxRetroFeesDetailedResultsGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL\CFG_RetrocessionFeesGUIScript.sql" />
+    <Content Include="SQL\Rollback_CFG_RetrocessionFeesGUIScript.sql" />
+    <Content Include="version\ReleaseNotes.CFG_RetrocessionFeesGUI.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CreateDeploymentPackage.bat" />
+    <None Include="..\..\..\VOBToolkitMisc\SophisKey\SophisKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CSxRetrocessionFeesGUI.resx">
+      <DependentUpon>CSxRetrocessionFeesGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CSxRetroFeesDetailedResultsGUI.resx">
+      <DependentUpon>CSxRetroFeesDetailedResultsGUI.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>rem call "$(ProjectDir)"\CreateDeploymentPackage.bat $(TargetName) $(ProjectName) "$(TargetDir)" $(ConfigurationName) "$(ToolkitPath)"
+copy "$(TargetDir)$(TargetName)$(TargetExt)" "$(ProjectDir)..\Output\"
+copy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\Output\"
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

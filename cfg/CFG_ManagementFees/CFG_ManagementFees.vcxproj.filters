@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ecbab7f4-4484-411f-8f9e-948b58afe705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{5397fd48-cdee-4a09-9432-961cf5c9b004}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{9181650c-9992-41eb-a95f-e8509ec6fb0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{e270be72-ed27-4b2a-b41a-fb4ae6b58e53}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="Source\CSxCustomMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxManagementFees.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSxManagementFeesGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_ManagementFeesMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\CFG_ManagementFees.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.CFG_ManagementFees.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Constants.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxCustomMenu.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxManagementFees.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CSxManagementFeesGUI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\CFG_ManagementFeesVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CFG_ManagementFeesExports.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\CFG_ManagementFeesVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_ManagementFeesScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\CFG_ManagementFeesScript_1.0.0.0_To_1.1.0.0.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\CFG_ManagementFeesScript_2.0.1.0_To_2.0.2.0.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\CFG_ManagementFeesScript_3.0.0.2_To_3.0.0.3.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_ManagementFeesScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_ManagementFees.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

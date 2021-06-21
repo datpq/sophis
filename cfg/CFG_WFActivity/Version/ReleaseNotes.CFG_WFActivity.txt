@@ -1,0 +1,119 @@
+Version 1.0.0.6 :
+===================
+
+Delivery date (YYYYMMDD):	20120518
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 18
+
+Version 1.0.0.5 :
+===================
+
+Delivery date (YYYYMMDD):	20120515
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 17
+
+Version 1.0.0.4 :
+===================
+
+Delivery date (YYYYMMDD):	20120404
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Modifications :
+---------------
+
+	+ recompile toolkit with patch 16
+
+Version 1.0.0.3 :
+===================
+
+Delivery date (YYYYMMDD):	20120322
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Bug fix :
+---------
+Cash account not found with fund
+
+
+Version 1.0.0.2 :
+===================
+
+Delivery date (YYYYMMDD):	20120131
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Bug fix :
+---------
+Order property not updated with multi allocation
+
+
+Version 1.0.0.1 :
+===================
+
+Delivery date (YYYYMMDD):	20121027
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Bug fix :
+---------
+Load the main extraction in the activity
+
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	20121013
+Software version:	4.1.2.12
+Installation on Server: Yes
+Installation on Client: No
+SQL Script: No
+Client projects name: CFG_WFActivity
+Language: C#
+
+Creation :
+------------
+
+cf Specification : CFG Gestion - Fix Toolkit v1.2.doc
+
+The activity is to added into Order Workflow by using SophisWorkflowDesigner. To enhance flexibility of implementation 
+several properties are to set in the activity:
+
+1) CashAccount : Name of order property for cash account
+2) FundCode : Name of order property for fund code
+3) CFGGestionFundCode : Default fund code in case of multiple allocations
+4) CurrencyCode : Currency ISO Code of cash account (MAD/EUR/...)
+

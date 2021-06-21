@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="CreateDeploymentPackage.bat" />
+    <None Include="Resource\CFG_FundInvestorAccountsVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SQL\CFG_Delete_Client.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\CFG_Delete_FundInvestorAccounts.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\CFG_FundInvestorAccountsScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_CFG_FundInvestorAccountsScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\Rollback_FundInvestorAccountsScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\CFG_FundInvestorAccounts.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.CFG_FundInvestorAccounts.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{1c251415-6e88-48e2-ad18-d5cba37507df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample">
+      <UniqueIdentifier>{4b4bd719-0707-4b98-b76d-bf6cebe11d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="schema">
+      <UniqueIdentifier>{bb67abd0-d543-419a-837f-569bab4c1d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{e3b7ab04-1520-4a72-95a3-e56532627327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{8b4602a2-4530-4fca-bd79-3fbbe09c6c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{2f660669-bd31-4993-9e2d-58e56db5149a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\CFG_FundInvestorAccounts.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFGFundInvestorAccountHandler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\CFG_FundInvestorAccountsVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="sample\FundInvestorAccount.xml">
+      <Filter>sample</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CFG_FundInvestorAccountsMain.cpp" />
+    <ClCompile Include="CFGFundInvestorAccountHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entrypoint.cpp" />
+  </ItemGroup>
+</Project>
