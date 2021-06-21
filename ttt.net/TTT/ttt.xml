@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTttTransformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TttTransformation>
+    <name>ThirdPartyName</name>
+    <label>ThirdParty Names</label>
+    <category>Third Parties</category>
+    <templateFile>Import_ThirdParty_names.xml</templateFile>
+    <columns>
+      <TttColumn>
+        <name>Reference</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'reference')]/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Name</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'name')]/text()</string>
+          <string>//*[local-name() = 'partyName']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Location</name>
+        <isRequired>false</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'location']</string>
+        </destPaths>
+      </TttColumn>
+    </columns>
+  </TttTransformation>
+  <TttTransformation>
+    <name>ThirdPartyEntity</name>
+    <label>ThirdParty Entities</label>
+    <category>Third Parties</category>
+    <templateFile>Import_ThirdParty_Enty.xml</templateFile>
+  </TttTransformation>
+  <TttTransformation>
+    <name>Share</name>
+    <label>Share</label>
+    <category>Instruments</category>
+    <templateFile>Import_Share.xml</templateFile>
+    <columns>
+      <TttColumn>
+        <name>Reference</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'identifier']/*[local-name() = 'reference'][@*[local-name() = 'name'] = 'Reference']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Name</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'share']/*[local-name() = 'name']/text()</string>
+        </destPaths>
+      </TttColumn>
+    </columns>
+  </TttTransformation>
+  <TttTransformation>
+    <name>YieldCurve</name>
+    <label>Yield Curve</label>
+    <category>Market Data</category>
+    <templateFile>importYieldCurve.xml</templateFile>
+    <repeatingRootPath>//*[local-name() = 'points']</repeatingRootPath>
+    <repeatingChildrenPath>//*[local-name() = 'points']/*[local-name() = 'point']</repeatingChildrenPath>
+    <columns>
+      <TttColumn>
+        <name>CURVE_NAME</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'name']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>MARKET_FAMILY</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'family']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>CURVE_DATE</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>true</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'date']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>CURVE_YIELD</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>true</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'yield']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>CURVE_ISBOND</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>true</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'isBond']/text()</string>
+        </destPaths>
+      </TttColumn>
+    </columns>
+  </TttTransformation>
+  <TttTransformation>
+    <name>Benchmark</name>
+    <label>Benchmark</label>
+    <category>Instruments</category>
+    <templateFile>Import_Benchmark.xml</templateFile>
+    <repeatingRootPath>//*[local-name() = 'standardComponents']</repeatingRootPath>
+    <repeatingChildrenPath>//*[local-name() = 'instrumentStdComponent']</repeatingChildrenPath>
+    <columns>
+      <TttColumn>
+        <name>Reference</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'identifier']/*[local-name() = 'reference'][@*[local-name() = 'name'] = 'Sophisref']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Name</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'name']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Currency</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'currency']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Market</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'market']/*[local-name() = 'sophis']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Definition_type</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'definitionType']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Is_drifted</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'drifted']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Pricing</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'pricingMethod']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Hedge_ratio</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'hedgeRatio']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Record_date</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'recordDate']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Return_computation</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'standardComposition']/*[local-name() = 'useComponentsReturn']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Cash_computation</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'standardComposition']/*[local-name() = 'includeCashSinceRecordStart']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Resize</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'standardComposition']/*[local-name() = 'resize']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Resize_to</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>false</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'standardComposition']/*[local-name() = 'resizingType']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Instrument</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>true</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'instrumentStdComponent']/*[local-name() = 'instrument']/*[local-name() = 'sophis']/text()</string>
+        </destPaths>
+      </TttColumn>
+      <TttColumn>
+        <name>Weight</name>
+        <isRequired>true</isRequired>
+        <isRelativeToRootNode>true</isRelativeToRootNode>
+        <destPaths>
+          <string>//*[local-name() = 'instrumentStdComponent']/*[local-name() = 'weight']/text()</string>
+        </destPaths>
+      </TttColumn>
+    </columns>
+  </TttTransformation>
+</ArrayOfTttTransformation>

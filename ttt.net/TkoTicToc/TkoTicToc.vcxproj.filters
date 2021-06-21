@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{4fd58b71-2045-4a12-8dfd-787f3e831369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{01432cb8-b886-4d50-ab21-35664ed943e9}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{82c19d6c-be3d-4de9-b84e-cef6a998284f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TkoTicTocMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="CriteriumIndicator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.TkoTicToc.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\TkoTicToc.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\TkoTicTocVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriumIndicator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_TkoTicTocScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\TkoTicTocScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\TkoTicTocVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\TkoTicToc.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

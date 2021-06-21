@@ -1,0 +1,15 @@
+TTT/bin/
+TTT/obj/
+.vs/
+packages/
+*.suo
+*.user
+TKO.Benchmark/bin/
+TKO.Benchmark/obj/
+TKO.Indicator/obj/
+TKO.Indicator.Batch/bin/
+TKO.Indicator.Batch/obj/
+TKO.Indicator/output/
+*.opensdf
+*.sdf
+TkoTicToc/output/
