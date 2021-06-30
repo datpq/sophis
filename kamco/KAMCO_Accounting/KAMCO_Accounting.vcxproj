@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(Toolkit_i721_x64)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis_7.2.1 -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\VOBRisk\Risk\sources\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="ToDoIfInstrumentQuotation.cpp" />
+    <ClCompile Include="KAMCO_AccountingMain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\KAMCO_Accounting.txt" />
+    <Text Include="Version\ReadMe.txt" />
+    <Text Include="Version\ReleaseNotes.ToolkitKAMCO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="ToDoIfInstrumentQuotation.h" />
+    <ClInclude Include="Version\KAMCO_AccountingVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\KAMCO_AccountingVersion.rc2" />
+    <None Include="SQL\Rollback_KAMCOAccountingScript.sql" />
+    <None Include="SQL\KAMCO_AccountingScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\KAMCO_Accounting.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EffStdLib\EffStdLib72.vcxproj">
+      <Project>{d2a41e7e-011b-48d7-8216-d80d9da0e44a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{30C31B5F-D376-4B62-AF1B-19BE0B15D94C}</ProjectGuid>
+    <ProjectName>KAMCO_Accounting</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Misys.cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SophisIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4945;4251;4250;4273;4714;4634;;4633;4351;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Sophis.lib;SophisTools.lib;SophisRiskTools.lib;SophisAccounting.lib;SophisBackOfficeKernel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

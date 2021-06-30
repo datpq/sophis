@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{89e9cb6b-7b8e-4b9b-9147-a2f96e065cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{0aafec91-2a78-4b4c-90e1-de9fc78ca055}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{fd450b46-6b87-4b9e-ac9c-125300471f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="accounting">
+      <UniqueIdentifier>{35155dd3-2994-4714-a4c9-8d21386680ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="ToDoIfInstrumentQuotation.cpp">
+      <Filter>accounting</Filter>
+    </ClCompile>
+    <ClCompile Include="KAMCO_AccountingMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.ToolkitKAMCO.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\KAMCO_Accounting.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToDoIfInstrumentQuotation.h">
+      <Filter>accounting</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\KAMCO_AccountingVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\KAMCO_AccountingScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\Rollback_KAMCOAccountingScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\KAMCO_AccountingVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\KAMCO_Accounting.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
