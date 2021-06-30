@@ -1,0 +1,162 @@
+@echo on
+
+call SI_env_WRITE.bat
+
+call %ROOT%\bin\horodatage.bat
+
+set SIMU=%1
+if not "%SIMU%" == "" (
+  set SI_ENV=SIMULATION
+)
+
+set OUTPUT_FILE_MAIL_CONTENT=Report_Mail_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.html
+set OUTPUT_FILE_MAIL_SUMMARY=Report_Mail_Summary_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.html
+set OUTPUT_FILE_REPORT_NATIXIS_MILAN=Report_NATIXIS_MILAN_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+set OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC=Report_NATIXIS_MILAN_DRV_OTC_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+set OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST=Report_NATIXIS_MILAN_DRV_LST_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+
+set LOG_FILE=logs\TTF_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+set ERR_FILE=logs\TTF_err_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+
+REM -------------------
+REM Mail
+REM -------------------
+set MAIL_FROM=BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com 
+set MAIL_REPLY_TO=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_TO=LD-M-TTF-PROCESS@natixis.com
+set MAIL_TO=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_TO=qdpham@exchange.cmi.net
+set MAIL_CC=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_CC=qdpham@exchange.cmi.net
+set MAIL_SUBJECT=[%SI_ENV%][TTF.IT]
+rem set MAIL_CONTENT=
+set MAIL_SUMMARY_TO=LD-M-TTF-REPORT@natixis.com
+set MAIL_SUMMARY_TO=bertrand.guilloteau@natixis.com
+set MAIL_SUMMARY_TO=qdpham@exchange.cmi.net
+set MAIL_SUMMARY_CC=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_SUMMARY_CC=qdpham@exchange.cmi.net
+rem set MAIL_SUMMARY=
+
+set PATH_ROOT=D:\TTF
+pushd %PATH_ROOT%
+
+for /F "tokens=1 skip=1" %%i IN ('sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_get_date_parameter.sql') do set DATE_PARAMETER=%%i
+echo parametre de date : [%DATE_PARAMETER%] >> %LOG_FILE%
+
+REM --------------------
+REM MANUAL LAUNCH
+set DATE_PARAMETER=20130703
+REM --------------------  
+
+echo Starting TTF >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -msg:"Declaration de la TTF" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]Begin"
+
+if not "%SIMU%" == "" (
+  echo Starting Simulation >> %LOG_FILE%
+  sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_simu_begin.sql 1>>%LOG_FILE% 2>>%ERR_FILE%
+  if NOT %errorlevel% == 0 (
+  	GOTO WHEN_ERROR
+  )
+)
+
+rem GOTO WHEN_SUMMARY
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_run.sql %DATE_PARAMETER% IT output\%OUTPUT_FILE_MAIL_CONTENT% "%SIMU%" 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem set mail content
+rem for /F "delims=" %%i in (output\%OUTPUT_FILE_MAIL_CONTENT%) do set MAIL_CONTENT=!MAIL_CONTENT! %%i
+
+echo TTF finished >> %LOG_FILE%
+
+rem in simulation mode, do not produce the depositaire report
+if not "%SIMU%" == "" (
+    GOTO WHEN_SUMMARY
+)
+
+echo Generating declaration natixis milan >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_report_natixis_milan.sql %DATE_PARAMETER% output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem Add space at the end of each line from the 2nd line
+for /f "tokens=*" %%A in (output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN%) do (
+  set line=%%A
+  if "!line:~-1!" == ";" (
+    echo !line! >> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN%
+  ) else (
+    echo !line!>> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN%
+  )
+)
+move /Y output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN% output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN%
+
+echo Generating declaration natixis milan (Derivatives OTC) >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_report_natixis_milan_drv.sql %DATE_PARAMETER% 2 output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem Add space at the end of each line from the 2nd line
+for /f "tokens=*" %%A in (output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC%) do (
+  set line=%%A
+  if "!line:~-1!" == ";" (
+    echo !line! >> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC%
+  ) else (
+    echo !line!>> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC%
+  )
+)
+move /Y output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC% output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC%
+
+echo Generating declaration natixis milan (Derivatives LISTE) >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_report_natixis_milan_drv.sql %DATE_PARAMETER% 4 output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem Add space at the end of each line from the 2nd line
+for /f "tokens=*" %%A in (output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%) do (
+  set line=%%A
+  if "!line:~-1!" == ";" (
+    echo !line! >> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%
+  ) else (
+    echo !line!>> output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%
+  )
+)
+move /Y output\TEMP_%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST% output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%
+
+:WHEN_SUMMARY
+echo Generation of summary mail >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_summary_IT.sql %DATE_PARAMETER% output\%OUTPUT_FILE_MAIL_SUMMARY% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem set mail summary content
+rem for /F "delims=" %%i in (output\%OUTPUT_FILE_MAIL_SUMMARY%) do set MAIL_SUMMARY=!MAIL_SUMMARY! %%i
+
+if not "%SIMU%" == "" (
+  echo End Simulation >> %LOG_FILE%
+  sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_simu_end.sql 1>>%LOG_FILE% 2>>%ERR_FILE%
+  if NOT %errorlevel% == 0 (
+  	GOTO WHEN_ERROR
+  )
+)
+
+echo TTF finished without error >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -html -file:"output\%OUTPUT_FILE_MAIL_CONTENT%" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]End" -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN% -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC% -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_SUMMARY_TO% -cc:%MAIL_SUMMARY_CC% -html -file:"output\%OUTPUT_FILE_MAIL_SUMMARY%" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]Compte rendu"
+popd
+exit /B
+
+:WHEN_ERROR
+echo TTF exited on error >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -html -file:"output\%OUTPUT_FILE_MAIL_CONTENT%" -s:"[ERROR]%MAIL_SUBJECT%[%DATE_PARAMETER%]" -a:%LOG_FILE% -a:%ERR_FILE% -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN% -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_OTC% -a:output\%OUTPUT_FILE_REPORT_NATIXIS_MILAN_DRV_LST%
+popd
+exit /B

@@ -1,0 +1,332 @@
+mstsc /v:mssirc01 /admin
+ssh usiadmin@mssaubion
+pass: usiadmin
+cd .rec
+vi cronfile
+cron_start
+
+RECETTE
+unix: mssaubion
+Login : cib\app-rec-sibo
+Password :S0phi$B@ckRe7!
+ativoy36
+\\cib.net\shareparis\Soft\SOPHIS_EQUITY\EUROPE\RECETTE\LOGIN_MOA\CDCUSER@OR_TP_SO
+/mssaubion/appli/si/in/uv/sbin
+
+PROD:
+oasys, extraction: \\Mssipdboma01\D\extractions\ (batchsibo)
+mssipdbosv01 mssipdbosv02 mssipdbosv03 mssipdbosv04
+mssipdbo01 (DirectoryWatcher) mssipdbo02 (CMA, sipdbopnl) mssipdboma01 mssipdboma02
+MSSIPDBO02 devient le serveur principal et la synchro se fera de MSSIPDBO02 vers MSSIPDBO01
+Batchsibo --> mssipdboma01
+MSSIPDBO04, MSSIPDBO02, mssipdbo03, mssipdbo04
+Sipdbopnl --> mssipdbo02/mssipdbo01
+Sibosrvprod --> mssipdbosv01
+Sibobrprod --> mssipdbosv03
+/msoptus/appli/si/in/xv/sbin
+
+PREX:
+unix: /mstangente/appli/si/in/pv/jars1.6 (macac01 .macac01)
+Batch/CMA/moulinettes/service back :Mssipxbo01
+Services Back :                         mssipxbosv01
+
+CITRIX: mssirccxap01, mssirccxeu01, mssirccxeu02, mssirccxeu04, mssirccxap04
+ASIE : \\cib.net\shareparis\Salle\Softs\ECDA\PREX\EQUITY\CITRIX_ASIE\Toolkit
+EUROPE : \\cib.net\shareparis\Salle\Softs\ECDA\PREX\EQUITY\CITRIX_EUROPE\Toolkit
+
+Recette :
+\\cib.net\shareparis\Salle\Softs\ECDA\RECETTE\EQUITY\CITRIX_MAIN_CURRENT_VERSION
+\\cib.net\shareparis\Salle\Softs\ECDA\RECETTE\EQUITY\INFRAS_MAIN_CURRENT_VERSION
+
+SAS niveau 2
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\CS\CSEUROPE\Toolkits
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\ExplicationPNL\Toolkits\EUROPE
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\GenericFramework\ABS
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\GenericFramework\GFK
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\ISTS\Toolkit
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\SOPHIS_BACK\Toolkits
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\TraitementsSatellites\Toolkits\EUROPE
+\\cib.net\shareparis\Soft\ECDA\PROD\VIP\Toolkits
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\CS\CSASIA\Toolkits
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\ExplicationPNL\Toolkits\ASIA
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\TraitementsSatellites\Toolkits\ASIA
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\CITRIX_EUROPE\Toolkit
+\\cib.net\shareparis\Soft\ECDA\PROD\EQUITY\CITRIX_ASIE\Toolkit
+
+Link:
+CITRIX http://citrixemea.cib.net/
+CITRIX ICON: http://msmorsang:81/citrixapp.aspx
+Wiki: http://mscharles.cib.net/pmwiki/pmwiki.php?n=MOESophis.MOESophisBack
+svn: file://cib.net/shareparis/HorsSalle/Pool/Citi/Projets/Sophis_commodities/SophisEquityFront
+raya: \\mwc34753\Projets
+said: \\mwc209126
+yves: \\mwc49792
+waquas: mwc54752
+yazid: mwc240454  DK35514
+armel: mwc238245
+QC: http://qc.cib.net/qcbin/start_a.htm
+WS: http://mssircbosv01/SophisWS/Service.asmx
+machine 64: \\mwc240719\c$ \\dk239675\c$
+machine 32: \\Dk54478\c$ DK266798
+imprimante direct: \\MSTUILERIES\MPC46804
+imprimante virtuel: \\srvprinteq.cib.net
+soft: \\cib.net\shareparis\HorsSalle\soft\Distrib\Development\Visual Studio 2005 Professional Edition
+soft: \\cib.net\shareparis\HorsSalle\Pool\Fmp\Fmp0\FmpOP
+
+DATABASE
+  tnsping or_f3_so pour savoir le host
+import/export
+  http://www.orafaq.com/wiki/Import_Export_FAQ#How_does_one_use_the_import.2Fexport_utilities.3F
+  exp CDCUSER/CDCUSER@OR_B1_SO file=mvt_auto_1.dmp log=mvt_auto_1.log tables=natixis_temp_mvt_auto_1 rows=yes indexes=no
+  exp scott/tiger tables=emp query="where deptno=10"
+  imp CDC/CDC@OR_B2_SO file=mvt_auto_1.dmp full=yes
+  imp scott/tiger file=emp.dmp fromuser=scott touser=scott tables=dept 
+
+Register/Unregister SOPHIS
+sphrisque.exe /regserver
+sphrisque.exe /unregserver 
+
+Directory Sophis:
+\\cib.net\shareparis\HorsSalle\Pool\Citi\Projets\AS\As\sophis
+document sophis: \\cib.net\shareparis\HorsSalle\Pool\Citi\Projets\AS\As\sophis\Archives\Sophis docs
+delivery sophis: \\cib.net\shareparis\Salle\Services\Fme\Fcommun\admin_sophis\sophis\sophis_risk
+user CMA: BCOLLAS
+
+tel PAI: 23935 LD-TIP-BFI-IEC-Actions-CMD-hotline LD-BFI-DSI-PAI-EDA_CMD LD-TIP-APP-BFI-IEC
+tel DBA: 23950 LD-BFI-DSI-PAI-DBA LD-TIP-BFI-BBD-Hotline
+LD-M-EDA0 Maitrise Utilisateurs
+LD-M-CMIB-UBIX --> ClearVision
+dixit: LD-ETU-Referentiel-Dixit
+MOM Tiers --> TiersProperties
+
+HOWTOLivrerToolkits : http://mscharles.cib.net/pmwiki/pmwiki.php?n=MOESophis.HOWTOLivrerToolkits
+
+Livraison:
+Toolkit_IRL, dans Securities Workflow Definition, il faut livrer aussi dans le BOWS
+Si on utilise MOA Post Application, il faut lirer sur Service Back ou utilise le Directory Watcher
+\\cib.net\shareparis\HorsSalle\Pool\Fmp\Fmp0\All\Echange\Bureau_POST
+D:\DirectoryWatcher\Batch_post_model.ini, DirectoryWatcher.ini\Metier_Post
+
+My working:
+Toolkits:
+- Nominal Underlying Amount (amount Compta)
+- Bswap Adjusted Nominal (amount Compta) (recette) (Squall) (TDI 1127)
+- Bswap Current Nominal (amount Compta) (recette) (Squall)
+- Bswap Previous Nominal (amount Compta) (recette) (Squall)
+- Bswap Nominal (amount Compta) (recette) (Squall)
+- SquallAutoSend (condition Documents) (recette) (Squall) (TDI 1127)
+- Positive Adjusted Amount (condition Compta) (recette) (Squall) (TDI 1128) 
+- Negative Adjusted Amount (condition Compta) (recette) (Squall) (TDI 1128)
+- Bswap Crossing (condition Compta) (recette) (Squall)
+- Colonne "Adjustment type" dans Blotters Pending Deals (column GUI) (recette) (Squall) (TDI 1128)
+- Ajout du MvtIdent (CMA)
+- CheckDeal34 (Commun) (19/10/2010)
+- CheckDeal51 (Commun) lot 13838 (19/10/2010)
+- TID n°1101, dates reversal  (Date toolkitée Compta)
+- Section 29A  (Commun SettlementCondition, "Section intermediation PE") (16/11/2010)
+- Is Closing or Commission on REPO block (condition IRL) (TDI 1137)
+- Net Hors Brokers Fees (amount Compta) (TDI 1136)
+- EdarDepositaireTransactionAction (TDI 1154)
+- EdarCheckTRSTransactionAction (Compta) (Squall)
+lot: 17894
+ALTER TABLE TRS_BASKET_ADJUSTMENT ADD ADJUSTED_NOMINAL NUMBER;
+COMMENT ON COLUMN TRS_BASKET_ADJUSTMENT.ADJUSTED_NOMINAL IS 'Current Notional of the TRS basket';
+lot: ???? (no need, affectation was already created in prod)
+Insert into affectation
+(ident,libelle,compta,actif_passif,cmpt_revenu,cmpt_interet,cmpt_plusvalues,cmpt_moinsvalues,cmpt_actif,position_creation) 
+values('010', 'TRS', 0, 0, 0, 0, 0, 0, 0, 'Counterpart in same line');
+lot: 17960
+delete from cdc_bo_code_produit where affectation = 10;
+insert into cdc_bo_code_produit(affectation, swap, code, famille,comm,famacc,produit_actimize,sous_produit_actimize)
+values (10,'Y','TRSQU ',2, 'TRS', '','FI','OFI');
+lot: 19627 
+update affectation set otc = 1 where ident = 10  
+- InstructionBuilder "BO Settled" and "BO Settled with SETT on NETD" (TDI 1149) (IRL)
+- CMA multi-entite, min fee (lot: 18885, 19395)
+- CMA USERID INITIATEUR, Code SEDOL et Type Valeur
+lot 19856
+ALTER TABLE CMA_RPT_OPERATIONS ADD (USERID_INIT VARCHAR2(40 BYTE), SEDOL VARCHAR2(50 BYTE), TYPEVAL VARCHAR2(1 BYTE));
+lot ?
+CREATE OR REPLACE VIEW CDC.NATIXIS_INTERN_CPTY_MVTS_VIEW AS
+    select h.*
+    from histomvts h
+    join tiers ti on ti.ident = h.entite
+    join tiersproperties tp on tp.code = h.contrepartie
+        and tp.name = 'Rattachement'
+        and decode(ti.reference, 'CDCM', 'CCBPPA', ti.reference ) = decode(tp.value, 'CDCM', 'CCBPPA', tp.value )
+    join tiersproperties tp1 on tp1.code = h.contrepartie
+        and tp1.name = 'RL Externe'
+        and tp1.value = '0'
+;
+
+toolkit_irl;
+fonction REAL_SICO_ON_REPO, lot 21843
+lancer la requete min_fee après la factu
+
+Extraction:
+- SSI (recette)
+- Rappros courtiers (RapproPrematChevreux_Europe_post) (recette)
+- ScanRecettes (scheduled task at 1h weekdays, MSSIRCBOMA01, mail received at about 6h)
+Alert mail:
+- DiffSAS JOB: PSI_DBATCH_DIFSAS, XSI_DBATCH_DIFSAS           
+Batch:
+- Nouvelle architecture des moulinettes (WebService --> .NET Remoting) (recette)
+
+DOS
+/V:ON   Active l'expansion retardée des variables d'environnement en
+        utilisant ! comme délimitation.
+        Par exemple, /V:ON permet à !var! de développer la variable var à
+        l'exécution. La syntaxe var développe les variables lorsqu'elles sont
+        entrées, ce qui est différent lorsque utilisé à l'intérieur d'une
+        boucle FOR.
+/V:OFF  Désactive l'expansion retardée des variables d'environnement.
+IMPORTANT: Job BillingGenerator_Q et TTF use the commande line: cmd /V:ON /C D:\TTF\bat\ttf.bat
+
+Astreinte:
+verifier si AL s'est terminé
+select count(*) from account_posting a where A.GENERATION_DATE > trunc(sysdate) - 1 + 21/24 and rule_type = 4
+exec STATS_ACCOUNT_POSTING
+exec STATS_ACCOUNT_POSTING_NO_HIST
+update ACCOUNT_POSTING set status=status+50 where id in ();
+/msoptus/product/ag6optus/ctm/sysout
+/msoptus/appli/si/in/xv/sbin/XSIINCRESR
+/msoptus/appli/si/in/cft/SICCCREI.done (CFT sent)
+à 18h50
+  /msoptus/appli/si/in/cft/SISISLIB.done
+  /msoptus/appli/si/in/xv/external/input/north2slib/done
+lance AC, AL
+/mssaubion/appli/si/in/dv/compta/output
+/mssaubion/appli/. .y.sh  (__x __r)
+/usr/ucb/ps -aguxwww | grep DTQ
+job XSI_DEXTRAC_CRE_SOFA compta
+  select count(*) from CDC_BO_CRECRI_CFT 
+  where dtgen >=to_date('20110602','YYYYMMDD') and  dtgen < to_date('20110602','YYYYMMDD') +1
+  and remett ='SOFA' and type ='CRE';
+TicketAuto:
+select * from natixis_batches_log where dt > trunc(sysdate) and logger not like '%FX%'
+select * from natixis_post_event where dt_demande >= trunc(sysdate) + 12/24 and status = 1; (status = 1 erreur, 2 ok)
+select * from natixis_post_event where dt_demande between to_date('201109272100','YYYYMMDDHH24MI') and to_date('201109272350','YYYYMMDDHH24MI')  ;
+SELECT * FROM NATIXIS_TA_STEP WHERE vacation IN ('RUNNING', '21H', '12H', 'WAIT', 'SKIP');
+UPDATE NATIXIS_TA_STEP SET step = step + 1 WHERE vacation = '21H';
+INSERT INTO NATIXIS_TA_STEP VALUES ('WAIT', 12, 'TICKETAUTO_21H', NULL);
+INSERT INTO NATIXIS_TA_STEP VALUES ('21H', 11, '', NULL); //current step 
+DELETE FROM NATIXIS_TA_STEP WHERE vacation = 'RUNNING';
+ratrapage 21H --> 12H
+  ajouter une ligne en plus pour les dividendes
+	<Script type="sqlplus" 	
+		name="2te_dividende"  	vacation="12H;" 
+		filename="D:\TicketAuto\sql\2te_dividende.sql" param=" #yyyyMMdd@-1#" />
+Bonjour,
+Le processus sphrisque_ta.exe n’a pas rendu la main, pouvez-vous le killer sur le serveur de PROD batchsibo ?
+Il faut ensuite relancer le job des TA07H depuis ctrl-M de PROD (la table de pilotage a été mise à jour).
+
+Merci.
+Dat
+
+job group: XSIIN
+Services back et descente unix:
+/msoptus/appli/si/in/logs confDispatcher.log, DTQReturn.log, PasReturn.log
+\\mssipdbosv01\D\BOServices\sophis
+\\mssipdbosv01\D\product\orbacus\inst\cosnotify-2.1.1
+
+
+Lancement le forcast
+  1\ modifier le fichier de configuration des tickets auto en PREX (\\Mssipxbo01\D\TicketAuto\config\TicketAuto.xml) :
+  Ligne 203, remplacer 
+  filename="sphrisque" param="-UEOD_PREV -E -P+1:NUA" />
+  Par 
+  filename="sphrisque" param="-UEOD_PREV -E -P+0:NUA" />
+  2\ Lancer ensuite les tickets auto TA21H sur la PREX (\\Mssipxbo01\D\TicketAuto\bat\ticketauto_21H.bat) 
+  3\ Après le traitement, rétablir la valeur d’origine dans le fichier de configuration.
+
+
+
+JOBS:
+NodeID: batchsibo
+Basket Trading :          PSIBABASKET
+Swapswire :                 XSIBA --> XSIBAVASW  
+ValueDateUpdate :      PSIBAVLDT
+Exercise no exercise :   PSIINNEXS
+BOWAIT DIVIDENDE: PSI_DEXTRACT_CRE_SODA\PSIDexc001
+DENOUEMENT INSTRUCTIONS NETTEES: XSIDdin010
+Extractions deals non validés: SI_SOPHIS_BACK / XSI_DEXTRAC_DLSSCPTA / XSIDxdwc010  (run_DealsSansCompta.bat)
+SI /  SI_SOPHIS_BACK  / PSI_DEXTRAC_CRE_SODA   (au Plan du Jour).
+OASYS2SOPHIS
+XSI_DOWNUP_OASYS 
+ *** Job Bows = XSI_DDELIVE_TKSIBO
+ *** Job des services Back= XSI_DMAINT_SIBO
+ *** job Citrix = XSI_DDEPLOY_CXAP_TRA et  XSI_DDEPLOY_CXEU
+FACTU:
+Validation des deals internes:
+\\Batchsibo\d\Batch\Applications\ValueDateUpdate\go_mvt_updater_prod.cmd
+factu create a file csv in : \\cib.net\ShareParis\HorsSalle\Pool\Fmp\Fmp55\All\CommissionSophis
+moved to --> \\Batchsibo\d\Batch\Input\ValueDateUpdate
+moved to --> \\Batchsibo\d\Batch\Histo\ValueDateUpdate\
+log: \\Batchsibo\d\Risque\log\Batch_DU.* 
+SI->XSIBA->go_mvt_updater_prod.cmd
+SI_SOPHIS_BACK->XSI_MFACTU_LIVR
+Fin de la chaine factu: XSIMfct_2JM_05H_3
+XSI_DBATCH_BILLGEN07H_MONTHLY --> FACTU MENSUELLE
+PSI_DBATCH_DFAR_COL --> DFAR fichier sentry, Collateralization
+
+
+job l’envoi CFT  XSIINCFTZ (envoi MT54X vers CACEIS) : 'LD-M-EDA-SMART@natixis.com'; LD-M-EDA-SMART
+
+Report Control Monitoring 
+USIINIXML : model --> xml
+USIINSUIVI_CT_MONITORING_BO_MODEM_1.6 : xml --> extraction
+
+Descente Unix:
+OpsForward, OpsReturn: Message confirmations (Dérivés listés) --> ClearVision
+USIINPAFD : PasForward Demarrer
+USIINPAFA : PasForward Arreter
+
+ValidAutoOST, Netting, Payment Sender (XSI_DVALID_PAIEOST1 tous les jours à 19h)
+    \\mssircbo02\D\ValidAutoOST: changer la base, service back dans ValidAutoOST.ini
+    /mssaubion/appli/si/in/uv/sbin/USIIN_NETTING_OST : changer la base dans etc/NettingOST.xml
+    \\mssircbo02\D\PaymentSender\RUN_Payment_Sender.bat changer la base dans risk.ini
+
+
+GROUP NT:
+BO: G_FMX_APP_CITRIX_SOPHIS_EQUITY_AP_BACK_PROD
+FO: G_FMX_APP_CITRIX_SOPHIS_EQUITY_AP 
+
+CheckList TicketAuto recette
+- ticketauto_12H.bat (database.xml)
+- TicketAuto.xml (en bonne base, forecast en bonne date, 2te_dividende.sql en bonne date)
+- risk.ini avec bon username/password, très important car il ne prend pas en compte le username/password configuré dans xml
+  (activer debug si besoin)
+- 2pp_postpone_post.sql en bonne date (en modifiant 3 endroits sysdate)
+- 2te_dividende.sql en bonne date (today    varchar(20) := '20111221')
+- toolkit_commun.dll en bonne version (moins important)
+- les post se connecte à la cohérence (batch_ta.ini, batch_ta_ch.ini) if not --> error -> SECConnectionHelper::createChannel() : Error during load of the communication library: (reason: ConnectionFailure : connection refused because database check failed).
+- SELECT * FROM NATIXIS_TA_STEP WHERE vacation IN ('RUNNING', '21H', '12H', 'WAIT', '07H');
+INSERT INTO NATIXIS_TA_STEP VALUES ('WAIT', 4, 'TICKETAUTO_07H', NULL);
+update NATIXIS_TA_STEP set step = step + 1 where vacation = 'WAIT' and name = 'TICKETAUTO_12H'
+UPDATE NATIXIS_TA_STEP SET step = 11 WHERE vacation = '21H';
+
+CheckList CMA
+global.ini is OK ? parameters DmHistorique, SpotTable, ..
+
+CheckList CMA en recette:
+  - etc\env.bat
+  - sql\agreements.sql en bonne date
+  - bin\CMAControler.pl en bonne date
+  Lancer CMA_LIST_GENERATOR.bat, RUN_CMA1.bat, RUN_CMA2.bat 
+
+CheckList Sophis:
+  SET PATH=C:\Oracle_x64_10_2_01\bin;C:\Eda_Dll;C:\Risque_5.3.6.20;C:\Risque_5.3.6.20\schema;%PATH%
+  set PATH_RISQUE=D:\Risque_5.3.6.20\
+  databaseLogin=cdcjm2/cdcjm2@OR_B2_SO
+
+
+CheckList PnL
+  Lancer l:\BOServices\PNL-controller\_env\_modif_env.OP_TP_SI1.cdcuser.bat
+  Vérifier date dans : l:\BOServices\PNL-controller\_env\script_insert_table_pilotage_PNL.sql
+  Vérifier et lancer l:\BOServices\PNL-controller\_env\_insert_PNL_pilotage.OP_TP_SI1.cdcuser.bat
+  Lancer l:\BOServices\PNL-controller\_Nstart_PNLController_AA_SOFA.bat
+  n'attend pas et Lancer l:\BOServices\PNL-controller\_Nstart_PNLController_AA_SODA.bat
+  Vérifier base dans l:\BOServices\suivi_PNL\sqlplus_rec.bat
+  Vérifier date (today et tomorrow) et lancer l:\BOServices\suivi_PNL\Suivi_rec.bat
+  select * from CDC_BO_EXTR_CRECRICRS where dtextr = trunc(sysdate) order by GROUPE_ENTITE
+  

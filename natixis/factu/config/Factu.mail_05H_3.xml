@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+
+<TicketAutoMails>
+
+<!-- Fichier de CONFIG pour les TicketAutomatique                              -->
+<!-- ATTENTION le caractere < doit etre remplacer par &lt;                     -->
+<!-- ATTENTION le caractere & doit etre remplacer par &amp;                    -->
+
+<!-- ATTENTION  liste des Mails par TYPE et destinataires associes             -->
+
+  	<Mail
+	mailSubject="#base# Billing 2DM : #vacation# : BEGIN : #yyyyMMdd_HH:mm#"
+	mailBody =" "
+  mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="BOMOA-SLAB@natixis.com;LD-M-BILLING@exchange.cmi.net;LD-M-TOKYO-BO@exchange.cmi.net;"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;LD-M-HELPDESK-SOPHIS-EQUITY@exchange.cmi.net;"
+	mailAttachement = ";"
+	mailType ="BEGIN"
+	/>
+  	<Mail
+ 	mailSubject="#base# Billing 2DM : #vacation# : ERROR : #yyyyMMdd_HH:mm#"
+	mailBody =""
+  mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+	mailDestCC="BOMOA-SLAB@natixis.com"
+	mailAttachement = ";"
+  	mailType ="ERROR"
+  	/>
+  	<Mail
+	mailSubject="#base# Billing 2DM : #vacation# : WARNING : #yyyyMMdd_HH:mm#"
+    mailBody =""
+  mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+	mailDestCC="BOMOA-SLAB@natixis.com"
+	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\logs\Factu_batches_log.txt;"
+	mailType ="WARNING"
+	/>		
+	
+	<Mail
+	mailSubject="#base# Billing 2DM - Counterparties report : #vacation# : END : #yyyyMMdd_HH:mm#"
+	mailBody ="Please find and perform controls on the enclosed counterparties."
+  mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="BOMOA-SLAB@natixis.com;LD-M-BILLING@exchange.cmi.net;LD-M-TOKYO-BO@exchange.cmi.net;"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;LD-M-HELPDESK-SOPHIS-EQUITY@exchange.cmi.net;"
+ 	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\logs\Factu_batches_log.txt;D:\Factu\output\ReportContreparties.csv"
+	mailType ="END"
+	/>
+	<Mail
+	mailSubject="#base# Billing 2DM - Differences between Explained Amount and Ticket Amount report : #vacation# : END : #yyyyMMdd_HH:mm#"
+	mailBody ="Please find eclosed a list of billing for checking differences betweend Explained Amount and Ticket Amount."
+  mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-M-BILLING@exchange.cmi.net;BOMOA-SLAB@natixis.com;LD-M-HELPDESK-SOPHIS-EQUITY@exchange.cmi.net;"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+ 	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\output\Ecarts_EA_TA.csv"
+	mailType ="END"
+	/>
+
+</TicketAutoMails>

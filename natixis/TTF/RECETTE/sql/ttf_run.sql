@@ -1,0 +1,101 @@
+BEGIN
+    BL.SET_LOG_LEVEL(BL.LOG_DEBUG);
+    TTF.MAIN(to_date('&1', 'YYYYMMDD'), '&2', CASE WHEN '&4' IS NULL THEN 0 ELSE 1 END);
+END;
+/
+
+SET COLSEP '    '
+SET trimout OFF 
+SET FEEDBACK OFF
+SET heading OFF 
+SET verify OFF
+SET space 0 
+SET NEWPAGE 0 
+SET PAGESIZE 0 
+SET trimspool ON
+
+SET WRAP OFF
+SET TRIMOUT OFF 
+SET COLSEP ';'
+SET LINESIZE 2000
+SET ESCAPE '\'
+
+ALTER SESSION SET NLS_NUMERIC_CHARACTERS = ', ';
+
+-- TTF report
+spool '&3';
+
+SELECT '<h3>TTF.&2 - ' || TO_CHAR(ADD_MONTHS(TRUNC(to_date('&1', 'YYYYMMDD'), 'MM'), DECODE('&2', 'FR', 0, -1)), 'MON YYYY') || '</h3>' FROM DUAL;
+
+SELECT '<br><b>Message TTF.&2</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Id</th><th>DateTime</th><th>Message</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    L.ID ||
+    '</td><td>' ||
+    TO_CHAR(L.DT,'YYYY-MM-DD HH24:MI:SS.FF2') ||
+    '</td><td><font color=red>' ||    
+    CAST(L.MSG AS VARCHAR2(500)) ||
+    '</font></td></tr>' 
+FROM BL_LOGS L
+    JOIN BL_LOGS S ON S.ID = BL.GET_OUTPUT_VALUE('BeginLogId')
+    JOIN BL_LOGS E ON E.ID = BL.GET_OUTPUT_VALUE('EndLogId')
+WHERE L.SEVERITY = 'ERROR'
+    AND L.MSG LIKE 'REPORT.%'
+    AND L.ID BETWEEN S.ID AND E.ID 
+    AND L.LOGGER = S.LOGGER
+ORDER BY L.ID;
+
+SELECT '</table><br><b>Message GXML</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Id</th><th>Action</th><th>Type</th><th>Message</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    X.ID ||
+    '</td><td>' ||
+    CAST(EXTRACTVALUE(XMLTYPE(XML), '/Transaction/ACTION') AS VARCHAR2(10)) ||
+    '</td><td>' ||
+    CAST(EXTRACTVALUE(XMLTYPE(XML), '/Transaction/TYPE') AS NUMBER) ||
+    '</td><td><font color=red>' ||
+    CAST(E.MESSAGE AS VARCHAR2(500)) ||
+    '</font></td></tr>' 
+FROM TS_XML_TBL X
+    LEFT JOIN TS_ERROR_TBL E ON E.ID = X.ID
+WHERE X.SYSTEM = 'TTF'
+    AND X.ISDONE = 1
+    AND X.ID BETWEEN BL.GET_OUTPUT_VALUE('BeginGXMLId') AND BL.GET_OUTPUT_VALUE('EndGXMLId')
+ORDER BY X.ID;
+
+SELECT '</table><br><b>Sous-Sections manquantes</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>REFCON</th><th>SOUS-SECTION</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' || H.REFCON || '</td><td>' || FSE.IDENT || '</td></tr>'
+FROM HISTOMVTS H
+    JOIN TITRES T ON T.SICOVAM = H.SICOVAM AND T.TYPE != 'L'
+    JOIN CDC_BO_CODE_PRODUIT CP ON CP.AFFECTATION = T.AFFECTATION AND CP.REF_IDENT IS NULL
+        AND CP.FAMILLE IN (1, 3) -- 1 (ferme) ou 3 (Cessions temporaire)
+    LEFT JOIN HISTOMVTS HREPO ON HREPO.REFCON = CASE WHEN CP.FAMILLE = 3 AND T.TYPE = 'L' THEN H.REFERENCE ELSE NULL END 
+        LEFT JOIN TITRES TREPO ON TREPO.SICOVAM = HREPO.SICOVAM
+    JOIN TITRES TT1 ON TT1.SICOVAM = CASE WHEN CP.FAMILLE = 1 THEN T.SICOVAM ELSE
+        CASE WHEN T.TYPE = 'L' THEN TREPO.CODE_EMET ELSE T.CODE_EMET END END
+        AND TT1.SICOVAM IN (
+            SELECT ERI.SOPHIS_IDENT FROM EXTRNL_REFERENCES_INSTRUMENTS ERI
+                JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'TTF Eligible'
+            WHERE ERI.VALUE = 'FR') -- [UNDERLYING_ID] porte une external references 'FR' 
+    JOIN NATIXIS_FOLIO_SOUSSECTION FSE ON FSE.IDENT = H.OPCVM AND FSE.SECTION != '799' -- not in section simulation
+        AND FSE.ID_FOLIO IS NULL
+WHERE H.DATEVAL BETWEEN TRUNC(to_date('&1', 'YYYYMMDD'), 'MM') - (SELECT TO_NUMBER(VALUE) FROM NATIXIS_GROUP_PARAM WHERE TYPE='TTF' AND KEY='BackValueLag') AND TRUNC(to_date('&1', 'YYYYMMDD'))
+    AND H.DATENEG >= TO_DATE('20120801', 'YYYYMMDD') AND H.DATEVAL >= TO_DATE('20120801', 'YYYYMMDD') -- date d'entrée en vigueur de la TTF
+    AND INSTR(',' || (SELECT VALUE FROM NATIXIS_GROUP_PARAM WHERE TYPE = 'TTF' AND KEY = 'BE selected' AND ENABLED = 1) || ',', ',' || H.TYPE || ',') > 0
+    AND (H.REFCON IS NULL OR H.REFCON NOT IN (SELECT REFCON FROM NATIXIS_TTF_AUDIT)) -- IMPORTANT: use IS NULL to avoid the slowness
+    AND TTF.IS_CTPY_INTRAGROUP_NATIXIS(H.CONTREPARTIE, H.ENTITE) = 0
+    AND H.BACKOFFICE IN (
+        SELECT KSC.KERNEL_STATUS_ID FROM BO_KERNEL_STATUS_COMPONENT KSC
+            JOIN BO_KERNEL_STATUS_GROUP KSG ON KSG.ID = KSC.KERNEL_STATUS_GROUP_ID
+            AND KSG.RECORD_TYPE = 1 AND KSG.NAME = 'All But Pending FO');
+            
+SELECT '</table>' FROM DUAL;
+
+spool off;
+
+/
+EXIT;

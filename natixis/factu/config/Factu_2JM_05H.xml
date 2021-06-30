@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Queries>
+
+  <!-- Fichier de CONFIG pour la Facturation                                     -->
+	<Traitement name="FACTU_05H" libelle="Billing 2DM"/>          
+
+	<Trace  outputFile="D:\Factu\logs\Factu_trace.txt" />
+
+	<Log4j  configFile="D:\Factu\config\log4j.Factu.xml"/>
+
+
+  <!-- "vacations globales disponible en plus : ALL  =toutes les vacations"      --> 
+  <!-- "                                     et DAILY=toutes les vacations xxH"  -->		
+  <!-- "       3600s = 1heure / 14400 = 4heures                               "  -->
+
+	<Param 	listVacations="FA_05H;" 
+		maxStartDelay="3600"
+		maxProcessingDelay="14400"
+		/>
+
+
+  <!-- "liste des scripts a executer" -->	
+  <!-- "rem : si name ="",  le traitement n'est pas pris en charge ..." -->	
+
+	<Exe type="sqlplus" cmd="cmd /c sqlplus.exe " />
+	<Exe type="batch" cmd="cmd /c" />
+	
+  <!-- DEBUT DES ENCHAINEMENTS -->	
+	<Script type="sqlplus" 
+		name="batches_log_1" 	vacation="FA_05H" 
+		filename="D:\Factu\sql\13_Generation_Batches_log_1.sql" param=" #yyyy/MM/dd-HH:mm:ss# D:\Factu\sql\13_Generation_Batches_log_2.sql D:\Factu\logs\Factu_batches_log.txt"/>
+	 
+	<!-- Debut Denouement des tickets -->	
+	<Script type="sqlplus" 	
+		name="tickets_denoues_report" 	vacation="FA_05H" 
+		filename="D:\Factu\sql\03_2jm_05h_TicketsDenoues_report.sql" param=" #yyyyMMdd# D:\Factu\output\maj_dateval_delivery_date.csv"/>
+	<Script type="sqlplus" 	
+		name="tickets_denoues" 	vacation="FA_05H" 
+		filename="D:\Factu\sql\03_2jm_05h_TicketsDenoues.sql" param=" #yyyyMMdd# D:\Factu\logs\03_2jm_05h_ticketsDenoues.txt"/>
+	<!-- Fin Denouement des tickets -->	
+	<Script type="sqlplus" 	
+		name="batches_log_2" 	vacation="FA_05H" 
+		filename="D:\Factu\sql\13_Generation_Batches_log_2.sql" param=""/>
+
+  <!-- Volumetrie attendue : 5 lignes à peu près -->
+
+  <!-- FIN DES ENCHAINEMENTS -->	
+
+
+</Queries>

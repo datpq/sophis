@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+
+<TicketAutoMails>
+
+<!-- Fichier de CONFIG pour les TicketAutomatique                              -->
+<!-- ATTENTION le caractere < doit etre remplacer par &lt;                     -->
+<!-- ATTENTION le caractere & doit etre remplacer par &amp;                    -->
+
+<!-- ATTENTION  liste des Mails par TYPE et destinataires associes             -->
+
+<Mail
+  	mailSubject="#base# BillingGenerator Report : #vacation# : END : #yyyyMMdd_HH:mm#"
+	mailBody ="Please see enclosed the BillingGenerator Report."
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="BOMOA-SLAB@natixis.com"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS"
+	mailAttachement = "D:\Factu\output\Report_BG.csv;D:\Factu\output\Report_GXML.csv"
+  	mailType ="END"
+   />
+   		
+</TicketAutoMails>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+
+<TicketAutoMails>
+
+<!-- Fichier de CONFIG pour les TicketAutomatique                              -->
+<!-- ATTENTION le caractere < doit etre remplacer par &lt;                     -->
+<!-- ATTENTION le caractere & doit etre remplacer par &amp;                    -->
+
+<!-- ATTENTION  liste des Mails par TYPE et destinataires associes             -->
+
+	<Mail
+	mailSubject="#base# Billing 2DM : #vacation# : BEGIN : #yyyyMMdd_HH:mm#"
+  	mailBody =""
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="BOMOA-SLAB@natixis.com;LD-M-BILLING@exchange.cmi.net;LD-M-TOKYO-BO@exchange.cmi.net;"
+	mailDestCC="lamon;chleroux;eda0maitriseutilisateurs;eda13finance;irayatall;LD-M-HELPDESK-SOPHIS-EQUITY;LD-CITI-ME_DEV_SOPHIS;"
+	mailAttachement = ""
+	mailType ="BEGIN"
+	/>
+	<Mail
+	mailSubject="#base# Billing 2DM : #vacation# : ERROR : #yyyyMMdd_HH:mm#"
+  	mailBody =""
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+	mailDestCC="BOMOA-SLAB@natixis.com;"
+	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\logs\Factu_batches_log.txt;"
+	mailType ="ERROR"
+	/>
+	<Mail
+	mailSubject="#base# Billing 2DM : #vacation# : WARNING : #yyyyMMdd_HH:mm#"
+  	mailBody =""
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+	mailDestCC=""
+	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\logs\Factu_batches_log.txt;"
+	mailType ="WARNING"
+	/>		
+
+  <Mail
+  	mailSubject="#base# Billing 2DM - Real registration dates settlement : #vacation# : END : #yyyyMMdd_HH:mm#"
+	mailBody ="Real registration dates settlement has been performed (compatage 03_), Please proceed checkings."
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="LD-M-HELPDESK-SOPHIS-EQUITY@exchange.cmi.net;"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net;"
+	mailAttachement = "D:\Factu\logs\Factu_trace.txt;D:\Factu\logs\Factu_logs.txt;D:\Factu\logs\Factu_batches_log.txt;"
+  	mailType ="END"
+   />
+   		
+  <Mail
+  	mailSubject="#base# Billing 2DM - Rapport des MAJ Dateval, Delivery_Date : #vacation# : END : #yyyyMMdd_HH:mm#"
+	mailBody ="Please see enclosed file."
+		mailFrom="BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com"
+	mailDest="BOMOA-SLAB@natixis.com;LD-M-HELPDESK-SOPHIS-EQUITY@exchange.cmi.net;"
+	mailDestCC="LD-CITI-ME_DEV_SOPHIS"
+	mailAttachement = "D:\Factu\output\maj_dateval_delivery_date.csv;"
+  	mailType ="END"
+   />		
+
+</TicketAutoMails>

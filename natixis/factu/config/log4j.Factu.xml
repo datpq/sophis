@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+
+	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
+	  <!-- placer ICI le chemin vers les logs (DOUBLER LES SLASHES sous WINDOWS !!) -->
+	  <param name="File" value="Factu_logs.txt"/>
+	  <param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d] : %5p : %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+     <param name="threshold" value="INFO"/>
+     <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d] : %5p : %m%n"/>
+     </layout>
+ </appender>
+	
+	<root>  
+		<priority value ="debug" />  
+		<appender-ref ref="fileAppender" />  
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>
+
+

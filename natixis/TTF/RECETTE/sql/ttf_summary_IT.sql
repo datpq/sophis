@@ -1,0 +1,182 @@
+SET COLSEP '    '
+SET trimout OFF 
+SET FEEDBACK OFF
+SET heading OFF 
+SET verify OFF
+SET space 0 
+SET NEWPAGE 0 
+SET PAGESIZE 0 
+SET trimspool ON
+
+SET WRAP OFF
+SET TRIMOUT OFF 
+SET COLSEP ';'
+SET LINESIZE 2000
+SET ESCAPE '\'
+
+ALTER SESSION SET NLS_NUMERIC_CHARACTERS = ', ';
+
+-- TTF Summary
+spool '&2';
+
+SELECT '<h3>Calcul de la TTF du mois : ' || TO_CHAR(ADD_MONTHS(TRUNC(to_date('&1', 'YYYYMMDD'), 'MM'), -1), 'MON YYYY') || '</h3>' FROM DUAL;
+
+-- TTF EDA Compte propre
+SELECT '<br><b>TTF EDA Compte propre</b>' FROM DUAL;
+
+-- Italian TTF Cash Equity :
+SELECT '</table><br><b>Italian TTF (Cash Equity) :</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Crit\&egrave;re Exon\&eacute;ration</th><th>Base Taxable (Mios \&euro;)</th><th>TTF (\&euro;)</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    TG.EXONERATION ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td></tr>'
+FROM (SELECT DISTINCT SOUSSECTION, ID_GROUP, TA.TAXABLE_AMOUNT, TA.TTF_AMOUNT
+    FROM NATIXIS_TTF_AUDIT TA
+        JOIN NATIXIS_TTF_GROUP TG ON TG.ID = ID_GROUP AND TG.TTF_COUNTRY = 'IT'
+    WHERE TRUNC(DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')) TA
+    JOIN NATIXIS_TTF_GROUP TG ON TG.ID = TA.ID_GROUP
+GROUP BY TG.EXONERATION
+HAVING SUM(NVL(TA.TTF_AMOUNT, 0)) != 0 OR SUM(NVL(TA.TAXABLE_AMOUNT, 0)) != 0;
+
+SELECT '<tr><td><b>TOTAL</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td></tr>'
+FROM (SELECT DISTINCT SOUSSECTION, ID_GROUP, TA.TAXABLE_AMOUNT, TA.TTF_AMOUNT
+    FROM NATIXIS_TTF_AUDIT TA
+        JOIN NATIXIS_TTF_GROUP TG ON TG.ID = ID_GROUP AND TG.TTF_COUNTRY = 'IT'
+    WHERE TRUNC(DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')) TA
+    JOIN NATIXIS_TTF_GROUP TG ON TG.ID = TA.ID_GROUP
+;
+
+-- Italian TTF Derivatives :
+SELECT '</table><br><b>Italian TTF (Derivatives) :</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Product</th><th>Base Taxable (Mios \&euro;)</th><th>TTF (\&euro;)</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    TD.PRODUCT_FAMILY ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td></tr>'
+FROM NATIXIS_TTFDERIVATIVES_AUDIT TD
+WHERE TRUNC(TD.DATE_CALCUL, 'MM') = TRUNC(TO_DATE('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+GROUP BY TD.PRODUCT_FAMILY
+HAVING SUM(NVL(TD.TTF_AMOUNT, 0)) != 0 OR SUM(NVL(TD.TAXABLE_AMOUNT, 0)) != 0;
+
+SELECT '<tr><td><b>TOTAL</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td></tr>'
+FROM NATIXIS_TTFDERIVATIVES_AUDIT TD
+WHERE TRUNC(TD.DATE_CALCUL, 'MM') = TRUNC(TO_DATE('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+;
+
+SELECT '</table><br>D\&eacute;tail de la TTF par sous section \&eacute;ligible :' FROM DUAL;
+
+-- Italian TTF Cash Equity :
+SELECT '</table><br><b>Italian TTF (Cash Equity) :</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Sous section</th><th>Base Taxable (\&euro;)</th><th>TTF (\&euro;)</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    TA.SOUSSECTION ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TAXABLE_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td></tr>'
+FROM (SELECT DISTINCT SOUSSECTION, ID_GROUP, TA.TAXABLE_AMOUNT, TA.TTF_AMOUNT
+    FROM NATIXIS_TTF_AUDIT TA
+        JOIN NATIXIS_TTF_GROUP TG ON TG.ID = ID_GROUP AND TG.TTF_COUNTRY = 'IT'
+    WHERE TRUNC(DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')) TA
+WHERE TA.SOUSSECTION IS NOT NULL
+GROUP BY TA.SOUSSECTION
+HAVING SUM(NVL(TA.TTF_AMOUNT, 0)) != 0 OR SUM(NVL(TA.TAXABLE_AMOUNT, 0)) != 0;
+
+SELECT '<tr><td><b>TOTAL</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TAXABLE_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TA.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td></tr>'
+FROM (SELECT DISTINCT SOUSSECTION, ID_GROUP, TA.TAXABLE_AMOUNT, TA.TTF_AMOUNT
+    FROM NATIXIS_TTF_AUDIT TA
+        JOIN NATIXIS_TTF_GROUP TG ON TG.ID = ID_GROUP AND TG.TTF_COUNTRY = 'IT'
+    WHERE TRUNC(DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')) TA
+WHERE TA.SOUSSECTION IS NOT NULL
+;
+
+-- Italian TTF Derivatives :
+SELECT '</table><br><b>Italian TTF (Derivatives) :</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Section</th><th>Base Taxable (\&euro;)</th><th>TTF (\&euro;)</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    TD.SECTION ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TAXABLE_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td></tr>'
+FROM NATIXIS_TTFDERIVATIVES_AUDIT TD
+WHERE TRUNC(TD.DATE_CALCUL, 'MM') = TRUNC(TO_DATE('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+GROUP BY TD.SECTION
+HAVING SUM(NVL(TD.TTF_AMOUNT, 0)) != 0 OR SUM(NVL(TD.TAXABLE_AMOUNT, 0)) != 0;
+
+SELECT '<tr><td><b>TOTAL</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TAXABLE_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TD.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td></tr>'
+FROM NATIXIS_TTFDERIVATIVES_AUDIT TD
+WHERE TRUNC(TD.DATE_CALCUL, 'MM') = TRUNC(TO_DATE('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+;
+
+SELECT '</table>' FROM DUAL;
+
+-- TTF EDA Collectee
+SELECT '<br><b>TTF EDA Collect\&eacute;e</b>' FROM DUAL;
+
+-- Italian TTF :
+SELECT '</table><br><b>Italian TTF :</b>' FROM DUAL;
+SELECT '<table border=1><tr><th>Section</th><th>Base Taxable (Mios \&euro;)</th><th>TTF (\&euro;)</th></tr>' FROM DUAL;
+
+SELECT '<tr><td>' ||
+    TF.SECTION ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TF.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td><td>' ||
+    TRIM(TO_CHAR(SUM(NVL(TF.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</td></tr>'
+FROM NATIXIS_TTFCOLLECTED_AUDIT TF
+WHERE TRUNC(TF.DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+GROUP BY TF.SECTION
+HAVING SUM(NVL(TF.TTF_AMOUNT, 0)) != 0 OR SUM(NVL(TF.TAXABLE_AMOUNT, 0)) != 0;
+
+SELECT '<tr><td><b>TOTAL</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TF.TAXABLE_AMOUNT, 0))/1000000, '999G999G999G999D9', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td><td><b>' ||
+    TRIM(TO_CHAR(SUM(NVL(TF.TTF_AMOUNT, 0)), '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '', ''')) ||
+    '</b></td></tr>'
+FROM NATIXIS_TTFCOLLECTED_AUDIT TF
+WHERE TRUNC(TF.DATE_CALCUL, 'MM') = TRUNC(to_date('&1', 'YYYYMMDD'), 'MM')
+    AND TTF_COUNTRY = 'IT'
+;
+
+SELECT '</table>' FROM DUAL;
+
+spool off;
+
+/
+EXIT;

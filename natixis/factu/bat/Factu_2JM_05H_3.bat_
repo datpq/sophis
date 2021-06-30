@@ -1,0 +1,31 @@
+@echo off
+echo on
+
+set PATH_ROOT=D:\Factu
+set PATH_JARS=%PATH_ROOT%\jars
+
+CALL %PATH_ROOT%\bat\env.bat
+
+pushd %PATH_ROOT%\logs
+
+
+set VACATION=FA_05H_3
+
+set F_BASE=%PATH_ROOT%\config\OX_TP_SO.xml
+set F_MAIL=%PATH_ROOT%\config\Factu.mail_05H_3.xml
+set F_XML=%PATH_ROOT%\config\Factu_2JM_05H_3.xml
+
+REM java -classpath %CLASSPATH% fr.icdc.cmi.sophis.ticket.Ticket %PATH_ROOT%\config\Factu_2JM_05H_3.xml -FA_05H_3 -noMail
+java -classpath %CLASSPATH% fr.icdc.cmi.sophis.ticket.Ticket %F_BASE% %F_MAIL% %F_XML% -FA_05H_3
+set erreur=%errorlevel%
+
+
+rem  ===============================
+rem  sauvegarde les log et trace 
+rem  ===============================
+for %%i in (factu_*) do move %%i %VACATION%_%%i 
+ 
+
+popd
+
+exit %erreur%

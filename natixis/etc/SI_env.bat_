@@ -1,0 +1,22 @@
+@echo on
+
+set ROOT=D:
+set SI_ENV=PROD
+set EXTRACTIONS_ROOT=%ROOT%\extractions
+
+REM *********************************
+REM ** PATH
+REM *********************************
+set PATH=%PATH%;%ROOT%\bin
+
+REM *********************************
+REM ** UTILITAIRES
+REM *********************************
+set POSTIE=%ROOT%\bin\postie.exe
+set SQLRUNNER=perl %ROOT%\bin\SQLRunner.pl
+set PATH=C:\Perl64\site\bin;C:\Perl64\bin;%PATH%
+
+REM *********************************
+REM ** MAIL
+REM *********************************
+set MAILHOST=srvsmtp.emea.smtp.cib.net

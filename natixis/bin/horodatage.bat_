@@ -1,0 +1,10 @@
+REM ------------------------------------------------------------------------------------------
+REM 	Recuperation de la date et de l'heure
+REM ------------------------------------------------------------------------------------------
+
+for /F "usebackq tokens=1 delims=./ " %%i in (`date /T`) do SET JOUR=%%i
+for /F "usebackq tokens=2 delims=./ " %%i in (`date /T`) do SET MOIS=%%i
+for /F "usebackq tokens=3 delims=./ " %%i in (`date /T`) do SET AN=%%i
+
+for /F "usebackq tokens=1 delims=: " %%i in (`time /T`) do SET HEURE=%%i
+for /F "usebackq tokens=2 delims=: " %%i in (`time /T`) do SET MIN=%%i

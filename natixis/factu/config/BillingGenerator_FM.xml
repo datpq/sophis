@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Queries>
+
+  <!-- Fichier de CONFIG pour BillingGenerator                                    -->
+	<Traitement name="BillingGenerator" libelle="Billing FM"/>          
+
+	<Trace  outputFile="D:\factu\logs\BillingGenerator_trace.txt" />
+
+	<Log4j  configFile="D:\Factu\config\log4j.BillingGenerator.xml"/>
+
+
+  <!-- "vacations globales disponible en plus : ALL  =toutes les vacations"      --> 
+  <!-- "                                     et DAILY=toutes les vacations xxH"  -->		
+  <!-- "       3600s = 1heure / 14400 = 4heures                               "  -->
+
+	<Param 	listVacations="BG;" 
+		maxStartDelay="3600"
+		maxProcessingDelay="14400"
+		/>
+
+
+  <!-- "liste des scripts a executer" -->	
+  <!-- "rem : si name ="",  le traitement n'est pas pris en charge ..." -->	
+
+	<Exe type="sqlplus" cmd="cmd /c sqlplus.exe " />
+	<Exe type="batch" cmd="cmd /c" />
+	
+  <!-- DEBUT DES ENCHAINEMENTS -->	
+	 
+		
+	<!-- Debut BG -->
+	
+	<Script type="sqlplus" 	
+		name="BG FM" 	vacation="BG" 
+		filename="D:\Factu\sql\BILLING_GENERATOR_FM.sql" param=""/>
+	<Script type="sqlplus" 	
+		name="BG Report" 	vacation="BG" 
+		filename="D:\Factu\sql\BL_REPORT.sql" param="D:\Factu\output\Report_BG.csv D:\Factu\output\Report_GXML.csv"/>
+	
+	<!-- Fin BG -->
+
+			
+  
+
+  <!-- FIN DES ENCHAINEMENTS -->	
+
+
+</Queries>

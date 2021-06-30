@@ -1,0 +1,47 @@
+@echo on
+
+set ROOT=D:
+set SI_ENV=PROD
+set EXTRACTIONS_ROOT=%ROOT%\extractions
+
+REM *********************************
+REM ** PATH
+REM *********************************
+set PATH=%PATH%;%ROOT%\bin
+
+REM *********************************
+REM ** PROD DATABASE 
+REM *********************************
+set SI_ORACLE_WRITE_INSTANCE=OX_TP_SO
+set SI_ORACLE_WRITE_LOGIN=si_user
+set SI_ORACLE_WRITE_PASSWORD=staire11
+
+REM *********************************
+REM ** READONLY DATABASE 
+REM *********************************
+set SI_ORACLE_READ_INSTANCE=OX_TP_SO
+set SI_ORACLE_READ_LOGIN=CDCREAD
+set SI_ORACLE_READ_PASSWORD=CDC05READ
+
+REM *********************************
+REM ** INFOCENTRE DATABASE 
+REM *********************************
+set SI_ORACLE_INFOCENTRE_INSTANCE=OX_BO_SO
+set SI_ORACLE_INFOCENTRE_LOGIN=CDCREAD
+set SI_ORACLE_INFOCENTRE_PASSWORD=CDC05READ
+
+REM *********************************
+REM ** UTILITAIRES
+REM *********************************
+set POSTIE=%ROOT%\bin\postie.exe
+set SQLRUNNER=perl %ROOT%\bin\SQLRunner.pl
+set PATH=C:\Perl64\site\bin;C:\Perl64\bin;%PATH%
+
+REM Version de SQLRunner avec binding des variables
+REM Dans certains cas, ça va plus vite comme ça.
+set SQLRUNNERBIND=perl %ROOT%\bin\SQLRunner.bind.pl
+
+REM *********************************
+REM ** MAIL
+REM *********************************
+set MAILHOST=srvsmtp.emea.smtp.cib.net

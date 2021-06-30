@@ -1,0 +1,81 @@
+@echo on
+
+call SI_env_WRITE.bat
+
+call %ROOT%\bin\horodatage.bat
+
+set OUTPUT_FILE_REPORT_BG=Report_BG_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+set OUTPUT_FILE_REPORT_GXML=Report_GXML_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+set OUTPUT_FILE_REPORT_MVTIDENT=Report_MVTIDENT_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+set OUTPUT_FILE_MAIL_CONTENT=Report_Mail_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.html
+set OUTPUT_FILE_TICKETS=Report_Tickets_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+
+set LOG_FILE=logs\BG_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+set ERR_FILE=logs\BG_err_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+
+REM -------------------
+REM Mail
+REM -------------------
+set MAIL_FROM=BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com 
+set MAIL_REPLY_TO=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_TO=BOMOA-SLAB@natixis.com
+set MAIL_CC=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_TO_ERR=MBX-HELPDESK-BOBA-EQUITY@natixis.com
+set MAIL_CC_ERR=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net,BOMOA-SLAB@natixis.com
+rem set MAIL_TO=qdpham@exchange.cmi.net
+rem set MAIL_CC=
+rem set MAIL_TO_ERR=qdpham@exchange.cmi.net
+rem set MAIL_CC_ERR=
+set MAIL_SUBJECT=[%SI_ENV%][BillingGenerator Quotidien]
+set MAIL_CONTENT=
+
+set PATH_ROOT=D:\Factu
+pushd %PATH_ROOT%
+
+echo Starting Billing Generator Quotidien >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -msg:"Billing Generator Quotidien" -s:"%MAIL_SUBJECT%Begin"
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\BILLING_GENERATOR_Q.sql output\%OUTPUT_FILE_REPORT_MVTIDENT% output\%OUTPUT_FILE_MAIL_CONTENT% output\%OUTPUT_FILE_REPORT_BG% output\%OUTPUT_FILE_REPORT_GXML% output\%OUTPUT_FILE_TICKETS% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem set mail content
+for /F "delims=" %%i in (output\%OUTPUT_FILE_MAIL_CONTENT%) do set MAIL_CONTENT=!MAIL_CONTENT! %%i
+echo Billing Generator Quotidien finished >> %LOG_FILE%
+
+rem lines count may return a number superior than 2^16 --> ERROR
+rem so i do not use wc.pl here 
+rem perl %ROOT%\bin\wc.pl output\%OUTPUT_FILE%
+rem set NB_LINES=%errorlevel%
+findstr /R /N "^" output\%OUTPUT_FILE_REPORT_BG% | find /C ":" > TEMP_COUNT1.TXT
+set /p NB_LINES1=<TEMP_COUNT1.TXT
+set /a NB_LINES1-=1
+findstr /R /N "^" output\%OUTPUT_FILE_REPORT_GXML% | find /C ":" > TEMP_COUNT2.TXT
+set /p NB_LINES2=<TEMP_COUNT2.TXT
+set /a NB_LINES2-=1
+del TEMP_COUNT1.TXT
+del TEMP_COUNT2.TXT
+
+echo Number of errors BG = %NB_LINES1%. Number of errors GXML = %NB_LINES2% >> %LOG_FILE%
+
+if %NB_LINES1% == 0 (
+  if %NB_LINES2% == 0 (
+    echo No error >> %LOG_FILE%
+  ) ELSE (
+    GOTO WHEN_ERROR
+  )
+) ELSE (
+  GOTO WHEN_ERROR
+)
+
+echo Billing Generator Report finished >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -html -msg:"%MAIL_CONTENT%" -s:"%MAIL_SUBJECT%End" -a:output\%OUTPUT_FILE_REPORT_MVTIDENT% -a:output\%OUTPUT_FILE_TICKETS% -a:%LOG_FILE% -a:%ERR_FILE%
+popd
+exit /B
+
+:WHEN_ERROR
+echo Billing Generator exited on error >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO_ERR% -cc:%MAIL_CC_ERR% -html -msg:"%MAIL_CONTENT%" -s:"[ERROR]%MAIL_SUBJECT%" -a:output\%OUTPUT_FILE_REPORT_MVTIDENT% -a:output\%OUTPUT_FILE_TICKETS% -a:%LOG_FILE% -a:%ERR_FILE%
+popd
+exit /B

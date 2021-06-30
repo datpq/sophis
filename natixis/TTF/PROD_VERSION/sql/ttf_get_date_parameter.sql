@@ -1,0 +1,3 @@
+SET HEAD OFF;
+SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') from dual;
+exit 0;

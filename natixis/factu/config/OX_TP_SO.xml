@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+
+<TicketAuto_Base>
+
+<!-- Fichier de CONFIG CONNEXION pour les TicketAutomatique                    -->
+<!-- ATTENTION le caractere < doit etre remplacer par &lt;                     -->
+<!-- ATTENTION le caractere & doit etre remplacer par &amp;                    -->
+
+<!-- ATTENTION pour changer de base : modifier aussi CXN_FILE dans les 3 .bat  -->
+<!-- ATTENTION    + post_event.bat    + post_event_ch.bat                      -->
+<!-- ATTENTION    + 4te_dividende_mail.bat                                     -->
+
+
+
+<BaseDeDonnees
+		nom=""
+		jdbc-driver-class-name="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@msconcave.cib.net:1524:OX_TP_SO"
+		login="SI_USER"
+		password="staire11"/>
+ 
+
+</TicketAuto_Base>

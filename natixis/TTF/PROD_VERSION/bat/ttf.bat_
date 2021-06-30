@@ -1,0 +1,96 @@
+@echo on
+
+call SI_env_WRITE.bat
+
+call %ROOT%\bin\horodatage.bat
+
+set OUTPUT_FILE_MAIL_CONTENT=Report_Mail_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.html
+set OUTPUT_FILE_MAIL_SUMMARY=Report_Mail_Summary_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.html
+set OUTPUT_FILE_REPORT_CACEIS=Report_CACEIS_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.csv
+
+set LOG_FILE=logs\TTF_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+set ERR_FILE=logs\TTF_err_%AN%%MOIS%%JOUR%_%HEURE%%MIN%.log
+
+REM -------------------
+REM Mail
+REM -------------------
+set MAIL_FROM=BAL-ETU-MOE-SOPHIS-EQUITY-BO@natixis.com 
+set MAIL_REPLY_TO=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+set MAIL_TO=LD-M-TTF-PROCESS@natixis.com
+rem set MAIL_TO=qdpham@exchange.cmi.net
+set MAIL_CC=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+rem set MAIL_CC=qdpham@exchange.cmi.net
+set MAIL_SUBJECT=[%SI_ENV%][TTF]
+set MAIL_CONTENT=
+set MAIL_SUMMARY_TO=LD-M-TTF-REPORT@natixis.com
+rem set MAIL_SUMMARY_TO=qdpham@exchange.cmi.net
+set MAIL_SUMMARY_CC=LD-CITI-ME_DEV_SOPHIS@exchange.cmi.net
+rem set MAIL_SUMMARY_CC=qdpham@exchange.cmi.net
+set MAIL_SUMMARY=
+
+set PATH_ROOT=D:\TTF
+pushd %PATH_ROOT%
+
+for /F "tokens=1 skip=1" %%i IN ('sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_get_date_parameter.sql') do set DATE_PARAMETER=%%i
+echo parametre de date : [%DATE_PARAMETER%] >> %LOG_FILE%
+
+REM --------------------
+REM MANUAL LAUNCH
+REM set DATE_PARAMETER=20120928
+REM --------------------  
+
+echo Starting TTF >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -msg:"Declaration de la TTF" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]Begin"
+
+rem GOTO WHEN_SUMMARY
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_run.sql %DATE_PARAMETER% output\%OUTPUT_FILE_MAIL_CONTENT% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem set mail content
+for /F "delims=" %%i in (output\%OUTPUT_FILE_MAIL_CONTENT%) do set MAIL_CONTENT=!MAIL_CONTENT! %%i
+
+echo TTF finished >> %LOG_FILE%
+
+echo Generating declaration caceis >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_report_caceis.sql %DATE_PARAMETER% output\%OUTPUT_FILE_REPORT_CACEIS% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem Add space at the end of each line from the 2nd line
+for /f "tokens=*" %%A in (output\%OUTPUT_FILE_REPORT_CACEIS%) do (
+  set line=%%A
+  if "!line:~-1!" == ";" (
+    echo !line! >> output\TEMP_%OUTPUT_FILE_REPORT_CACEIS%
+  ) else (
+    echo !line!>> output\TEMP_%OUTPUT_FILE_REPORT_CACEIS%
+  )
+)
+move /Y output\TEMP_%OUTPUT_FILE_REPORT_CACEIS% output\%OUTPUT_FILE_REPORT_CACEIS%
+
+:WHEN_SUMMARY
+echo Generation of summary mail >> %LOG_FILE%
+
+sqlplus -S %DB_LOGIN%/%DB_PASSWORD%@%DB_INSTANCE% @sql\ttf_summary.sql %DATE_PARAMETER% output\%OUTPUT_FILE_MAIL_SUMMARY% 1>>%LOG_FILE% 2>>%ERR_FILE%
+if NOT %errorlevel% == 0 (
+	GOTO WHEN_ERROR
+)
+
+rem set mail summary content
+for /F "delims=" %%i in (output\%OUTPUT_FILE_MAIL_SUMMARY%) do set MAIL_SUMMARY=!MAIL_SUMMARY! %%i
+
+echo TTF finished without error >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -html -msg:"%MAIL_CONTENT%" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]End" -a:output\%OUTPUT_FILE_REPORT_CACEIS%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_SUMMARY_TO% -cc:%MAIL_SUMMARY_CC% -html -msg:"%MAIL_SUMMARY%" -s:"%MAIL_SUBJECT%[%DATE_PARAMETER%]Compte rendu"
+popd
+exit /B
+
+:WHEN_ERROR
+echo TTF exited on error >> %LOG_FILE%
+%POSTIE% -host:%MAILHOST% -from:%MAIL_FROM% -replyto:%MAIL_REPLY_TO% -to:%MAIL_TO% -cc:%MAIL_CC% -html -msg:"%MAIL_CONTENT%" -s:"[ERROR]%MAIL_SUBJECT%[%DATE_PARAMETER%]" -a:%LOG_FILE% -a:%ERR_FILE% -a:output\%OUTPUT_FILE_REPORT_CACEIS%
+popd
+exit /B

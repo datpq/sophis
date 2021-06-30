@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Queries>
+
+  <!-- Fichier de CONFIG pour la Facturation                                     -->
+	<Traitement name="FACTU_05H_3" libelle="Billing 2DM"/>               
+	
+	<Trace  outputFile="D:\Factu\logs\Factu_trace.txt" />
+
+	<Log4j  configFile="D:\Factu\config\log4j.Factu.xml"/>
+
+
+  <!-- "vacations globales disponible en plus : ALL  =toutes les vacations"      --> 
+  <!-- "                                     et DAILY=toutes les vacations xxH"  -->		
+  <!-- "       3600s = 1heure / 14400 = 4heures                               "  -->
+
+	<Param 	listVacations="FA_05H_3;" 
+		maxStartDelay="3600"
+		maxProcessingDelay="14400"
+		/>
+
+
+  <!-- "liste des scripts a executer" -->	
+  <!-- "rem : si name ="",  le traitement n'est pas pris en charge ..." -->	
+
+	<Exe type="sqlplus" cmd="cmd /c sqlplus.exe" />
+	<Exe type="batch" cmd="cmd /c" />
+	
+  <!-- DEBUT des enchainements -->	
+  	<Script type="sqlplus" 	
+		name="batches_log_1" 	vacation="FA_05H_3" 
+		filename="D:\Factu\sql\13_Generation_Batches_log_1.sql" param=" #yyyy/MM/dd-HH:mm:ss# D:\Factu\sql\13_Generation_Batches_log_2.sql D:\Factu\logs\Factu_batches_log.txt"/>
+	
+  <!-- DEBUT extraction ecarts Explained Amount et Ticket Amount -->
+	<Script type="sqlplus"
+		name="ecart_ea_ta" 	vacation="FA_05H_3"
+		filename="D:\Factu\sql\15_2jm_05h_3_Ecarts_EA_TA.sql" param=" #yyyy/MM/dd# D:\Factu\logs\15_2jm_05h_3_Ecarts_EA_TA.txt D:\Factu\Output\Ecarts_EA_TA.csv"/>
+  <!-- FIN extraction ecarts Explained Amount et Ticket Amount -->	
+  <!-- DEBUT EXTRACTIION REPORT CONTREPARTIES -->
+  <Script type="batch" 
+		prefix="report_" 
+		name="gen_report" 		vacation="FA_05H_3" 
+		filename="D:\Factu\bat\report_contreparties.bat" param="D:\Factu\bat\factu.ini D:\Factu\sql\reportContreparties_modele.sql D:\Factu\sql\12_2jm_05h_3_insertContreparties.sql NATIXIS_FACTU_REPORT_CTPY" />
+  <Script type="sqlplus" 	
+		name="insert_contreparties" 	vacation="FA_05H_3" 
+		filename="D:\Factu\sql\12_2jm_05h_3_insertContreparties.sql" param=" #yyyyMMdd# D:\Factu\logs\12_2jm_05h_3_insertContreparties.txt"/>
+  <Script type="sqlplus" 	
+		name="report_contreparties" 	vacation="FA_05H_3" 
+		filename="D:\Factu\sql\12_2jm_05h_3_reportContreparties.sql" param=" #yyyyMMdd# D:\Factu\logs\12_2jm_05h_3_reportContreparties.txt D:\Factu\output\ReportContreparties.csv"/>
+		<!-- FIN EXTRACTIION REPORT CONTREPARTIES -->
+	<Script type="sqlplus" 	
+		name="batches_log_2" 	vacation="FA_05H_3" 
+		filename="D:\Factu\sql\13_Generation_Batches_log_2.sql" param=""/>
+
+	
+  <!-- FIN des enchainements -->	
+
+</Queries>
