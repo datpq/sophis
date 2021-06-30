@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C6BE5B01-F821-42D9-A892-8AC7E0418AC9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExtraPanelRepoSample</RootNamespace>
+    <AssemblyName>ExtraPanelRepoSample</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Windsor">
+      <HintPath>E:\cc_data\ValueOMS5131x\distrib\Value_x64_Debug\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.Data.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.Utils.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.XtraEditors.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.XtraGrid.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2.Design, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.XtraGrid.v11.2.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.XtraLayout.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v11.2.Design, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\repository\DevExpress\DevExpress.XtraLayout.v11.2.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>E:\cc_data\ValueOMS5131x\distrib\Value_x64_Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.Compliance.Client">
+      <HintPath>E:\cc_data\Compliance_7.1.3.1\generated\bin\x64\Debug\Sophis.Compliance.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.OMS.BL">
+      <HintPath>E:\cc_data\OMS_7.1.3.1\generated\bin\x64\Debug\Sophis.OMS.BL.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.OMS.Client">
+      <HintPath>E:\cc_data\OMS_7.1.3.1\generated\bin\x64\Debug\Sophis.OMS.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.Windows">
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\outputs\bin\x64\Debug\Sophis.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.Windows.OMS">
+      <HintPath>E:\cc_data\ValueOMS5131x\outputs\bin\x64\Debug\Sophis.Windows.OMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Sophis.Windows.Widgets.Core">
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\outputs\bin\x64\Debug\Sophis.Windows.Widgets.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SophisAMCommon">
+      <HintPath>E:\cc_data\ValueOMS5131x\outputs\bin\x64\Debug\SophisAMCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit">
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\outputs\bin\x64\Debug\SophisDotNetToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="SophisGuiCommon">
+      <HintPath>E:\cc_data\RisqueForValueOMS5131x\outputs\bin\x64\Debug\SophisGuiCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtraPanelRepoSample.cs" />
+    <Compile Include="MyCustomRepoOrderBuilder.cs" />
+    <Compile Include="MyCustomRepoOrderEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyCustomRepoOrderViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
