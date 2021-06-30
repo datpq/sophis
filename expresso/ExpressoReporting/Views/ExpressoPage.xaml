@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ExpressoReporting;assembly=ExpressoReporting"
+             mc:Ignorable="d"
+             Visual="Material"
+             Title="{x:Static local:res.AppTitle}"
+             x:Class="ExpressoReporting.Views.ExpressoPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="10">
+            <Grid x:Name="Grid" ColumnSpacing="10" RowSpacing="0" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Picker x:Name="PickerReports" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="PickerReports_OnSelectedIndexChanged"
+                        HorizontalOptions="FillAndExpand" Title="{x:Static local:res.SelectReport}"
+                        TitleColor="{StaticResource PrimaryColor}"
+                        TextColor="{StaticResource SecondaryColor}"
+                        Grid.Row="0" Grid.Column="0"/>
+            </Grid>
+            <!--<BoxView HorizontalOptions="Fill" HeightRequest="1" Color="LightGray" />-->
+            <StackLayout Orientation="Horizontal">
+                <Button Text="{x:Static local:res.CmdGenerate}" IsEnabled="False"
+                        HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource PrimaryColor}"
+                        x:Name="CmdGenerate" Clicked="CmdGenerate_OnClicked"></Button>
+                <Button Text="{x:Static local:res.CmdViewGeneratedReport}" IsEnabled="False"
+                        HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource PrimaryColor}"
+                        x:Name="CmdView" Clicked="CmdView_OnClicked"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

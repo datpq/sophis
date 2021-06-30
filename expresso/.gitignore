@@ -1,0 +1,11 @@
+.vs/
+ExpressoReporting.Android/bin/
+ExpressoReporting.Android/obj/
+ExpressoReporting.iOS/obj/
+ExpressoReporting.iOS/bin/
+ExpressoReporting/obj/
+ExpressoReporting/bin/
+ExpressoReporting.MobileAppService/obj/
+ExpressoReporting.MobileAppService/bin/
+ExpressoReporting.DataModel/bin/
+ExpressoReporting.DataModel/obj/
