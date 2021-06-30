@@ -1,0 +1,105 @@
+CREATE TABLE EMAFI_MAPS
+(
+	CODE VARCHAR2(5) NOT NULL,
+	NAME VARCHAR2(50) NOT NULL,
+	CONTENT CLOB
+);
+CREATE UNIQUE INDEX PK_EMAFI_MAPS ON EMAFI_MAPS(CODE);
+
+CREATE TABLE EMAFI_MAPS_TABLES
+(
+    TABLE_NAME VARCHAR2(30) NOT NULL,
+    SEQUENCES VARCHAR2(255)
+);
+CREATE UNIQUE INDEX PK_EMAFI_MAPS_TABLES ON EMAFI_MAPS_TABLES(TABLE_NAME);
+
+INSERT INTO EMAFI_MAPS_TABLES(TABLE_NAME, SEQUENCES) VALUES('ACCOUNT_RULES', 'ID@SEQACCOUNT');
+INSERT INTO EMAFI_MAPS_TABLES(TABLE_NAME, SEQUENCES) VALUES('ACCOUNT_POSTING_RULES', 'ID@SEQACCOUNT');
+
+CREATE TABLE EMAFI_MAPS_FK
+(
+	TABLE_NAME VARCHAR2(30) NOT NULL,
+	COLUMN_NAME VARCHAR2(30) NOT NULL,
+	FK_NAME VARCHAR2(30),
+	R_TABLE_NAME VARCHAR2(30) NOT NULL,
+	R_COLUMN_NAME VARCHAR2(30) NOT NULL
+);
+
+INSERT INTO EMAFI_MAPS_FK(TABLE_NAME, COLUMN_NAME, FK_NAME, R_TABLE_NAME, R_COLUMN_NAME)
+	VALUES('ACCOUNT_POSTING_RULES', 'RULE_ID', NULL, 'ACCOUNT_RULES', 'ID');
+
+EXEC MAPS.GENERATE_INSERT('ACCOUNT_RULES', 'RECORD_TYPE = 1 AND NAME = ''T-EQTY1-SOP# Equity - Purchase'' ORDER BY RECORD_TYPE');
+	
+SELECT 'INSERT INTO ACCOUNT_RULES(ID, RECORD_TYPE, NAME, COMMENTS) VALUES(SEQACCOUNT.NEXTVAL, ' || RECORD_TYPE || ', ''' || NAME || ''', ''' || COMMENTS || ''');' SCRIPT FROM ACCOUNT_RULES WHERE RECORD_TYPE = 1 AND NAME = 'T-EQTY1-SOP# Equity - Purchase' ORDER BY RECORD_TYPE;
+
+----------------------------------------------
+CREATE OR REPLACE PACKAGE MAPS
+AS
+    PROCEDURE GENERATE_INSERT(p_tableName VARCHAR2, p_whereClause VARCHAR2);
+END MAPS;
+/
+
+CREATE OR REPLACE PACKAGE BODY MAPS
+AS
+
+    PROCEDURE GENERATE_INSERT(p_tableName VARCHAR2, p_whereClause VARCHAR2)
+    AS
+        oneLine VARCHAR2(4000);
+		fieldList VARCHAR2(4000);
+		fieldValueList VARCHAR2(4000);
+		fieldValue VARCHAR2(4000);
+		temp VARCHAR2(4000);
+		CURSOR curCols IS
+			SELECT COLUMN_NAME, DATA_TYPE FROM USER_TAB_COLUMNS
+			WHERE TABLE_NAME = p_tableName ORDER BY COLUMN_ID;
+		col curCols%ROWTYPE;
+		tableSequences EMAFI_MAPS_TABLES.SEQUENCES%TYPE;
+		CURSOR curFks IS
+			SELECT TABLE_NAME, COLUMN_NAME, R_TABLE_NAME, R_COLUMN_NAME
+			FROM EMAFI_MAPS_FK WHERE R_TABLE_NAME = p_tableName ORDER BY TABLE_NAME;
+		fk curFks%ROWTYPE;
+		
+    BEGIN
+        EF.SET_LOG_LEVEL(EF.LOG_DEBUG);
+		--EF.DEBUG('---GENERATE_INSERT({1} {2})', p_tableName, p_whereClause);
+		
+		SELECT SEQUENCES INTO tableSequences FROM EMAFI_MAPS_TABLES WHERE TABLE_NAME = p_tableName;
+		
+		open curCols;
+		loop
+			fetch curCols into col;
+			exit when curCols%NOTFOUND;
+			fieldList := fieldList || ', ' || col.COLUMN_NAME;
+			if INSTR(tableSequences, col.COLUMN_NAME || '@') = 1 then
+				fieldValue := substr(tableSequences, length(col.COLUMN_NAME) + 2) || '.NEXTVAL';
+			else
+				EXECUTE IMMEDIATE EF.FORMAT('SELECT {3} FROM {1} WHERE {2}', p_tableName, p_whereClause, col.COLUMN_NAME) INTO fieldValue;
+				--EF.DEBUG(fieldValue);
+				if col.DATA_TYPE = 'VARCHAR2' then
+					fieldValue := '''' || replace(fieldValue, '''', '''''') || '''';
+				end if;
+			end if;
+			fieldValueList := fieldValueList || ', ' || fieldValue;
+		end loop;
+		close curCols;
+		fieldList := substr(fieldList, 3);
+		fieldValueList := substr(fieldValueList, 3);
+		--EF.DEBUG(fieldList);
+		--EF.DEBUG(fieldValueList);
+        
+        oneLine := EF.FORMAT('INSERT INTO {1}({2}) VALUES({3});', p_tableName, fieldList, fieldValueList);
+        DBMS_OUTPUT.PUT_LINE(oneLine);
+		
+		open curFks;
+		loop
+			fetch curFks into fk;
+			exit when curFks%NOTFOUND;
+		end loop;
+		close curFks;
+    END;
+    
+END MAPS;
+/
+
+CREATE OR REPLACE PUBLIC SYNONYM MAPS FOR MAPS;
+/
