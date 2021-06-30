@@ -1,0 +1,897 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "../Version/ToolkitEmafiVersion.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_GenerateBilan DIALOGEX 0, 0, 357, 272
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "ACCOUNTING REPORTS"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Folio:",IDC_STATIC,10,9,65,8
+    COMBOBOX        IDC_CBO_FOLIO,77,7,193,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Funds:",IDC_STATIC,10,26,65,8
+    COMBOBOX        IDC_CBO_FUND,77,24,193,30,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Folio selection",IDC_RADIO_FOLIO,"Button",BS_AUTORADIOBUTTON,79,40,87,10
+    CONTROL         "Funds selection",IDC_RADIO_FUND,"Button",BS_AUTORADIOBUTTON,174,40,87,10
+    LTEXT           "Starting Date:",IDC_STATIC,10,56,65,8
+    EDITTEXT        IDC_TXT_START_DATE,77,54,193,12,ES_AUTOHSCROLL
+    LTEXT           "Ending Date:",IDC_STATIC,10,73,65,8
+    EDITTEXT        IDC_TXT_END_DATE,77,71,193,12,ES_AUTOHSCROLL
+    LTEXT           "File type:",IDC_STATIC,10,90,65,8
+    COMBOBOX        IDC_COMBO_FILETYPE,77,88,193,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Date type:",IDC_STATIC,10,107,65,8
+    COMBOBOX        IDC_COMBO_TYPEDATE,77,105,193,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Simulation",IDC_CHECK_SIMULATION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,77,121,48,10
+    LTEXT           "Accounting Report(s)",IDC_STATIC,10,136,69,8
+    CONTROL         "",IDC_LIST_REPORT,"CSCtrlGrille",WS_TABSTOP,10,146,338,117
+    PUSHBUTTON      "Generate",IDC_CMD_CmdGenerate,283,7,65,14
+    PUSHBUTTON      "Close",IDC_CMD_CmdCancel,283,23,65,14
+END
+
+IDD_CONFIGURATIONOD_DLG DIALOGEX 0, 0, 515, 236
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Emafi Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,458,215,50,14
+    CONTROL         "",IDC_TAB_Config_OD,"SysTabControl32",0x0,10,7,498,204
+END
+
+IDD_DIALOG_ETATREGLEMENTAIRE DIALOGEX 0, 0, 364, 253
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Regulatory Reports"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Funds",IDC_STATIC,7,13,22,8
+    LTEXT           "Consultation date :",IDC_STATIC,7,114,62,8
+    EDITTEXT        IDC_DATE_CONSULTATION,87,111,71,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Generate",IDC_CMD_GENERATEREG,292,14,65,14
+    LTEXT           "Regulatory Reports:",IDC_STATIC,7,145,85,8
+    CONTROL         "",IDC_LST_REPORT_REG,"CSCtrlGrille",WS_TABSTOP,7,158,281,88
+    PUSHBUTTON      "Close",IDC_CMD_CmdCancel,292,34,65,14
+    LTEXT           "File type:",IDC_STATIC,7,132,61,8
+    COMBOBOX        IDC_COMBO_FILETYPE_REG,87,130,71,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_LST_FUND,"CSCtrlGrille",WS_TABSTOP,7,28,281,81
+END
+
+IDD_DLG_Config DIALOGEX 0, 0, 653, 292
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Emafi Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,596,271,50,14
+    CONTROL         "",IDC_TAB_Config,"SysTabControl32",0x0,10,7,636,260
+END
+
+IDD_DLG_GestionOd DIALOGEX 0, 0, 697, 305
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "OD Management "
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,641,290,50,14
+    CONTROL         "",IDC_TAB_GestionOD,"SysTabControl32",0x0,7,7,683,273
+END
+
+IDD_TAB_Account DIALOGEX 0, 0, 628, 239
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,4,618,49,WS_TABSTOP
+    LTEXT           "Account number:",IDC_STATIC,10,17,68,8
+    COMBOBOX        IDC_CBO_AccountNumber,79,15,69,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Not in the list:",IDC_STATIC,10,34,68,8
+    EDITTEXT        IDC_TXT_ACCOUNT_PATTERN,79,32,69,12,ES_AUTOHSCROLL
+    LTEXT           "Description:",IDC_STATIC,155,17,39,8
+    EDITTEXT        IDC_TXT_AccountDesc,198,15,159,12,ES_AUTOHSCROLL
+    LTEXT           "Label:",IDC_STATIC,440,17,22,8
+    COMBOBOX        IDC_CBO_Label,466,15,151,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type:",IDC_STATIC,361,17,20,8
+    COMBOBOX        IDC_CBO_Type,383,15,48,30,CBS_DROPDOWN | CBS_OEMCONVERT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Link",IDC_CMD_Add,432,32,57,14
+    PUSHBUTTON      "Update",IDC_CMD_Update,496,32,57,14,BS_BITMAP
+    PUSHBUTTON      "Delete",IDC_CMD_Delete,560,32,57,14
+    CONTROL         "",IDC_LST_ACCOUNT,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+END
+
+IDD_TAB_CONSULTATION DIALOGEX 0, 0, 709, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,4,693,65,WS_TABSTOP
+    LTEXT           "Folio :",IDC_STATIC,36,17,20,8
+    LTEXT           "Stating Date :",IDC_STATIC,35,33,46,8
+    LTEXT           "Ending Date:",IDC_STATIC,37,52,42,8
+    LTEXT           "Journal :",IDC_STATIC,253,19,29,8
+    LTEXT           "Piece :",IDC_STATIC,254,34,22,8
+    PUSHBUTTON      "Consult",IDC_CMD_Consult,450,17,80,14
+    CONTROL         "",IDC_LST_OD,"CSCtrlGrille",WS_TABSTOP,5,72,695,182
+    COMBOBOX        IDC_CBO_FOLIO,97,15,106,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,294,15,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,294,33,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_START_DATE,97,32,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_END_DATE,97,51,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,295,50,64,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Currency:",IDC_STATIC,254,51,33,8
+    PUSHBUTTON      "Delete",IDC_CMD_Delete_OD,450,37,80,14
+END
+
+IDD_TAB_HISTO DIALOGEX 0, 0, 675, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LST_ODHISTO,"CSCtrlGrille",WS_TABSTOP,0,42,675,176
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,624,238,50,14
+END
+
+IDD_TAB_INSERTION DIALOGEX 0, 0, 675, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,667,65,WS_TABSTOP
+    LTEXT           "Folio:",IDC_STATIC,18,15,39,8
+    LTEXT           "Account:",IDC_STATIC,18,32,39,8
+    LTEXT           "Direction:",IDC_STATIC,18,51,39,8
+    COMBOBOX        IDC_CBO_FOLIO,64,12,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_AccountNumber,64,30,102,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_SENS,64,48,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Amount:",IDC_STATIC,184,15,39,8
+    EDITTEXT        IDC_TXT_MONTANT,229,12,102,14,ES_AUTOHSCROLL
+    LTEXT           "Third party:",IDC_STATIC,184,32,39,8
+    COMBOBOX        IDC_CBO_TIERS,229,30,140,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Value Date:",IDC_STATIC,184,51,39,8
+    LTEXT           "Currency",IDC_STATIC,290,50,30,8
+    LTEXT           "Journal:",IDC_STATIC,393,15,27,8
+    LTEXT           "Piece:",IDC_STATIC,394,32,20,8
+    LTEXT           "Comment:",IDC_STATIC,393,51,34,8
+    EDITTEXT        IDC_DATEVALEUR,229,48,59,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,325,48,57,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,439,12,153,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,439,29,153,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_COMMENT,439,46,156,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Add",IDC_CMD_Add,604,13,60,14
+    PUSHBUTTON      "Delete",IDC_CMD_Delete,604,30,60,14
+    PUSHBUTTON      "Save",IDC_CMD_Update,604,48,60,14
+    CONTROL         "",IDC_LST_ODUPDATE,"CSCtrlGrille",WS_TABSTOP,4,75,667,182
+END
+
+IDD_TAB_Label DIALOGEX 0, 0, 630, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,618,49,WS_TABSTOP
+    LTEXT           "Report:",IDC_STATIC,12,17,26,8
+    LTEXT           "Rubric:",IDC_STATIC,100,17,24,8
+    LTEXT           "Label:",IDC_STATIC,336,17,23,8
+    LTEXT           "Parent label:",IDC_STATIC,12,35,47,8
+    COMBOBOX        IDC_CBO_Bilan,40,15,50,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_Rubric,136,15,189,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_Label,360,15,211,14,ES_AUTOHSCROLL
+    CONTROL         "Active",IDC_CHK_Enabled,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,576,17,41,10,WS_EX_RIGHT
+    COMBOBOX        IDC_CBO_PARENT,59,33,222,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Up",IDC_CMD_Up,301,33,57,14
+    PUSHBUTTON      "Down",IDC_CMD_Down,366,33,57,14
+    PUSHBUTTON      "Insert",IDC_CMD_Add,432,33,57,14
+    PUSHBUTTON      "Update",IDC_CMD_Update,496,33,57,14
+    PUSHBUTTON      "Delete",IDC_CMD_Delete,560,33,57,14
+    CONTROL         "",IDC_LST_LABEL,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+END
+
+IDD_TAB_PARAMETRAGE_OD DIALOGEX 0, 0, 545, 228
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Parameter code:",-1,21,23,54,8
+    LTEXT           "Description :",-1,262,25,41,8
+    EDITTEXT        IDC_TXT_CODE_COMMENT,99,21,153,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_DESC_COMMENT,311,24,153,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Add",IDC_CMD_Add,476,14,60,14
+    PUSHBUTTON      "Delete",IDC_CMD_Delete,476,31,60,14
+    PUSHBUTTON      "Update",IDC_CMD_Update,476,49,60,14
+    CONTROL         "",IDC_LST_PARAM,"CSCtrlGrille",WS_TABSTOP,4,75,537,145
+END
+
+IDD_TAB_Rubric DIALOGEX 0, 0, 630, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,618,49,WS_TABSTOP
+    LTEXT           "Report:",IDC_STATIC,12,17,26,8
+    COMBOBOX        IDC_CBO_Bilan,40,15,50,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type:",IDC_STATIC,109,17,20,8
+    COMBOBOX        IDC_CBO_RubricType,132,15,111,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Rubric:",IDC_STATIC,268,17,31,8
+    EDITTEXT        IDC_TXT_Rubric,304,15,311,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Up",IDC_CMD_Up,304,33,57,14
+    PUSHBUTTON      "Down",IDC_CMD_Down,368,33,57,14
+    PUSHBUTTON      "Insert",IDC_CMD_Add,432,33,57,14
+    PUSHBUTTON      "Update",IDC_CMD_Update,496,33,57,14
+    CONTROL         "elete",IDC_LST_RUBRIC,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+    PUSHBUTTON      "Delete",IDC_CMD_Delete,560,33,57,14
+END
+
+IDD_TAB_VALIDATION DIALOGEX 0, 0, 666, 266
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,0,0,662,65,WS_TABSTOP
+    LTEXT           "Folio :",IDC_STATIC,29,15,20,8
+    LTEXT           "Starting Date :",IDC_STATIC,30,29,48,8
+    LTEXT           "Ending Date :",IDC_STATIC,32,48,44,8
+    LTEXT           "Journal :",IDC_STATIC,248,15,29,8
+    LTEXT           "Piece :",IDC_STATIC,249,29,22,8
+    PUSHBUTTON      "Consult",IDC_CMD_Consult2,445,13,80,14
+    CONTROL         "",IDC_LST_OD,"CSCtrlGrille",WS_TABSTOP,4,68,659,182
+    COMBOBOX        IDC_CBO_FOLIO,92,10,106,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,289,10,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,289,29,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_START_DATE,92,28,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_END_DATE,92,47,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,290,45,64,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Currency:",IDC_STATIC,249,47,33,8
+    PUSHBUTTON      "Validate",IDC_CMD_Validate_OD,445,31,80,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DLG_GenerateBilan, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 348
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 263
+    END
+
+    IDD_CONFIGURATIONOD_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 508
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 229
+    END
+
+    IDD_DIALOG_ETATREGLEMENTAIRE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 357
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 246
+    END
+
+    IDD_DLG_Config, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 646
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 285
+    END
+
+    IDD_DLG_GestionOd, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 690
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 298
+    END
+
+    IDD_TAB_Account, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 621
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_TAB_CONSULTATION, DIALOG
+    BEGIN
+        RIGHTMARGIN, 708
+    END
+
+    IDD_TAB_HISTO, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 252
+    END
+
+    IDD_TAB_INSERTION, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 252
+    END
+
+    IDD_TAB_Label, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 624
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 234
+    END
+
+    IDD_TAB_PARAMETRAGE_OD, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 223
+    END
+
+    IDD_TAB_Rubric, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 624
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 235
+    END
+
+    IDD_TAB_VALIDATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 659
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 259
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    STR_TAB_RUBRIC          "Rubrics"
+    STR_TAB_LABEL           "Labels"
+    STR_TAB_ACCOUNT         "Accounts"
+    STR_TAB_ODINSERTION     "Insertion"
+    STR_TAB_ODCONSULTATION  "Consultation"
+    MSG_SELECT_REPORT       "Please select one or more reports!"
+    MSG_FILE_GENERATED      "The report has been generated: %s"
+    MSG_ACCESS_DENIED       "Access denied!"
+    MSG_LINK_REMOVED        "The link has been removed with success"
+    MSG_NO_SUCCESS          "No success"
+    MSG_OD_DELETED          "OD has been deleted with success"
+    MSG_NO_CHANGES          "No changes have been made"
+    MSG_ALREADY_DELETED     "OD already deleted"
+    MSG_DELETION_DENIED     "Deletion denied"
+    MSG_FOLIO               "Please enter the mandatory field!(Folio)"
+    MSG_ACCOUNT             "Please enter the mandatory field!(Account)"
+END
+
+STRINGTABLE
+BEGIN
+    MSG_DEBIT_CREDIT        "Please enter the mandatory field!(Debit/Credit)"
+    MSG_THIRD_PARTY         "Please enter the mandatory field!(Third Party)"
+    MSG_AMOUNT              "Please enter the mandatory field!(Amount)"
+    MSG_VALUE_DATE          "Please enter the mandatory field!(Value Date)"
+    MSG_CURRENCY            "Please enter the mandatory field!(Currency)"
+    MSG_CLASSIFICATION      "Account belong to different classifications"
+    MSG_SAVING_DONE         "Saving done"
+    MSG_OD_ACCOUNTING       "OD does not contain any accounting"
+    MSG_ERROR_OD            "Error: the sum of the debtor account is different from creditor"
+    MSG_DB_ERROR            "Database error: %s"
+    MSG_LABEL_DELETED       "Label deleted with success"
+    MSG_LABEL_ASK           "Do you really want to delete the label?"
+    MSG_FIELD               "Please enter the mandatory fields!"
+    MSG_CODE                "Please enter another code!"
+    MSG_NO_VALIDATION       "Validation not done"
+END
+
+STRINGTABLE
+BEGIN
+    MSG_SUCCESS_DELETE      "The selected element has been deleted with success"
+    MSG_DELETE_ASK          "Do you want really to delete the selected element?"
+    MSG_DELETE_RUBRIC       "Do you really want to delete the rubric?"
+    MSG_RURIC_LABEL2        "Vous ne pouvez pas supprimer cette rubrique tant qu'il reste encore des labels liés"
+    MSG_DELETED_RUBRIC2     "The rubric has been deleted with successs"
+    MSG_OPERATION           "Do you want really to validate this operation?"
+    MSG_VALIDATION_SUCCESS  "Validation done with success"
+END
+
+#endif    // English resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// French resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+LANGUAGE LANG_FRENCH, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_Config DIALOGEX 0, 0, 653, 292
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Emafi Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,596,271,50,14
+    CONTROL         "",IDC_TAB_Config,"SysTabControl32",0x0,10,7,636,260
+END
+
+IDD_TAB_Rubric DIALOGEX 0, 0, 630, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,618,49,WS_TABSTOP
+    LTEXT           "Report:",IDC_STATIC,12,17,26,8
+    COMBOBOX        IDC_CBO_Bilan,40,15,50,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type:",IDC_STATIC,109,17,20,8
+    COMBOBOX        IDC_CBO_RubricType,132,15,111,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Rubrique:",IDC_STATIC,268,17,31,8
+    EDITTEXT        IDC_TXT_Rubric,304,15,311,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Monter",IDC_CMD_Up,304,33,57,14
+    PUSHBUTTON      "Descendre",IDC_CMD_Down,368,33,57,14
+    PUSHBUTTON      "Mode Insertion",IDC_CMD_Add,432,33,57,14
+    PUSHBUTTON      "MAJ",IDC_CMD_Update,496,33,57,14
+    PUSHBUTTON      "Supprimer",IDC_CMD_Delete,560,33,57,14
+    CONTROL         "",IDC_LST_RUBRIC,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+END
+
+IDD_TAB_Label DIALOGEX 0, 0, 630, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,618,49,WS_TABSTOP
+    LTEXT           "Report:",IDC_STATIC,12,17,26,8
+    LTEXT           "Rubrique:",IDC_STATIC,100,17,32,8
+    LTEXT           "Label:",IDC_STATIC,336,17,23,8
+    LTEXT           "Label parent:",IDC_STATIC,12,35,48,8
+    COMBOBOX        IDC_CBO_Bilan,40,15,50,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_Rubric,136,15,189,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_Label,360,15,211,14,ES_AUTOHSCROLL
+    CONTROL         "Active",IDC_CHK_Enabled,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,576,17,41,10,WS_EX_RIGHT
+    COMBOBOX        IDC_CBO_PARENT,63,33,222,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Monter",IDC_CMD_Up,301,33,57,14
+    PUSHBUTTON      "Descendre",IDC_CMD_Down,366,33,57,14
+    PUSHBUTTON      "Mode Insertion",IDC_CMD_Add,432,33,57,14
+    PUSHBUTTON      "MAJ",IDC_CMD_Update,496,33,57,14
+    PUSHBUTTON      "Supprimer",IDC_CMD_Delete,560,33,57,14
+    CONTROL         "",IDC_LST_LABEL,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+END
+
+IDD_TAB_Account DIALOGEX 0, 0, 628, 239
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,4,618,49,WS_TABSTOP
+    LTEXT           "Numéro de compte:",IDC_STATIC,10,17,68,8
+    COMBOBOX        IDC_CBO_AccountNumber,79,15,69,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pas dans la liste:",IDC_STATIC,10,34,68,8
+    EDITTEXT        IDC_TXT_ACCOUNT_PATTERN,79,32,69,12,ES_AUTOHSCROLL
+    LTEXT           "Description:",IDC_STATIC,155,17,39,8
+    EDITTEXT        IDC_TXT_AccountDesc,198,15,159,12,ES_AUTOHSCROLL
+    LTEXT           "Label:",IDC_STATIC,440,17,22,8
+    COMBOBOX        IDC_CBO_Label,466,15,151,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type:",IDC_STATIC,361,17,20,8
+    COMBOBOX        IDC_CBO_Type,383,15,48,30,CBS_DROPDOWN | CBS_OEMCONVERT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Attacher",IDC_CMD_Add,432,32,57,14
+    PUSHBUTTON      "MAJ",IDC_CMD_Update,496,32,57,14,BS_BITMAP
+    PUSHBUTTON      "Enlever",IDC_CMD_Delete,560,32,57,14
+    CONTROL         "",IDC_LST_ACCOUNT,"CSCtrlGrille",WS_TABSTOP,6,56,618,179
+END
+
+IDD_DLG_GestionOd DIALOGEX 0, 0, 697, 305
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Gestion des ODs"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,641,290,50,14
+    CONTROL         "",IDC_TAB_GestionOD,"SysTabControl32",0x0,7,7,683,273
+END
+
+IDD_TAB_CONSULTATION DIALOGEX 0, 0, 709, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,4,693,65,WS_TABSTOP
+    LTEXT           "Portefeuille :",IDC_STATIC,36,17,42,8
+    LTEXT           "Date Début :",IDC_STATIC,35,33,42,8
+    LTEXT           "Date Fin :",IDC_STATIC,37,52,32,8
+    LTEXT           "Journal :",IDC_STATIC,253,19,29,8
+    LTEXT           "Pièce :",IDC_STATIC,254,34,22,8
+    PUSHBUTTON      "Consulter",IDC_CMD_Consult,450,17,80,14
+    CONTROL         "",IDC_LST_OD,"CSCtrlGrille",WS_TABSTOP,5,72,695,182
+    COMBOBOX        IDC_CBO_FOLIO,97,15,106,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,294,15,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,294,33,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_START_DATE,97,32,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_END_DATE,97,51,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,295,50,64,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Devise:",IDC_STATIC,254,51,25,8
+    PUSHBUTTON      "Supprimer",IDC_CMD_Delete_OD,450,37,80,14
+END
+
+IDD_TAB_INSERTION DIALOGEX 0, 0, 675, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,3,667,65,WS_TABSTOP
+    LTEXT           "Portefeuille",IDC_STATIC,18,15,39,8
+    LTEXT           "Compte",IDC_STATIC,18,32,39,8
+    LTEXT           "Sens",IDC_STATIC,18,51,39,8
+    COMBOBOX        IDC_CBO_FOLIO,64,12,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_AccountNumber,64,30,102,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBO_SENS,64,48,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Montant",IDC_STATIC,184,15,39,8
+    EDITTEXT        IDC_TXT_MONTANT,229,12,102,14,ES_AUTOHSCROLL
+    LTEXT           "Tiers",IDC_STATIC,184,32,39,8
+    COMBOBOX        IDC_CBO_TIERS,229,30,140,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Date valeur",IDC_STATIC,184,51,39,8
+    LTEXT           "Devise",IDC_STATIC,297,50,22,8
+    LTEXT           "Journal",IDC_STATIC,393,15,24,8
+    LTEXT           "Piece",IDC_STATIC,394,32,18,8
+    LTEXT           "Commentaire",IDC_STATIC,393,51,43,8
+    EDITTEXT        IDC_DATEVALEUR,229,48,59,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,325,48,57,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,439,12,153,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,439,29,153,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_COMMENT,439,46,156,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Ajouter",IDC_CMD_Add,604,13,60,14
+    PUSHBUTTON      "Supprimer",IDC_CMD_Delete,604,30,60,14
+    PUSHBUTTON      "Enregistrer",IDC_CMD_Update,604,48,60,14
+    CONTROL         "",IDC_LST_ODUPDATE,"CSCtrlGrille",WS_TABSTOP,4,75,667,182
+END
+
+IDD_TAB_HISTO DIALOGEX 0, 0, 675, 257
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LST_ODHISTO,"CSCtrlGrille",WS_TABSTOP,0,42,675,176
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,624,238,50,14
+END
+
+IDD_CONFIGURATIONOD_DLG DIALOGEX 0, 0, 515, 236
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Emafi Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,458,215,50,14
+    CONTROL         "",IDC_TAB_Config_OD,"SysTabControl32",0x0,10,7,498,204
+END
+
+IDD_TAB_PARAMETRAGE_OD DIALOGEX 0, 0, 545, 228
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Code paramètre :",-1,21,23,58,8
+    LTEXT           "Description :",-1,262,25,41,8
+    EDITTEXT        IDC_TXT_CODE_COMMENT,99,21,153,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_DESC_COMMENT,311,24,153,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Ajouter",IDC_CMD_Add,476,14,60,14
+    PUSHBUTTON      "Supprimer",IDC_CMD_Delete,476,31,60,14
+    PUSHBUTTON      "Mettre à jour",IDC_CMD_Update,476,49,60,14
+    CONTROL         "",IDC_LST_PARAM,"CSCtrlGrille",WS_TABSTOP,4,75,537,145
+END
+
+IDD_TAB_VALIDATION DIALOGEX 0, 0, 666, 266
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,0,0,662,65,WS_TABSTOP
+    LTEXT           "Portefeuille :",IDC_STATIC,29,15,42,8
+    LTEXT           "Date Début :",IDC_STATIC,30,29,42,8
+    LTEXT           "Date Fin :",IDC_STATIC,32,48,32,8
+    LTEXT           "Journal :",IDC_STATIC,248,15,29,8
+    LTEXT           "Pièce :",IDC_STATIC,249,29,22,8
+    PUSHBUTTON      "Consulter",IDC_CMD_Consult2,445,13,80,14
+    CONTROL         "",IDC_LST_OD,"CSCtrlGrille",WS_TABSTOP,4,68,659,182
+    COMBOBOX        IDC_CBO_FOLIO,92,10,106,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TXT_JOURNAL,289,10,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_PIECE,289,29,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_START_DATE,92,28,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TXT_END_DATE,92,47,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBO_DEVISE,290,45,64,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Devise:",IDC_STATIC,249,47,25,8
+    PUSHBUTTON      "Valider",IDC_CMD_Validate_OD,445,31,80,14
+END
+
+IDD_DIALOG_ETATREGLEMENTAIRE DIALOGEX 0, 0, 364, 253
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Fonds :",IDC_STATIC,7,13,22,8
+    LTEXT           "Date de consultation :",IDC_STATIC,7,114,72,8
+    EDITTEXT        IDC_DATE_CONSULTATION,87,111,71,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Generer",IDC_CMD_GENERATEREG,292,14,65,14
+    LTEXT           "Etat réglementaire :",IDC_STATIC,7,145,85,8
+    CONTROL         "",IDC_LST_REPORT_REG,"CSCtrlGrille",WS_TABSTOP,7,158,281,88
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,292,34,65,14
+    LTEXT           "Type du fichier :",IDC_STATIC,7,132,61,8
+    COMBOBOX        IDC_COMBO_FILETYPE_REG,87,130,71,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_LST_FUND,"CSCtrlGrille",WS_TABSTOP,7,28,281,81
+END
+
+IDD_DLG_GenerateBilan DIALOGEX 0, 0, 357, 272
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "ETATS COMPTABLES"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Portefeuille :",IDC_STATIC,10,9,65,8
+    COMBOBOX        IDC_CBO_FOLIO,77,7,193,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Fonds :",IDC_STATIC,10,26,65,8
+    COMBOBOX        IDC_CBO_FUND,77,24,193,30,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Sélection portefeuille",IDC_RADIO_FOLIO,"Button",BS_AUTORADIOBUTTON,79,40,87,10
+    CONTROL         "Sélection fonds",IDC_RADIO_FUND,"Button",BS_AUTORADIOBUTTON,174,40,87,10
+    LTEXT           "Date de début :",IDC_STATIC,10,56,65,8
+    EDITTEXT        IDC_TXT_START_DATE,77,54,193,12,ES_AUTOHSCROLL
+    LTEXT           "Date de fin :",IDC_STATIC,10,73,65,8
+    EDITTEXT        IDC_TXT_END_DATE,77,71,193,12,ES_AUTOHSCROLL
+    LTEXT           "Type du fichier :",IDC_STATIC,10,90,65,8
+    COMBOBOX        IDC_COMBO_FILETYPE,77,88,193,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type de date :",IDC_STATIC,10,107,65,8
+    COMBOBOX        IDC_COMBO_TYPEDATE,77,105,193,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Simulation",IDC_CHECK_SIMULATION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,77,121,48,10
+    LTEXT           "Etat comptable(s) ",IDC_STATIC,10,136,69,8
+    CONTROL         "",IDC_LIST_REPORT,"CSCtrlGrille",WS_TABSTOP,10,146,338,117
+    PUSHBUTTON      "Générer",IDC_CMD_CmdGenerate,283,7,65,14
+    PUSHBUTTON      "Fermer",IDC_CMD_CmdCancel,283,23,65,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DLG_Config, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 646
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 285
+    END
+
+    IDD_TAB_Rubric, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 624
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 235
+    END
+
+    IDD_TAB_Label, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 624
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 234
+    END
+
+    IDD_TAB_Account, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 621
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_DLG_GestionOd, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 690
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 298
+    END
+
+    IDD_TAB_CONSULTATION, DIALOG
+    BEGIN
+        RIGHTMARGIN, 708
+    END
+
+    IDD_TAB_INSERTION, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 252
+    END
+
+    IDD_TAB_HISTO, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 252
+    END
+
+    IDD_CONFIGURATIONOD_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 508
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 229
+    END
+
+    IDD_TAB_PARAMETRAGE_OD, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 223
+    END
+
+    IDD_TAB_VALIDATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 659
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 259
+    END
+
+    IDD_DIALOG_ETATREGLEMENTAIRE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 357
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 246
+    END
+
+    IDD_DLG_GenerateBilan, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 348
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 263
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 7,1,3,9
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x0L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040c04b0"
+        BEGIN
+            VALUE "FileDescription", "ToolkitEmafi (x64)"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "ToolkitEmafi"
+            VALUE "OriginalFilename", "ToolkitEmafi.rc"
+            VALUE "ProductName", "ToolkitEmafi"
+            VALUE "ProductVersion", "7.1.3.9"
+            VALUE "LegalCopyright", "FusionInvest 7.1.3.9 - September 2015"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x40c, 1200
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""../Version/ToolkitEmafiVersion.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""ToolkitEmafiVersion.rc2""\r\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    STR_TAB_RUBRIC          "Rubriques"
+    STR_TAB_LABEL           "Labels"
+    STR_TAB_ACCOUNT         "Comptes"
+    STR_TAB_ODINSERTION     "Insertion"
+    STR_TAB_ODCONSULTATION  "Consultation"
+    MSG_SELECT_REPORT       "Veuillez sélectionner un ou plusieurs rapports!"
+    MSG_FILE_GENERATED      "Le rapport a été généré: %s"
+    MSG_ACCESS_DENIED       "Access denied!"
+    MSG_LINK_REMOVED        "La liason a été enlevée avec succès"
+    MSG_NO_SUCCESS          "Pas de succès"
+    MSG_OD_DELETED          "OD a été supprimée avec succès"
+    MSG_NO_CHANGES          "Aucune modification n'a été effectuée"
+    MSG_ALREADY_DELETED     "OD déjà supprimée"
+    MSG_DELETION_DENIED     "Suppression refusée"
+    MSG_FOLIO               "S'il vous plaît entrer le champ obligatoire!(Portefeuille)"
+    MSG_ACCOUNT             "S'il vous plaît entrer le champ obligatoire!(compte)"
+END
+
+STRINGTABLE
+BEGIN
+    MSG_DEBIT_CREDIT        "S'il vous plaît entrer le champ obligatoire!(Debit/Credit)"
+    MSG_THIRD_PARTY         "S'il vous plaît entrer le champ obligatoire!(Tiers)"
+    MSG_AMOUNT              "S'il vous plaît entrer le champ obligatoire!(Montant)"
+    MSG_VALUE_DATE          "S'il vous plaît entrer le champ obligatoire!(Date de valeur)"
+    MSG_CURRENCY            "S'il vous plaît entrer le champ obligatoire!(Devise)"
+    MSG_CLASSIFICATION      "Les comptes appartiennent à des classifications différentes"
+    MSG_SAVING_DONE         "Enregistrement fait"
+    MSG_OD_ACCOUNTING       "OD ne contient aucune ecriture comptable"
+    MSG_ERROR_OD            "Erreur: la somme du compte debiteur est differente de celle du créditeur"
+    MSG_DB_ERROR            "Erreur dans la base de données : %s"
+    MSG_LABEL_DELETED       "Le label a été supprimé avec succès"
+    MSG_LABEL_ASK           "Voulez vous vraiment supprimer le label?"
+    MSG_FIELD               "Please enter the mandatory fields!"
+    MSG_CODE                "Please enter another code!"
+    MSG_NO_VALIDATION       "Validation n'est pas faite"
+END
+
+STRINGTABLE
+BEGIN
+    MSG_SUCCESS_DELETE      "L'élément sélectionné a été supprimé avec succès"
+    MSG_DELETE_ASK          "Voulez vous vraiment supprimer l'élément sélectionné ?"
+    MSG_DELETE_RUBRIC       "Voulez vous vraiment supprimer la rubrique?"
+    MSG_RURIC_LABEL         "Vous ne pouvez pas supprimer cette rubrique tant qu'il reste encore des labels liés"
+    MSG_DELETED_RUBRIC      "La rubrique a été supprimée avec succès"
+    MSG_OPERATION           "Voulez vous vraiment valider cette opération?"
+    MSG_VALIDATION_SUCCESS  "Validation faite avec succée"
+END
+
+#endif    // French resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "ToolkitEmafiVersion.rc2"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

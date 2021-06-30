@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{4f0c8d58-e3aa-4793-807d-201e8e97c40c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{d29552ce-2df2-439c-b7f1-1d9e3d4c7b27}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{91cf97c0-2731-426c-bee7-2a1f95b44972}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ToolkitRapprochementMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="TabConsultRelevDlg.cpp" />
+    <ClCompile Include="TabConsultMouvementDlg.cpp" />
+    <ClCompile Include="TabImportDlg.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="RapprEspecesDlg.cpp" />
+    <ClCompile Include="RapprEspeces.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.ToolkitRapprochement.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\ToolkitRapprochement.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\ToolkitRapprochementVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TabConsultRelevDlg.h" />
+    <ClInclude Include="TabConsultMouvementDlg.h" />
+    <ClInclude Include="TabImportDlg.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="RapprEspecesDlg.h" />
+    <ClInclude Include="RapprEspeces.h" />
+    <ClInclude Include="RapprEspecesRibbon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_ToolkitRapprochementScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\ToolkitRapprochementScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitRapprochementVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitRapprochement.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

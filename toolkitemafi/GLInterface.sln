@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLInterface", "GLInterface\GLInterface.vcxproj", "{7166A2A1-0727-4C61-A550-A5445F179E0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A} = {D2A41E7E-011B-48D7-8216-D80D9DA0E44A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EffStdLib", "EffStdLib\EffStdLib72.vcxproj", "{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7166A2A1-0727-4C61-A550-A5445F179E0F}.Debug|x64.ActiveCfg = Debug|x64
+		{7166A2A1-0727-4C61-A550-A5445F179E0F}.Debug|x64.Build.0 = Debug|x64
+		{7166A2A1-0727-4C61-A550-A5445F179E0F}.Release|x64.ActiveCfg = Release|x64
+		{7166A2A1-0727-4C61-A550-A5445F179E0F}.Release|x64.Build.0 = Release|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Debug|x64.ActiveCfg = Debug|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Debug|x64.Build.0 = Debug|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Release|x64.ActiveCfg = Release|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

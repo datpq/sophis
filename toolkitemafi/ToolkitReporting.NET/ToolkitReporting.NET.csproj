@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ToolkitPath>$(ToolkitPath)</ToolkitPath>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitPath)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+    <ProjectGuid>{936E23A8-7F2A-4CD9-8686-C44FAB33CD0E}</ProjectGuid>
+    <NuGetPackageImportStamp>3d999f01</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ToolkitReporting.NET</RootNamespace>
+    <AssemblyName>ToolkitReporting.NET</AssemblyName>
+    <ReferencePath>$(MisysInstallDir)</ReferencePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\DLL\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.2" />
+    <Reference Include="DevExpress.Utils.v14.2" />
+    <Reference Include="DevExpress.XtraEditors.v14.2" />
+    <Reference Include="DevExpress.XtraGrid.v14.2" />
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.DataAccess">
+      <HintPath>..\DLL\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Sophis.Core" />
+    <Reference Include="Sophis.Core.Data" />
+    <Reference Include="Sophis.DotNetCore" />
+    <Reference Include="Sophis.Reporting" />
+    <Reference Include="Sophis.Reporting.Controls" />
+    <Reference Include="Sophis.Windows" />
+    <Reference Include="Sophis.Windows.Widgets.Core" />
+    <Reference Include="SophisDotNetToolkit" />
+    <Reference Include="SophisDotNetToolkitGUI" />
+    <Reference Include="SophisGuiCommon" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TSQL_Parser, Version=1.2.8.0, Culture=neutral, PublicKeyToken=09a45a2da17eccd6, processorArchitecture=MSIL">
+      <HintPath>..\packages\TSQL.Parser.1.2.8\lib\net452\TSQL_Parser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExcelUtils.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\ReportParameter.cs" />
+    <Compile Include="Models\ReportSetting.cs" />
+    <Compile Include="NinjectInit.cs" />
+    <Compile Include="CustomTypeEditors.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
+    <Compile Include="ParamColMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParamColMapForm.Designer.cs">
+      <DependentUpon>ParamColMapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParameterTypeSettings\DefaultParameterTypeSetting.cs" />
+    <Compile Include="ParameterTypes\AbstractParameterType.cs" />
+    <Compile Include="Others\BindingFunctions.cs" />
+    <Compile Include="ParameterTypes\CalendarParameterType.cs" />
+    <Compile Include="ParameterTypeSettings\CalendarParameterTypeSetting.cs" />
+    <Compile Include="ParameterTypes\ComboBoxParameterType.cs" />
+    <Compile Include="PropertyGrid\PropertyGridObject.cs" />
+    <Compile Include="PropertyGrid\ReportingAskParamObject.cs" />
+    <Compile Include="PropertyGrid\ReportingObject.cs" />
+    <Compile Include="ReportingExtensions.cs" />
+    <Compile Include="ReportingMainForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportingMainForm.Designer.cs">
+      <DependentUpon>ReportingMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingScenario.cs" />
+    <Compile Include="Others\TokenTranslators.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ReportService.cs" />
+    <Compile Include="ToolkitReporting.NETMain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ParameterTypeSettings\UcDefaultSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ParameterTypeSettings\UcDefaultSetting.Designer.cs">
+      <DependentUpon>UcDefaultSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParameterTypeSettings\UcCalendarSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ParameterTypeSettings\UcCalendarSetting.Designer.cs">
+      <DependentUpon>UcCalendarSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="version\ReleaseNotes.ToolkitReporting.NET.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="SQL\Rollback_ToolkitReporting.NETScript.sql" />
+    <None Include="SQL\ToolkitReporting.NETScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ParamColMapForm.resx">
+      <DependentUpon>ParamColMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParameterTypeSettings\UcDefaultSetting.resx">
+      <DependentUpon>UcDefaultSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParameterTypeSettings\UcCalendarSetting.resx">
+      <DependentUpon>UcCalendarSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportingMainForm.resx">
+      <DependentUpon>ReportingMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmcUtilities\EmcUtilities.csproj">
+      <Project>{540aec93-b46c-4c3c-bcf4-e846b212241c}</Project>
+      <Name>EmcUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(ToolkitPath)\makefile\msbuild\Misys.CSharp.props" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Common charp props are imported from the Misys.CSharp.props files, delivered with the toolkit installation.
+       You can create your own layer of .props file, as long as they import Misys.CSharp.props
+
+       Ex:
+       <Import Project="$(MisysRootDir)\makefile\msbuild\customer.csharp.props" />
+   -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

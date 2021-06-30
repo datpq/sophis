@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(Toolkit_720x)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis_7.2.1 -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\VOBRisk\Risk\sources\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="CtxComboBox.cpp" />
+    <ClCompile Include="CtxEditList.cpp" />
+    <ClCompile Include="CtxEditText.cpp" />
+    <ClCompile Include="CtxElements.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="msxmlutils.cpp" />
+    <ClCompile Include="RptUtils.cpp" />
+    <ClCompile Include="SphUtils.cpp" />
+    <ClCompile Include="SqlUtils.cpp" />
+    <ClCompile Include="SqlWrapper.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="systemutils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+    <Text Include="Resource\EffStdLib.txt" />
+    <Text Include="Version\ReadMe.txt" />
+    <Text Include="Version\ReleaseNotes.EffStdLib.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inc\Config.h" />
+    <ClInclude Include="Inc\CtxComboBox.h" />
+    <ClInclude Include="Inc\CtxEditList.h" />
+    <ClInclude Include="Inc\CtxEditText.h" />
+    <ClInclude Include="Inc\CtxElements.h" />
+    <ClInclude Include="Inc\Log.h" />
+    <ClInclude Include="Inc\msxmlutils.h" />
+    <ClInclude Include="Inc\RptUtils.h" />
+    <ClInclude Include="Inc\SphUtils.h" />
+    <ClInclude Include="Inc\SqlUtils.h" />
+    <ClInclude Include="Inc\SqlWrapper.h" />
+    <ClInclude Include="Inc\StringUtils.h" />
+    <ClInclude Include="Inc\systemutils.h" />
+    <ClInclude Include="Inc\Variant.h" />
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Version\EffStdLibVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\EffStdLibVersion.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\EffStdLib.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}</ProjectGuid>
+    <ProjectName>EffStdLib</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Misys.cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SOPHISVER=720;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Sophis.lib;SophisTools.lib;SophisRiskTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

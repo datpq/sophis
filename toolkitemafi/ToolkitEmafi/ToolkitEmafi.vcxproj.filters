@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{3b846c2a-370a-424e-9ca9-d0ea70ea713f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{0e2e6986-1fc8-478c-a54e-bf24e9af1ab4}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{1c065442-5b21-4eb7-9552-332205f58f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenarios">
+      <UniqueIdentifier>{32212abb-b0e4-4eb9-8b9d-4b0328f9c748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{c7cc72c3-75f3-410d-8128-a6ae2a7c540f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bilan">
+      <UniqueIdentifier>{da50bd83-71d6-4a76-85d7-77937eee690c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ToolkitEmafiMain.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="GenerateBilan.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="GenerateBilanDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageRubricDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageLabelDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlRubric.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlLabel.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageAccountDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlAccount.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Bilan.cpp">
+      <Filter>Bilan</Filter>
+    </ClCompile>
+    <ClCompile Include="GestionOd.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="GestionOdDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageConsultationDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageInsertionDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlOd.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigButton.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlReport.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlOdHisto.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageHistoriqueDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigurationOd.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigurationODDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageParamDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TabPageValidationDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EtatsReglementaireDlg.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CtxTemplates.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="RapportGeneral.cpp">
+      <Filter>Bilan</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdGenerate.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EtatReglementaire.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="EdlFund.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_ToolkitEmafiScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\ToolkitEmafiScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.ToolkitEmafi.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitEmafi.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitEmafiVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\ToolkitEmafiVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateBilan.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateBilanDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdGenerate.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageRubricDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageLabelDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlRubric.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlLabel.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageAccountDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlAccount.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Bilan.h">
+      <Filter>Bilan</Filter>
+    </ClInclude>
+    <ClInclude Include="GestionOd.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="GestionOdDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageConsultationDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageInsertionDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlOd.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigButton.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlReport.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlOdHisto.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageHistoriqueDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationOd.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationODDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageParamDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TabPageValidationDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GestionOdRibbon.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateBilanRibbon.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationRibbon.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationOdRibbon.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="EtatsReglementaireDlg.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CtxTemplates.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="RapportGeneral.h">
+      <Filter>Bilan</Filter>
+    </ClInclude>
+    <ClInclude Include="EtatReglementairerRibbon.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="EtatReglementaire.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="EdlFund.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitEmafi.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

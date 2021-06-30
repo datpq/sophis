@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(Toolkit_720x)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis_7.2.1 -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\VOBRisk\Risk\sources\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="RapprEspeces.cpp" />
+    <ClCompile Include="RapprEspecesDlg.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TabConsultMouvementDlg.cpp" />
+    <ClCompile Include="TabConsultRelevDlg.cpp" />
+    <ClCompile Include="TabImportDlg.cpp" />
+    <ClCompile Include="ToolkitRapprochementMain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\ToolkitRapprochement.txt" />
+    <Text Include="Version\ReadMe.txt" />
+    <Text Include="Version\ReleaseNotes.ToolkitRapprochement.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RapprEspeces.h" />
+    <ClInclude Include="RapprEspecesDlg.h" />
+    <ClInclude Include="RapprEspecesRibbon.h" />
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TabConsultMouvementDlg.h" />
+    <ClInclude Include="TabConsultRelevDlg.h" />
+    <ClInclude Include="TabImportDlg.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Version\ToolkitRapprochementVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ToolkitRapprochementVersion.rc2" />
+    <None Include="SQL\Rollback_ToolkitRapprochementScript.sql" />
+    <None Include="SQL\ToolkitRapprochementScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitRapprochement.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EffStdLib\EffStdLib72.vcxproj">
+      <Project>{d2a41e7e-011b-48d7-8216-d80d9da0e44a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Misys.cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.;..\EffStdLib\Inc\;$(ToolkitPath)\SphLLInc;$(ToolkitPath);$(SophisIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>SophisInterface.lib;Sophis.lib;SophisTools.lib;SophisRiskTools.lib;SophisDBC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

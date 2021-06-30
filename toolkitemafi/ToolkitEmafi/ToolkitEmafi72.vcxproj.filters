@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{fe8491a7-c131-46da-bb69-4bc84b17b472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{b58f36e6-0fe1-4ee9-ac19-955ea3f30c68}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{e8233d16-d8aa-4ad2-b08e-ff686293f8ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ToolkitEmafiMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="Bilan.cpp" />
+    <ClCompile Include="CmdGenerate.cpp" />
+    <ClCompile Include="ConfigButton.cpp" />
+    <ClCompile Include="ConfigDlg.cpp" />
+    <ClCompile Include="ConfigurationOd.cpp" />
+    <ClCompile Include="ConfigurationODDlg.cpp" />
+    <ClCompile Include="CtxTemplates.cpp" />
+    <ClCompile Include="EdlAccount.cpp" />
+    <ClCompile Include="EdlFund.cpp" />
+    <ClCompile Include="EdlLabel.cpp" />
+    <ClCompile Include="EdlOd.cpp" />
+    <ClCompile Include="EdlOdHisto.cpp" />
+    <ClCompile Include="EdlReport.cpp" />
+    <ClCompile Include="EdlRubric.cpp" />
+    <ClCompile Include="EtatReglementaire.cpp" />
+    <ClCompile Include="EtatsReglementaireDlg.cpp" />
+    <ClCompile Include="GenerateBilan.cpp" />
+    <ClCompile Include="GenerateBilanDlg.cpp" />
+    <ClCompile Include="GestionOd.cpp" />
+    <ClCompile Include="GestionOdDlg.cpp" />
+    <ClCompile Include="RapportGeneral.cpp" />
+    <ClCompile Include="TabPageAccountDlg.cpp" />
+    <ClCompile Include="TabPageConsultationDlg.cpp" />
+    <ClCompile Include="TabPageHistoriqueDlg.cpp" />
+    <ClCompile Include="TabPageInsertionDlg.cpp" />
+    <ClCompile Include="TabPageLabelDlg.cpp" />
+    <ClCompile Include="TabPageParamDlg.cpp" />
+    <ClCompile Include="TabPageRubricDlg.cpp" />
+    <ClCompile Include="TabPageValidationDlg.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.ToolkitEmafi.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\ToolkitEmafi.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\ToolkitEmafiVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bilan.h" />
+    <ClInclude Include="CmdGenerate.h" />
+    <ClInclude Include="ConfigButton.h" />
+    <ClInclude Include="ConfigDlg.h" />
+    <ClInclude Include="ConfigurationOd.h" />
+    <ClInclude Include="ConfigurationODDlg.h" />
+    <ClInclude Include="ConfigurationOdRibbon.h" />
+    <ClInclude Include="ConfigurationRibbon.h" />
+    <ClInclude Include="CtxTemplates.h" />
+    <ClInclude Include="EdlAccount.h" />
+    <ClInclude Include="EdlFund.h" />
+    <ClInclude Include="EdlLabel.h" />
+    <ClInclude Include="EdlOd.h" />
+    <ClInclude Include="EdlOdHisto.h" />
+    <ClInclude Include="EdlReport.h" />
+    <ClInclude Include="EdlRubric.h" />
+    <ClInclude Include="EtatReglementaire.h" />
+    <ClInclude Include="EtatReglementairerRibbon.h" />
+    <ClInclude Include="EtatsReglementaireDlg.h" />
+    <ClInclude Include="GenerateBilan.h" />
+    <ClInclude Include="GenerateBilanDlg.h" />
+    <ClInclude Include="GenerateBilanRibbon.h" />
+    <ClInclude Include="GestionOd.h" />
+    <ClInclude Include="GestionOdDlg.h" />
+    <ClInclude Include="GestionOdRibbon.h" />
+    <ClInclude Include="RapportGeneral.h" />
+    <ClInclude Include="TabPageAccountDlg.h" />
+    <ClInclude Include="TabPageConsultationDlg.h" />
+    <ClInclude Include="TabPageHistoriqueDlg.h" />
+    <ClInclude Include="TabPageInsertionDlg.h" />
+    <ClInclude Include="TabPageLabelDlg.h" />
+    <ClInclude Include="TabPageParamDlg.h" />
+    <ClInclude Include="TabPageRubricDlg.h" />
+    <ClInclude Include="TabPageValidationDlg.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Constants.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_ToolkitEmafiScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\ToolkitEmafiScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitEmafiVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitEmafi.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

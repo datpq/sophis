@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(Toolkit_720x)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis_7.2.1 -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\VOBRisk\Risk\sources\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bilan.cpp" />
+    <ClCompile Include="CmdGenerate.cpp" />
+    <ClCompile Include="ConfigButton.cpp" />
+    <ClCompile Include="ConfigDlg.cpp" />
+    <ClCompile Include="ConfigurationOd.cpp" />
+    <ClCompile Include="ConfigurationODDlg.cpp" />
+    <ClCompile Include="CtxTemplates.cpp" />
+    <ClCompile Include="EdlAccount.cpp" />
+    <ClCompile Include="EdlFund.cpp" />
+    <ClCompile Include="EdlLabel.cpp" />
+    <ClCompile Include="EdlOd.cpp" />
+    <ClCompile Include="EdlOdHisto.cpp" />
+    <ClCompile Include="EdlReport.cpp" />
+    <ClCompile Include="EdlRubric.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="EtatReglementaire.cpp" />
+    <ClCompile Include="EtatsReglementaireDlg.cpp" />
+    <ClCompile Include="GenerateBilan.cpp" />
+    <ClCompile Include="GenerateBilanDlg.cpp" />
+    <ClCompile Include="GestionOd.cpp" />
+    <ClCompile Include="GestionOdDlg.cpp" />
+    <ClCompile Include="RapportGeneral.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TabPageAccountDlg.cpp" />
+    <ClCompile Include="TabPageConsultationDlg.cpp" />
+    <ClCompile Include="TabPageHistoriqueDlg.cpp" />
+    <ClCompile Include="TabPageInsertionDlg.cpp" />
+    <ClCompile Include="TabPageLabelDlg.cpp" />
+    <ClCompile Include="TabPageParamDlg.cpp" />
+    <ClCompile Include="TabPageRubricDlg.cpp" />
+    <ClCompile Include="TabPageValidationDlg.cpp" />
+    <ClCompile Include="ToolkitEmafiMain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\ToolkitEmafi.txt" />
+    <Text Include="Version\ReadMe.txt" />
+    <Text Include="Version\ReleaseNotes.ToolkitEmafi.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bilan.h" />
+    <ClInclude Include="CmdGenerate.h" />
+    <ClInclude Include="ConfigButton.h" />
+    <ClInclude Include="ConfigDlg.h" />
+    <ClInclude Include="ConfigurationOd.h" />
+    <ClInclude Include="ConfigurationODDlg.h" />
+    <ClInclude Include="ConfigurationOdRibbon.h" />
+    <ClInclude Include="ConfigurationRibbon.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="CtxTemplates.h" />
+    <ClInclude Include="EdlAccount.h" />
+    <ClInclude Include="EdlFund.h" />
+    <ClInclude Include="EdlLabel.h" />
+    <ClInclude Include="EdlOd.h" />
+    <ClInclude Include="EdlOdHisto.h" />
+    <ClInclude Include="EdlReport.h" />
+    <ClInclude Include="EdlRubric.h" />
+    <ClInclude Include="EtatReglementaire.h" />
+    <ClInclude Include="EtatReglementairerRibbon.h" />
+    <ClInclude Include="EtatsReglementaireDlg.h" />
+    <ClInclude Include="GenerateBilan.h" />
+    <ClInclude Include="GenerateBilanDlg.h" />
+    <ClInclude Include="GenerateBilanRibbon.h" />
+    <ClInclude Include="GestionOd.h" />
+    <ClInclude Include="GestionOdDlg.h" />
+    <ClInclude Include="GestionOdRibbon.h" />
+    <ClInclude Include="RapportGeneral.h" />
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TabPageAccountDlg.h" />
+    <ClInclude Include="TabPageConsultationDlg.h" />
+    <ClInclude Include="TabPageHistoriqueDlg.h" />
+    <ClInclude Include="TabPageInsertionDlg.h" />
+    <ClInclude Include="TabPageLabelDlg.h" />
+    <ClInclude Include="TabPageParamDlg.h" />
+    <ClInclude Include="TabPageRubricDlg.h" />
+    <ClInclude Include="TabPageValidationDlg.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Version\ToolkitEmafiVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ToolkitEmafiVersion.rc2" />
+    <None Include="SQL\Rollback_ToolkitEmafiScript.sql" />
+    <None Include="SQL\ToolkitEmafiScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitEmafi.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EffStdLib\EffStdLib72.vcxproj">
+      <Project>{d2a41e7e-011b-48d7-8216-d80d9da0e44a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9E15885-5A0A-47EA-83A1-4B7E712387CD}</ProjectGuid>
+    <ProjectName>ToolkitEmafi</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Misys.cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.;../EffStdLib/Inc;$(SophisIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SOPHISVER=720;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>SophisInterface.lib;Sophis.lib;SophisTools.lib;SophisRiskTools.lib;SophisDBC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

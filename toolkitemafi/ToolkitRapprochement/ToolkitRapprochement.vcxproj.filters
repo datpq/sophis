@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{495ad45a-08a7-4f7f-a5e1-cc4b953b4a43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{705d2445-1a5d-4d52-9409-f1e0787f94c0}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{97d561d6-f7f8-4ede-b6a7-456cb957ec9d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ToolkitRapprochementMain.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="entrypoint.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RapprEspeces.cpp" />
+    <ClCompile Include="RapprEspecesDlg.cpp" />
+    <ClCompile Include="TabConsultMouvementDlg.cpp" />
+    <ClCompile Include="TabConsultRelevDlg.cpp" />
+    <ClCompile Include="TabImportDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_ToolkitRapprochementScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\ToolkitRapprochementScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.ToolkitRapprochement.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitRapprochement.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitRapprochementVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\ToolkitRapprochementVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RapprEspeces.h" />
+    <ClInclude Include="RapprEspecesDlg.h" />
+    <ClInclude Include="RapprEspecesRibbon.h" />
+    <ClInclude Include="TabConsultMouvementDlg.h" />
+    <ClInclude Include="TabConsultRelevDlg.h" />
+    <ClInclude Include="TabImportDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitRapprochement.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

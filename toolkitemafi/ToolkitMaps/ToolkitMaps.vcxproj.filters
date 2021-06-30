@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{2e1b81aa-d629-42ed-a3e3-2cc20bd8c58b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{3963ac81-22f7-4913-ab83-14bec38dbd1a}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{dbced178-b6b4-4ab6-96a5-dcd0e7d2e90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenarios">
+      <UniqueIdentifier>{4707a0f5-49fb-40f4-aa3a-8aa588f735a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gui">
+      <UniqueIdentifier>{a6a5be38-5658-4f1b-a5d1-18c4074c0743}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ToolkitMapsMain.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="ExportScenario.cpp">
+      <Filter>Scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportScenarioDlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_ToolkitMapsScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\ToolkitMapsScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.ToolkitMaps.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitMaps.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\ToolkitMapsVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\ToolkitMapsVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportScenario.h">
+      <Filter>Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportScenarioDlg.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\ToolkitMaps.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

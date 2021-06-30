@@ -1,0 +1,54 @@
+#ifndef _VERSION_LOG_RC2_
+#define _VERSION_LOG_RC2_
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include "../Version/ToolkitReportingVersion.h"
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION ToolkitReporting_VERSION
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+			VALUE "CompanyName", "Efficiency Management Consulting"
+            VALUE "FileDescription", 	ToolkitReporting_TOOLKIT_DESCRIPTION
+            VALUE "FileVersion", 	ToolkitReporting_VERSION_STR
+            VALUE "InternalName", 	"ToolkitReporting"
+            VALUE "OriginalFilename", 	"ToolkitReporting.rc"
+			VALUE "ProductName", "ToolkitEMC"
+			VALUE "ProductVersion", "1.0.0.12"
+			VALUE "LegalCopyright", 	"Copyright (c) Efficiency 2018-2020\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // Neutral resources
+	
+#endif

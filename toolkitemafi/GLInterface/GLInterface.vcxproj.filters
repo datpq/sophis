@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ccc8ff17-ca58-429c-8027-f853de4b7ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{11deadf7-ce2d-4127-a1c6-9b2997506a17}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{55a97a72-25b6-4678-b2b9-d0384f549bc7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GLInterfaceMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="GLscenario.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Version\ReleaseNotes.GLInterface.txt">
+      <Filter>Version Files</Filter>
+    </Text>
+    <Text Include="Resource\GLInterface.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\GLInterfaceVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLscenario.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_GLInterfaceScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\GLInterfaceScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Resource\GLInterfaceVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\GLInterface.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

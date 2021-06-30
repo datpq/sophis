@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolkitEmafi", "ToolkitEmafi\ToolkitEmafi72.vcxproj", "{D9E15885-5A0A-47EA-83A1-4B7E712387CD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EffStdLib", "EffStdLib\EffStdLib72.vcxproj", "{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolkitRapprochement72", "ToolkitRapprochement\ToolkitRapprochement72.vcxproj", "{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolkitVLComptable72", "ToolkitVLComptable\ToolkitVLComptable72.vcxproj", "{EBFD29CF-F1FE-42CC-AA4C-6C85A8A11337}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9E15885-5A0A-47EA-83A1-4B7E712387CD}.Debug|x64.ActiveCfg = Debug|x64
+		{D9E15885-5A0A-47EA-83A1-4B7E712387CD}.Debug|x64.Build.0 = Debug|x64
+		{D9E15885-5A0A-47EA-83A1-4B7E712387CD}.Release|x64.ActiveCfg = Release|x64
+		{D9E15885-5A0A-47EA-83A1-4B7E712387CD}.Release|x64.Build.0 = Release|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Debug|x64.ActiveCfg = Debug|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Debug|x64.Build.0 = Debug|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Release|x64.ActiveCfg = Release|x64
+		{D2A41E7E-011B-48D7-8216-D80D9DA0E44A}.Release|x64.Build.0 = Release|x64
+		{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}.Debug|x64.ActiveCfg = Debug|x64
+		{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}.Debug|x64.Build.0 = Debug|x64
+		{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}.Release|x64.ActiveCfg = Release|x64
+		{F26F3F43-B6D5-4049-8CD0-0F3910CBC85C}.Release|x64.Build.0 = Release|x64
+		{EBFD29CF-F1FE-42CC-AA4C-6C85A8A11337}.Debug|x64.ActiveCfg = Debug|x64
+		{EBFD29CF-F1FE-42CC-AA4C-6C85A8A11337}.Debug|x64.Build.0 = Debug|x64
+		{EBFD29CF-F1FE-42CC-AA4C-6C85A8A11337}.Release|x64.ActiveCfg = Release|x64
+		{EBFD29CF-F1FE-42CC-AA4C-6C85A8A11337}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
