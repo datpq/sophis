@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Load/CSVLoader" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Load/CSVLoader">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="outputFile" type="string"        minOccurs="1" maxOccurs="1"/>
+      <element name="separator" type="string"        minOccurs="0" maxOccurs="1"/>
+      
+
+      <!-- Number of a line starting at 1 that will be interpreted as the headers line
+           Headers line is used to give default field names if the fields are not specifically
+           defined in the csvFields tag (default: 0, means no header line)
+           (this has no impact on the skipLine tag which must be set properly to avoid reading
+           the headers line if one exists) TODO -->
+      <element name="headerLine" type="boolean"          minOccurs="0" maxOccurs="1" default='false'/>
+
+      <element name="csvFields" type="tns:CsvFields" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="CsvFields">
+    <sequence>
+      <element name="field" type="tns:CsvField" maxOccurs="unbounded" minOccurs="0"></element>
+
+    </sequence>
+  </complexType>
+
+  <complexType name="CsvField">
+    <sequence>
+      <element name="xmlFieldName" type="string" maxOccurs="1" minOccurs="1"></element>
+      <element name="xmlFieldType" type="tns:Type" maxOccurs="1" minOccurs="1"></element>
+    </sequence>
+    <attribute name="position" type="int" use="required"></attribute>
+  </complexType>
+	
+	<complexType name="Type">
+		<attribute name="type" type="tns:CsvFieldTypeEnum" use="required"/>
+		<attribute name="format" type="string" use="optional"/>
+	</complexType>
+
+	<simpleType name="CsvFieldTypeEnum">
+    	<restriction base="string">
+      		<enumeration value="String"></enumeration>
+     	 	<enumeration value="Number"></enumeration>
+      		<enumeration value="Date"></enumeration>
+    	</restriction>
+  	</simpleType>
+
+</schema>

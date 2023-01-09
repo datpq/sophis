@@ -1,0 +1,3 @@
+Fund Custody Code / SARA code;CashFlow Type Id;CashFlow Type Description;Account Currency(ISO);Confirmed Amount Local ccy;Confirmed Amount Fund ccy;Projected Amount Local ccy;Projected Amount Fund ccy;Trade Date;Creation Date;Settlement Date;ReportDate;MF code;Fund Manager Identifier;Fund Administration Code;Fund name;External Fund Reference
+425;TA;SHS Net Inflow/Outflow;EUR;0;0;53185.17;53185.17;05/07/2016;05/07/2016;07/07/2016;05/07/2016;LU7554;Z8719429;DIS;MEDIOLANUM SPECIALITIES SICAV - SIF- EQUITY INCOME FUND;LU7554Z8787249
+427;TA;SHS Net Inflow/Outflow;EUR;0;0;-44307.59;-44307.59;05/07/2016;05/07/2016;07/07/2016;05/07/2016;LU5606;Z8719429;B;MEDIOLANUM SPECIALITIES SICAV -SIF- DIVERSIFIED INCOME B;LU5606Z8719429

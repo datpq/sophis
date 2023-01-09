@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Filter" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Filter">
+
+ <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="filters" type="tns:Filters" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="Filters">
+    <sequence>    
+		  <element name="filter" type="tns:Filter" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+    <!-- use the following fields for error management -->
+    <attribute name="orElse"       type="tns:OrElseEnum" use="optional" default="discard"/>
+    <attribute name="errorMessage" type="string"         use="optional" default="assertion failed"/>
+    <attribute name="errorFields"  type="string"         use="optional" default=""/>
+  </complexType>
+
+  <complexType name="Filter">
+    <attribute name="field"        type="string"         use="required"/>
+    <attribute name="comparator"   type="tns:Comparator" use="required"/>
+    <attribute name="value"        type="string"         use="required"/>
+  </complexType>
+
+   <simpleType name="Comparator">
+		 <restriction base="string">
+			 <enumeration value="equal"/>
+			 <enumeration value="greater"/>
+			 <enumeration value="smaller"/>
+			 <enumeration value="different"/>
+		 </restriction>
+	</simpleType>
+
+  <simpleType name="OrElseEnum">
+    <restriction base="string">
+      <enumeration value="discard"/>
+      <enumeration value="error"/>
+    </restriction>
+  </simpleType>
+
+</schema>

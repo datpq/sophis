@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Package"  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    ============================================================
+    Common file for building, Installing and packaging products.
+    ============================================================
+
+    Intro:
+
+    This script exposes common build targets in order to produce a product delivery.
+    Examples of products can be:
+    - dev package, used by other teams to developp
+    - product package, used by clients
+
+    This file is meant to be imported in custom delivery projects, it SHOULD NOT BE MODIFIED.
+    To customize default properties, define these properties in xxxx.user files.
+
+    Below is the list of target defined here, by category:
+    Info:
+    - DisplayInformation
+    - CheckBuildProperties
+    - CheckInstallProperties
+    - CheckZipProperties
+
+    (*) : Means target does not depend on other target, ie will do only his job.
+    (+) : Means target is a composed/final target, and depends on other target to achieve his job.
+    Build:
+    - Prepare                 (*)
+    - BeforeBuild             (*)
+    - AfterBuild              (*)
+    - Build                   (+)
+    - BuildOnly               (*)
+    - CoreBuild               (*)
+    - Rebuild                 (+)
+    - CoreRebuild             (*)
+    - Clean                   (*)
+    - BuildAllConfigurations  (+)
+    - RebuildAllConfigurations(+)
+
+    Install:
+    - Install                 (+)
+    - InstallOnly             (*)
+    - CleanInstallDir         (*)
+    - InstallAllConfigurations(+)
+    - ReSignArtifacts         (*)
+
+    Package:
+    - PackageOnly             (*) : imported from Package.targets
+    - Package                 (+) : imported from Package.targets
+
+    Deploy:
+    - DeployOnly              (*) : imported from Package.targets
+    - Deploy                  (+) : imported from Package.targets
+    ============================================================
+  -->
+
+  <!--
+    ============================================================
+                     First, import props and targets
+    ============================================================
+  -->
+  <Import Project="Version.props" Condition="$(VersionPropsImported) != 'true' " />
+  <Import Project="SoftwareComponent.props" Condition="$(SoftwareComponentPropsImported) != 'true' " />
+ 
+  <!--
+    ============================================================
+                     Product properties
+    ============================================================
+  -->
+  <PropertyGroup>
+
+    <ProductName Condition="$(ProductName) == '' ">$(MSBuildProjectName)</ProductName>
+    <ProductVersion Condition="$(ProductVersion) == '' ">$(SophisVersion)</ProductVersion>
+    <GenerateAllConfigurations Condition="$(GenerateAllConfigurations) != 'true' ">false</GenerateAllConfigurations>
+
+    <!-- Assemblies are signed at compile time (not delay signed any more), they do not need resigning. -->
+    <ReSignBeforeInstall Condition="$(ReSignBeforeInstall) != 'true' ">false</ReSignBeforeInstall>
+    <!-- default install dir for libraries is common repository dir, where they will be used by other components for building & packaging -->
+    <InstallDir Condition="$(InstallDir) == '' AND $(ProductType)  == 'Library' ">$(RisqueRepositoryDir)</InstallDir>
+    <!-- Other product type default in common install dir -->
+    <InstallDir Condition="$(InstallDir) == '' ">$(DeliveryDir)\install\$(ProductName)_$(Platform)_$(Configuration)</InstallDir>
+
+    <TargetPlatforms Condition="$(TargetPlatforms) == '' ">x64</TargetPlatforms>
+    <!-- If this product only targets Win32, override in your script using:
+    <TargetPlatforms>Win32</TargetPlatforms>
+     -->
+    <BuildInParallel Condition="$(BuildInParallel) != 'false'">true</BuildInParallel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Platforms Include="$(TargetPlatforms)" />
+  </ItemGroup>
+
+  <!--
+    ============================================================
+                     Tools properties
+    ============================================================
+  -->
+  <PropertyGroup>
+    <snExePath Condition="$(snExePath) == '' ">c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.2 Tools\x64\sn.exe</snExePath>
+    <TrustedSignToolPath Condition="$(TrustedSignToolPath) == '' ">C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe</TrustedSignToolPath>
+    <TrustedCertificateFile Condition="$(TrustedCertificateFile) == '' ">$(RisqueRepositoryDir)\Finastra\Certificate\Finastra.pfx</TrustedCertificateFile>
+    <!-- Define path to XSD.exe to be used in userSettings.cs generation. -->
+    <xsdExePath Condition="$(xsdExePath) == ''">c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.2 Tools\x64\xsd.exe</xsdExePath>
+  </PropertyGroup>
+
+  <!--
+    Auto include .pdb files if both condition are matched:
+    - InstallPdbs is true
+    - .pdb file exist at the same location as the .dll or .exe
+  -->
+  <ItemGroup Condition="'$(InstallPdbs)' == 'true' ">
+    <!-- Compute .pdb path from dll and .exe path -->
+    <Dlls Include="@(Artifacts->WithMetadataValue('Extension', '.dll'))" />
+    <Exes Include="@(Artifacts->WithMetadataValue('Extension', '.exe'))" />
+    <PdbNames Include="@(dlls->'%(RootDir)%(Directory)%(Filename).pdb')"  />
+    <PdbNames Include="@(exes->'%(RootDir)%(Directory)%(Filename).pdb')"  />
+    <!-- Filter only the existing ones -->
+    <Pdbs Include="@(PdbNames)"  Exclude="@(PdbNames->WithMetadataValue('CreatedTime', ''))" />
+    <Artifacts Include="@(Pdbs)" />
+  </ItemGroup>
+
+  <!--
+    ============================================================
+                         DisplayInformation
+
+    DisplayInformation display info about current script.
+    Very usefull for debugging.
+    ============================================================
+  -->
+  <Target Name="DisplayInformation">
+    <Message Text="Project:                    $(MSBuildProjectFullPath)" />
+    <Message Text="Product:                    $(ProductName)" />
+    <Message Text="SolutionFile:               $(SolutionFile)" />
+    <Message Text="Platform:                   $(Platform)" />
+    <Message Text="Configuration:              $(Configuration)" />
+    <Message Text="AdditionalMsBuildArguments: $(AdditionalMsBuildArguments)" />
+    <Message Text="PackageDir:                 $(PackageDir)" />
+    <Message Text="InstallDir:                 $(InstallDir)" />
+    <Message Text="ProductionMode:             $(ProductionMode)" />
+    <Message Text="ZipFileName:                $(ZipFileName)" />
+    <Message Text="ZipFilePath:                $(ZipFilePath)" />
+    <Message Text="GenerateAllConfigurations:  $(GenerateAllConfigurations)" />
+    <Message Text="Available platforms:        %(Platforms.Identity)" />
+    <Message Text="Artifacts:" />
+    <Message Text="  %(Artifacts.FullPath)" />
+
+    <Error Condition="$(BuildWithDevEnv) != ''" Text="BuildWithDevEnv is deprecated." />
+  </Target>
+
+  <!--
+    ============================================================
+          Check targets
+
+    Those targets verify that mandatory poperties are defined.
+    ============================================================
+  -->
+  <Target Name="CheckBuildProperties">
+    <Error Condition="$(Platform) == '' " Text="Mandatory property 'Platform' is not defined" />
+    <Error Condition="$(Platform) != 'Win32' AND $(Platform) != 'x64' " Text="Platform '$(Platform)' is not supported." />
+    <Error Condition="$(Configuration) == '' " Text="Mandatory property 'Configuration' is not defined" />
+    <Error Condition="$(Configuration) != 'Debug' AND $(Configuration) != 'Release' " Text="Configuration '$(Configuration)' is not supported." />
+    <Error Condition="$(SolutionFile) == '' " Text="Mandatory property 'SolutionFile' is not defined" />
+    <Warning  Condition="$(ProductVersion) == '0.0.0.0' " Text="'ProductVersion' is not set." />
+  </Target>
+
+  <Target Name="CheckInstallProperties" DependsOnTargets="CheckBuildEnvironment">
+    <Error Condition="$(InstallDir) == '' " Text="Mandatory property 'InstallDir' is not defined" />
+  </Target>
+
+  <Target Name="CheckZipProperties">
+    <Error Condition="$(ZipFilePath) == '' " Text="Mandatory property 'ZipFilePath' is not defined" />
+  </Target>
+
+
+
+  <!--
+    ============================================================
+          Check
+
+    Redefine this target in your project.
+    ============================================================
+  -->
+
+  <Target Name="Check" DependsOnTargets="CheckBuildEnvironment">
+    <!-- CheckBuildEnvironment target MUST be defined in user script-->
+  </Target>
+
+  <!--
+    ============================================================
+          Prepare
+
+    Redefine this target in your project.
+    ============================================================
+  -->
+
+  <Target Name="Prepare" DependsOnTargets="PrepareBuildEnvironment">
+    <!-- PrepareBuildEnvironment target MUST be defined in user script-->
+  </Target>
+
+  <!--
+    ============================================================
+          BeforeBuild
+
+    Redefine this target in your project to run tasks just before Build.
+    ============================================================
+  -->
+  <Target Name="BeforeBuild" />
+
+
+  <!--
+    ============================================================
+          AfterBuild
+
+    Redefine this target in your project to run tasks just after Build.
+    ============================================================
+  -->
+  <Target Name="AfterBuild" />
+
+  <!--
+    ============================================================
+
+          Build
+
+      Builds the given project (sln or other msbuild project),
+      preparing all necessary environment.
+
+    ============================================================
+  -->
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      CheckBuildEnvironment;
+      BeforeBuild;
+      CoreBuild;
+      AfterBuild
+    </BuildDependsOn>
+  </PropertyGroup>
+  <Target Name="BuildOnly" DependsOnTargets="CheckBuildProperties;$(BuildDependsOn)" />
+
+  <Target Name="Build" DependsOnTargets="CheckBuildProperties;Prepare;BuildOnly;TestOnly" />
+
+  <!--Core build with msbuild-->
+  <Target Name="CoreBuild">
+    <PropertyGroup>
+      <TargetSolutionDir>$([System.IO.Path]::GetDirectoryName('$(SolutionFile)'))</TargetSolutionDir>
+    </PropertyGroup>
+
+    <Message Text="Building '$(SolutionFile)'" Importance="high" />
+    <MSBuild Projects="$(SolutionFile)" Targets="Build" Properties="verbosity=minimal;Configuration=$(Configuration);Platform=$(Platform)$(AdditionalMsBuildArguments)" BuildInParallel="$(BuildInParallel)" />
+  </Target>
+
+  <!--
+    ============================================================
+          Rebuild
+
+        Guess what ! Same as build but rebuilds !
+    ============================================================
+  -->
+
+  <PropertyGroup>
+    <RebuildDependsOn>
+      PrepareBuildEnvironment;
+      CheckBuildEnvironment;
+      BeforeBuild;
+      CoreRebuild;
+      AfterBuild
+    </RebuildDependsOn>
+  </PropertyGroup>
+  <Target Name="Rebuild" DependsOnTargets="CheckBuildProperties;$(RebuildDependsOn);TestOnly">
+  </Target>
+
+  <!--Core rebuild with msbuild-->
+  <Target Name="CoreRebuild">
+    <MSBuild Projects="$(SolutionFile)" Targets="Rebuild" Properties="Configuration=$(Configuration);Platform=$(Platform)$(AdditionalMsBuildArguments)" BuildInParallel="$(BuildInParallel)" />
+  </Target>
+
+  <Target Name="Clean">
+    <MSBuild Projects="$(SolutionFile)" Targets="Clean" Properties="Configuration=$(Configuration);Platform=$(Platform)" />
+  </Target>
+
+  <!--
+    ============================================================
+          Multi configuration builds
+
+        Those targets will build debug and release configurations for each platform.
+    ============================================================
+  -->
+
+  <Target Name="BuildAllConfigurations">
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Build" Properties="Configuration=Debug;Platform=%(Platforms.Identity)$(AdditionalMsBuildArguments)"  BuildInParallel="$(BuildInParallel)" />
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Build" Properties="Configuration=Release;Platform=%(Platforms.Identity)$(AdditionalMsBuildArguments)" BuildInParallel="$(BuildInParallel)" />
+  </Target>
+
+  <Target Name="RebuildAllConfigurations">
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Rebuild" Properties="Configuration=Debug;Platform=%(Platforms.Identity)$(AdditionalMsBuildArguments)" BuildInParallel="$(BuildInParallel)" />
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Rebuild" Properties="Configuration=Release;Platform=%(Platforms.Identity)$(AdditionalMsBuildArguments)" BuildInParallel="$(BuildInParallel)" />
+  </Target>
+
+
+  <!--
+    ============================================================
+          BeforeInstall
+
+    Redefine this target in your project to run tasks just before Install,
+    or define property  'InstallDependsOn'.
+    InstallDependsOn is left open to add cutom targets to execute before Install is executed.
+    ============================================================
+  -->
+
+  <PropertyGroup>
+    <InstallDependsOn Condition="$(InstallDependsOn) == '' "></InstallDependsOn>
+  </PropertyGroup>
+
+  <Target Name="BeforeInstall" DependsOnTargets="$(InstallDependsOn)" />
+
+
+  <!--
+    ============================================================
+          AfterInstall
+
+    Redefine this target in your project to run tasks just after Install.
+    ============================================================
+  -->
+  <Target Name="AfterInstall" />
+
+
+  <!--
+    ============================================================
+          CoreInstall
+
+    The target doing the real Install job, that is copying artifacts to their destination directory.
+    (the rest beeing checking/wrapping/opening to extension).
+    ============================================================
+  -->
+
+  <!-- all properties impacting publication are defined here-->
+  <ItemDefinitionGroup>
+    <ItemsToInstall>
+      <Install>$(ImplicitlyInstallArtifacts)</Install>
+      <DestDir></DestDir>
+      <RecursiveDestDir></RecursiveDestDir>
+      <DestFileName>%(FileName)</DestFileName>
+      <ForceLargeAddressAware>false</ForceLargeAddressAware>
+    </ItemsToInstall>
+  </ItemDefinitionGroup>
+
+
+  <Target Name="CoreInstall" Inputs="@(Artifacts)"  Outputs="@(Artifacts->'$(InstallDir)\%(DestDir)\%(DestFileName)%(Extension)')" >
+
+    <ItemGroup>
+      <ItemsToInstall Include="@(Artifacts)" />
+      <ItemsToCopy  Include="@(ItemsToInstall)" Condition="%(Install) == 'true' And  Exists('%(FullPath)')" />
+      <MissingItems Include="@(ItemsToInstall)" Condition="%(Install) == 'true' And  !Exists('%(FullPath)')" />
+    </ItemGroup>
+
+    <Error Condition="%(ItemsToInstall.DestDir) == '' AND %(ItemsToInstall.RecursiveDestDir) == '' " Text="Artifact '%(ItemsToInstall.FullPath)' has undefined 'DestDir' or 'RecursiveDestDir' metadata. One from both can and must be defined." />
+    <Error Condition="%(ItemsToInstall.DestDir) != '' AND %(ItemsToInstall.RecursiveDestDir) != '' " Text="Artifact '%(ItemsToInstall.FullPath)' has both 'DestDir' and 'RecursiveDestDir' defined. Only one from both can be, and must be, defined." />
+
+    <!-- Copy only existing files (ie copy as much as possible) -->
+    <Copy SourceFiles="@(ItemsToCopy)"  DestinationFiles="@(ItemsToCopy->'$(InstallDir)\%(DestDir)\%(DestFileName)%(Extension)')" SkipUnchangedFiles="true" Condition="%(ItemsToCopy.DestDir) != '' And %(ItemsToCopy.Install) == 'true' And ($(InstallWhatIf) != 'true') " />
+    <Copy SourceFiles="@(ItemsToCopy)"  DestinationFiles="@(ItemsToCopy->'$(InstallDir)\%(RecursiveDestDir)\%(RecursiveDir)\%(DestFileName)%(Extension)')" SkipUnchangedFiles="true" Condition="%(ItemsToCopy.RecursiveDestDir) != '' And %(ItemsToCopy.Install) == 'true' And ($(InstallWhatIf) != 'true')" />
+
+    <Delete Files="$(InstallDir)\MissingItems.txt" ContinueOnError="true" />
+
+    <!-- Then, if any item is missing, log missing files (if install dir exists), and raise an error.-->
+    <Message Text="Missing items will be logged in '$(InstallDir)\$(ProductName)_$(Platform)_$(Configuration)_MissingItems.txt'"  Importance="high"  Condition="@(MissingItems) != '' And Exists('$(InstallDir)')" />
+    <WriteLinesToFile File="$(InstallDir)\$(ProductName)_$(Platform)_$(Configuration)_MissingItems.txt" Lines="@(MissingItems,'%0D%0A')"  Condition="@(MissingItems) != '' And Exists('$(InstallDir)')" />
+    <WriteLinesToFile File="$(InstallDir)\version-info.txt" Lines="$(SophisFileVersion)"  Condition="$(ProductType)  != 'Library'" Overwrite="true" />
+    <Error Condition="@(MissingItems) != ''" Text="Items below are missing :%0A%0D%09@(MissingItems,'%0D%09')"  />
+
+  </Target>
+
+  <!--
+    ============================================================
+          Test
+
+      Main Test target. Used ItemGroup TestArtifacts
+    ============================================================
+  -->
+
+  <Target Name="TestOnly" Condition=" @(TestArtifacts) != '' ">
+  </Target>
+
+  <!--
+    ============================================================
+          Install
+
+      Main Install target, combining other Install related tasks.
+    ============================================================
+  -->
+
+  <PropertyGroup>
+    <!-- Normal install: all tasks included. -->
+    <InstallOnlyDependsOn Condition="$(InstallWhatIf) != 'true'">
+      CheckInstallProperties;
+      BeforeInstall;
+      ForceLargeAddressAware;
+      ReSignArtifacts;
+      CertificateSign;
+      CoreInstall;
+      AfterInstall
+    </InstallOnlyDependsOn>
+
+    <!-- 'WhatIf' install: only properties check and artifacts check included. -->
+    <InstallOnlyDependsOn Condition="$(InstallWhatIf) == 'true'">
+      CheckInstallProperties;
+      CoreInstall
+    </InstallOnlyDependsOn>
+  </PropertyGroup>
+
+  <Target Name="InstallOnly" DependsOnTargets="$(InstallOnlyDependsOn)">
+    <Message Text="InstallOnly '$(ProductName)' in $(InstallDir) " Importance="high" />
+    <!--
+      Keep an install info file, for library products.
+      This file will be used by the dependency system of dependency.targets to skip installation.
+    -->
+    <WriteLinesToFile File="$(InstallDir)\installedPackages\$(ProductName).LocalInstall_$(Platform)_$(Configuration)" Lines="Installed from  $(MSBuildProjectFullPath);
+Date: $([System.DateTime]::Now.ToString());
+Host: $(Computername);
+Artifacts:;
+@(Artifacts)" Condition="$(ProductType)  == 'Library' AND Exists('$(InstallDir)\installedPackages')"  Overwrite="true" />
+  </Target>
+
+  <Target Name="Install" DependsOnTargets="CheckInstallProperties;Build;InstallOnly">
+    <Message Text="Install '$(ProductName)' in $(InstallDir) " Importance="high" />
+  </Target>
+
+  <Target Name="InstallPatch"  DependsOnTargets="CheckInstallProperties;BeforeInstall;ForceLargeAddressAware;ReSignArtifacts;CoreInstall">
+  </Target>
+
+  <Target Name="InstallOnlyAllConfigurations" >
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="InstallOnly" Properties="Configuration=Debug;Platform=%(Platforms.Identity);InstallDir=$(InstallDir)" />
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="InstallOnly" Properties="Configuration=Release;Platform=%(Platforms.Identity);InstallDir=$(InstallDir)" />
+  </Target>
+
+  <Target Name="InstallAllConfigurations" >
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Install" Properties="Configuration=Debug;Platform=%(Platforms.Identity);InstallDir=$(InstallDir)" />
+    <MSBuild Projects="$(MSBuildProjectFullPath)"  Targets="Install" Properties="Configuration=Release;Platform=%(Platforms.Identity);InstallDir=$(InstallDir)" />
+  </Target>
+
+  <Target Name="ReSignArtifacts" Inputs="@(Artifacts)"  Outputs="@(Artifacts->'$(InstallDir)\%(DestDir)\%(FileName)%(Extension)')" Condition="'$(ReSignBeforeInstall)' == 'true'">
+
+    <Error Condition="!Exists($(KeyFile))"  Text="Key file does not exist" />
+    <Error Condition="!Exists($(snExePath))" Text="sn.exe does not exist" />
+
+    <!--Not all dlls are assemblies, so resigning will fail for them => we continue on error-->
+    <Exec Command="%22$(snExePath)%22 -q -Ra %22%(Artifacts.FullPath)%22 %22$(KeyFile)%22" Condition="%(Artifacts.Resign) != 'false' AND (%(Artifacts.Extension) == '.dll' OR %(Artifacts.Extension) == '.exe' OR %(Artifacts.Extension) == '.com') "  IgnoreExitCode="true" />
+  </Target>
+
+  <!--
+    Creates an ItemGroup of binary files (.exe .dll .com) that are built by this project (non third party binaries).
+    From the full artifacts list, It is not obvious to tell if a dll is third party or not.
+    Mathching on dll name patterns does not work 100%, because of lack of standardisation in naming.
+    The predicates used to determine if the file is built by this project are:
+    - the time: If it has been built today or yesterday, it is probably not a third party binary.
+    - the location: if it  is located 'output' directory (quiet a big supposition ...)
+    Both are needed, since third parties are often copied to output directories.
+  -->
+    <Target Name="CreateBuiltFileList">
+
+    <PropertyGroup>
+      <Today>$([System.DateTime]::Now.ToString('yyyy-MM-dd'))</Today>
+      <Yesterday>$([System.DateTime]::Now.AddDays(-1).ToString('yyyy-MM-dd'))</Yesterday>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <DatedBinaryFiles Include="@(Artifacts)" Condition="%(Extension) == '.dll' OR %(Extension) == '.exe' OR %(Extension) == '.com'">
+        <CreationDay>$([System.DateTime]::Parse('%(ModifiedTime)').ToString('yyyy-MM-dd'))</CreationDay>
+        <IsBuildOutput>$([System.String]::New('%(Directory)').Contains('\output\'))</IsBuildOutput>
+      </DatedBinaryFiles>
+      <OutputBinaryFiles Include="@(DatedBinaryFiles->WithMetadataValue('IsBuildOutput', 'True'))" />
+      <BuiltBinaryFiles Include="@(OutputBinaryFiles->WithMetadataValue('CreationDay', '$(Today)'))" />
+      <BuiltBinaryFiles Include="@(OutputBinaryFiles->WithMetadataValue('CreationDay', '$(Yesterday)'))" />
+    </ItemGroup>
+
+    <Message Text="BuiltBinaryFiles:" Importance="high"  Condition="$(DisplayBuiltBinaryFiles) == 'true'" />
+    <Message Text="%(BuiltBinaryFiles.identity) | IsBuildOutput %(BuiltBinaryFiles.IsBuildOutput)  | ModifiedTime  %(BuiltBinaryFiles.ModifiedTime) | CreationDay  %(BuiltBinaryFiles.CreationDay)" Importance="high" Condition="$(DisplayBuiltBinaryFiles) == 'true'" />
+  </Target>
+
+  <!--
+    Signs BuiltBinaryFiles item group with a certificate.
+    Leaves tracker files for skipping if binary is already signed (and not more recent).
+  -->
+<Target Name="CertificateSign" Inputs="@(BuiltBinaryFiles)"  Outputs="@(BuiltBinaryFiles->'%(Identity).signed')" Condition="'$(TrustedCertificateSign)' == 'true'" DependsOnTargets="CreateBuiltFileList">
+    <Error Condition="!Exists($(TrustedCertificateFile))"  Text="Trusted certificate file does not exist" />
+    <Error Condition="!Exists($(TrustedSignToolPath))" Text="signtool.exe does not exist" />
+    <Error Condition="$(TrustedCertificatePassword) == '' " Text="TrustedCertificatePassword is not defined" />
+    <!-- Iteration of the exec (msbuild batching process) will occur per source directory  %(RootDir)%(Directory) -->
+    <Exec Command="%22$(TrustedSignToolPath)%22 sign /tr http://timestamp.globalsign.com/?signature=sha2 /td SHA256 /fd SHA256 /f %22$(TrustedCertificateFile)%22 /p %22$(TrustedCertificatePassword)%22 @(BuiltBinaryFiles->'%(FileName)%(Extension)', ' ')" IgnoreExitCode="false" WorkingDirectory="%(RootDir)%(Directory)" />
+    <!-- Leave tracker files for skipping -->
+    <WriteLinesToFile  File="%(BuiltBinaryFiles.Identity).signed" Lines="Signature done for this file" Overwrite="true" />
+  </Target>
+
+  <Target Name="ForceLargeAddressAware" Condition="('$(Platform)' == 'win32') And ('$(ProductionMode)' == 'true')" Inputs="@(Artifacts)"  Outputs="@(Artifacts->'$(InstallDir)\%(DestDir)\%(FileName)%(Extension)')">
+
+    <Error Condition="!Exists('$(VCToolsInstallDir)\bin\Hostx64\x64\editbin.exe')"  Text="editbin.exe does not exist." />
+
+    <Exec Command="%22$(VCToolsInstallDir)\bin\Hostx64\x64\editbin.exe%22 /NOLOGO /LARGEADDRESSAWARE %22%(Artifacts.FullPath)%22"
+			Condition="%(Artifacts.Extension) == '.exe' and %(Artifacts.ForceLargeAddressAware) == 'true' "  ContinueOnError="true" WorkingDirectory="$(VCToolsInstallDir)\bin\Hostx64\x64"
+			EnvironmentVariables="Path=$(VS150COMNTOOLS)\..\IDE" />
+  </Target>
+
+  <!-- Import common Package targets -->
+  <Import Project="Package.targets" />
+
+</Project>

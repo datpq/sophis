@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Load/XmlISLoader" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Load/XmlISLoader">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <!-- which record field is used as the source for the XML -->
+      <element name="sourceField" type="string" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+</schema>

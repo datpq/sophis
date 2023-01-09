@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ns0:SoaMethodTemplates xmlns:ns0="http://www.sophis.net/reporting">
+
+  <ns0:SoaMethodTemplate ns0:groupPath="" ns0:name="CheckLastPriceByManagerCode">
+    <ns0:parameters>
+      <ns0:parameter ns0:bind="" ns0:name="externalRef" ns0:setting="" ns0:type="String"/>
+      <ns0:parameter ns0:bind="" ns0:name="date" ns0:setting="" ns0:type="String"/>
+    </ns0:parameters>
+    <ns0:sources>
+      <ns0:source ns0:name="default0" ns0:type="SQL">
+        <ns0:field ns0:bind="" ns0:name="fUserName"></ns0:field>
+        <ns0:field ns0:bind="" ns0:name="fCryptedPassword"></ns0:field>
+        <ns0:field ns0:bind="" ns0:name="fDBInstance"></ns0:field>
+        <ns0:field ns0:bind="" ns0:name="fSqlRequest">select h.D from EXTRNL_REFERENCES_INSTRUMENTS e inner join historique h on h.sicovam = e.SOPHIS_IDENT AND e.VALUE = '[[externalRef:]]' and e.REF_IDENT in (select REF_IDENT from EXTRNL_REFERENCES_DEFINITION where REF_NAME = 'MANAGER_CODE') AND h.jour = to_date('[[date:]]', 'DD-MM-YY')</ns0:field>
+        <ns0:field ns0:bind="EXTRA_FIELDS" ns0:name="EXTRA_FIELDS">[[externalRef]],externalRef|[[date]],date|</ns0:field>
+      </ns0:source>
+    </ns0:sources>
+  </ns0:SoaMethodTemplate>
+
+</ns0:SoaMethodTemplates>

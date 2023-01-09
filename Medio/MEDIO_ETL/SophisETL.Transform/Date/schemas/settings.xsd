@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Date" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Date">
+
+	<element name="settings" type="tns:Settings"/>
+	<complexType name="Settings">
+		<sequence>
+			<!-- One or More replace operation -->
+			<element name="date" type="tns:Date" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Date">
+		<sequence>
+			<element name="dateType" type="tns:DateTypeEnum" minOccurs="1" maxOccurs="1" />
+      <element name="dateTypeComplement" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="separator" type="string" minOccurs="0" maxOccurs="1" />
+		</sequence>
+		<attribute name="dateName"	 type="string" use="required" />
+	</complexType>
+
+	<simpleType name="DateTypeEnum">
+		<restriction base="string">
+			<enumeration value="DateYYYYMMDD"/>
+			<enumeration value="DateDDMMYYYY"/>
+      <enumeration value="DateType"/>
+		</restriction>
+	</simpleType>
+
+
+</schema>

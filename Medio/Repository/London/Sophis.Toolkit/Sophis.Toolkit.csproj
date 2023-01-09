@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C599B3A2-0418-4760-9293-4AC24AEED711}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sophis.Toolkit</RootNamespace>
+    <AssemblyName>Sophis.Toolkit</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>Rational ClearCase</SccProjectName>
+    <SccLocalPath>Rational ClearCase</SccLocalPath>
+    <SccAuxPath>Rational ClearCase</SccAuxPath>
+    <SccProvider>Rational ClearCase</SccProvider>
+  </PropertyGroup>
+  <!--
+    Defining compilation configuration properties 
+    For new versions, add a new When Condition with the properly properties
+    -->
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'Debug_v421x' Or '$(Configuration)' == 'Release_v421x' ">
+      <PropertyGroup>
+        <ToolkitVersion>421x</ToolkitVersion>
+        <ToolkitPath>$(Toolkit_v421x)</ToolkitPath>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Debug_v430x' Or '$(Configuration)' == 'Release_v430x' ">
+      <PropertyGroup>
+        <ToolkitVersion>430x</ToolkitVersion>
+        <ToolkitPath>$(Toolkit_v430x)</ToolkitPath>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Debug_v431x' Or '$(Configuration)' == 'Release_v431x' ">
+      <PropertyGroup>
+        <ToolkitVersion>431x</ToolkitVersion>
+        <ToolkitPath>$(Toolkit_v431x)</ToolkitPath>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Debug_v432x' Or '$(Configuration)' == 'Release_v432x' ">
+      <PropertyGroup>
+        <ToolkitVersion>432x</ToolkitVersion>
+        <ToolkitPath>$(Toolkit_v432x)</ToolkitPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <ToolkitVersion>433x</ToolkitVersion>
+        <ToolkitPath>$(Toolkit_v433x)</ToolkitPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <!-- End defining compilation configuration properties -->
+  <!--
+    Defining compilation project properties
+    For new versions, add a new Condition to both property group (DEBUG and RELEASE)
+    -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug_v$(ToolkitVersion)' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;V$(ToolkitVersion)</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release_v$(ToolkitVersion)'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;V$(ToolkitVersion)</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <!-- End defining compilation project properties  -->
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'Debug_v421x' Or '$(Configuration)' == 'Release_v421x' ">
+      <ItemGroup>
+        <Reference Include="Castle.Core">
+          <HintPath>$(ToolkitPath)\..\..\Castle.Core.dll</HintPath>
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Castle.DynamicProxy2">
+          <HintPath>$(ToolkitPath)\..\..\Castle.DynamicProxy2.dll</HintPath>
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Castle.Windsor">
+          <!-- castle.windsor was only included with 4.3 -->
+          <HintPath>..\..\..\DotNet\ThirdParty\Castle_2.0.0\Castle.Windsor.dll</HintPath>
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Castle.Core">
+          <HintPath>$(ToolkitPath)\..\..\Castle.Core.dll</HintPath>
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Castle.Windsor">
+          <HintPath>$(ToolkitPath)\..\..\Castle.Windsor.dll</HintPath>
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Reference Include="SophisAMBenchmark">
+      <HintPath>$(ToolkitPath)\..\..\SophisAMBenchmark.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit, Version=6.3.1.4, Culture=neutral, processorArchitecture=x86">
+      <HintPath>$(ToolkitPath)\..\..\SophisDotNetToolkit.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core.Data">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ToolkitPath)\..\..\Sophis.Core.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aop\LogAttribute.cs" />
+    <Compile Include="AssemblyEntrypoint.cs" />
+    <Compile Include="Aop\Auditing\AuditingInterceptor.cs" />
+    <Compile Include="Extensions\DbDataReaderExtensions.cs" />
+    <Compile Include="Instruments\Impl\BasketVisitor.cs" />
+    <Compile Include="Instruments\IBondVisitor.cs" />
+    <Compile Include="Instruments\IBaseInstrumentVisitor.cs" />
+    <Compile Include="Instruments\IIndexVisitor.cs" />
+    <Compile Include="Instruments\Impl\AbtractVisitor.cs" />
+    <Compile Include="Instruments\Impl\BenchmarkVisitor.cs" />
+    <Compile Include="Instruments\Impl\BondVisitor.cs" />
+    <Compile Include="Instruments\Enums\InstrumentParameterModificationType.cs" />
+    <Compile Include="StaticData\Impl\CurrencyVisitor.cs" />
+    <Compile Include="Instruments\Impl\EquityVisitor.cs" />
+    <Compile Include="Instruments\IInstrumentVisitor.cs" />
+    <Compile Include="Instruments\IBenchmarkVisitor.cs" />
+    <Compile Include="StaticData\IMarketDataVisitor.cs" />
+    <Compile Include="StaticData\Impl\MarketDataVisitor.cs" />
+    <Compile Include="StaticData\Impl\SophisContainer.cs" />
+    <Compile Include="StaticData\ISophisFactory.cs" />
+    <Compile Include="Instruments\IEquityVisitor.cs" />
+    <Compile Include="StaticData\ICurrencyVisitor.cs" />
+    <Compile Include="Instruments\Impl\InstrumentVisitor.cs" />
+    <Compile Include="StaticData\Impl\SophisFactory.cs" />
+    <Compile Include="Tools\CSxDate.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Log\CSxLog.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

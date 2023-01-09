@@ -1,0 +1,7 @@
+#ifndef _MEDIOLANUMVersion_H_
+#define _MEDIOLANUMVersion_H_
+
+#define MEDIOLANUM_VERSION  713,16,12,544
+#define MEDIOLANUM_VERSION_STR	 "713.16.12.544"
+
+#endif // _MEDIOLANUMVersion_H_

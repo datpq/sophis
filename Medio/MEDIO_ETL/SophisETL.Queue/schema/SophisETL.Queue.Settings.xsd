@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sophis.net/SophisETL/Queue/Settings" xmlns:tns="http://www.sophis.net/SophisETL/Queue/Settings" elementFormDefault="qualified">
+
+  <element name="queueSettings">
+    <complexType>
+      <sequence>
+        <element name="queueSetting" minOccurs="1" maxOccurs="unbounded" type="tns:GenericQueueSetting"></element>
+      </sequence>
+    </complexType>
+  </element>
+
+  <complexType name="GenericQueueSetting">
+    <attribute name="queueName" type="string"></attribute>
+    <attribute name="queueClass" type="string"></attribute>
+  </complexType>
+
+</schema>

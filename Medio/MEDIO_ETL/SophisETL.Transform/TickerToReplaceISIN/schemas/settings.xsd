@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/TickerToReplaceISIN" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/TickerToReplaceISIN">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <!-- One or More replace operation -->
+      <element name="replace" type="tns:Replace" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="Replace">
+    <sequence>
+      <element name="ISINField" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="TICKERField" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="ReferenceMatch" type="string" minOccurs="0" maxOccurs="1" />
+    </sequence>
+    <attribute name="referenceName"	 type="string" use="required" />
+  </complexType>
+ 
+   
+  <!--<complexType name="Replace">
+    <sequence>
+    <attribute name="ISINField" type="string" use="required" />
+    <attribute name="TICKERField" type="string" use="required" />
+    </sequence>
+  </complexType>-->
+  
+</schema>

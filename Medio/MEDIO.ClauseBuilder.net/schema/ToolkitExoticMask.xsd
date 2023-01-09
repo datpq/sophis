@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://www.sophis.net/ToolkitExoticMask" xmlns:tns="http://www.sophis.net/ToolkitExoticMask" xmlns:common="http://sophis.net/sophis/common" xmlns:sph="http://www.sophis.net/Instrument" xmlns:emk="http://www.sophis.net/ExoticMask"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:import namespace="http://sophis.net/sophis/common" schemaLocation="common.xsd"/>
+	<xsd:import namespace="http://www.sophis.net/Instrument" schemaLocation="instrument.xsd"/>
+	<xsd:import namespace="http://www.sophis.net/ExoticMask" schemaLocation="ClauseBuilderExoticMask.xsd"/>
+
+  <xsd:complexType name ="CSxClauseBuilderAutocallDataType">
+    <xsd:complexContent>
+      <xsd:extension base="sph:ExoticMaskBase">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CouponFrequency" type="common:AdjustableOrRelativeDate"/>
+          <xsd:element minOccurs="0" name="CouponChecked" type="xsd:int" />
+          <xsd:element minOccurs="0" name="ConditionalCoupon" type="xsd:double" />
+          <xsd:element minOccurs="0" name="ConditionalCouponLevel" type="xsd:double" />
+          <xsd:element minOccurs="0" name="CouponLevel" type="xsd:double" />
+          <xsd:element minOccurs="0" name="ConCoupon" type="xsd:double" />
+          <xsd:element minOccurs="0" name="CouponLastDate" type="xsd:date" />
+          <xsd:element minOccurs="0" name="GeneratedDateList" type="tns:GeneratedDateList" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="CSxClauseBuilderAutocallData" type="tns:CSxClauseBuilderAutocallDataType" substitutionGroup="sph:exoticMaskBase"/>
+</xsd:schema>

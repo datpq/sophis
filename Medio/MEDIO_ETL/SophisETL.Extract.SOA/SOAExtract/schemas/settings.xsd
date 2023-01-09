@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Extract/SOAExtract" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Extract/SOAExtract">
+
+	<element name="settings" type="tns:Settings"/>
+	<complexType name="Settings">
+		<sequence>
+			<element name="soaMethod" type="string" minOccurs="1" maxOccurs="1"/>
+			<element name="soaParameters" type="tns:Params" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="Params">
+		<sequence>
+			<element name="soaParamName" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="soaParamValue" type="string" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+</schema>

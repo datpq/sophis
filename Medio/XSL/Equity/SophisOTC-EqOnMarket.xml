@@ -1,0 +1,1918 @@
+<?xml version="1.0" encoding="utf-8"?><ns0:sph_otc_message xmlns:ns0="http://www.sophis.net/bo_xml" xmlns:ns1="http://www.sophis.net/otc_message" xmlns:ns2="http://www.sophis.net/trade" xmlns:ns3="http://www.sophis.net/party" xmlns:ns4="http://www.sophis.net/folio" xmlns:ns5="http://www.sophis.net/Instrument" xmlns:ns6="http://www.sophis.net/SSI" xmlns:ns7="http://www.sophis.net/NostroAccountReference" xmlns:ns8="http://sophis.net/sophis/common">
+
+  <ns0:source>
+    <ns1:tradeSource>
+      <ns2:trade>
+        <ns2:tradeHeader>
+          <ns2:partyTradeIdentifier>
+            <ns3:partyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            </ns3:partyReference>
+            <ns2:tradeId ns2:tradeIdScheme="http://www.sophis.net/trade/tradeId/id">1119854</ns2:tradeId>
+            <ns2:tradeId ns2:tradeIdScheme="http://www.sophis.net/trade/tradeId/version">1</ns2:tradeId>
+            <ns2:linkId ns2:linkIdScheme="http://www.sophis.net/trade/linkId/positionId">59309</ns2:linkId>
+          </ns2:partyTradeIdentifier>
+          <ns2:extendedPartyTradeInformation>
+            <ns2:partyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            </ns2:partyReference>
+            <ns2:trader ns2:traderScheme="http://www.sophis.net/user/userId/id">1996</ns2:trader>
+            <ns2:trader ns2:traderScheme="http://www.sophis.net/user/userId/name">Sean</ns2:trader>
+            <ns4:identifierAllocationRule>
+              <ns4:folio>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/fullName">ROOT:Test Folio:BackOffice:ChallengeEuropeanEq</ns4:portfolioName>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/id">16565</ns4:portfolioName>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/name">ChallengeEuropeanEq</ns4:portfolioName>
+              </ns4:folio>
+            </ns4:identifierAllocationRule>
+            <ns2:businessEvent>Purchase/Sale</ns2:businessEvent>
+            <ns2:origin>Manual</ns2:origin>
+            <ns2:backofficeStatus>LOM Auto Checked</ns2:backofficeStatus>
+            <ns2:intentToClear>false</ns2:intentToClear>
+            <ns2:largeSizeTrade>false</ns2:largeSizeTrade>
+            <ns2:executionVenueType>Challenge European Eq</ns2:executionVenueType>
+            <ns2:originatingEvent>Trade</ns2:originatingEvent>
+            <ns2:extraFields>
+              <EQUALISATION_AMOUNT>0.000000000000</EQUALISATION_AMOUNT>
+            </ns2:extraFields>
+          </ns2:extendedPartyTradeInformation>
+          <ns2:tradeDate>2016-06-22</ns2:tradeDate>
+          <ns2:pnLDate>2016-06-22</ns2:pnLDate>
+          <ns2:settlementDate>2016-06-24</ns2:settlementDate>
+          <ns2:tradeTime>15:43:54</ns2:tradeTime>
+          <ns2:paymentDate>2016-06-24</ns2:paymentDate>
+        </ns2:tradeHeader>
+        <ns2:tradeProduct>
+          <ns2:instrument>
+            <ns5:sophis>67684620</ns5:sophis>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Bloomberg">DTE GY Equity</ns5:reference>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Isin">DE0005557508</ns5:reference>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Sophisref">DTE GY Equity</ns5:reference>
+          </ns2:instrument>
+          <ns2:principalPayment>
+            <ns2:buyerPartyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            </ns2:buyerPartyReference>
+            <ns2:sellerPartyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005148</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">EXECUTION PLATFORM</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">EXECUTION</ns3:partyId>
+            </ns2:sellerPartyReference>
+            <ns2:principalSettlement>
+              <ns2:numberOfSecurities>1000.000000000000</ns2:numberOfSecurities>
+              <ns2:notional>0.000000000000</ns2:notional>
+              <ns2:spot ns2:inSettlementCurrency="false" ns2:type="InAmount">15.180000000000</ns2:spot>
+              <ns2:paymentMethod>Swift</ns2:paymentMethod>
+              <ns2:SMDT>RBC Custody / DVP</ns2:SMDT>
+              <ns2:amount>
+                <ns2:currency>EUR</ns2:currency>
+                <ns2:amount>15280.000000000000</ns2:amount>
+              </ns2:amount>
+              <ns2:nostroCash>
+                <ns6:nostroAccountReference>
+                  <ns7:accountId>1743</ns7:accountId>
+                  <ns7:accountName>Challenge European  Equity MAML</ns7:accountName>
+                  <ns7:accountAtCustodian>DB8813Z8719429</ns7:accountAtCustodian>
+                  <ns7:boExternalReferencesList />
+                </ns6:nostroAccountReference>
+                <ns6:ssiPathId>1855</ns6:ssiPathId>
+                <ns6:treasuryAccountId>1743</ns6:treasuryAccountId>
+                <ns6:accountName>Challenge European  Equity MAML</ns6:accountName>
+                <ns6:countryCode />
+                <ns6:custodian>FETALULLISV</ns6:custodian>
+                <ns6:SSIlookUp>true</ns6:SSIlookUp>
+                <ns6:accountAtCustodian>DB8813Z8719429</ns6:accountAtCustodian>
+                <ns6:agentCode />
+                <ns6:accountAtAgent />
+                <ns6:thirdParty />
+              </ns2:nostroCash>
+              <ns2:nostroSecurity>
+                <ns6:nostroAccountReference>
+                  <ns7:accountId>1743</ns7:accountId>
+                  <ns7:accountName>Challenge European  Equity MAML</ns7:accountName>
+                  <ns7:accountAtCustodian>DB8813Z8719429</ns7:accountAtCustodian>
+                  <ns7:boExternalReferencesList />
+                </ns6:nostroAccountReference>
+                <ns6:ssiPathId>1855</ns6:ssiPathId>
+                <ns6:treasuryAccountId>1743</ns6:treasuryAccountId>
+                <ns6:accountName>Challenge European  Equity MAML</ns6:accountName>
+                <ns6:countryCode />
+                <ns6:custodian>FETALULLISV</ns6:custodian>
+                <ns6:SSIlookUp>true</ns6:SSIlookUp>
+                <ns6:accountAtCustodian>DB8813Z8719429</ns6:accountAtCustodian>
+                <ns6:agentCode />
+                <ns6:accountAtAgent />
+                <ns6:thirdParty />
+              </ns2:nostroSecurity>
+              <ns2:lostroCash>
+                <ns6:ssiPathId>1963</ns6:ssiPathId>
+                <ns6:treasuryAccountId>0</ns6:treasuryAccountId>
+                <ns6:accountName>MARKET</ns6:accountName>
+                <ns6:countryCode>XX</ns6:countryCode>
+                <ns6:custodian />
+                <ns6:SSIlookUp>true</ns6:SSIlookUp>
+                <ns6:accountAtCustodian />
+                <ns6:agentCode />
+                <ns6:accountAtAgent />
+                <ns6:thirdParty />
+              </ns2:lostroCash>
+              <ns2:lostroSecurity>
+                <ns6:ssiPathId>1963</ns6:ssiPathId>
+                <ns6:treasuryAccountId>0</ns6:treasuryAccountId>
+                <ns6:accountName>MARKET</ns6:accountName>
+                <ns6:countryCode>XX</ns6:countryCode>
+                <ns6:custodian />
+                <ns6:SSIlookUp>true</ns6:SSIlookUp>
+                <ns6:accountAtCustodian />
+                <ns6:agentCode />
+                <ns6:accountAtAgent />
+                <ns6:thirdParty />
+              </ns2:lostroSecurity>
+              <ns2:valueDate>
+                <ns8:unadjustedDate>2016-06-24</ns8:unadjustedDate>
+                <ns8:dateAdjustments>
+                  <ns8:businessDayConvention>NONE</ns8:businessDayConvention>
+                </ns8:dateAdjustments>
+              </ns2:valueDate>
+            </ns2:principalSettlement>
+          </ns2:principalPayment>
+        </ns2:tradeProduct>
+        <ns2:entityPartyReference>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+          <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+          <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+          <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+        </ns2:entityPartyReference>
+        <ns2:otherPartyPayment ns2:paymentTypeScheme="http://www.sophis.net/trade/paymentType/brokerFees">
+          <ns2:payerPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+          </ns2:payerPartyReference>
+          <ns2:receiverPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">SBOSGB2XSEC</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005131</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">SSBT GLOBAL MARKETS</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">SBOSGB2XSEC</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">SBOSGB2XSEC</ns3:partyId>
+            <ns3:customPartyId ns3:name="AIMS" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">IRSTSTREET</ns3:customPartyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">SSGMINTL</ns3:customPartyId>
+          </ns2:receiverPartyReference>
+          <ns2:paymentAmount>
+            <ns5:currency>EUR</ns5:currency>
+            <ns5:amount>100.000000000000</ns5:amount>
+          </ns2:paymentAmount>
+          <ns2:paymentDate>
+            <ns8:unadjustedDate>2016-06-24</ns8:unadjustedDate>
+            <ns8:dateAdjustments>
+              <ns8:businessDayConvention>NONE</ns8:businessDayConvention>
+            </ns8:dateAdjustments>
+          </ns2:paymentDate>
+          <ns2:adjustedPaymentDate>2016-06-24</ns2:adjustedPaymentDate>
+        </ns2:otherPartyPayment>
+        <ns2:extendedTradeSide>
+          <ns2:orderer>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            </ns3:party>
+          </ns2:orderer>
+          <ns2:introducer>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">SBOSGB2XSEC</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005131</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">SSBT GLOBAL MARKETS</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">SBOSGB2XSEC</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">SBOSGB2XSEC</ns3:partyId>
+              <ns3:customPartyId ns3:name="AIMS" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">IRSTSTREET</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">SSGMINTL</ns3:customPartyId>
+            </ns3:party>
+          </ns2:introducer>
+          <ns2:creditor>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">FETALULLISV</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004117</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">RBC Custody</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">RBCCUSTODY</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">FETALULLISV</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATTBRKXXX</ns3:customPartyId>
+            </ns3:party>
+          </ns2:creditor>
+          <ns2:entity>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+            </ns3:party>
+          </ns2:entity>
+          <ns2:counterparty>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005148</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">EXECUTION PLATFORM</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">EXECUTION</ns3:partyId>
+            </ns3:party>
+          </ns2:counterparty>
+          <ns2:depositary>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">FETALULLISV</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004117</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">RBC Custody</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">RBCCUSTODY</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">FETALULLISV</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATTBRKXXX</ns3:customPartyId>
+            </ns3:party>
+          </ns2:depositary>
+          <ns2:broker>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">SBOSGB2XSEC</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005131</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">SSBT GLOBAL MARKETS</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">SBOSGB2XSEC</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">SBOSGB2XSEC</ns3:partyId>
+              <ns3:customPartyId ns3:name="AIMS" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">IRSTSTREET</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">SSGMINTL</ns3:customPartyId>
+            </ns3:party>
+          </ns2:broker>
+        </ns2:extendedTradeSide>
+        <ns2:documentation />
+      </ns2:trade>
+    </ns1:tradeSource>
+  </ns0:source>
+
+  <ns0:position>
+    <ns4:position>
+      <ns4:id>59309</ns4:id>
+      <ns4:underlyer>
+        <ns5:sophis>67684620</ns5:sophis>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Bloomberg">DTE GY Equity</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Isin">DE0005557508</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Sophisref">DTE GY Equity</ns5:reference>
+      </ns4:underlyer>
+      <ns4:type>0</ns4:type>
+      <ns4:instrumentCount>5000.000000000000</ns4:instrumentCount>
+    </ns4:position>
+  </ns0:position>
+
+  <ns0:instrument>
+    <ns5:share>
+      <ns5:productType>EQU-Shares</ns5:productType>
+      <ns5:feature>With Market</ns5:feature>
+      <ns5:identifier>
+        <ns5:sophis>67684620</ns5:sophis>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Bloomberg">DTE GY Equity</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Isin">DE0005557508</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Sophisref">DTE GY Equity</ns5:reference>
+      </ns5:identifier>
+      <ns5:name>DEUTSCHE TELEKOM AG-REG</ns5:name>
+      <ns5:currency>EUR</ns5:currency>
+      <ns5:sectors>
+        <ns5:sector ns5:provider="Bloomberg">
+          <ns5:code>300</ns5:code>
+          <ns5:name>Telephone-Integrated</ns5:name>
+          <ns5:path>Communications:Telecommunications</ns5:path>
+        </ns5:sector>
+        <ns5:sector ns5:provider="Bloomberg Country">
+          <ns5:code>GE</ns5:code>
+          <ns5:name>GERMANY</ns5:name>
+          <ns5:index>
+            <ns5:sophis>67678200</ns5:sophis>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Sophisref">COUNTRY</ns5:reference>
+          </ns5:index>
+        </ns5:sector>
+      </ns5:sectors>
+      <ns5:market>
+        <ns5:sophis>XETR</ns5:sophis>
+        <ns5:name>Xetra</ns5:name>
+        <ns5:place>Frankfurt</ns5:place>
+        <ns5:reference ns5:modifiable="UniquePrioritary" ns5:name="Bloomberg">Xetra</ns5:reference>
+        <ns5:priceQuotationType>Currency</ns5:priceQuotationType>
+      </ns5:market>
+      <ns5:businessCenters>
+        <ns8:businessCenter ns8:businessCenterScheme="http://www.fpml.org/spec/2000/business-center-1-0">EUFr</ns8:businessCenter>
+      </ns5:businessCenters>
+      <ns5:pointValue>
+        <ns5:quotationType>InPrice</ns5:quotationType>
+        <ns5:averagePrice>1.000000000000</ns5:averagePrice>
+        <ns5:unrealized>1.000000000000</ns5:unrealized>
+        <ns5:realized>1.000000000000</ns5:realized>
+        <ns5:inAmount>1.000000000000</ns5:inAmount>
+        <ns5:inAnotherCurrency>1.000000000000</ns5:inAnotherCurrency>
+      </ns5:pointValue>
+      <ns5:outstandingNumber>4606651870</ns5:outstandingNumber>
+      <ns5:allotment>EQUITY</ns5:allotment>
+      <ns5:status>Available</ns5:status>
+      <ns5:pricing>
+        <ns5:nature>A</ns5:nature>
+        <ns5:model>Standard</ns5:model>
+      </ns5:pricing>
+      <ns5:extraFields />
+      <ns5:accountingRef>--12-31</ns5:accountingRef>
+      <ns5:tradingUnit>1.000000000000</ns5:tradingUnit>
+      <ns5:country>EUR</ns5:country>
+      <ns5:recordDate>Excluded</ns5:recordDate>
+      <ns5:beta>1.050000000000</ns5:beta>
+    </ns5:share>
+  </ns0:instrument>
+
+  <ns0:entity>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004228</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Challenge European Equity</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Challenge European Eq</ns3:partyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATIE21</ns3:customPartyId>
+      <ns3:partyName>Challenge European Equity</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004849</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Fund Entities Group</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">FUNDENTYGROUP</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:counterparty>true</ns3:counterparty>
+        </ns3:institution>
+        <ns3:category>
+          <ns3:entity>true</ns3:entity>
+        </ns3:category>
+        <ns3:bank />
+        <ns3:names>
+          <ns3:reference>Challenge European Eq</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties>
+          <ns3:property ns3:name="OMGEO CODE">MEATIE21</ns3:property>
+          <ns3:property ns3:name="OMGEO CODE 2">MEATIE21</ns3:property>
+          <ns3:property ns3:name="OMGEO CODE 3">MEATIE21</ns3:property>
+        </ns3:customProperties>
+        <ns3:address>
+          <ns3:identification />
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:settlementInstruction>
+            <ns3:ident>98602</ns3:ident>
+            <ns3:ssiPathId>1853</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481654610</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004404</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>EGSP</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>29223</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98640</ns3:ident>
+            <ns3:ssiPathId>1782</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1482113615</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004399</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98642</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480873299</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98643</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481463118</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98644</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481856085</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98645</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481130317</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98646</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481003585</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98647</ns3:ident>
+            <ns3:ssiPathId>1855</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480938578</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004405</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CBF</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>07015</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98648</ns3:ident>
+            <ns3:ssiPathId>1856</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480873282</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004413</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CREST</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>DCMAY</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98649</ns3:ident>
+            <ns3:ssiPathId>1857</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481460044</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004409</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABI</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>MOTIPARBITMMXXX6347900</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98650</ns3:ident>
+            <ns3:ssiPathId>1857</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1397048389</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004409</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABI</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>MOTIPARBITMMXXX6347900</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98651</ns3:ident>
+            <ns3:ssiPathId>1857</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1297367342</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004409</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABI</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>MOTIPARBITMMXXX6347900</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98652</ns3:ident>
+            <ns3:ssiPathId>1857</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1179469121</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004409</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABI</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>MOTIPARBITMMXXX6347900</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98653</ns3:ident>
+            <ns3:ssiPathId>1857</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1213027398</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004409</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABI</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>MOTIPARBITMMXXX6347900</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98654</ns3:ident>
+            <ns3:ssiPathId>1858</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481397592</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004416</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CED</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>71224</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98655</ns3:ident>
+            <ns3:ssiPathId>1859</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480674643</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004411</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>EGSP</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>030</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98656</ns3:ident>
+            <ns3:ssiPathId>1782</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1296453464</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004418</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98657</ns3:ident>
+            <ns3:ssiPathId>1782</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1481457988</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004421</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98664</ns3:ident>
+            <ns3:ssiPathId>1859</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480741461</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004397</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>EGSP</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>030</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98665</ns3:ident>
+            <ns3:ssiPathId>1864</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>1480741461</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-42840</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004415</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>NBB</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>4017</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98658</ns3:ident>
+            <ns3:ssiPathId>1860</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54741062</ns3:currency>
+            <ns3:market>1480741454</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54741062</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004422</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>SEGA</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>CH100164</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98659</ns3:ident>
+            <ns3:ssiPathId>1860</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54741062</ns3:currency>
+            <ns3:market>1481856856</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54741062</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004422</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>SEGA</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>CH100164</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98660</ns3:ident>
+            <ns3:ssiPathId>1860</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54741062</ns3:currency>
+            <ns3:market>1482052696</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54741062</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004422</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>SEGA</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>CH100164</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98641</ns3:ident>
+            <ns3:ssiPathId>1852</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>54875474</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-42840</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>54875474</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004416</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CED</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>712224</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98620</ns3:ident>
+            <ns3:ssiPathId>1854</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>55001680</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>55001680</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004413</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CREST</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>B001</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98663</ns3:ident>
+            <ns3:ssiPathId>1863</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>55001680</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-42840</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>55001680</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004413</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>CREST</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>BKNY1</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98662</ns3:ident>
+            <ns3:ssiPathId>1862</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>55923524</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-42840</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>55923524</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004423</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>ABA</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>021000018</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98661</ns3:ident>
+            <ns3:ssiPathId>1861</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>55923524</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>55923524</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:settlementPlace>10004414</ns3:settlementPlace>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value>DTC</ns3:Value>
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value>901</ns3:Value>
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98666</ns3:ident>
+            <ns3:ssiPathId>1782</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>-1</ns3:deliveryType>
+            <ns3:validFrom>2000-01-01</ns3:validFrom>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>6</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:treasuryID>1743</ns3:treasuryID>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>-1</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:accountName>Challenge European  Equity MAML</ns3:accountName>
+            <ns3:custodianID>10004117</ns3:custodianID>
+            <ns3:custodianCode>FETALULLISV</ns3:custodianCode>
+            <ns3:accountCustodian>DB8813Z8719429</ns3:accountCustodian>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:agreement>
+            <ns3:allotment>-35324</ns3:allotment>
+            <ns3:terminationCurrency>54875474</ns3:terminationCurrency>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:effectiveDate>41060</ns3:effectiveDate>
+            <ns3:amendmentDate>41060</ns3:amendmentDate>
+            <ns3:agreementVersionDate>41060</ns3:agreementVersionDate>
+            <ns3:agreement>Clearing</ns3:agreement>
+            <ns3:law>EU</ns3:law>
+            <ns3:clearingHouse>-1</ns3:clearingHouse>
+            <ns3:clearingMember>10005250</ns3:clearingMember>
+            <ns3:UserColumnsData />
+          </ns3:agreement>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>1</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:entity>
+
+  <ns0:counterparty>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10005148</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">EXECUTION PLATFORM</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">EXECUTION</ns3:partyId>
+      <ns3:partyName>EXECUTION PLATFORM</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004122</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">TECHNICAL GROUP</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Technical Group</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:counterparty>true</ns3:counterparty>
+        </ns3:institution>
+        <ns3:category>
+          <ns3:other>true</ns3:other>
+        </ns3:category>
+        <ns3:bank />
+        <ns3:names>
+          <ns3:reference>EXECUTION</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties />
+        <ns3:address>
+          <ns3:identification />
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:settlementInstruction>
+            <ns3:ident>98804</ns3:ident>
+            <ns3:ssiPathId>1963</ns3:ssiPathId>
+            <ns3:financialInstitution>10005251</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>58367</ns3:workflow>
+            <ns3:workflowName>Northern Trust Custody</ns3:workflowName>
+            <ns3:deliveryType>-1</ns3:deliveryType>
+            <ns3:validFrom>2016-04-10</ns3:validFrom>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>-1</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:accountName>MARKET</ns3:accountName>
+            <ns3:countryCode>XX</ns3:countryCode>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98621</ns3:ident>
+            <ns3:ssiPathId>1963</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>47983</ns3:workflow>
+            <ns3:workflowName>RBC Custody</ns3:workflowName>
+            <ns3:deliveryType>-1</ns3:deliveryType>
+            <ns3:validFrom>2016-04-10</ns3:validFrom>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>-1</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:accountName>MARKET</ns3:accountName>
+            <ns3:countryCode>XX</ns3:countryCode>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:settlementInstruction>
+            <ns3:ident>98803</ns3:ident>
+            <ns3:ssiPathId>1963</ns3:ssiPathId>
+            <ns3:financialInstitution>-1</ns3:financialInstitution>
+            <ns3:partyRole>1</ns3:partyRole>
+            <ns3:workflow>57617</ns3:workflow>
+            <ns3:workflowName>State Street Custody</ns3:workflowName>
+            <ns3:deliveryType>-1</ns3:deliveryType>
+            <ns3:validFrom>2016-04-10</ns3:validFrom>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:accountType>1</ns3:accountType>
+            <ns3:paymentMethod>122</ns3:paymentMethod>
+            <ns3:underlyingAllotment>-1</ns3:underlyingAllotment>
+            <ns3:underlyingCurrency>-1</ns3:underlyingCurrency>
+            <ns3:underlyingMarket>-1</ns3:underlyingMarket>
+            <ns3:businessEvent>-1</ns3:businessEvent>
+            <ns3:accountName>MARKET</ns3:accountName>
+            <ns3:countryCode>XX</ns3:countryCode>
+            <ns3:UserColumnsData>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Clearing Code</ns3:ColumnName>
+                <ns3:ColumnIndex>33</ns3:ColumnIndex>
+              </ns3:UserColumn>
+              <ns3:UserColumn>
+                <ns3:Value />
+                <ns3:ColumnName>Safe Account</ns3:ColumnName>
+                <ns3:ColumnIndex>34</ns3:ColumnIndex>
+              </ns3:UserColumn>
+            </ns3:UserColumnsData>
+          </ns3:settlementInstruction>
+          <ns3:documentGenerationRule>
+            <ns3:allotment>1</ns3:allotment>
+            <ns3:templateName>386</ns3:templateName>
+            <ns3:messageStatus>142</ns3:messageStatus>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:event>-1</ns3:event>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:recipientType>3</ns3:recipientType>
+            <ns3:sendingMethod>161</ns3:sendingMethod>
+            <ns3:amountType>Net</ns3:amountType>
+            <ns3:postingDate>Settlement</ns3:postingDate>
+            <ns3:condition1>No Message on Zero Amount</ns3:condition1>
+          </ns3:documentGenerationRule>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>1</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:counterparty>
+
+  <ns0:depositary>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">FETALULLISV</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004117</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">RBC Custody</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">RBCCUSTODY</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">FETALULLISV</ns3:partyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">MEATTBRKXXX</ns3:customPartyId>
+      <ns3:partyName>RBC Custody</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10004114</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Custodians goup</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Custodians goup</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:depositary>true</ns3:depositary>
+        </ns3:institution>
+        <ns3:category>
+          <ns3:bank>true</ns3:bank>
+        </ns3:category>
+        <ns3:bank>
+          <ns3:custodian>true</ns3:custodian>
+        </ns3:bank>
+        <ns3:names>
+          <ns3:externalReference>FETALULLISV</ns3:externalReference>
+          <ns3:reference>RBCCUSTODY</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties>
+          <ns3:property ns3:name="OMGEO CODE">MEATTBRKXXX</ns3:property>
+        </ns3:customProperties>
+        <ns3:address>
+          <ns3:identification>
+            <ns3:swiftCode>FETALULLISV</ns3:swiftCode>
+          </ns3:identification>
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:documentGenerationRule>
+            <ns3:allotment>-35332</ns3:allotment>
+            <ns3:templateName>221</ns3:templateName>
+            <ns3:entity>10004112</ns3:entity>
+            <ns3:depositary>10004117</ns3:depositary>
+            <ns3:event>1</ns3:event>
+            <ns3:sign>-1</ns3:sign>
+            <ns3:recipientType>4</ns3:recipientType>
+            <ns3:amountType>Net</ns3:amountType>
+            <ns3:postingDate>Trade</ns3:postingDate>
+            <ns3:condition1>No Message on Zero Amount</ns3:condition1>
+          </ns3:documentGenerationRule>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>3</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:depositary>
+
+  <ns0:otc_message>
+    <ns1:message>
+      <ns1:ident>273</ns1:ident>
+      <ns1:version>1</ns1:version>
+      <ns1:valuedate>2016-06-22</ns1:valuedate>
+      <ns1:generationdate>2016-06-22</ns1:generationdate>
+      <ns1:templateid>231</ns1:templateid>
+      <ns1:linkreversalid>0</ns1:linkreversalid>
+      <ns1:nettingid>0</ns1:nettingid>
+      <ns1:amount>15180.000000000000</ns1:amount>
+      <ns1:currencyamount>54875474</ns1:currencyamount>
+      <ns1:senderssipath>1855</ns1:senderssipath>
+      <ns1:receiverssipath>1963</ns1:receiverssipath>
+      <ns1:templaterow>-1</ns1:templaterow>
+      <ns1:agreementrow>-1</ns1:agreementrow>
+      <ns1:nettingrow>-1</ns1:nettingrow>
+      <ns1:bookid>16565</ns1:bookid>
+      <ns1:docmodification>1</ns1:docmodification>
+      <ns1:externalstatus>0</ns1:externalstatus>
+      <ns1:initialstatus>1</ns1:initialstatus>
+      <ns1:otceventid>4</ns1:otceventid>
+      <ns1:userid>
+        <ns1:name>Sean</ns1:name>
+        <ns1:id>1996</ns1:id>
+      </ns1:userid>
+      <ns1:businessevent>
+        <ns1:name>Purchase/Sale</ns1:name>
+        <ns1:id>1</ns1:id>
+      </ns1:businessevent>
+      <ns1:messagetype>
+        <ns1:name>Confirmation</ns1:name>
+        <ns1:id>2</ns1:id>
+      </ns1:messagetype>
+      <ns1:recipienttype>
+        <ns1:name>Administrator</ns1:name>
+        <ns1:id>121</ns1:id>
+      </ns1:recipienttype>
+      <ns1:sender>
+        <ns1:field1 />
+        <ns1:field2>FETALULLISV</ns1:field2>
+        <ns1:field3 />
+        <ns1:account1>DB8813Z8719429</ns1:account1>
+        <ns1:account2 />
+      </ns1:sender>
+      <ns1:receiver>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:receiver>
+      <ns1:sender2>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:sender2>
+      <ns1:receiver2>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:receiver2>
+      <ns1:sendingmethod>
+        <ns1:name>X228 Gateway</ns1:name>
+        <ns1:id>161</ns1:id>
+      </ns1:sendingmethod>
+      <ns1:paymentmethod>
+        <ns1:name>Swift</ns1:name>
+        <ns1:id>122</ns1:id>
+      </ns1:paymentmethod>
+    </ns1:message>
+  </ns0:otc_message>
+
+  <ns0:messageAdditionalData>
+    <ns0:MessageID>273</ns0:MessageID>
+  </ns0:messageAdditionalData>
+
+  <ns0:messageCreationTimestamp>2016-06-22T15:44:50+01:00</ns0:messageCreationTimestamp>
+
+  <ns0:documentCreationTimestamp>2016-06-22T15:49:07+01:00</ns0:documentCreationTimestamp>
+
+</ns0:sph_otc_message>

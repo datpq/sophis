@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?><ns0:sph_otc_message xmlns:ns0="http://www.sophis.net/bo_xml" xmlns:ns1="http://www.sophis.net/otc_message" xmlns:ns2="http://www.sophis.net/trade" xmlns:ns3="http://www.sophis.net/party" xmlns:ns4="http://www.sophis.net/folio" xmlns:ns5="http://www.sophis.net/Instrument" xmlns:ns6="http://sophis.net/sophis/common">
+
+  <ns0:source>
+    <ns1:tradeSource>
+      <ns2:trade>
+        <ns2:tradeHeader>
+          <ns2:partyTradeIdentifier>
+            <ns3:partyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+            </ns3:partyReference>
+            <ns2:tradeId ns2:tradeIdScheme="http://www.sophis.net/trade/tradeId/id">231787</ns2:tradeId>
+            <ns2:tradeId ns2:tradeIdScheme="http://www.sophis.net/trade/tradeId/version">2</ns2:tradeId>
+            <ns2:linkId ns2:linkIdScheme="http://www.sophis.net/trade/linkId/positionId">30061</ns2:linkId>
+          </ns2:partyTradeIdentifier>
+          <ns2:extendedPartyTradeInformation>
+            <ns2:partyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+            </ns2:partyReference>
+            <ns2:trader ns2:traderScheme="http://www.sophis.net/user/userId/id">1</ns2:trader>
+            <ns2:trader ns2:traderScheme="http://www.sophis.net/user/userId/name">MANAGER</ns2:trader>
+            <ns4:identifierAllocationRule>
+              <ns4:folio>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/fullName">ROOT:TEST</ns4:portfolioName>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/id">9478</ns4:portfolioName>
+                <ns4:portfolioName ns4:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/name">TEST</ns4:portfolioName>
+              </ns4:folio>
+            </ns4:identifierAllocationRule>
+            <ns2:businessEvent>Purchase/Sale</ns2:businessEvent>
+            <ns2:origin>Manual</ns2:origin>
+            <ns2:comment>FO_TERM</ns2:comment>
+            <ns2:boComment>BO_TERM</ns2:boComment>
+            <ns2:backofficeStatus>Validated MO</ns2:backofficeStatus>
+            <ns2:intentToClear>false</ns2:intentToClear>
+            <ns2:largeSizeTrade>false</ns2:largeSizeTrade>
+            <ns2:executionVenueType>AmiraBookingEntity</ns2:executionVenueType>
+            <ns2:originatingEvent>Trade</ns2:originatingEvent>
+            <ns2:extraFields>
+              <EQUALISATION_AMOUNT>0.000000000000</EQUALISATION_AMOUNT>
+            </ns2:extraFields>
+          </ns2:extendedPartyTradeInformation>
+          <ns2:tradeDate>2016-08-16</ns2:tradeDate>
+          <ns2:pnLDate>2016-08-17</ns2:pnLDate>
+          <ns2:settlementDate>2016-08-17</ns2:settlementDate>
+          <ns2:tradeTime>13:25:55</ns2:tradeTime>
+          <ns2:paymentDate>2016-08-16</ns2:paymentDate>
+        </ns2:tradeHeader>
+        <ns2:tradeProduct>
+          <ns2:instrument>
+            <ns5:sophis>67341650</ns5:sophis>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="CmaentityId">ia_msdc</ns5:reference>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Markit">ia_msdc</ns5:reference>
+            <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Ticker">ia_msdc</ns5:reference>
+          </ns2:instrument>
+          <ns2:principalPayment>
+            <ns2:buyerPartyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+            </ns2:buyerPartyReference>
+            <ns2:sellerPartyReference>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002687</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Omgeo Counterparty 2</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Omgeo_Cpty2</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">OMGXXXCP2</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT21000</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT22000</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT23000</ns3:customPartyId>
+            </ns2:sellerPartyReference>
+            <ns2:principalSettlement>
+              <ns2:numberOfSecurities>13.000000000000</ns2:numberOfSecurities>
+              <ns2:notional>65.000000000000</ns2:notional>
+              <ns2:spot ns2:inSettlementCurrency="false" ns2:type="InAmount">5.012602739726</ns2:spot>
+              <ns2:paymentMethod />
+              <ns2:SMDT />
+              <ns2:amount>
+                <ns2:currency>EUR</ns2:currency>
+                <ns2:amount>66.060000000000</ns2:amount>
+              </ns2:amount>
+              <ns2:valueDate>
+                <ns6:unadjustedDate>2016-08-16</ns6:unadjustedDate>
+                <ns6:dateAdjustments>
+                  <ns6:businessDayConvention>NONE</ns6:businessDayConvention>
+                </ns6:dateAdjustments>
+              </ns2:valueDate>
+            </ns2:principalSettlement>
+          </ns2:principalPayment>
+        </ns2:tradeProduct>
+        <ns2:entityPartyReference>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+        </ns2:entityPartyReference>
+        <ns2:otherPartyPayment ns2:paymentTypeScheme="http://www.sophis.net/trade/paymentType/brokerFees">
+          <ns2:payerPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+          </ns2:payerPartyReference>
+          <ns2:receiverPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10001001</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">WARREN BUFFET</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">WARREN BUFFET</ns3:partyId>
+          </ns2:receiverPartyReference>
+          <ns2:paymentAmount>
+            <ns5:currency>EUR</ns5:currency>
+            <ns5:amount>0.200000000000</ns5:amount>
+          </ns2:paymentAmount>
+          <ns2:paymentDate>
+            <ns6:unadjustedDate>2016-08-16</ns6:unadjustedDate>
+            <ns6:dateAdjustments>
+              <ns6:businessDayConvention>NONE</ns6:businessDayConvention>
+            </ns6:dateAdjustments>
+          </ns2:paymentDate>
+          <ns2:adjustedPaymentDate>2016-08-16</ns2:adjustedPaymentDate>
+        </ns2:otherPartyPayment>
+        <ns2:otherPartyPayment ns2:paymentTypeScheme="http://www.sophis.net/trade/paymentType/couterpartyFees">
+          <ns2:payerPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+          </ns2:payerPartyReference>
+          <ns2:receiverPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002687</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Omgeo Counterparty 2</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Omgeo_Cpty2</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">OMGXXXCP2</ns3:partyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT21000</ns3:customPartyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT22000</ns3:customPartyId>
+            <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT23000</ns3:customPartyId>
+          </ns2:receiverPartyReference>
+          <ns2:paymentAmount>
+            <ns5:currency>EUR</ns5:currency>
+            <ns5:amount>0.300000000000</ns5:amount>
+          </ns2:paymentAmount>
+          <ns2:paymentDate>
+            <ns6:unadjustedDate>2016-08-16</ns6:unadjustedDate>
+            <ns6:dateAdjustments>
+              <ns6:businessDayConvention>NONE</ns6:businessDayConvention>
+            </ns6:dateAdjustments>
+          </ns2:paymentDate>
+          <ns2:adjustedPaymentDate>2016-08-16</ns2:adjustedPaymentDate>
+        </ns2:otherPartyPayment>
+        <ns2:otherPartyPayment ns2:paymentTypeScheme="http://www.sophis.net/trade/paymentType/marketFees">
+          <ns2:payerPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+          </ns2:payerPartyReference>
+          <ns2:receiverPartyReference>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">XJ0003</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10003735</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">JY Fund Depositary</ns3:partyId>
+            <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">JYDEP</ns3:partyId>
+          </ns2:receiverPartyReference>
+          <ns2:paymentAmount>
+            <ns5:currency>EUR</ns5:currency>
+            <ns5:amount>0.400000000000</ns5:amount>
+          </ns2:paymentAmount>
+          <ns2:paymentDate>
+            <ns6:unadjustedDate>2016-08-16</ns6:unadjustedDate>
+            <ns6:dateAdjustments>
+              <ns6:businessDayConvention>NONE</ns6:businessDayConvention>
+            </ns6:dateAdjustments>
+          </ns2:paymentDate>
+          <ns2:adjustedPaymentDate>2016-08-16</ns2:adjustedPaymentDate>
+        </ns2:otherPartyPayment>
+        <ns2:extendedTradeSide>
+          <ns2:orderer>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+            </ns3:party>
+          </ns2:orderer>
+          <ns2:introducer>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10001001</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">WARREN BUFFET</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">WARREN BUFFET</ns3:partyId>
+            </ns3:party>
+          </ns2:introducer>
+          <ns2:creditor>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">XJ0003</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10003735</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">JY Fund Depositary</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">JYDEP</ns3:partyId>
+            </ns3:party>
+          </ns2:creditor>
+          <ns2:entity>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+            </ns3:party>
+          </ns2:entity>
+          <ns2:counterparty>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002687</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Omgeo Counterparty 2</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Omgeo_Cpty2</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">OMGXXXCP2</ns3:partyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT21000</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT22000</ns3:customPartyId>
+              <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT23000</ns3:customPartyId>
+            </ns3:party>
+          </ns2:counterparty>
+          <ns2:depositary>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">XJ0003</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10003735</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">JY Fund Depositary</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">JYDEP</ns3:partyId>
+            </ns3:party>
+          </ns2:depositary>
+          <ns2:broker>
+            <ns3:party>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10001001</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">WARREN BUFFET</ns3:partyId>
+              <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">WARREN BUFFET</ns3:partyId>
+            </ns3:party>
+          </ns2:broker>
+        </ns2:extendedTradeSide>
+        <ns2:documentation />
+      </ns2:trade>
+    </ns1:tradeSource>
+  </ns0:source>
+
+  <ns0:position>
+    <ns4:position>
+      <ns4:id>30061</ns4:id>
+      <ns4:underlyer>
+        <ns5:sophis>67341650</ns5:sophis>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="CmaentityId">ia_msdc</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Markit">ia_msdc</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Ticker">ia_msdc</ns5:reference>
+      </ns4:underlyer>
+      <ns4:type>0</ns4:type>
+      <ns4:instrumentCount>13.000000000000</ns4:instrumentCount>
+    </ns4:position>
+  </ns0:position>
+
+  <ns0:instrument>
+    <ns5:debtInstrument>
+      <ns5:productType>TREAS-Debt Instrument-All|TREAS-Debt Instrument-Fixed Rate</ns5:productType>
+      <ns5:feature>Without Market</ns5:feature>
+      <ns5:identifier>
+        <ns5:sophis>67341650</ns5:sophis>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="CmaentityId">ia_msdc</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Markit">ia_msdc</ns5:reference>
+        <ns5:reference ns5:modifiable="UniqueNotPrioritary" ns5:name="Ticker">ia_msdc</ns5:reference>
+      </ns5:identifier>
+      <ns5:name>ia_msdc</ns5:name>
+      <ns5:currency>EUR</ns5:currency>
+      <ns5:businessCenters>
+        <ns6:businessCenter ns6:businessCenterScheme="http://www.fpml.org/spec/2000/business-center-1-0">EUTA TARGET</ns6:businessCenter>
+      </ns5:businessCenters>
+      <ns5:pointValue>
+        <ns5:quotationType>InPrice</ns5:quotationType>
+        <ns5:averagePrice>1.000000000000</ns5:averagePrice>
+        <ns5:unrealized>1.000000000000</ns5:unrealized>
+        <ns5:realized>1.000000000000</ns5:realized>
+        <ns5:inAmount>1.000000000000</ns5:inAmount>
+        <ns5:inAnotherCurrency>1.000000000000</ns5:inAnotherCurrency>
+        <ns5:inPercent>0.050000000000</ns5:inPercent>
+        <ns5:inYield>
+          <ns5:adjustedDate>true</ns5:adjustedDate>
+          <ns5:settlementDate>false</ns5:settlementDate>
+          <ns5:dayCountBasis ns5:version="ISDA06">ACT/365 FIXED</ns5:dayCountBasis>
+          <ns5:yield>Linear</ns5:yield>
+        </ns5:inYield>
+      </ns5:pointValue>
+      <ns5:allotment>Debt Instruments</ns5:allotment>
+      <ns5:status>Available</ns5:status>
+      <ns5:notional>
+        <ns5:currency>EUR</ns5:currency>
+        <ns5:amount>5.000000000000</ns5:amount>
+      </ns5:notional>
+      <ns5:pricing>
+        <ns5:nature>T</ns5:nature>
+        <ns5:model>Standard</ns5:model>
+        <ns5:spread>
+          <ns5:value>0.001000000000</ns5:value>
+          <ns5:type>BasisSpread</ns5:type>
+        </ns5:spread>
+      </ns5:pricing>
+      <ns5:extraFields />
+      <ns5:interestType>
+        <ns5:fixed>
+          <ns5:nominalRate>0.002500000000</ns5:nominalRate>
+          <ns5:dayCountBasis ns5:version="ISDA06">ACT/365 FIXED</ns5:dayCountBasis>
+          <ns5:interestCalculation>Linear</ns5:interestCalculation>
+          <ns5:couponPaid>Afterward</ns5:couponPaid>
+          <ns5:computationMethod>Afterward</ns5:computationMethod>
+        </ns5:fixed>
+      </ns5:interestType>
+      <ns5:cashFlowGeneration>
+        <ns5:periodicityType>Final</ns5:periodicityType>
+        <ns5:issueDate>2015-08-14</ns5:issueDate>
+        <ns5:redemptionDate>2017-08-16</ns5:redemptionDate>
+      </ns5:cashFlowGeneration>
+      <ns5:convention>808</ns5:convention>
+      <ns5:RedemptionDate>Excluded</ns5:RedemptionDate>
+    </ns5:debtInstrument>
+  </ns0:instrument>
+
+  <ns0:entity>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002815</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">AmiraBookingEntity</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">AmiraBookingEntity</ns3:partyId>
+      <ns3:partyName>AmiraBookingEntity</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002810</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Amira</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Amira</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:counterparty>true</ns3:counterparty>
+        </ns3:institution>
+        <ns3:category>
+          <ns3:entity>true</ns3:entity>
+        </ns3:category>
+        <ns3:bank />
+        <ns3:names>
+          <ns3:reference>AmiraBookingEntity</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties />
+        <ns3:address>
+          <ns3:identification />
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>1</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:entity>
+
+  <ns0:counterparty>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002687</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Omgeo Counterparty 2</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Omgeo_Cpty2</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/swiftCode">OMGXXXCP2</ns3:partyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT21000</ns3:customPartyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE 2" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT22000</ns3:customPartyId>
+      <ns3:customPartyId ns3:name="OMGEO CODE 3" ns3:partyIdScheme="http://www.sophis.net/party/partyId/custom">OMG_CPT23000</ns3:customPartyId>
+      <ns3:partyName>Omgeo Counterparty 2</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10002684</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">Omgeo_Group</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">Omgeo_Group</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:counterparty>true</ns3:counterparty>
+          <ns3:broker>true</ns3:broker>
+        </ns3:institution>
+        <ns3:category>
+          <ns3:corporate>true</ns3:corporate>
+          <ns3:exchange>true</ns3:exchange>
+        </ns3:category>
+        <ns3:bank />
+        <ns3:names>
+          <ns3:reference>Omgeo_Cpty2</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties>
+          <ns3:property ns3:name="OMGEO CODE">OMG_CPT21000</ns3:property>
+          <ns3:property ns3:name="OMGEO CODE 2">OMG_CPT22000</ns3:property>
+          <ns3:property ns3:name="OMGEO CODE 3">OMG_CPT23000</ns3:property>
+        </ns3:customProperties>
+        <ns3:address>
+          <ns3:identification>
+            <ns3:shortCode>OMGCPTY2</ns3:shortCode>
+            <ns3:swiftCode>OMGXXXCP2</ns3:swiftCode>
+          </ns3:identification>
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>1</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:counterparty>
+
+  <ns0:depositary>
+    <ns3:party>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/externalReference">XJ0003</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10003735</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">JY Fund Depositary</ns3:partyId>
+      <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">JYDEP</ns3:partyId>
+      <ns3:partyName>JY Fund Depositary</ns3:partyName>
+      <ns3:description>
+        <ns3:parent>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/id">10003732</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/name">JY Fund Enhancements</ns3:partyId>
+          <ns3:partyId ns3:partyIdScheme="http://www.sophis.net/party/partyId/reference">10003732</ns3:partyId>
+        </ns3:parent>
+        <ns3:institution>
+          <ns3:depositary>true</ns3:depositary>
+        </ns3:institution>
+        <ns3:category />
+        <ns3:bank />
+        <ns3:names>
+          <ns3:externalReference>XJ0003</ns3:externalReference>
+          <ns3:reference>JYDEP</ns3:reference>
+        </ns3:names>
+        <ns3:site>0</ns3:site>
+        <ns3:reporting />
+        <ns3:customProperties />
+        <ns3:address>
+          <ns3:identification />
+          <ns3:contactNumbers />
+          <ns3:contacts ns3:overwrite="true" />
+        </ns3:address>
+        <ns3:regulatoryReporting>
+          <ns3:designatedReportingParty>false</ns3:designatedReportingParty>
+          <ns3:executionVenue>false</ns3:executionVenue>
+          <ns3:tradeRepositary>false</ns3:tradeRepositary>
+        </ns3:regulatoryReporting>
+        <ns3:advancedData>
+          <ns3:mifid />
+          <ns3:extraFields />
+          <ns3:brokerFees>
+            <ns3:numero>0</ns3:numero>
+            <ns3:option>3</ns3:option>
+            <ns3:currency>-1</ns3:currency>
+            <ns3:market>-1</ns3:market>
+            <ns3:entity>-1</ns3:entity>
+            <ns3:allotment>-1</ns3:allotment>
+            <ns3:KindofFees>In Currency</ns3:KindofFees>
+            <ns3:amount>0</ns3:amount>
+            <ns3:MarginCall>0.000000000000</ns3:MarginCall>
+            <ns3:minimum>0.000000000000</ns3:minimum>
+            <ns3:depositary>-1</ns3:depositary>
+            <ns3:broker>-1</ns3:broker>
+            <ns3:BusinessEvent>-1</ns3:BusinessEvent>
+            <ns3:UnderlyingAllotment>-1</ns3:UnderlyingAllotment>
+            <ns3:UnderlyingCurrency>-1</ns3:UnderlyingCurrency>
+            <ns3:UnderlyingMarket>-1</ns3:UnderlyingMarket>
+            <ns3:condition1>Vote Yes</ns3:condition1>
+            <ns3:condition2>Vote Yes</ns3:condition2>
+            <ns3:condition3>Vote Yes</ns3:condition3>
+            <ns3:maturityFrom />
+            <ns3:maturityTo />
+          </ns3:brokerFees>
+        </ns3:advancedData>
+      </ns3:description>
+    </ns3:party>
+  </ns0:depositary>
+
+  <ns0:otc_message>
+    <ns1:message>
+      <ns1:ident>3841</ns1:ident>
+      <ns1:version>2</ns1:version>
+      <ns1:valuedate>2016-08-16</ns1:valuedate>
+      <ns1:generationdate>2016-08-17</ns1:generationdate>
+      <ns1:templateid>1364</ns1:templateid>
+      <ns1:linkreversalid>0</ns1:linkreversalid>
+      <ns1:nettingid>0</ns1:nettingid>
+      <ns1:amount>65.160000000000</ns1:amount>
+      <ns1:currencyamount>54875474</ns1:currencyamount>
+      <ns1:senderssipath>0</ns1:senderssipath>
+      <ns1:receiverssipath>0</ns1:receiverssipath>
+      <ns1:templaterow>-1</ns1:templaterow>
+      <ns1:agreementrow>-1</ns1:agreementrow>
+      <ns1:nettingrow>-1</ns1:nettingrow>
+      <ns1:bookid>9478</ns1:bookid>
+      <ns1:docmodification>1</ns1:docmodification>
+      <ns1:externalstatus>0</ns1:externalstatus>
+      <ns1:initialstatus>1</ns1:initialstatus>
+      <ns1:otceventid>0</ns1:otceventid>
+      <ns1:userid>
+        <ns1:name>MANAGER</ns1:name>
+        <ns1:id>1</ns1:id>
+      </ns1:userid>
+      <ns1:businessevent>
+        <ns1:name>Purchase/Sale</ns1:name>
+        <ns1:id>1</ns1:id>
+      </ns1:businessevent>
+      <ns1:messagetype>
+        <ns1:name>Confirmation</ns1:name>
+        <ns1:id>2</ns1:id>
+      </ns1:messagetype>
+      <ns1:recipienttype>
+        <ns1:name>Third1</ns1:name>
+        <ns1:id>1</ns1:id>
+      </ns1:recipienttype>
+      <ns1:sender>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:sender>
+      <ns1:receiver>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:receiver>
+      <ns1:sender2>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:sender2>
+      <ns1:receiver2>
+        <ns1:field1 />
+        <ns1:field2 />
+        <ns1:field3 />
+        <ns1:account1 />
+        <ns1:account2 />
+      </ns1:receiver2>
+      <ns1:sendingmethod>
+        <ns1:name>Email</ns1:name>
+        <ns1:id>120</ns1:id>
+      </ns1:sendingmethod>
+      <ns1:paymentmethod />
+    </ns1:message>
+  </ns0:otc_message>
+
+  <ns0:messageAdditionalData>
+    <ns0:MessageID>3841</ns0:MessageID>
+  </ns0:messageAdditionalData>
+
+  <ns0:messageCreationTimestamp>2016-08-17T13:28:51+02:00</ns0:messageCreationTimestamp>
+
+  <ns0:documentCreationTimestamp>2016-08-17T13:29:26+02:00</ns0:documentCreationTimestamp>
+
+</ns0:sph_otc_message>

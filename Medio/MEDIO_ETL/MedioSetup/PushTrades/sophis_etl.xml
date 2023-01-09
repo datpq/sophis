@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sophisETL xmlns="http://www.sophis.net/SophisETL" xmlns:etl="http://www.sophis.net/SophisETL">
+
+  <log>
+    <logFileName>%%log_file%%</logFileName>
+    <debugMode>true</debugMode>
+  </log>
+
+	<chain name="PushTrades">
+
+		<extract name="GetTradesId" class="SophisETL.Extract.DBExtract.DBExtract, SophisETL.Extract, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<target>TradesIDList</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Extract/DBExtract">
+				<dbConnection>
+					<login>MEDIOUATVALUE</login>
+					<password>MEDIOUATVALUE</password>
+					<instance>MDLUAT</instance> <!-- ?? to be verified-->
+				</dbConnection> <!-- BO 1209 : Pending Order Completion, Folio 12690 : MIFL, PnL Date = SYSDATE - x (0 by default)-->
+				<query>SELECT REFCON FROM JOIN_POSITION_HISTOMVTS WHERE BACKOFFICE = 1209 AND DATECOMPTABLE = TRUNC(SYSDATE - 0) AND OPCVM IN (SELECT IDENT FROM FOLIO START WITH IDENT IN (12690) CONNECT BY MGR = PRIOR IDENT)</query>
+			</etl:settings>
+		</extract>
+		
+		<transform name="TradesToXML" class="SophisETL.Transform.Velocity.VelocityTransformer, SophisETL.Transform.Velocity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>TradesIDList</source>
+			<target>recordsXML</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Velocity">
+				<template>PushTrades_Template.xml</template>
+				<targetField>xmlImportMessage</targetField>
+			</etl:settings>
+		</transform>
+
+		<load name="ISLoad" class="SophisETL.Load.XmlISLoader.XmlISLoader, SophisETL.Load.SOA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>recordsXML</source>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Load/XmlISLoader">
+				<sourceField>xmlImportMessage</sourceField>
+			</etl:settings>
+		</load>
+	</chain>
+	
+	<!-- We use a standard CSV Report -->
+	<report name="CSVReport" class="SophisETL.Reporting.CSVReport.CSVReportingHandler, SophisETL.Reporting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+		<etl:settings xmlns="http://www.sophis.net/SophisETL/Reporting/CSVReport">
+			<reportName>%%report_file%%</reportName> 
+			<separator>;</separator>
+			<!-- begin Options -->
+			<reportType>recordNotLoadedOnly</reportType>
+			<skipFooter>true</skipFooter>			
+			<!-- end Options -->
+		</etl:settings>
+	</report>
+
+</sophisETL>

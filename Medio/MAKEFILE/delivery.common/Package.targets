@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Package"  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!--
+    ============================================================
+    INTERNAL USE: DO NOT IMPORT DIRECTLY THIS FILE IN YOUR PRODUCT FILE.
+
+    This .target file export msbuild targets:
+    - Package
+    - PackageOnly
+    - Deploy
+    - DeployOnly
+
+    These targets are common to boths simple softwareComponent, and SoftwareComposite.
+    ============================================================
+  -->
+  <Import Project="Version.props" Condition="$(VersionPropsImported) != 'true' " />
+  <Import Project="SoftwareComponent.props" Condition="$(SoftwareComponentPropsImported) != 'true' " />
+
+
+  <!--
+    ============================================================
+    Properties used by package targets:
+    ============================================================
+  -->
+  <PropertyGroup>
+
+    <IncludePlatformInZipName Condition="$(IncludePlatformInZipName) == '' AND  $(ProductType) != 'Library' ">true</IncludePlatformInZipName>
+    <IncludeConfigurationInZipName Condition="$(IncludeConfigurationInZipName) == '' ">false</IncludeConfigurationInZipName>
+
+    <PackageDir  Condition="$(PackageDir) == '' AND $(ProductType)  == 'Library' ">$(DeliveryDir)\Libraries</PackageDir>
+    <PackageDir  Condition="$(PackageDir) == '' AND $(ProductType)  == 'Application' ">$(DeliveryDir)\Applications</PackageDir>
+    <PackageDir  Condition="$(PackageDir) == '' ">$(DeliveryDir)\Packages</PackageDir>
+
+    <IncludePlatformInZipName Condition="$(IncludePlatformInZipName) == '' AND  $(ProductType) != 'Library' ">true</IncludePlatformInZipName>
+    <IncludeConfigurationInZipName Condition="$(IncludeConfigurationInZipName) == '' ">false</IncludeConfigurationInZipName>
+
+    <ZipFileName Condition="$(ZipFileName) == '' AND $(IncludePlatformInZipName) == 'true'  AND $(IncludeConfigurationInZipName) == 'false' ">$(ProductName)_$(ProductVersion)_$(Platform).zip</ZipFileName>
+    <ZipFileName Condition="$(ZipFileName) == '' AND $(IncludePlatformInZipName) == 'true'  AND $(IncludeConfigurationInZipName) == 'true'  ">$(ProductName)_$(ProductVersion)_$(Platform)_$(Configuration).zip</ZipFileName>
+    <ZipFileName Condition="$(ZipFileName) == '' AND $(IncludePlatformInZipName) == 'false' AND $(IncludeConfigurationInZipName) == 'false' ">$(ProductName)_$(ProductVersion).zip</ZipFileName>
+    <ZipFileName Condition="$(ZipFileName) == '' AND $(IncludePlatformInZipName) == 'false' AND $(IncludeConfigurationInZipName) == 'true'  ">$(ProductName)_$(ProductVersion)_$(Configuration).zip</ZipFileName>
+    <ZipFileName Condition="$(ZipFileName) == '' ">$(ProductName)_$(ProductVersion).zip</ZipFileName>
+
+    <ZipFilePath Condition="$(ZipFilePath) == '' ">$(PackageDir)\$(ZipFileName)</ZipFilePath>
+  </PropertyGroup>
+
+  <Target Name="CheckZipProperties">
+    <Error Condition="$(ZipFilePath) == '' " Text="Mandatory property 'ZipFilePath' is not defined" />
+  </Target>
+
+  <Target Name="CleanInstallDir" >
+    <RemoveDir Directories="$(InstallDir)" />
+  </Target>
+
+  <!--
+    Same target as previous, renamed , just avoid MsBuild skipping target: MsBuild only executes once tagets in a dependency graph.
+    This task is cleanup of files intalled in tmp dir, and does not fail the build in case of errors (file locks when deleting).
+  -->
+  <Target Name="ForceCleanInstallDir" >
+    <RemoveDir Directories="$(InstallDir)" ContinueOnError="true" />
+  </Target>
+
+
+  <!--
+    ============================================================
+                          PackageOnly
+
+    Only creates the package.
+    ============================================================
+  -->
+
+  <Target Name="CreatePackage" DependsOnTargets="CheckZipProperties" >
+    <Delete Files="$(ZipFilePath)" />
+    <MakeDir Directories="$(PackageDir)" />
+    <Exec Command="zip -r %22$(ZipFilePath)%22 *" WorkingDirectory="$(InstallDir)"  />
+  </Target>
+
+
+  <PropertyGroup>
+    <PackageOnlyDependsOn Condition="$(GenerateAllConfigurations) != 'true' ">
+      SetTempInstallDir;
+      CleanInstallDir;
+      InstallOnly;
+      CreatePackage;
+      ForceCleanInstallDir
+    </PackageOnlyDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageOnlyDependsOn Condition="$(GenerateAllConfigurations) == 'true' ">
+      SetTempInstallDir;
+      CleanInstallDir;
+      InstallOnlyAllConfigurations;
+      CreatePackage;
+      ForceCleanInstallDir
+    </PackageOnlyDependsOn>
+  </PropertyGroup>
+
+  <Target Name="PackageOnly" DependsOnTargets="$(PackageOnlyDependsOn)" >
+  </Target>
+
+  <!--
+    ============================================================
+                          Package
+
+    Package does the whole trick.
+    ============================================================
+  -->
+
+  <Target Name="SetTempInstallDir">
+    <PropertyGroup>
+      <InstallDir>$(TEMP)\$([System.Guid]::NewGuid())</InstallDir>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(InstallDir)" />
+
+  </Target>
+
+
+  <PropertyGroup>
+    <PackageDependsOn Condition="$(GenerateAllConfigurations) != 'true' ">
+      SetTempInstallDir;
+      CleanInstallDir;
+      Install;
+      CreatePackage;
+      ForceCleanInstallDir
+    </PackageDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(GenerateAllConfigurations) == 'true' ">
+    <PackageDependsOn>
+      SetTempInstallDir;
+      CleanInstallDir;
+      InstallAllConfigurations;
+      CreatePackage;
+      ForceCleanInstallDir
+    </PackageDependsOn>
+  </PropertyGroup>
+
+  <Target Name="Package" DependsOnTargets="$(PackageDependsOn)" >
+  </Target>
+
+
+  <!--
+    ============================================================
+                          DeployOnly
+
+    DeployOnly just copies generated package to 'DeployDir'
+    ============================================================
+  -->
+
+  <Target Name="CheckDeployProperties">
+    <Error Condition="$(DeployDir) == '' " Text="'DeployDir' is not defined" />
+  </Target>
+
+  <Target Name="DeployOnly" DependsOnTargets="CheckDeployProperties" >
+
+    <Copy SourceFiles="$(ZipFilePath)" DestinationFolder="$(DeployDir)" />
+  </Target>
+
+  <!--
+    ============================================================
+                          Deploy
+
+    From a to z, the full target to make a package available.
+    ============================================================
+  -->
+  <Target Name="Deploy" DependsOnTargets="CheckDeployProperties;Package;DeployOnly">
+  </Target>
+
+
+</Project>

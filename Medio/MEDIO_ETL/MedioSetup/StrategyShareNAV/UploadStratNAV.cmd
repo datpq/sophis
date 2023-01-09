@@ -1,0 +1,1 @@
+D:\misys\services_64\sophis\ETL\bin\SophisETL.exe -C ..\StrategyShareNAVUpload\parameters.ini -X ..\StrategyShareNAVUpload\sophis_etl.xml

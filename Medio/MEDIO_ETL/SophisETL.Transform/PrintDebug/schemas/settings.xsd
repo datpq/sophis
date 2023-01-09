@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/PrintDebug" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/PrintDebug">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="title" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <!--complexType name="Operations">
+    <sequence>    
+		<element name="operation" type="tns:Operation" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="Operation">
+    <attribute name="type" type="tns:TypeEnum" use="required"/>
+    <attribute name="field1" type="string" use="required"/>
+    <attribute name="field2" type="string" use="required"/>
+    <attribute name="operand" type="string" use="required"/>
+    <attribute name="result" type="string" use="required"/>
+    <attribute name="missingFieldAction" type="tns:MissingFieldActionEnum" use="optional" default="failRecord"/>
+  </complexType>
+
+  <simpleType name="MissingFieldActionEnum">
+    <restriction base="string">
+      <enumeration value="useZeroValue"/>
+      <enumeration value="returnZeroValue"/>
+      <enumeration value="failRecord"/>
+    </restriction>
+  </simpleType-->
+
+</schema>

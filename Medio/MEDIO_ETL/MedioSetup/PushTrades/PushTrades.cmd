@@ -1,0 +1,1 @@
+D:\misys\services_64\sophis\ETL\bin\SophisETL.exe -C ..\PushTrades\Parameters.ini -X ..\PushTrades\sophis_etl.xml

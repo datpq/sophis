@@ -1,0 +1,16 @@
+
+Repositary  : Any
+Description : Repository of Source and Assemblies valid with Any CPU (pure .NET Assemblies, not x86 or x64 specific)
+
+Files in this repository:
+
+- amqmdnet.dll -
+Description: pure .NET MQ Series client library (need a valid MQ Serie installaton on the client's computer)
+
+- log4net.dll -
+Description: logging framework
+
+- PetaPoco.cs -
+Description: micro ORM for your toolkit projects (manage persistence of objects to and from the Oracle DB)
+Version    : 4.0.3, updated on June 27th 2011 by Alexis de Bernis
+Website    : http://www.toptensoftware.com/petapoco/

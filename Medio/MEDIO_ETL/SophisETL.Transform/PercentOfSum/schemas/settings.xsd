@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/PercentOfSum" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/PercentOfSum">
+
+	<element name="settings" type="tns:Settings"/>
+	<complexType name="Settings">			
+		<sequence>
+			<!-- Defining on which elements the group by will be made -->
+			<element name="percentOfSum"  type="tns:PercentOfSum" minOccurs="1" maxOccurs="1"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="PercentOfSum">
+		<sequence>
+      <!-- true: the record contains a record list (after a group by), false: get all records from input -->
+			<element name="recordList" type="boolean" minOccurs="1" maxOccurs="1"/>
+      <!-- Name of the field whose value in percent of total sum must be computed -->
+			<element name="fieldAverage" type="string" minOccurs="1" maxOccurs="1"/>
+      <!-- Name of the field where the value in percent of total sum must be stored -->
+      <element name="fieldTarget" type="string" minOccurs="1" maxOccurs="1"/>
+      <!-- (only if recordList is true) Name of the field containing the list of records -->
+      <element name="fieldList" type="string" minOccurs="0" maxOccurs="1"/>
+		</sequence>
+	</complexType>
+
+</schema>
+
+
+
+

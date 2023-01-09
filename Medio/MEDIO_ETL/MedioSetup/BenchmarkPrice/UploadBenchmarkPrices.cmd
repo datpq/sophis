@@ -1,0 +1,1 @@
+D:\misys\services_64\sophis\ETL\bin\SophisETL.exe -C ..\BenchmarkPriceUpload\parametersDated.ini -X ..\BenchmarkPriceUpload\sophis_etl.xml

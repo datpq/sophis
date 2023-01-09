@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ToolkitPath>$(Toolkit_v74x)</ToolkitPath>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitPath)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{C3C9FD79-99AB-4256-99E3-CE7C8E91AD43}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SophisETL</RootNamespace>
+    <AssemblyName>SophisETL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>
+    </DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>false</Optimize>
+    <DefineConstants>;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SophisETL.Load.SOA\SophisETL.Load.SOA.csproj">
+      <Project>{9274B6C1-D238-4B0F-9F68-EFA484787282}</Project>
+      <Name>SophisETL.Load.SOA</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Transform.Velocity\SophisETL.Transform.Velocity.csproj">
+      <Project>{11BC351C-CE5C-464C-8F7E-B4DDA83FE779}</Project>
+      <Name>SophisETL.Transform.Velocity</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Transform\SophisETL.Transform.csproj">
+      <Project>{EC02FCE1-832A-4BF6-829F-C2936AAD41D9}</Project>
+      <Name>SophisETL.Transform</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Common\SophisETL.Common.csproj">
+      <Project>{65A34D52-B639-4A2D-BE27-03D22691248C}</Project>
+      <Name>SophisETL.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Extract\SophisETL.Extract.csproj">
+      <Project>{A2EE1156-7229-4A7F-890E-DEA9C002C20E}</Project>
+      <Name>SophisETL.Extract</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Load\SophisETL.Load.csproj">
+      <Project>{9274B6C1-D238-4B0F-9F68-EFA484787281}</Project>
+      <Name>SophisETL.Load</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Queue\SophisETL.Queue.csproj">
+      <Project>{78F66849-5C96-4197-96E6-260E3ECEA910}</Project>
+      <Name>SophisETL.Queue</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SophisETL.Reporting\SophisETL.Reporting.csproj">
+      <Project>{CDC19825-C896-4890-9E8A-8FAACEBD23B4}</Project>
+      <Name>SophisETL.Reporting</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runtime\ChainBuilder\ETLChainBuildDirector.cs" />
+    <Compile Include="Runtime\ChainBuilder\ETLChainBuilder.cs" />
+    <Compile Include="Runtime\ETLChain.cs" />
+    <Compile Include="Runtime\ReportBuilder\ReportingHandlerBuilder.cs" />
+    <Compile Include="Runtime\StepDecorator.cs" />
+    <Compile Include="schemas\SophisETLSettings.cs">
+      <DependentUpon>SophisETLSettings.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="schemas\SophisETLSettings.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- //TODO include the need of framework 4.7.2 -->
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild" Inputs="@(Xsd)" Outputs="schemas\SophisETLSettings.cs">
+    <Exec Command="xsd.exe schemas\SophisETLSettings.xsd /c /nologo /namespace:SophisETL.Xml /o:$(ProjectDir)\schemas" />
+  </Target>
+  <Target Name="AfterClean">
+    <Delete Files="schemas\SophisETLSettings.cs" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

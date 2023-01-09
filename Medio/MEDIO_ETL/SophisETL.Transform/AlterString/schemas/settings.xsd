@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/AlterString" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/AlterString">
+
+<element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="alterString" type="tns:AlterString" minOccurs="1" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <!--<complexType name="SubStrings">
+    <sequence>
+      <element name="SubString" type="tns:SubString" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+  </complexType>-->
+
+  <complexType name="AlterString">
+    <attribute name="sourceField"     type="string"         use="required"/>
+    <attribute name="targetField"     type="string"         use="required"/>
+    <attribute name="startIndex"      type="int"            use="optional" default="0"/>
+    <attribute name="length"          type="int"            use="optional"/>
+    <attribute name="sourceField2"    type="string"         use="optional"/>
+    <attribute name="separatorField"  type="string"         use="optional"/>
+    <attribute name="type"            type="tns:propertyType" use="optional" default="SubString"/>
+  </complexType>
+
+  <simpleType name="propertyType">
+    <restriction base="string">
+      <enumeration value="SubString"/>
+      <enumeration value="Trim"/>
+      <enumeration value="Join"/>
+    </restriction>
+  </simpleType>
+
+</schema>
+

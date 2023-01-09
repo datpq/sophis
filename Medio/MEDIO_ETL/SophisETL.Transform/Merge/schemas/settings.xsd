@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Merger" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Merger">
+	<xs:element name="settings" type="tns:Settings"/>
+	<xs:complexType name="Settings">
+		<xs:sequence>
+			<!-- Merger Type -->
+			<xs:element name="MergeType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="InnerJoin"/>
+            <xs:enumeration value="LeftJoin"/>
+            <xs:enumeration value="OuterJoin"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+			<!-- Mapping key values if two keys are different in records -->
+			<xs:element name="KeySetList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JointKey" type="tns:JointKey" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="JointKey">
+		<xs:attribute name="LeftKeyName" type="xs:string" use="required"/>
+		<xs:attribute name="RightKeyName" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:schema>

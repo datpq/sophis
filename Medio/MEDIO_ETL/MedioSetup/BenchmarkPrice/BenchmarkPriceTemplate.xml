@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<!--
+	Test purpose : Import a single Benchmark	
+	Expected result : Benchmark described below shall be inserted in db. 
+		An import message accepted shall be returned with the identifier of the Benchmark.
+-->
+<exch:importMarketData version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+             xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+             xmlns:sph="http://www.sophis.net/Instrument" xmlns:folio="http://www.sophis.net/folio"
+             xmlns:user="http://www.sophis.net/user" 
+             xmlns:fund="http://www.sophis.net/fund" xmlns:sr="http://www.sophis.net/sr">
+
+	<fpml:header>
+		<fpml:conversationId conversationIdScheme=""/>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">SENDER</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2017-10-16T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+
+  <quot:quotations common:persistenceType="Shared" xmlns:common="http://sophis.net/sophis/common" xmlns:quot="http://www.sophis.net/quotation" xmlns:sph="http://www.sophis.net/Instrument" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <quot:quotationsByInstrument>
+      <quot:identifier>
+		<sph:reference sph:modifiable="UniquePrioritary" sph:name="RIMES">$RimesRef</sph:reference>
+	  </quot:identifier>
+      <quot:quotesByDate>
+        <quot:quotationDate>$ValueDate</quot:quotationDate>
+		    <quot:quote>
+			    <quot:sideString>LAST_RIMES</quot:sideString>
+			    <quot:value>$LastPrice</quot:value>
+		    </quot:quote>
+      </quot:quotesByDate>
+    </quot:quotationsByInstrument>
+  </quot:quotations>
+  
+</exch:importMarketData>

@@ -1,0 +1,834 @@
+﻿<loc:ExoticMaskControlBase
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:sph="http://www.sophis.net/xaml"
+    xmlns:loc="http://www.sophis.net/xaml"
+    xmlns:sphconvert="http://www.sophis.net/xaml"
+    xmlns:sphuc="http://www.sophis.net/xaml"
+    xmlns:sphctrl="http://www.sophis.net/xaml"
+    x:Class="MEDIO.ClauseBuilder.net.GUI.CSxClauseBuilderAutocallGUI">
+    <!--Note for toolkiter : loc:ExoticMaskControlBase becomes sph:ExoticMaskControlBase in a real toolkit -->
+    <loc:ExoticMaskControlBase.Resources>
+        <ResourceDictionary>
+
+            <!-- Converters -->
+            <sphconvert:ClauseBuilderFixingColorBrushConverter x:Key="FixingValueColorBrushConverter"/>
+            <sphconvert:ClauseBuilderCapFloorConverter x:Key="CapFloorConverter" Coefficient="100"/>
+            <sphconvert:ClauseBuilderRangeConverter x:Key="RangeConverter"/>
+            <sphconvert:ClauseBuilderQuantoTypeConverter x:Key="QuantoTypeConverter"/>
+            <sphconvert:ClauseBuilderQuantoTypeDisplayConverter x:Key="QuantoTypeDisplayConverter"/>
+
+            <!-- Data Templates -->
+            <DataTemplate x:Key="Double4DecDT_AlwaysDefined">
+                <TextBlock Text="{Binding Converter={StaticResource Double4DecConverter}}" HorizontalAlignment="Center"/>
+            </DataTemplate>
+            <DataTemplate x:Key="CapFloorDT">
+                <TextBlock Text="{Binding Converter={StaticResource CapFloorConverter}}" HorizontalAlignment="Center"/>
+            </DataTemplate>
+            <DataTemplate x:Key="QuantoTypeDisplayDT">
+                <TextBlock Text="{Binding Converter={StaticResource QuantoTypeDisplayConverter}}" HorizontalAlignment="Center"/>
+            </DataTemplate>
+            <DataTemplate x:Key="CurrencyDT_Right">
+                <TextBlock Text="{Binding Converter={StaticResource CurrencyConverter}}"/>
+            </DataTemplate>
+            <!-- Template Selectors -->
+            <sphctrl:InstrumentCurrencyDataTemplateSelector ReferenceTemplate="{StaticResource ReferenceDT}"
+                                                      CurrencyTemplate="{StaticResource CurrencyDT_Right}"
+                                                      x:Key="RefCurrencyTemplateSelector"/>
+
+            <!-- ObectDataProviders -->
+            <ObjectDataProvider x:Key="BasketTypeODP" ObjectType="{x:Type sph:CSMClauseBuilderPayoffManager}" MethodName="GetBasketTypes"/>
+            <ObjectDataProvider x:Key="DateTypeODP" ObjectType="{x:Type sph:CSMClauseBuilderPayoffManager}" MethodName="GetFixingTypes"/>
+            <ObjectDataProvider x:Key="PayoffTypeODP" ObjectType="{x:Type sph:CSMClauseBuilderPayoffManager}" MethodName="GetPayoffTypes"/>
+            <ObjectDataProvider x:Key="HATypeODP" ObjectType="{x:Type sph:CSMClauseBuilderPayoffManager}" MethodName="GetHolidayAjustmentTypes"/>
+            <!-- CollectionViewSource -->
+            <CollectionViewSource x:Key="BasketTypeCVS" Source="{StaticResource BasketTypeODP}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription Direction="Ascending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            <CollectionViewSource x:Key="DateTypeCVS" Source="{StaticResource DateTypeODP}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription Direction="Ascending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            <CollectionViewSource x:Key="ClauseTypeCVS">
+                <CollectionViewSource.Source>
+                    <Binding Path="ClauseTypeList" ElementName="ClauseBuilderDialog" Mode="OneWay"/>
+                </CollectionViewSource.Source>
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription Direction="Ascending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            <CollectionViewSource x:Key="PayoffTypeCVS" Source="{StaticResource PayoffTypeODP}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription Direction="Descending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            <CollectionViewSource x:Key="HATypeCVS" Source="{StaticResource HATypeODP}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription Direction="Ascending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+
+            <!-- Editors -->
+            <xcdg:CellEditor x:Key="BasicEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <xcdg:AutoSelectTextBox HorizontalContentAlignment="Right" Margin="-3"/>
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="Double4DecEditor_AlwaysDefined">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <sph:SophisAutoSelectTextBox HorizontalContentAlignment="Right" Margin="-3"
+						  Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataCell}}, 
+						  Path=Content, UpdateSourceTrigger=LostFocus, Converter={StaticResource Double4DecConverter}}" />
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="BasketTypeEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <ComboBox Text="{xcdg:CellEditorBinding}" ItemsSource="{Binding Source={StaticResource BasketTypeCVS}}" Margin="-3"/>
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="DateTypeEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <ComboBox Text="{xcdg:CellEditorBinding}" ItemsSource="{Binding Source={StaticResource DateTypeCVS}}" Margin="-3"/>
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="ClauseTypeEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <ComboBox Text="{xcdg:CellEditorBinding}" ItemsSource="{Binding Source={StaticResource ClauseTypeCVS}}" Margin="-3"/>
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="BasketQuantoTypeEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <ComboBox ItemsSource="{Binding Source={StaticResource OptionMenuXDP}, XPath=ForexTypes/ForexType}"
+                      SelectedValue="{xcdg:CellEditorBinding Converter={StaticResource QuantoTypeConverter}}"
+                      SelectedValuePath="@QuantoType"/>
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="CapEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <sph:SophisAutoSelectTextBox HorizontalContentAlignment="Right" Margin="-3"
+							Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataCell}}, 
+							Path=Content, UpdateSourceTrigger=LostFocus, Converter={StaticResource CapFloorConverter}, ConverterParameter=Cap}" />
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <xcdg:CellEditor x:Key="FloorEditor">
+                <xcdg:CellEditor.EditTemplate>
+                    <DataTemplate>
+                        <sph:SophisAutoSelectTextBox HorizontalContentAlignment="Right" Margin="-3"
+							Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataCell}}, 
+							Path=Content, UpdateSourceTrigger=LostFocus, Converter={StaticResource CapFloorConverter}, ConverterParameter=Floor}" />
+                    </DataTemplate>
+                </xcdg:CellEditor.EditTemplate>
+                <xcdg:CellEditor.ActivationGestures>
+                    <StaticResource ResourceKey="SphBaseGesture"/>
+                    <xcdg:TextInputActivationGesture/>
+                </xcdg:CellEditor.ActivationGestures>
+            </xcdg:CellEditor>
+            <!-- Styles -->
+
+            <Style x:Key="ValidationButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="IsEnabled" Value="True"/>
+            </Style>
+
+            <Style x:Key="EnableOnValid" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=ClauseBuilderData.OptionValidation, ElementName=ClauseBuilderDialog, Mode=OneWay}" Value="True">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ButtonStackPanel" TargetType="{x:Type StackPanel}" BasedOn="{StaticResource SphBaseStyle}">
+                <Setter Property="Orientation" Value="Vertical"/>
+                <Setter Property="Width" Value="75"/>
+            </Style>
+
+            <Style TargetType="{x:Type xcdg:ColumnManagerRow}">
+                <Setter Property="AllowSort" Value="False"/>
+            </Style>
+
+        </ResourceDictionary>
+    </loc:ExoticMaskControlBase.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" MinWidth="440"/>
+                <ColumnDefinition Width="2.5*" MinWidth="280"/>
+                <ColumnDefinition Width="3*" MinWidth="280"/>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Step 1 - Underlyings" Grid.Row="0">
+                    <loc:ExoticMaskUnderlyingDataGrid MinHeight="130" MaxHeight="400"
+                                            UnderlyingCollection="{Binding Path=UnderlyingList}"
+                                            x:Name="UnderlyingDataGrid">
+                        <!--SelectedItem="{Binding Path=CurrentUnderlying, ElementName=ClauseBuilderDialog, Mode=OneWayToSource}"-->
+                        <loc:ExoticMaskUnderlyingDataGrid.AcceptedInstrumentTypes>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iCommodity"/>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iForexNonDeliverable"/>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iForexSpot"/>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iForexFuture"/>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iEquity"/>
+                            <loc:AcceptedInstrumentTypeItem InstrumentType="M_iIndex"/>
+                        </loc:ExoticMaskUnderlyingDataGrid.AcceptedInstrumentTypes>
+                    </loc:ExoticMaskUnderlyingDataGrid>
+                </GroupBox>
+                <GroupBox Header="Step 2 - Terms" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column ="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Autocall type"  Grid.Column="0" />
+                            <ComboBox x:Name="CouponKindTypeComboBox"
+                                    Grid.Column="1"
+                                    SelectedValue="{Binding Path=CouponType, Mode=TwoWay}"
+                                    ItemsSource="{Binding Path=CouponTypes, Mode=OneWay }"/>
+                        </Grid>
+                        <GroupBox Header="Knock Out" Grid.Row="1" Grid.Column ="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Coupon (% p.a)"  Grid.Column="0" Grid.Row="0" 
+                                   Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}"/>
+                                <TextBox AutomationProperties.AutomationId="AutocallCouponEdit"
+                                         Grid.Column="1" Grid.Row ="0"  HorizontalContentAlignment="Right"
+                                     Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                                    <TextBox.Text>
+                                        <Binding Path="MaxCouponIfKO" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="Autocall Level (%)"  Grid.Column="0" Grid.Row="1"/>
+                                <TextBox AutomationProperties.AutomationId="AutocallAutocallLevelEdit"
+                                             Grid.Column="1" Grid.Row ="1"  HorizontalContentAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="AutocallLevel" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                            <!--<Binding.ValidationRules>
+                                                    <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                </Binding.ValidationRules>-->
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <CheckBox AutomationProperties.AutomationId="AutocallKOonLastPeriodCheck"
+                                          Content="KO on last period" Margin="10,3,3,3" VerticalAlignment="Center"
+                                          IsChecked="{Binding Path=GenerateLastKO, Mode=TwoWay}"
+                                          Grid.Row="1" Grid.Column="3"/>
+                                <Label Content="Factor (%)"  Grid.Column="0" Grid.Row="2" 
+                                   Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                                <TextBox Grid.Column="1" Grid.Row ="2"  HorizontalContentAlignment="Right"
+                                     Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                                    <TextBox.Text>
+                                        <Binding Path="KOFactor" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <sph:DoubleRangeValidationRule Minimum="0"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="Perf. Cap (%)"  Grid.Column="0" Grid.Row="3" 
+                                   Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                                <TextBox Grid.Column="1" Grid.Row ="3"  HorizontalContentAlignment="Right"
+                                     Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                                    <TextBox.Text>
+                                        <Binding Path="KOPerfCap" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                            <!--<Binding.ValidationRules>
+                                                <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                            </Binding.ValidationRules>-->
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="Perf. Floor (%)"  Grid.Column="0" Grid.Row="4" 
+                                   Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                                <TextBox Grid.Column="1" Grid.Row ="4"  HorizontalContentAlignment="Right"
+                                     Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                                    <TextBox.Text>
+                                        <Binding Path="KOPerfFloor" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                            <!--<Binding.ValidationRules>
+                                                <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                            </Binding.ValidationRules>-->
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Grid>
+                        </GroupBox>
+                         <GroupBox Grid.Row="2" Grid.Column ="0" Grid.ColumnSpan="2" Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                            <GroupBox.Header>
+                                <CheckBox AutomationProperties.AutomationId="MAutocallKnockInCheck"
+                                          Content="Knock In"
+                                          IsChecked="{Binding Path=KiIsChecked, Mode=TwoWay}"/>
+                            </GroupBox.Header>
+                            <Grid Visibility="{Binding Path=KiIsChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <CheckBox AutomationProperties.AutomationId="AutocallKOIntradayCheck"
+                                          Content="Intraday" Margin="10,3,3,3" VerticalAlignment="Center"
+                                          IsChecked="{Binding Path=KiIntraday, Mode=TwoWay}"
+                                          Grid.Row="0" Grid.Column="1"/>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Barrier Level (%)"  Grid.Column="0"/>
+                                    <TextBox AutomationProperties.AutomationId="AutocallBarrierLevelEdit"
+                                             Grid.Column="1" HorizontalContentAlignment="Right">
+                                        <TextBox.Text>
+                                            <Binding Path="KIBarrierLevel" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </Grid>
+                                <GroupBox Header="If Knock In" Grid.Row="1" Grid.Column="0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="Payoff Type"  Grid.Column="0" Grid.Row="0"/>
+                                        <ComboBox AutomationProperties.AutomationId="AutocallKIPayoffTypeCombo"
+                                                  Grid.Column="1" Grid.Row="0"
+                                                  SelectedValue="{Binding Path=PayoffTypeKI, Mode=TwoWay}"
+                                                  ItemsSource="{Binding Path=PayoffTypes, Mode=OneWay }"/>
+                                        <Label Content="Perf. Cap (%)"  Grid.Column="0" Grid.Row="1"
+                                               Visibility="{Binding Path=IsPayoffKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallPerfCapEdit"
+                                                 Grid.Column="1" Grid.Row ="1"  HorizontalContentAlignment="Right"
+                                                 Visibility="{Binding Path=IsPayoffKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                                            <TextBox.Text>
+                                                <Binding Path="PerfCapKI" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                                    <!--<Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                    </Binding.ValidationRules>-->
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="Perf. Floor (%)"  Grid.Column="0" Grid.Row="2"
+                                               Visibility="{Binding Path=IsPayoffKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallPerfFloorEdit"
+                                                 Grid.Column="1" Grid.Row ="2"  HorizontalContentAlignment="Right"
+                                                 Visibility="{Binding Path=IsPayoffKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                                            <TextBox.Text>
+                                                <Binding Path="PerfFloorKI" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                                    <!--<Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                    </Binding.ValidationRules>-->
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="Factor (%)"  Grid.Column="0" Grid.Row="3"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallKIFactorEdit"
+                                                 Grid.Column="1" Grid.Row ="3"  HorizontalContentAlignment="Right">
+                                            <TextBox.Text>
+                                                <Binding Path="FactorKI" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                                    <Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0"/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="If No Knock In" Grid.Column="1" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="Payoff Type"  Grid.Column="0" Grid.Row="0"/>
+                                        <ComboBox AutomationProperties.AutomationId="AUtocallNoKIPayoffTypeCombo"
+                                                  Grid.Column="1" Grid.Row="0"
+                                                  SelectedValue="{Binding Path=PayoffTypeNoKI, Mode=TwoWay}"
+                                                  ItemsSource="{Binding Path=PayoffTypes, Mode=OneWay }"/>
+                                        <Label Content="Perf. Cap (%)"  Grid.Column="0" Grid.Row="1"
+                                               Visibility="{Binding Path=IsPayoffNoKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallPerfCapNoKIEdit"
+                                                 Grid.Column="1" Grid.Row ="1"  HorizontalContentAlignment="Right"
+                                                 Visibility="{Binding Path=IsPayoffNoKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                                            <TextBox.Text>
+                                                <Binding Path="PerfCapNoKI" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                                    <!--<Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                    </Binding.ValidationRules>-->
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="Perf. Floor (%)"  Grid.Column="0" Grid.Row="2"
+                                               Visibility="{Binding Path=IsPayoffNoKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallPerfFloorNoKIEdit"
+                                                 Grid.Column="1" Grid.Row ="2"  HorizontalContentAlignment="Right"
+                                                 Visibility="{Binding Path=IsPayoffNoKIFixedCoupon, Converter={StaticResource ReverseVisibilityConverter}, Mode=OneWay}">
+                                            <TextBox.Text>
+                                                <Binding Path="PerfFloorNoKI" Converter="{StaticResource CapFloorConverter}" Mode="TwoWay">
+                                                    <!--<Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                                    </Binding.ValidationRules>-->
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="Factor (%)"  Grid.Column="0" Grid.Row="3"/>
+                                        <TextBox AutomationProperties.AutomationId="AutocallFactorNoKIEdit"
+                                                 Grid.Column="1" Grid.Row ="3"  HorizontalContentAlignment="Right">
+                                            <TextBox.Text>
+                                                <Binding Path="FactorNoKI" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                                    <Binding.ValidationRules>
+                                                        <sph:DoubleRangeValidationRule Minimum="0"/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="3" Grid.Column ="0" Grid.ColumnSpan="3">
+                            <GroupBox.Header>
+                                <CheckBox Content="Conditional Coupon"
+                                          IsChecked="{Binding Path=CouponChecked, Mode=TwoWay}"/>
+                            </GroupBox.Header>
+                            <Grid Visibility="{Binding Path=CouponChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                               <Label Content="Coupon (% p.a)"  Grid.Column="0" Grid.Row="0" />
+                                <TextBox Grid.Column="1" Grid.Row ="0"  HorizontalContentAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="ConditionalCoupon" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <sph:DoubleRangeValidationRule Minimum="0" Maximum="100"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="Coupon Level (%)"  Grid.Column="0" Grid.Row="1"/>
+                                <TextBox  Grid.Column="1" Grid.Row ="1"  HorizontalContentAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="ConditionalCouponLevel" Converter="{StaticResource PercentConverter}" Mode="TwoWay">
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <GroupBox Header="Step 3 - Observations" Grid.Column="1">
+                <DockPanel LastChildFill="False">
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label  Content="Autocall Frequency"  Grid.Column="0" Grid.Row ="0" />
+                        <sph:BusinessDayTextBox AutomationProperties.AutomationId="AutocallFreqEdit"
+                                                Grid.Column="1" Grid.Row ="0" 
+                                            Date="{Binding Path=ExoticMaskSchedulerData.ObservationFrequency, Mode=TwoWay}"
+                                            AllowFinalKeyword="True" />
+
+                        <Label Content="KI Frequency" Grid.Column="0" Grid.Row ="1" 
+							   Visibility="{Binding Path=KiIsChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                        <sph:BusinessDayTextBox AutomationProperties.AutomationId="AutocKIFreqEdit"
+                                                Grid.Column="1" Grid.Row ="1"  
+                                            Date="{Binding Path=KIFrequency, Mode=TwoWay}"
+                                            AllowFinalKeyword="True" 
+											Visibility="{Binding Path=KiIsChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                        <Label Content="Memory Frequency" Grid.Column="0" Grid.Row ="2" 
+                           Visibility="{Binding Path=IsMemoryCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                        <sph:BusinessDayTextBox AutomationProperties.AutomationId="AUtocallMemoryFreqEdit"
+                                                Grid.Column="1" Grid.Row ="2"  
+                                            Date="{Binding Path=MemoryFrequency, Mode=TwoWay}"
+                                            AllowFinalKeyword="True"
+                                            Visibility="{Binding Path=IsMemoryCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+
+                        <Label  Content="Coupon Frequency"  Grid.Column="0" Grid.Row ="3" 
+                        Visibility="{Binding Path=CouponChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                        <sph:BusinessDayTextBox  Grid.Column="1" Grid.Row ="3" 
+                                            Date="{Binding Path=CouponFrequency, Mode=TwoWay}"
+                                            AllowFinalKeyword="True"
+                                            Visibility="{Binding Path=CouponChecked, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
+
+                    </Grid >
+                    <loc:ExoticMaskScheduler DockPanel.Dock="Top">
+                        <loc:ExoticMaskScheduler.DataContext>
+                            <Binding Path="ExoticMaskSchedulerData"/>
+                        </loc:ExoticMaskScheduler.DataContext>
+                    </loc:ExoticMaskScheduler>
+                    <Button AutomationProperties.AutomationId="AutocallStep4GenSchBtn"
+                            Content="Step 4 - Generate Schedule" Click="GenerateSchedule_Click" DockPanel.Dock="Bottom"/>
+
+                </DockPanel>
+            </GroupBox>
+            <GroupBox Header="Step 5 - Autocall periods" Grid.Column="2">
+                <Grid AutomationProperties.AutomationId="AutocallPeriodsGrid">
+                    <Grid.Resources>
+                        <ResourceDictionary>
+                            <xcdg:DataGridCollectionViewSource	x:Key="GeneratedDatesCVS" Source="{Binding Path=GeneratedDateList}"	AutoCreateItemProperties="False">
+                                <xcdg:DataGridCollectionViewSource.ItemProperties>
+                                    <xcdg:DataGridItemProperty Name="CouponDate" Title="Autocall Date"/>
+                                    <xcdg:DataGridItemProperty Name="CouponPayDate"  Title="Payment Date" />
+                                    <xcdg:DataGridItemProperty Name="CouponLastDate"  Title="Coupon Last Date" />
+                                    <xcdg:DataGridItemProperty Name="AutocallLevel" Title="Level"/>
+                                    <xcdg:DataGridItemProperty Name="CouponLevel" Title="Coupon Level"/>
+                                    <xcdg:DataGridItemProperty Name="AutocallCoupon" Title="Auto Coupon"/>
+                                    <xcdg:DataGridItemProperty Name="ConCoupon" Title="Con. Coupon"/>
+                                </xcdg:DataGridCollectionViewSource.ItemProperties>
+                            </xcdg:DataGridCollectionViewSource>
+                            <Style TargetType="{x:Type xcdg:DataRow}" BasedOn="{StaticResource SphDataRowStyle}">
+                                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataRow}}, Path=Cells[Status].Content, Converter={StaticResource FixingValueColorBrushConverter}}"/>
+                            </Style>
+                            <sph:BindingProxy x:Key="dataContextProxy" Data="{Binding}" />
+                            <DataTemplate x:Key="BusinessDateDT">
+                                <sph:BusinessDayTextBlock Date="{Binding}" 
+											Calendar="{Binding Data.CalendarForRolling, Source={StaticResource dataContextProxy}, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </ResourceDictionary>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="262"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <sph:SophisDataGridControl AutomationProperties.AutomationId="AutocallPeriodsGridControl"
+                                            MaxHeight="600"
+                                           ItemsSource="{Binding Source={StaticResource GeneratedDatesCVS}}" 
+                                           IsDeleteCommandEnabled="False" Grid.Row="0">
+                        <!--ItemsSource="{Binding Path=CSxGeneratedDateList}"-->
+                        <xcdg:DataGridControl.Resources>
+                            <Style TargetType="{x:Type xcdg:DataCell}" BasedOn="{StaticResource SphDataCellStyle}">
+                                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataCell}}, Path=ParentRow.Cells[CurrencyCode].Content, Converter={StaticResource CurrencyColorBrushConverter}}"/>
+                            </Style>
+                        </xcdg:DataGridControl.Resources>
+                        <xcdg:DataGridControl.View>
+                            <xcdg:TableView UseDefaultHeadersFooters="False">
+                                <xcdg:TableView.FixedHeaders>
+                                    <xcdg:ClearHeadersFooters/>
+                                    <DataTemplate>
+                                        <xcdg:ColumnManagerRow/>
+                                    </DataTemplate>
+                                </xcdg:TableView.FixedHeaders>
+                            </xcdg:TableView>
+                        </xcdg:DataGridControl.View>
+                        <xcdg:DataGridControl.Columns>
+                            <xcdg:Column 
+                                                    FieldName="CouponDate"
+                                                    CellContentTemplate="{StaticResource BusinessDateDT}"
+                                                     CellEditor="{StaticResource DateEditor}"
+                                                     sph:UITools.CopyPasteConverter="{StaticResource DateConverter}"
+                                                    ReadOnly="false"
+                                                    Width="3*">
+                                <xcdg:Column.CellValidationRules>
+                                    <sph:AbsoluteDateCellValidationRule/>
+                                </xcdg:Column.CellValidationRules>
+                            </xcdg:Column>
+                            <xcdg:Column 
+                                                    FieldName="CouponPayDate"
+                                                    CellContentTemplate="{StaticResource BusinessDateDT}"
+                                                     CellEditor="{StaticResource DateEditor}"
+										            sph:UITools.CopyPasteConverter="{StaticResource DateConverter}"
+                                                    ReadOnly="false"
+                                                    Width="3*">
+                                <xcdg:Column.CellValidationRules>
+                                    <sph:AbsoluteDateCellValidationRule/>
+                                </xcdg:Column.CellValidationRules>
+                            </xcdg:Column>
+                          
+                            <xcdg:Column 
+                                                    FieldName="CouponLastDate"
+                                                    CellContentTemplate="{StaticResource BusinessDateDT}"
+                                                    CellEditor="{StaticResource DateEditor}"
+                                                    sph:UITools.CopyPasteConverter="{StaticResource DateConverter}"
+                                                    ReadOnly="false"
+                                                    Width="3*">
+                                <xcdg:Column.CellValidationRules>
+                                    <sph:AbsoluteDateCellValidationRule/>
+                                </xcdg:Column.CellValidationRules>
+                            </xcdg:Column>
+                            
+                            <xcdg:Column 
+                                                    FieldName="AutocallLevel"
+                                                    CellContentTemplate="{StaticResource PercentDT}"
+                                                    GroupValueTemplate="{StaticResource PercentDT}"
+                                                    CellEditor="{StaticResource PercentEditor}"
+													sph:UITools.CopyPasteConverter="{StaticResource PercentConverter}"
+                                                    Width="2*"/>
+                            <xcdg:Column 
+                                                    FieldName="CouponLevel"
+                                                    CellContentTemplate="{StaticResource PercentDT}"
+                                                    GroupValueTemplate="{StaticResource PercentDT}"
+                                                    CellEditor="{StaticResource PercentEditor}"
+                                                    sph:UITools.CopyPasteConverter="{StaticResource PercentConverter}"
+                                                    Width="2*"/>
+                            <xcdg:Column 
+                                                    FieldName="AutocallCoupon"
+                                                    CellContentTemplate="{StaticResource PercentDT}"
+                                                    GroupValueTemplate="{StaticResource PercentDT}"
+                                                    CellEditor="{StaticResource PercentEditor}"
+													sph:UITools.CopyPasteConverter="{StaticResource PercentConverter}"
+                                                    Width="2*"/>
+
+                            <xcdg:Column 
+                                                    FieldName="ConCoupon"
+                                                    CellContentTemplate="{StaticResource PercentDT}"
+                                                    GroupValueTemplate="{StaticResource PercentDT}"
+                                                    CellEditor="{StaticResource PercentEditor}"
+                                                    sph:UITools.CopyPasteConverter="{StaticResource PercentConverter}"
+                                                    Width="2*"/>
+                        </xcdg:DataGridControl.Columns>
+                    </sph:SophisDataGridControl>
+
+                    <Button AutomationProperties.AutomationId="AutocallStep6GenProdBtn"
+                            Content="Step 6 - Generate Product"
+                                    Click="GenerateOption_Click" Grid.Row="2"/>
+                </Grid>
+            </GroupBox>
+            <Expander Grid.Column="3" ExpandDirection="Left" HorizontalAlignment="Stretch" IsExpanded="False">
+                <Expander.Header>
+                    <TextBlock Text="Details" RenderTransformOrigin="0.5,0.5" Margin="0,10,0,0">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <Grid MinWidth="400" Margin="0,12,0,0">
+                    <RichTextBox IsReadOnly="True"  Visibility="{Binding Path=IsFixedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"
+                                     Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Grid, AncestorLevel=1}, Path=ActualWidth}">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Bold>Fixed Coupon</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>Early redemption during the life of the product</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If  the performance of the underlying on that date is greater than or equal to the Knock Out barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Early Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Notional *1I(Note)  + Fixed Coupon (i) * Notional</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>At Maturity</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If KI Down : the performance  of the underlying on that date is below the Knock In barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Factor * Notional * (Performance(T) (floored, capped) - 100% * 1I(Swap))</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                Else : if no KI Down : the performance of the underlying on that date is greater than the Knock In barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100% *Factor*Notional * (Performance(T) (floored, capped) - 100% * 1I(Swap))</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">OR</Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100% *Factor*Notional</Bold>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                    <RichTextBox IsReadOnly="True" Visibility="{Binding Path=IsAccumulatedCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"
+                                     Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Grid, AncestorLevel=1}, Path=ActualWidth}">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Bold>Accumulated Coupon</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>Early redemption during the life of the product</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If the accumulated coupons based on the performance of the underlying (capped and floored) on that date is greater than or equal to the Knock Out barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Early Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Notional *1I(Note) + Coupon(i) * Notional</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>At Maturity</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If no Early redemption
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Factor * Notional 1I(Note) + Notional * (Average Performance(T) (floored, capped) - 100% )</Bold>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                    <RichTextBox IsReadOnly="True" Visibility="{Binding Path=IsMemoryCoupon, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"
+                                     Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Grid, AncestorLevel=1}, Path=ActualWidth}">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Bold>Memory Coupon</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>Early redemption during the life of the product</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If  the performance of the underlying on any date is greater than or equal to the Knock Out barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Early Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Notional *1I(Note)  + Memory Coupon (i) * Notional</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="15,10,0,0">
+                                <Underline>At Maturity</Underline>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                If KI Down : the performance  of the underlying on that date is below the Knock In barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Notional *1I(Note) + Factor * (Notional * Performance(T) (floored, capped) * - 100%  )</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">OR</Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100% *Factor*Notional</Bold>
+                            </Paragraph>
+                            <Paragraph Margin="30,10,0,0">
+                                Else : if no KI Down : the performance of the underlying on that date is greater than the Knock In barrier
+                            </Paragraph>
+                            <Paragraph Margin="45,10,0,0">
+                                Redemption with a cash amount to be paid calculated as follows:
+                            </Paragraph>
+                            <Paragraph Margin="60,10,0,0">
+                                <Bold>100%*Notional *1I(Note) + Factor * Abs( Performance (T) (floored, capped) - 1) * Notional</Bold>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </Grid>
+            </Expander>
+        </Grid>
+    </ScrollViewer>
+</loc:ExoticMaskControlBase>
+

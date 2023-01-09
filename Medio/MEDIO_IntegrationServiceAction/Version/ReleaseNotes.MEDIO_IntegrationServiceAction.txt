@@ -1,0 +1,15 @@
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	
+Source control label:		MEDIO_IntegrationServiceAction_1.0.0.0
+Software version:	
+Client projects name:		MEDIO_IntegrationServiceAction
+DLL Section in ini file		: DLL 
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No): 
+SQL Scripts (Yes/No): 
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:

@@ -1,0 +1,1 @@
+D:\misys\services_64\sophis\ETL\bin\SophisETL.exe -C ..\BenchmarComponentUpload\parametersDated.ini -X ..\BenchmarComponentUpload\sophis_etl.xml

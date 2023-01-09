@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MEDIO_COMPLIANCEMain.cpp" />
+    <ClCompile Include="entrypoint.cpp">
+      <Filter>Version</Filter>
+    </ClCompile>
+    <ClCompile Include="CSxThirdPartyRatingCriterium.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CSxThirdPartyCreditCriterium.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CSxCounterpartyGroupCriterium.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Version\MEDIO_COMPLIANCEVersion.h">
+      <Filter>Version</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Version</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxThirdPartyRatingCriterium.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxThirdPartyCreditCriterium.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxCounterpartyGroupCriterium.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Version\ReadMe.txt" />
+    <None Include="Version\ReleaseNotes.MEDIO_COMPLIANCE.txt" />
+    <None Include="Resource\MEDIO_COMPLIANCE.txt">
+      <Filter>Version</Filter>
+    </None>
+    <None Include="Resource\MEDIO_COMPLIANCEVersion.rc2">
+      <Filter>Version</Filter>
+    </None>
+    <None Include="SQL\Rollback_MEDIO_COMPLIANCEScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\MEDIO_COMPLIANCEScript.sql">
+      <Filter>SQL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{1a359e7f-c598-48f6-b6ed-839ea96d9daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{9221b5b5-5e77-40d7-ad63-f17ad50064b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Version">
+      <UniqueIdentifier>{f2e4d441-bdba-4b39-935b-d317bcd1d37e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{ca954757-cf0a-4ce4-95d5-aab1a4b12e73}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\MEDIO_COMPLIANCE.rc">
+      <Filter>Version</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

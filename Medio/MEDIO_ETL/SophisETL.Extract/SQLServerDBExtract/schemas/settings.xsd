@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Extract/SQLServerDBExtract" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Extract/SQLServerDBExtract">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="dbConnection"      type="tns:DBConnection" minOccurs="1" maxOccurs="1"/>
+      <element name="connectionTimeout" type="int"              minOccurs="0" maxOccurs="1" default="15"/> <!-- optional: connection timeout in seconds -->
+      <element name="queryTimeout"      type="int"              minOccurs="0" maxOccurs="1" default="30"/> <!-- optional: query timeout in seconds      -->
+      <element name="query"             type="string"           minOccurs="1" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="DBConnection">
+    <sequence>
+      <element name="login"    type="string" maxOccurs="1" minOccurs="1"/>
+      <element name="password" type="string" maxOccurs="1" minOccurs="1"/>
+      <element name="instance" type="string" maxOccurs="1" minOccurs="1"/>
+    </sequence>
+  </complexType>
+
+</schema>

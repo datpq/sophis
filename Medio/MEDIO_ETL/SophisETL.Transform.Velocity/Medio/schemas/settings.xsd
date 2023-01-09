@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Velocity/Medio" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Velocity/Medio">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <!-- Path to the Velocity Template File or Template record field -->
+      <element name="template" type="tns:Template" minOccurs="1" maxOccurs="1"/>
+      <!-- Name of the record field that will be amended / created with the template merged content -->
+      <element name="targetField"  type="string" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="Template">
+    <simpleContent>
+      <extension base="string">
+        <attribute name="kind" type="tns:TemplateKindEnum" default="file" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <simpleType name="TemplateKindEnum">
+    <restriction base="string">
+      <enumeration value="file"   />
+      <!-- template is read from a file  -->
+      <enumeration value="field"  />
+      <!-- template is read from a field -->
+      <enumeration value="inline" />
+      <!-- template is read directly from the element value (useful for token replacement) -->
+    </restriction>
+  </simpleType>
+
+</schema>

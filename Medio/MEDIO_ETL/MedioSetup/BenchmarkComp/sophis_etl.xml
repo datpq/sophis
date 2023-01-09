@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sophisETL xmlns="http://www.sophis.net/SophisETL" xmlns:etl="http://www.sophis.net/SophisETL">
+  <log>
+    <logFileName>%%log_file%%</logFileName>
+    <debugMode>true</debugMode>
+  </log>
+  <chain name="BenchmarkComponentUpdate">
+    <extract name="ReadCSVData" class="SophisETL.Extract.CSVExtract.CSVExtract, SophisETL.Extract, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <target>records_Benchmark</target>
+      <etl:settings xmlns="http://www.sophis.net/SophisETL/Extract/CSVExtract">
+        <inputFile>%%csv_file%%</inputFile>
+        <separator>|</separator>
+        <skipLine>1</skipLine>
+        <headerLine>0</headerLine>
+        <csvFields>
+          <field position="1">
+            <xmlFieldName>ValueDate</xmlFieldName>
+            <xmlFieldType>DateYYYYMMDD</xmlFieldType>
+            <separator>
+            </separator>
+          </field>
+          <field position="3">
+            <xmlFieldName>BenchmarkRef</xmlFieldName>
+          </field>
+          <field position="15">
+            <xmlFieldName>REFNAME</xmlFieldName>
+          </field>
+          <field position="17">
+            <xmlFieldName>ISIN</xmlFieldName>
+            <nullable>true</nullable>
+          </field>
+          <field position="18">
+            <xmlFieldName>TICKER</xmlFieldName>
+            <nullable>true</nullable>
+          </field>
+          <field position="58">
+            <xmlFieldName>Weight</xmlFieldName>
+          </field>
+        </csvFields>
+      </etl:settings>
+    </extract>
+    <transform name="UpdateDateFormat" class="SophisETL.Transform.Date.Date, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <source>records_Benchmark</source>
+      <target>records_Benchmark_MOD1</target>
+      <etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Date">
+        <date dateName="ValueDate">
+          <dateType>DateYYYYMMDD</dateType>
+          <separator>-</separator>
+        </date>
+      </etl:settings>
+    </transform>
+    <transform name="ReplaceISINWithTicker" class="SophisETL.Transform.TickerToReplaceISIN.TickerToReplaceISIN, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <source>records_Benchmark_MOD1</source>
+      <target>records_Benchmark_MOD2</target>
+      <etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/TickerToReplaceISIN">
+        <replace referenceName="REFNAME">
+          <ISINField>ISIN</ISINField>
+          <TICKERField>TICKER</TICKERField>
+          <ReferenceMatch>TICKER</ReferenceMatch>
+        </replace>
+      </etl:settings>
+    </transform>
+    <transform name="CSVToXML" class="SophisETL.Transform.Velocity.Medio.MedioBenchmarkVelocityTransformer, SophisETL.Transform.Velocity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <source>records_Benchmark_MOD2</source>
+      <target>recordsXML</target>
+      <etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Velocity/Medio">
+        <template>F:\SOPHIS_PRODUCT\ETL\config\BenchmarkComp\BenchmarkComponent_Template.xml</template>
+        <targetField>xmlImportMessage</targetField>
+      </etl:settings>
+    </transform>
+    <load name="ISLoad" class="SophisETL.Load.XmlISLoader.XmlISLoader, SophisETL.Load.SOA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <source>recordsXML</source>
+      <etl:settings xmlns="http://www.sophis.net/SophisETL/Load/XmlISLoader">
+        <sourceField>xmlImportMessage</sourceField>
+      </etl:settings>
+    </load>
+  </chain>
+  <!-- We use a standard CSV Report -->
+  <report name="CSVReport" class="SophisETL.Reporting.CSVReport.CSVReportingHandler, SophisETL.Reporting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <etl:settings xmlns="http://www.sophis.net/SophisETL/Reporting/CSVReport">
+      <reportName>%%report_file%%</reportName>
+      <separator>;</separator>
+      <!-- begin Options -->
+      <reportType>recordNotLoadedOnly</reportType>
+      <skipFooter>true</skipFooter>
+      <!-- end Options -->
+    </etl:settings>
+  </report>
+</sophisETL>

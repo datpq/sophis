@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Comment" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Comment">
+
+	<element name="settings" type="tns:Settings"/>
+	<complexType name="Settings">
+		<sequence>
+			<!-- One or More replace operation -->
+			<element name="comment" type="tns:Comment" minOccurs="0" maxOccurs="unbounded" />
+			<element name="complexComment" type="tns:MultiComment" minOccurs="0" maxOccurs="unbounded" />			
+		</sequence>
+	</complexType>
+
+	<complexType name="MultiComment">
+		<sequence>
+			<element name="MultiMatch" type="tns:MultiMatch" minOccurs="2" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="action" type="tns:Quote" use="required" />
+		<attribute name="targetField" type="string" use="required" />
+	</complexType>
+
+	<complexType name="Comment">
+		<sequence>
+			<element name="simpleMatch" type="tns:SimpleMatch" minOccurs="0" maxOccurs="unbounded" />			
+		</sequence>
+		<attribute name="sourceField" type="string" use="required" />
+		<attribute name="targetField" type="string" use="required" />
+	</complexType>
+
+	<!-- A simple match is a pure String to String replacement -->
+	<complexType name="SimpleMatch">
+		<attribute name="match"   type="string" use="required" />
+		<attribute name="comparator"   type="tns:Comparator" use="required"/>
+		<attribute name="action"   type="tns:Quote" use="required" />			
+	</complexType>
+
+	<!-- A simple match is a pure String to String replacement -->
+	<complexType name="MultiMatch">
+		<attribute name="sourceField" type="string" use="required" />
+		<attribute name="match"   type="string" use="required" />
+		<attribute name="comparator"   type="tns:Comparator" use="required"/>
+		<attribute name="operand"   type="tns:Operand" />
+	</complexType>
+
+	<simpleType name="Operand">
+		<restriction base="string">
+			<enumeration value="And"/>
+			<enumeration value="Or"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Quote">
+		<restriction base="string">
+			<enumeration value="beginComment"/>
+			<enumeration value="endComment"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Comparator">
+		<restriction base="string">
+			<enumeration value="equal"/>
+			<enumeration value="greater"/>
+			<enumeration value="smaller"/>
+			<enumeration value="different"/>
+		</restriction>
+	</simpleType>
+
+</schema>

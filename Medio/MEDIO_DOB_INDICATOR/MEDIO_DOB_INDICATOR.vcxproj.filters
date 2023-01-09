@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{7ccb111b-f7db-4085-bfb4-90f8e6958601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{c00575af-0f6a-49fb-bc19-f43fe26ecce8}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{d8795fe2-cd75-4c1d-a7a6-791602a6670a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MEDIO_DOB_INDICATORMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="CSxDOBAssetValueIndicator.cpp" />
+    <ClCompile Include="CSxDOBMarketValueIndicator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_MEDIO_DOB_INDICATORScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\MEDIO_DOB_INDICATORScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.MEDIO_DOB_INDICATOR.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_DOB_INDICATOR.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_DOB_INDICATORVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\MEDIO_DOB_INDICATORVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxDOBAssetValueIndicator.h" />
+    <ClInclude Include="CSxDOBMarketValueIndicator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\MEDIO_DOB_INDICATOR.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

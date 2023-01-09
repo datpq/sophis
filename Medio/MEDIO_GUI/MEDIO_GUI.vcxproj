@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--new-->
+  <PropertyGroup>
+    <!--
+      Two modes for building:
+        - Toolkit installation:
+            - use .h from the toolkit installation,
+            - use .lib from the toolkit installation.
+        - Sophis R & D repository
+            - use .h from the sources (repository/sophis/includes, sphInc, SphLlInc),
+            - use .lib from build outputs (repository/sophis/lib, risque/output/lib, value/output/lib).
+    -->
+    <ToolkitInstallDir>$(Toolkit_v74x)</ToolkitInstallDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) != '' ">$(ToolkitInstallDir)\makefile\msbuild</ToolkitPropsDir>
+    <SophisRepositoryDir>
+      <!--e:\git_data\sophis -->
+    </SophisRepositoryDir>
+    <ToolkitPropsDir Condition="$(ToolkitInstallDir) == '' ">$(SophisRepositoryDir)\Risque\source\SphToolkit\makefile\msbuild</ToolkitPropsDir>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitInstallDir)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--new-->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Tools\CSxSQLHelper.cpp" />
+    <ClCompile Include="AutoTicket\CSxIsBBHIOnboardedDIMAutoTransmitCondition.cpp" />
+    <ClCompile Include="AutoTicket\CSxIsDelegateAutoCondition.cpp" />
+    <ClCompile Include="AutoTicket\CSxIsModifiedAutoTransmitCondition.cpp" />
+    <ClCompile Include="AutoTicket\CSxOnSettleDateAutoCondition.cpp" />
+    <ClCompile Include="AutoTicket\CSxOnTradeDateAutoCondition.cpp" />
+    <ClCompile Include="AutoTicket\CSxSameAutoTransmitCondition.cpp" />
+    <ClCompile Include="BOCondition\CSxIsNotCTMCondition.cpp" />
+    <ClCompile Include="BOCondition\CSxIsNotSSBCondition.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesCtryInc.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesIsMAML.cpp" />
+    <ClCompile Include="Column\CSxMarketValueAggregateColumn.cpp" />
+    <ClCompile Include="Column\Utils\CSxCachedColumn.cpp" />
+    <ClCompile Include="Column\CSxMarketValueColumn.cpp" />
+    <ClCompile Include="Column\CSxVariationMarginColumn.cpp" />
+    <ClCompile Include="Criteria\CSxFOAssetClassCriterium.cpp" />
+    <ClCompile Include="BOCondition\CSxIsDelegateCondition.cpp" />
+    <ClCompile Include="BOCondition\CSxIsHedgedCondition.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesConditionSEDOL.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesConditionSettlePlace.cpp" />
+    <ClCompile Include="Column\Utils\CSxColumnHelper.cpp" />
+    <ClCompile Include="CSxBondTypeColumn.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesCtryCode.cpp" />
+    <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesException.cpp" />
+    <ClCompile Include="CSxCDSPriceAction.cpp" />
+    <ClCompile Include="CSxGrossConsiderationAction.cpp" />
+    <ClCompile Include="CSxThirdPartyActionCountryCode.cpp" />
+    <ClCompile Include="DealCheck\CSxFXCheckDeal.cpp" />
+    <ClCompile Include="GUI\CSxVarianceSwapDlg.cpp" />
+    <ClCompile Include="PositionCtxMenu\CSxDynamicOrderBuilderPosCtxMenu.cpp" />
+    <ClCompile Include="DealAggregator\CSxExecutionsAggregatorCounterparty.cpp" />
+    <ClCompile Include="DealCheck\CSxUnderlyingRICDealCheck.cpp" />
+    <ClCompile Include="IMReporting\CsxBusinessEventReportingCallBack.cpp" />
+    <ClCompile Include="IMReporting\CsxIMPortfolioColumn.cpp" />
+    <ClCompile Include="FolioAction\CSxCreateShareStrategyAction.cpp" />
+    <ClCompile Include="PositionCtxMenu\CSxShareStratCtxMenu.cpp" />
+    <ClCompile Include="InstrumentModel\CSxOptionModel.cpp" />
+    <ClCompile Include="Criteria\CSxRBCTradeIDCriteria.cpp" />
+    <ClCompile Include="DealCheck\CSxShortSellDealCheck.cpp" />
+    <ClCompile Include="Criteria\CSxTradeRefconCriterium.cpp" />
+    <ClCompile Include="DealAction\CSxTradeThruZeroDealAction.cpp" />
+    <ClCompile Include="DealAction\CSxIsLastExecutionKernelEngine.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="GUI\CSxCheckBox.cpp" />
+    <ClCompile Include="GUI\CSxIndexDlg.cpp" />
+    <ClCompile Include="GUI\CSxTransactionDlg.cpp" />
+    <ClCompile Include="MEDIO_GUIMain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PositionVisibility\CSxPositionVisibilityHook.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\MEDIO_GUI.txt" />
+    <None Include="Resource\MEDIO_GUIVersion.rc2" />
+    <None Include="SQL\MEDIO_GUIScript.sql" />
+    <None Include="SQL\MEDIO_UserRight_ExpiredFX_Script.sql" />
+    <None Include="SQL\Rollback_MEDIO_GUIScript.sql" />
+    <None Include="SQL\Rollback_MEDIO_UserRight_ExpiredFX_Script.sql" />
+    <None Include="Version\ReadMe.txt" />
+    <None Include="Version\ReleaseNotes.MEDIO_GUI.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="../MediolanumVersion.h" />
+    <ClInclude Include="..\Tools\CSxSQLHelper.h" />
+    <ClInclude Include="AutoTicket\CSxIsBBHIOnboardedDIMAutoTransmitCondition.h" />
+    <ClInclude Include="AutoTicket\CSxIsDelegateAutoCondition.h" />
+    <ClInclude Include="AutoTicket\CSxIsModifiedAutoTransmitCondition.h" />
+    <ClInclude Include="AutoTicket\CSxOnSettleDateAutoCondition.h" />
+    <ClInclude Include="AutoTicket\CSxOnTradeDateAutoCondition.h" />
+    <ClInclude Include="AutoTicket\CSxSameAutoTransmitCondition.h" />
+    <ClInclude Include="BOCondition\CSxIsNotCTMCondition.h" />
+    <ClInclude Include="BOCondition\CSxIsNotSSBCondition.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesCtryInc.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesIsMAML.h" />
+    <ClInclude Include="Column\CSxMarketValueAggregateColumn.h" />
+    <ClInclude Include="Column\Utils\CSxCachedColumn.h" />
+    <ClInclude Include="Column\CSxMarketValueColumn.h" />
+    <ClInclude Include="Column\CSxVariationMarginColumn.h" />
+    <ClInclude Include="Criteria\CSxFOAssetClassCriterium.h" />
+    <ClInclude Include="BOCondition\CSxIsDelegateCondition.h" />
+    <ClInclude Include="BOCondition\CSxIsHedgedCondition.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesConditionSEDOL.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesConditionSettlePlace.h" />
+    <ClInclude Include="Column\Utils\CSxColumnHelper.h" />
+    <ClInclude Include="CSxBondTypeColumn.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesCtryCode.h" />
+    <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesException.h" />
+    <ClInclude Include="CSxCDSPriceAction.h" />
+    <ClInclude Include="CSxGrossConsiderationAction.h" />
+    <ClInclude Include="CSxThirdPartyActionCountryCode.h" />
+    <ClInclude Include="DealCheck\CSxFXCheckDeal.h" />
+    <ClInclude Include="GUI\CSxVarianceSwapDlg.h" />
+    <ClInclude Include="PositionCtxMenu\CSxDynamicOrderBuilderPosCtxMenu.h" />
+    <ClInclude Include="DealAggregator\CSxExecutionsAggregatorCounterparty.h" />
+    <ClInclude Include="DealCheck\CSxUnderlyingRICDealCheck.h" />
+    <ClInclude Include="IMReporting\CsxBusinessEventReportingCallBack.h" />
+    <ClInclude Include="IMReporting\CsxIMPortfolioColumn.h" />
+    <ClInclude Include="FolioAction\CSxCreateShareStrategyAction.h" />
+    <ClInclude Include="PositionCtxMenu\CSxShareStratCtxMenu.h" />
+    <ClInclude Include="InstrumentModel\CSxOptionModel.h" />
+    <ClInclude Include="Criteria\CSxRBCTradeIDCriteria.h" />
+    <ClInclude Include="DealCheck\CSxShortSellDealCheck.h" />
+    <ClInclude Include="Criteria\CSxTradeRefconCriterium.h" />
+    <ClInclude Include="DealAction\CSxTradeThruZeroDealAction.h" />
+    <ClInclude Include="DealAction\CSxIsLastExecutionKernelEngine.h" />
+    <ClInclude Include="GUI\CSxCheckBox.h" />
+    <ClInclude Include="GUI\CSxIndexDlg.h" />
+    <ClInclude Include="GUI\CSxTransactionDlg.h" />
+    <ClInclude Include="PositionVisibility\CSxPositionVisibilityHook.h" />
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Version\MEDIO_GUIVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\MEDIO_GUI.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BDF2486-A5A3-4BB1-B770-4C42737EF33A}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(ToolkitPropsDir)\Sophis.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup>
+    <IsDebug>$(Configuration.StartsWith('Debug', System.StringComparison.OrdinalIgnoreCase))</IsDebug>
+  </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;$(ToolkitInstallDir);$(ToolkitInstallDir)\SphLLInc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DisableSpecificWarnings>4290;4251</DisableSpecificWarnings>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(ToolkitInstallDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Sophis.lib;SophisTools.lib;SophisRiskTools.lib;SOPHISBACKOFFICEKERNEL.lib;SophisAssetManagementGUI.lib;SophisAssetManagement.lib;SophisFundBaseGUI.lib;SophisPortfolio.lib;SophisApi.lib;SophisInterface.lib;SophisDBC.lib;SophisBackOfficeKernel.lib;SophisPortfolioGUI.lib;SophisBasicDataGUI.lib;SophisExecution.lib;SophisEventManager.lib;SophisFinance.lib;SophisTradeAllocation.lib;Sophis.Core.lib;SophisBasicData.lib;SophisDataAccessLayerStructures.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ToolkitInstallDir)/SphLib;$(ToolkitInstallDir)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+    <!--<PostBuildEvent>
+      <Command>call "$(VS100COMNTOOLS)\SophisPostBuild.bat" "$(ToolkitInstallDir)" "$(TargetPath)" "$(ProjectPath)" $(PlatformName) $(ConfigurationName)</Command>
+    </PostBuildEvent>-->
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(IsDebug)==true">
+    <ClCompile Condition=" '$(Platform)' == 'x64' ">
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(IsDebug)==false">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <PreprocessorDefinitions>WINVER=0x0502;_WIN64;NDEBUG;_WINDOWS;USING_SOPHIS_NAMESPACE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Resource\MEDIO_GUI.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/XPath" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/XPath">
+	
+   <element name="settings" type="tns:Settings"/>
+  
+  <complexType name="Settings">
+    <sequence>
+      <!-- Source field of the record where the XML is -->
+      <element name="sourceField" type="string"/>
+
+      <!-- XPath expression to do on the XML -->
+      <element name="queryXPath"  type="string"/>
+
+      <!-- Target field of the record where the XML is -->
+      <element name="targetField" type="string"/>
+      
+      <!-- Namespace definitions to support NS-compatible Queries -->
+      <element name="namespaces" type ="tns:Namespaces"/>
+
+    </sequence>
+  </complexType>
+
+  <complexType name="Namespaces">
+    <sequence>
+      <element name="namespace" type="tns:Namespace" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="Namespace">
+    <simpleContent>
+      <extension base="string">
+        <attribute name="prefix" type="string" use="required"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+</schema>

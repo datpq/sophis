@@ -1,0 +1,2804 @@
+<h1>version 713.19.9.735</h1>
+<p>Delivery date (YYYYMMDD):	12/18/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No):  No
+SQL Scripts (Yes/No): No</p>
+<p>Enhancement for :
++ CR2020.01 - FUS-709 RBC Uploader - changes on Mediolanum_RMA_FILTER.dll
+- Accounts ending with COLOUT should now have the business event as Collateral Out and COLIN with Collateral In.
+- The configuration and details can be found at &quot;CR2020.01 FUS-709-CR RBC Uploader_XX.docx&quot; and &quot;CR2020.01 FUS-709-CR RBC Uploader_doc_XX.docx&quot;
+- Configuration now includes 2 new parameters CollateralInBusinessEvent and CollateralOutBusinessEvent
+<add Section="MediolanumRMA" Entry="CollateralInBusinessEvent" Value="Collateral In" />
+<add Section="MediolanumRMA" Entry="CollateralOutBusinessEvent" Value="Collateral Out" /></p>
+<h1>version 713.19.9.732</h1>
+<p>Delivery date (YYYYMMDD):	13/07/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Fixes for :</p>
+<pre><code>+ RC57 – FUS-75 , coupon ticket to be adjusted properly
++ FX Roll on Wrong Currency Issue : provide the choice of currency to roll
++ Compliance Crash issue on memory consumption,improvement on some toolkit column.
+</code></pre>
+<h1>version 713.19.9.731</h1>
+<p>Delivery date (YYYYMMDD):	25/06/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Fixes on CR57 Items:</p>
+<ul>
+<li>APP-3525 : Market fees computation Adjusted for bonds</li>
+</ul>
+<h1>version 713.19.9.730</h1>
+<p>Delivery date (YYYYMMDD):	24/06/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Fixes on CR57 Items:</p>
+<ul>
+<li>FUS-75 / APP - 27893 : Gross Amount Computed incorrectly</li>
+<li>APP-3525 : Market fees computation</li>
+<li>APP-3031 : Incorrect Furtures Tickers.</li>
+</ul>
+<h1>version 713.19.9.729</h1>
+<p>Delivery date (YYYYMMDD):	01/06/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Fixes on CR57 APP 3121 with instrument in different currencies and feedback from users
+<ul>
+<li>New Toolkit Custom Parameter to be added to RMA configuration check</li>
+</ul>
+</li>
+<li>New Feature to display on transaction window &quot;Gross Consideration Amount&quot;
+<ul>
+<li>SQL to be applied to add column to histomvts check MediolanumSQL_Iterative section MEDIO_0.713.19.9.728</li>
+</ul>
+</li>
+</ul>
+<h1>713.19.9.727:</h1>
+<p>Delivery date (YYYYMMDD):	05/04/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+SQL Scripts (Yes/No): No</p>
+<p>Fix for Case 02213854- Process - Sophis.Compliance.Worker.exe - Memory Usage is CRITICAL
+Add a custom parameter to enable or disable the column caching for CommitmentFXExposureCCY portfolio column</p>
+<h1>version 713.19.9.725</h1>
+<p>Delivery date (YYYYMMDD):	22/04/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Latest fixes</li>
+</ul>
+<h1>version 713.19.9.724</h1>
+<p>Delivery date (YYYYMMDD):	15/04/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>CR57 Tranche 1 and 2 items.</li>
+<li>Fix for sleeve DOB folio trading.</li>
+</ul>
+<h1>version 713.19.9.724</h1>
+<p>Delivery date (YYYYMMDD):	08/04/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>CR57 Tranche 1 items.</li>
+</ul>
+<h1>version 713.19.9.721</h1>
+<p>Delivery date (YYYYMMDD):	11/03/2020
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Implementation for DOB Change Request to include folios starting with MIFL in Instrument Adjustment</li>
+<li>Please run SQL query in the last section  MEDIO_0.713.19.9.721 of the MediolanumSQL_Iterative file.</li>
+</ul>
+<h1>version 713.19.9.721</h1>
+<p>Delivery date (YYYYMMDD):	30/01/2019
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Fix issue for populating of the FX Forwad roll scenario window.</li>
+<li>Fix issue for average price sell orders.</li>
+</ul>
+<h1>version 713.19.9.720</h1>
+<p>Delivery date (YYYYMMDD):	27/01/2019
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Include fixes for TSOX Accrued Coupon , and FX Roll order generation.</p>
+<h1>713.19.9.715:</h1>
+<p>Delivery date (YYYYMMDD):	13/12/2019
+Software version:		7.1.3.19.9
+Client projects name:		MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Fix for case 02177016 - crash when the application closes</p>
+<h1>Version 713.19.9.711:</h1>
+<p>Delivery date (YYYYMMDD):        22/10/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):No</p>
+<p>fix for CR56</p>
+<h1>Version 713.19.9.710:</h1>
+<p>Delivery date (YYYYMMDD):        17/10/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):No</p>
+<p>New Feature for CR56 - Handling of tag 79.</p>
+<p>From Installation not add the following section to the FXALL config.</p>
+<add ClassName="Medio.FIXPlugin.net.CSxTag79Plugin" Module="./bin/Medio.FIXPlugin.NET.dll" />
+<h1>Version 713.19.9.709:</h1>
+<p>Delivery date (YYYYMMDD):        07/10/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):No (script provided in previous version)</p>
+<p>Fix after final validation for numbers for fund with the special character &quot;&amp;&quot;.</p>
+<h1>Version 713.19.9.708:</h1>
+<p>Delivery date (YYYYMMDD):        07/10/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):No (script provided in previous version)</p>
+<p>Fixes for CR55 :</p>
+<pre><code>+if no primary broker defined for a fund, a trade will be created without a Depositary/counterparty
++ fix for portfolio including the special character &quot;&amp;&quot;
+</code></pre>
+<h1>Version 713.19.9.707s:</h1>
+<p>Delivery date (YYYYMMDD):        27/09/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):Yes</p>
+<ul>
+<li>moved SQL script to the MediolanumSQL_Iterative.sql filr under section :</li>
+</ul>
+<p>----  MEDIO_0. 713.19.9:	  ----
+----	Toolkit 707		 -----</p>
+<ul>
+<li>Modification of installation note file MediolanumInstallation.txt see section /*** NEW VERSION 27/09/2019***/</li>
+</ul>
+<h1>Version 713.19.9.706:</h1>
+<p>Delivery date (YYYYMMDD):        27/09/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No):Yes</p>
+<ul>
+<li>New ETL Version implementation of CR55 for Fee Accruals.</li>
+</ul>
+<ul>
+<li>Addition of module &quot;LoadFeeAccruals&quot;</li>
+<li>SQL Script to run : \LoadFeeAccruals\SQL\MEDIO_Fee_Accruals_Folios.sql</li>
+</ul>
+<h1>Version 713.19.9.704:</h1>
+<p>Delivery date (YYYYMMDD):        11/09/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.RBCOrderAdapter.net
++ Updated the logging in CSxRBCOrderAdapter to be more descriptive.</p>
+<h1>Version 713.19.9.703:</h1>
+<p>Delivery date (YYYYMMDD):        26/07/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>SQL Scripts:
++ Medio.BackOffice.netScript.sql</p>
+<p>Medio.BackOffice.net
++ Updated mail message in &quot;Medio Email Notification&quot; kernel action to avoid having &quot;Undefined&quot; references.</p>
+<p>MEDIO.CORE
++ Added a helper method to load BO Cash account name pattern from the DB inorder to determine the CashType (Subscription/Redemption/Undefined) in &quot;Medio Email Notification&quot; kernel action.
++ Updated Medio FromAddress and the WebAddress to be used in the eMail signature.</p>
+<h1>Version 713.19.9.700:</h1>
+<p>Delivery date (YYYYMMDD):        16/07/2019
+Software version:                7.1.3.19.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum.RMA_FILTER
++ FIX Gateway Execution - Implemented a filter to check for TAG 854 (QtyType) before creating an execution in Sophis.
++ Execution Control - Added check to make sure FIX Tag 854 (QtyType) is consistent with IS_UNIT_TRADED sector (if defined) on the instrument.</p>
+<p>MEDIO.OrderAutomation.net
++ Order Validation: Updated MEDIO.OrderAutomation.net to handle IS_UNIT_TRADED parameter when creating an order.</p>
+<p>MEDIO_GUI
++ Market Value Custom Aggregation Column: Added new column to aggregate Market Value of all positions on a given instrument irrespective of the status of the trades (Real or Pending or Simulated).</p>
+<h1>Version 713.19.8.686:</h1>
+<p>Delivery date (YYYYMMDD):        27/06/2019
+Software version:                7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum.RMA_FILTER
++ Updated Spot Type to be Payment Currency.</p>
+<h1>Version 713.19.8.684:</h1>
+<p>Delivery date (YYYYMMDD):        26/06/2019
+Software version:				 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum.RMA_FILTER
++ added logic to handle dividend upload.</p>
+<h1>Version 713.19.8.683 :</h1>
+<p>Delivery date (YYYYMMDD):        26/06/2019
+Software version:				 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>MEDIO.NestedRule.net
++ new column &quot;MEDIO_AggregFirst_Target&quot; , script to add column in MediolanumSQL_Iterative.sql</p>
+<h1>Version 713.19.8.682 :</h1>
+<p>Delivery date (YYYYMMDD):        14/06/2019
+Software version:				 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER
++ Fix on regression for bond upload notional
++ Fix on term deposit Depositary/counterparty</p>
+<p>MEDIO.NestedRule.net
++ new column &quot;Medio - AggregFirst &quot; for level one aggregeation</p>
+<h1>Version 713.19.8.681 :</h1>
+<p>Delivery date (YYYYMMDD):        14/06/2019
+Software version:				 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER
+-P2FOT-604 BO- Cash - Deposits - Change the naming convention for Term Deposit instruments
++ fix to book in proper cash porfolio, switch between broker and depositary.</p>
+<h1>Version 713.19.8.680 :</h1>
+<p>Delivery date (YYYYMMDD):        12/06/2019
+Software version:				 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_GUI:
+Updated MarginCallModel to fix the issue with non-zero NetAmount on a trade booked via IS on a newly created instrument.</li>
+</ul>
+<h1>Version 713.19.8.679 :</h1>
+<p>Delivery date (YYYYMMDD):        12/06/2019
+Software version:		 		 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER
+-P2FOT-604 BO- Cash - Deposits - Change the naming convention for Term Deposit instruments
++ Created new naming logic and booking for term deposit instrument
++ if Instrument doesn't exists then call the Integration service to create it
++ Requires to modify the SophisServerDotNet.exe.config for proper Integration service DataExchangeService uri depending on environments.
+(see MediolanumInstallation.txt section 4) RichMarketAdapter/RBCUploader: , /*** NEW VERSION 12/06/2019***/ for details).</p>
+<h1>Version 713.19.8.676 :</h1>
+<p>Delivery date (YYYYMMDD):        11/06/2019
+Software version:		 		 7.1.3.19.8
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.NET.dll:
+P2FOT-900 FO - FI - Incorrect Nominal on Complex Bonds (Inflation linked and Yankee/Samurai/Non Domestic)
++Updated the visibility of the Bond related columns in the InstrumentAdjustment dialog.</p>
+<h1>Version 713.19.8.674 :</h1>
+<p>Delivery date (YYYYMMDD):        21/05/2019
+Software version:		 		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.dll:</p>
+<ul>
+<li>Fix for JIRA - 880 on Spot NDF order</li>
+</ul>
+<p>MEDIO.NestedRule.net</p>
+<ul>
+<li>New Column &quot;Compliance - Nested Rule Instrument by Issuer&quot; to flag new nested rule extension.</li>
+</ul>
+<p>ALL Dlls:</p>
+<ul>
+<li>Recompilation with HF8</li>
+</ul>
+<h1>Version 713.19.6.673 :</h1>
+<p>Delivery date (YYYYMMDD):        21/05/2019
+Software version:		 		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_GUI:
+Fix on proper Broker Fee Condition Registration.</li>
+</ul>
+<h1>Version 713.19.6.672 :</h1>
+<p>Delivery date (YYYYMMDD):        17/05/2019
+Software version:		 		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>MEDIO.CORE :
++Fix for non API based Services</p>
+</li>
+<li><p>Medio.FIX.Plugin.net
++Include NDF as Forwadr FX type for Tag 7055.</p>
+</li>
+</ul>
+<h1>Version 713.19.6.671 :</h1>
+<p>Delivery date (YYYYMMDD):        10/05/2019
+Software version:		 		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>MEDIO.BACKOFFICE.dll,MEDIO.OrderAutomation.net.dll,MEDIO.CORE,MEDIO_GUI.dll</p>
+<ul>
+<li>changes made to implement change of trading folio name</li>
+</ul>
+</li>
+<li><p>MEDIO_GUIScript.sql</p>
+<ul>
+<li>CScript to apply from &quot;-- adding Trading target portfolio parameter&quot; to add new portfolio name</li>
+</ul>
+</li>
+<li><p>MediolanumInstallation.txt	
+P2FOT 775/CR42: Installation notes modified to provide proper class name to be used in Fix Geteway FXALL configuration</p>
+</li>
+</ul>
+<h1>Version 713.19.6.670 :</h1>
+<p>Delivery date (YYYYMMDD):        07/05/2019
+Software version:		 		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
++P2FOT-661: Latest Fixes for price computation issues.</p>
+</li>
+<li><p>MEDIO.FIX.Plugin.NET.dll
++P2FOT 775/CR42 : addition of tag 7055 based on spot or forward FX instrument in order.
+Check the installation notes to add the dll to FXALL the following toolkit parameters:
+Section=&quot;MEDIO_FIX_7055&quot; Entry=&quot;FX_FORWARD&quot; Value=&quot;HEDGE&quot;
+Section=&quot;MEDIO_FIX_7055&quot; Entry=&quot;FX_SPOT&quot; Value=&quot;SPOT&quot;
+And new plugin :
+<add ClassName="Medio.FIXPlugin.net.Tag7055Plugin" Module="./bin/Medio.FIXPlugin.NET.dll" /></p>
+</li>
+</ul>
+<h1>Version 713.19.6.669 :</h1>
+<p>Delivery date (YYYYMMDD):        25/04/2019
+Software version:		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
++P2FOT-661: Fixes for price computation issues.</li>
+</ul>
+<h1>Version 713.19.6.668 :</h1>
+<p>Delivery date (YYYYMMDD):        24/04/2019
+Software version:		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
++P2FOT-661: Modification to better handling of RBC Uploader for ABS.</p>
+</li>
+<li><p>ALL DLLs:</p>
+<ul>
+<li>Recompilation in HF6</li>
+</ul>
+</li>
+</ul>
+<h1>Version 713.19.6.667 :</h1>
+<p>Delivery date (YYYYMMDD):        24/04/2019
+Software version:		 7.1.3.19.6
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
++P2FOT-661: Modification to better handling of RBC Uploader for ABS.</li>
+</ul>
+<h1>Version 713.19.5.666 :</h1>
+<p>Delivery date (YYYYMMDD):        15/04/2019
+Software version:		 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
+<ul>
+<li>P2FOT-781 : Modification to handle average price better Handling</li>
+<li>P2FOT-837 : Modifications for Shares settlement CCY type</li>
+</ul>
+</li>
+</ul>
+<h1>Version 713.19.5.665 :</h1>
+<p>Delivery date (YYYYMMDD):        12/04/2019
+Software version:		 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_RMA_FILTER.dll, MEDIO.BACKOFFICE.dll
+<ul>
+<li>P2FOT-781 : Modification to handle average price better Handling</li>
+<li>P2FOT-837 : Modifications for Shares settlement CCY type</li>
+</ul>
+</li>
+</ul>
+<h1>Version 713.19.5.661 :</h1>
+<p>Delivery date (YYYYMMDD):        02/04/2019
+Software version:		 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Fixes for :
+<ul>
+<li>Compliance FX Hedge column Commitment - FX Forards CCY (net)</li>
+<li>Compliance nested rule columns</li>
+<li>RMA Filter on Aussie and Kiwi Future upload</li>
+</ul>
+</li>
+</ul>
+<h1>Version 713.19.5.660 :</h1>
+<p>Delivery date (YYYYMMDD):        22/03/2019
+Software version:		 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>Final Fixes for  P2FOT-743 and P2FOT-781</p>
+<ul>
+<li>New Kernel Action &quot;Medio Execution Avg Price&quot;</li>
+<li>Added configuration toolkit Custom Toolkit Parameter section for P2FOT-781 applicable to client and Transaction Server (see Installation notes).
+Entry  : MEDIO_BO_DEALACTION_CUSTOM_SECTION_CHECKAVPRICE
+Section: MEDIO_BO_DEALACTION_CUSTOM_SECTION
+Value  : Check Av Price  (this would be default value)</li>
+</ul>
+<p>Create the above &quot;Check Av Price&quot; kernel event in the application, restart Transaction service.</p>
+</li>
+</ul>
+<h1>Version 713.19.5.659 :</h1>
+<p>Delivery date (YYYYMMDD):        21/03/2019
+Software version:				 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>MEDIO_RMA_FILTER , MEDIO.BACKOFFICE.Net:</p>
+<ul>
+<li>Corrected Filtering Method For RMA_FILTER to allow proper dispatch</li>
+<li>Corrected Query in Deal Check (backoffice.net) to match properly order / Placement IDs.</li>
+</ul>
+</li>
+<li><p>MediolanumInstallation.txt section &quot;FIXGateway - FXALL&quot; amended to have proper Module : Module=&quot;./Mediolanum_RMA_FILTER&quot; /&gt;</p>
+</li>
+</ul>
+<h1>Version 713.19.5.658 :</h1>
+<p>Delivery date (YYYYMMDD):        20/03/2019
+Software version:				 7.1.3.19.5
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Added SQL for P2FOT-743 in MediolanumSQL_Base.sql package file.</li>
+<li>Modified Release Note Version and date.</li>
+</ul>
+<h1>Version 713.19.5.657 :</h1>
+<p>Delivery date (YYYYMMDD):        13/03/2019
+Software version:				 7.1.3.19.4
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>MEDIO_COMPLIANCE.dll:</p>
+<ul>
+<li>P2FOT-759 : Correction on &quot;Medio Counterparty Group&quot; extraction criterion.</li>
+</ul>
+</li>
+<li><p>MEDIO_RMA_FILTER , MEDIO.BACKOFFICE.Net:</p>
+<ul>
+<li>P2FOT-743 : New RMA Filter to handle tag 1909 in incoming FIX Message:
+<ul>
+<li>Run last part of the script Mediolanum_RMA_FILTERScript.sql to create table MEDIO_FXALL_TEMP_EXTRNREF</li>
+<li>Configure FIXGateway RichMarketAdapter &gt; Core &gt; Filters by adding to the collection a new entry with:
+-&gt; ClassName = Mediolanum_RMA_FILTER.Filters.CSxInputFilter
+-&gt; Module = ./Mediolanum_RMA_FILTER.dll
+-&gt; SourceIdLst = (left blank)</li>
+<li>In GUI, new check deal &quot;Check FXALL Trade ID&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>MEDIO.Backoffice.net:</p>
+</li>
+<li><p>P2FOT-781 : Average price , new Check Deal &quot;Check Average Price&quot; to recompute average price from executions.</p>
+</li>
+</ul>
+<h1>Version 713.19.4.655 :</h1>
+<p>Delivery date (YYYYMMDD):        13/03/2019
+Software version:				 7.1.3.19.4
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO_COMPLIANCE.dll:</p>
+<ul>
+<li>P2FOT-759 : New Criterion &quot;Medio Counterparty Group&quot; to aggregate by group (counterparty itself if not part of a group, top level group if only part of one group, level 1 group if counterparty below this level)</li>
+</ul>
+</li>
+<li><p>MEDIO.OrderAutomation.net :</p>
+<ul>
+<li>P2FOT-69 : implementation of column handler for DOB instrument adjustment window to show only notional column for bonds, quantity ones for equities.</li>
+</ul>
+</li>
+<li><p>All DLL recompilation with HF5.</p>
+</li>
+</ul>
+<h1>Version 713.19.4.653 :</h1>
+<p>Delivery date (YYYYMMDD):        27/02/2019
+Software version:				 7.1.3.19.4
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.NestedRule.net.dll</p>
+<ul>
+<li>Fix of display issue in client GUI</li>
+<li>Fix of Asset Count / portfolio.</li>
+</ul>
+<h1>Version 713.19.4.652 :</h1>
+<p>Delivery date (YYYYMMDD):        27/02/2019
+Software version:				 7.1.3.19.4
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>P2FOPT-779 : Fix Rounding issue.</li>
+</ul>
+<h1>Version 713.19.4.651 :</h1>
+<p>Delivery date (YYYYMMDD):        27/02/2019
+Software version:				 7.1.3.19.4
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Rebuild on top of 713.19_HF4.</li>
+</ul>
+<h1>Version 713.19.3.650 :</h1>
+<p>Delivery date (YYYYMMDD):        26/02/2019
+Software version:				 7.1.3.19.3
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>New MakeFile to include new MEDIO.NestedRule.net DLL.</li>
+</ul>
+<h1>Version 713.19.3.648 :</h1>
+<p>Delivery date (YYYYMMDD):        25/02/2019
+Software version:				 7.1.3.19.3
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Added new dll MEDIO.NestedRule.net with new columns:</p>
+<ul>
+<li>Compliance - Biggest Issuer Name</li>
+<li>Compliance - Biggest Issuer  Weight</li>
+<li>Compliance - Asset Count</li>
+<li>Compliance - Nested Rule</li>
+</ul>
+<p>MEDIO.FXCompliance.net</p>
+<ul>
+<li>Fix to include cash position market value.</li>
+</ul>
+<h1>Version 713.19.3.647 :</h1>
+<p>Delivery date (YYYYMMDD):        17/02/2019
+Software version:				 7.1.3.19.3
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.BackOffice.net:
+- fix on ETF Allotment Criteria for Integration Service.</p>
+<h1>Version 713.19.3.646 :</h1>
+<p>Delivery date (YYYYMMDD):        07/02/2019
+Software version:				 7.1.3.19.3
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - Modifications:</p>
+<ul>
+<li>For Futures we do not take into account ACCOUNTING DATE anymore (column 17).
+In 7.1.3.18 this column was ignored because of a FusionInvest bug (corrected in 7.1.3.19)</li>
+</ul>
+<h1>Version 713.19.3.645 :</h1>
+<p>Delivery date (YYYYMMDD):        18/01/2019
+Software version:				 7.1.3.19.3
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Recompiled in 7.1.3.19.3</p>
+<p>MEDIO_GUI - Modifications:</p>
+<ul>
+<li>Added Toolkit Column &quot;Media Bond Type&quot; : JIRA P2FOT-583
+<ul>
+<li>Relies on toolkit parameters ion configuration:
+Entry	: PARENT_SECTOR_NAME
+Section	: MEDIO_BOND_TYPE
+Value	: BOND CLASSIFICATION</li>
+</ul>
+</li>
+<li>Corrected issue on FX spot trade for settlement date below 2 days : JIRA P2FOT-730</li>
+</ul>
+<h1>Version 713.19.0.639 :</h1>
+<p>Delivery date (YYYYMMDD):        26/11/2018
+Software version:				 7.1.3.19.0
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Packaging</p>
+<h1>Version 713.19.0.637 :</h1>
+<p>Delivery date (YYYYMMDD):        26/11/2018
+Software version:				 7.1.3.19.0
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Recompile in 7.1.3.19</p>
+<h1>Version 713.18.9.631 :</h1>
+<p>Delivery date (YYYYMMDD):        23/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; Fix 'in %' portfolio columns when 'Asset Value Medio' indicator is selected</p>
+<h1>Version 713.18.9.630 :</h1>
+<p>Delivery date (YYYYMMDD):        22/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; JIRA P2FOT-678. Message : Can not create a spot forex order with a non deliverable currency.</p>
+<h1>Version 713.18.9.629 :</h1>
+<p>Delivery date (YYYYMMDD):        16/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; Expose &quot;MAML Instrument Adjustment&quot; and &quot;MAML FX Adjustment&quot; in a contextual menu</p>
+<h1>Version 713.18.9.627 :</h1>
+<p>Delivery date (YYYYMMDD):        06/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.RBCOrderAdapte.net - modification
+&gt; JIRA 644 empty amount and number of shares when redeem all.</p>
+<h1>Version 713.18.9.627 :</h1>
+<p>Delivery date (YYYYMMDD):        06/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; JIRA 650 regression on FX Roll closing quantity</p>
+<h1>Version 713.18.9.626 :</h1>
+<p>Delivery date (YYYYMMDD):        05/11/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; JIRA 641 Bug if the ccy is not upper case
+&gt; JIRA 593 Use Forex settlement date instead of today + 2
+&gt; JIRA 640 MAML Instrument adjustment, instrument list should not be empty if no line is selected</p>
+<h1>Version 713.18.9.623 :</h1>
+<p>Delivery date (YYYYMMDD):        25/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Find the instrument reference in FieldId.MA_INSTRUMENT_NAME</p>
+<h1>Version 713.18.9.622 :</h1>
+<p>Delivery date (YYYYMMDD):        24/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Add the RMA filter Mediolanum_RMA_FILTER.Filters.CSxEMSXFilter
+If the instrument reference contains Curncy then force price type to IN_PRICE</p>
+<h1>Version 713.18.9.621 :</h1>
+<p>Delivery date (YYYYMMDD):        23/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; Small fixes in 'Select FX Instrument GUI'
+&gt; Check if the ccy exists
+&gt; Resize the date field
+&gt; Add a cancel button
+&gt; Change the test on the non FX line
+&gt; Force timeInForce to ETimeInForce.GoodTillCancel for FXRoll and Hedging orders</p>
+<h1>Version 713.18.9.619 :</h1>
+<p>Delivery date (YYYYMMDD):        18/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; JIRA 256. Create a new scenario to handle FX NDF Adjustments
+&gt; Change CSxOrderSameSidePortfolioColumn to return 0 or 1 instead of NO or YES
+&gt; Remove CSxOrderCreationFXValidator
+&gt; Remove CSxCachedPortfolioColumn</p>
+<h1>Version 713.18.9.616 :</h1>
+<p>Delivery date (YYYYMMDD):        11/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; remove TSOX plugin</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Add the RMA filter Mediolanum_RMA_FILTER.Filters.CSxFIXTSOXDirtyPriceFilter
+if the fields 22251 is in the FIX message and 22251 = 1; then FieldId.ACCRUEDAMOUNT_PROPERTY_NAME (field 35) is set to 0.0</p>
+<h1>Version 713.18.9.615 :</h1>
+<p>Delivery date (YYYYMMDD):        11/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; add to plugin to handle accrued amount in TSOX FIX messages
+if the fields 22251 is in the FIX message and 22251 = 1; then tag 159 is set to 0.0</p>
+<p>Medio.OrderAutomation.net - modification
+&gt; fix the column &quot;Rebalancing Constraint&quot;
+Handle the different references (Benchmark or Strategy)
+Add a check before order creation. If any breach was detected it is not possible to create the orders
+This behavior can stopped be with MEDIO_TKT_CONFIG.CHECK_REBALANCING_BREACH</p>
+<h1>Version 713.18.9.613 :</h1>
+<p>Delivery date (YYYYMMDD):        09/10/2018
+Software version:				 7.1.3.18.9
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; fix a bug in TradingAccountPlugin</p>
+<h1>Medio.OrderAutomation.net - modification
+&gt; add the column &quot;Rebalancing Constraint&quot;
+﻿
+Version 713.18.9.610 :</h1>
+<p>Delivery date (YYYYMMDD):        04/10/2018
+Source control label:<br />
+Software version:            7.1.3.16.13
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<h1>Recompile with Patch 18 HF9
+﻿
+Version 713.16.13.609 :</h1>
+<p>Delivery date (YYYYMMDD):        04/10/2018
+Source control label:<br />
+Software version:            7.1.3.16.13
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Correct order quantity allocation for the orders generated by Hedging/Funding and FX Roll GUI</p>
+<pre><code>﻿
+</code></pre>
+<h1>Version 713.16.13.607 :</h1>
+<p>Delivery date (YYYYMMDD):        03/10/2018
+Source control label:<br />
+Software version:            7.1.3.16.13
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Funding/Hedging blotter
+correct the trade allocation on forward trades</p>
+<h1>MEDUI_GUI  - modification
+&gt; Fix a bug on forward
+﻿
+Version 713.16.13.600 :</h1>
+<p>Delivery date (YYYYMMDD):        12/09/2018
+Source control label:<br />
+Software version:            7.1.3.16.13
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; JIRA 539, 548, 545 565: FX Roll blotter.
+correct a performance issue
+force the reload of the report after orders creation
+fix closing/opening ration issue</p>
+<p>MEDUI_GUI  - modification
+&gt; JIRA 574: Do not calculate Variation Margin on virtual positions
+&gt; JIRA 569: Incorrect Market Value for Futures
+&gt; JIRA 310 FX Market way:
+force the trade FX underlying to have the default market way
+add a table MEDIO_TKT_CONFIG
+add a preference 'FX_BOOKING_ISO' to activate or desactivate the functionality and activate the preference.</p>
+<h1>﻿Version 713.16.13.598 :</h1>
+<p>Delivery date (YYYYMMDD):        12/09/2018
+Source control label:<br />
+Software version:            7.1.3.16.13
+Client projects name:            MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; P2FOT-69: Performance issue on FX Hedge blotter. Add Execution Value date column</p>
+<p>MEDUI_GUI  - modification
+&gt; P2FOT-556:  Valuation Margin column</p>
+<h1>Version 713.16.13.591 :</h1>
+<p>Delivery date (YYYYMMDD):		07/09/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; Add a WF activity &quot;ProcessTrade&quot; (Medio JIRA 491)</p>
+<p>MEDUI_GUI  - modification
+&gt; Variation Margin incorrect signage (Medio JIRA 556)
+&gt; Custom Market value on options. If there is no Last, the Theoretical is displayed only if computed during a 'F9' before (Medio JIRA 435)</p>
+<h1>Version 713.16.13.590 :</h1>
+<p>Delivery date (YYYYMMDD):		05/09/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Roll : Force the user to refersh the GUI if some FX trades were created by the same client (JIRA 535 and 539)
+&gt; Hedging Funding : do not load executions on Futures and Options from real time (JIRA-543)
+&gt; FX Market way on orders : remove the dev related to FX orders market way</p>
+<h1>Version 713.16.13.588 :</h1>
+<p>Delivery date (YYYYMMDD):		03/09/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Roll : Force the user to refersh the GUI if some FX trades were received (JIRA 535 and 539)
+&gt; Hedging Funding : do not load executions on Futures and Options (JIRA-543)
+&gt; FX Market way on orders : adjust FX instrument according to the market way</p>
+<h1>Version 713.16.13.585:</h1>
+<p>Delivery date (YYYYMMDD):		29/08/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>TECHNICAL
+&gt; Remove some deprecated ETL assemblies
+&gt; Remove some deprecated code
+&gt; Add MEDIO.BackOffice.net to shared\api folder</p>
+<p>MEDIO.BackOffice.Net - modification - modification
+&gt; Remove the 'IsInGUIMode' condition from the checkdeal</p>
+<h1>Version 713.16.13.579:</h1>
+<p>Delivery date (YYYYMMDD):		27/08/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.Net - modification (Medio JIRA P2-FOT-475)
+&gt; CheckDeal &quot;Check Operator&quot;
+It forces the execution operator to the user id that sent the order in 'Sent To Market'.
+'Sent To Market' is the default status. The OMS WF status to find to get the user can be forced in the configuration file:
+Section = MEDIO_BACKOFFICE_CHECKDEAL
+Entry = CheckOperatorOrderWFStatusColumn &quot;Market value Custom&quot; : removed the conversion ratio from the computation for futures</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; Add a WF activity &quot;GetGroupId&quot;: input param is a user id, output param is the group of this user</p>
+<p>MEDIO_DOB_INDICATOR - modification (Medio JIRA P2-FOT-530)
+MEDUI_GUI  - modification (Medio JIRA P2-FOT-530)
+&gt; FX Spot Weightings to be removed
+- in &quot;Market Value Custom&quot; portfolio column
+- in &quot;Asset Value Medio&quot; DOB indicator initial values</p>
+<h1>Version 713.16.13.576 :</h1>
+<p>Delivery date (YYYYMMDD):		16/08/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; EarlyRedemption : keep the price received from the RBC file</p>
+<p>MEDIO.GUI - modification
+&gt; Column &quot;Market value Custom&quot; : removed the conversion ratio from the computation for futures</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; WF activity &quot;ChangeTimeInForceTime&quot;: change the Good Till Date timestamp to 23:59:59</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; removed the conversion ratio from the computation for futures</p>
+<h1>Version 713.16.13.575 :</h1>
+<p>Delivery date (YYYYMMDD):		08/08/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; TACash : supported a new file format where quantity is populated in the Projected Amount Local ccy column</p>
+<h1>Version 713.16.13.574 :</h1>
+<p>Delivery date (YYYYMMDD):		31/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Column &quot;Market value Custom&quot; : Revert the calculation for options</p>
+<h1>Version 713.16.13.573 :</h1>
+<p>Delivery date (YYYYMMDD):		25/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Kernel action &quot;Medio Email Notification&quot; : fixed an issue where wrong email addresses were retrieved</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; CSxRBCOrderFilter	: fixed a bug that blocked an execution from flowing into IS</p>
+<h1>Version 713.16.13.572 :</h1>
+<p>Delivery date (YYYYMMDD):		24/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Changed the logic for determining partial executions</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; CSxRBCOrderFilter	: checking the user field &quot;MEDIO_PARTIAL_EXECUTION&quot;</p>
+<h1>Version 713.16.13.571 :</h1>
+<p>Delivery date (YYYYMMDD):		23/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Kernel action &quot;Medio Email Notification&quot; : subscription/redemption trades are differentiated by whether the debit/credit account is MAML</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Out going =&gt; if CCY = GBp (in the file) and order in Amount =&gt; amount =/ 100; and CCY = GBP
+&gt; Incoming =&gt; if Ccy of the underlying (SQL ?) = GBp =&gt; Price =* 100</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; New filter designed for parsing RBC orders : CSxRBCOrderFilter</p>
+<h1>Version 713.16.13.570 :</h1>
+<p>Delivery date (YYYYMMDD):		19/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Kernel action &quot;Medio Email Notification&quot; : Send emails only to non mirrored trades</p>
+<p>MEDIO.OrderAutomation.net - modification - modification
+&gt; Short Sell Check : Change the wording of the displayed message</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Account name retrieval issue fixes</p>
+<p>SophisNightMonitor - modification
+&gt; STMP server bug fixes</p>
+<h1>Version 713.16.13.569 :</h1>
+<p>Delivery date (YYYYMMDD):		11/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Solved an invalid certificate issue of the STMP server</p>
+<h1>Version 713.16.13.568 :</h1>
+<p>Delivery date (YYYYMMDD):		10/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Solved an issue where kernel action Medio Email Notification was not registered</p>
+<h1>Version 713.16.13.566 :</h1>
+<p>Delivery date (YYYYMMDD):		05/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.CORE - modification
+&gt; Removed World report generation from the config</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Added value date in the sophis execution file</p>
+<h1>Version 713.16.13.565 :</h1>
+<p>Delivery date (YYYYMMDD):		05/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Add a global try catch in entry point method
+&gt; Remove a dependency on Word interrop assemblies</p>
+<h1>Version 713.16.13.564 :</h1>
+<p>Delivery date (YYYYMMDD):		04/07/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Kernel action &quot;Medio Email Notification&quot; :
+1) parametrize the MAML email address in the signature<br />
+2) support multiple email address set up at third party level (seperated by ';')</p>
+<p>MEDIO_GUI - modification
+&gt; Column &quot;Market Value Custom&quot; : fixed an issue whilst retrieving positions in the compliance server</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; added negotiation date in the sophis file</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; WF activity GetOrderInstrument: support allotment</p>
+<h1>Version 713.16.13.562 :</h1>
+<p>Delivery date (YYYYMMDD):		29/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Kernel action &quot;Medio Email Notification&quot; : send bespoke emails to delegate managers</p>
+<p>MEDIO.OrderAutomation.net - modification - modification
+&gt; Hedging &amp; funding : add a button to apply changes to all rows</p>
+<h1>Version 713.16.13.561 :</h1>
+<p>Delivery date (YYYYMMDD):		28/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_GUI - modification
+&gt; Variance Swap : variance days reflects the calculated business days or user defined days</p>
+<p>MEDIO.GUI - modification
+&gt; Column &quot;Market value Custom&quot; : formula used for options - contract size * last (for listed) or theoretical (for OTC) * number of securities</p>
+<h1>Version 713.16.13.560 :</h1>
+<p>Delivery date (YYYYMMDD):		26/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_GUI - modification
+&gt; Variance Swap : added more fields
+&gt; Volatility Swap : added a new field</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Portfolio Column &quot;Orders Same Side&quot; : returns true if a virtual position contains orders of the same side, false otherwise</p>
+<h1>Version 713.16.13.558 :</h1>
+<p>Delivery date (YYYYMMDD):		12/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_GUI - modification
+&gt; Variance Swap : add fields &quot;Vega notional&quot; and &quot;Vol Strike %&quot; in order to compute the notional
+&gt; Volatility Swap : multiple the notion by 100</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Buy Sell validation : fail a sell order if there's a pending buy order, and fail a buy order is there's a pending sell order
+&gt; Hedging &amp; funding : reverse the spot and fwd order side in case of original order is a sell</p>
+<h1>Version 713.16.13.556 :</h1>
+<p>Delivery date (YYYYMMDD):		07/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_GUI - modification
+&gt; New column 'Variation Margin'
+Aggregate the NetAmount of trades with Business Event name in the group specified in the configuration file:
+<add Section="VMReporting" Entry="BusinessEventGroupName" Value="WFS - VARIATION MARGIN" /></p>
+<pre><code>&gt; New column 'Market Value Custom'
+	Customise the formulae in which used to calculate the following instruments: 
+	- Index/Exchange Rate Futures : Last / ConvRatio * PointValue * NumberOfSecurities
+	- FX spots/forwards/NDFs : Nominal Ccy1 * Fx(Ccy1, position Ccy)
+	- Total return swap : Delta cash
+	- Interest Rate Futures &quot;SFE&quot; models : Nominal * Function(Last) / 100 ( *Function(Last) = price in percent using the price quotation in rate (100-rate))
+	- Interest Rate Futures other models : Nominal * Last / 100
+	- Credit Default Swap : Nominal
+	- Others : Standard &quot;Market Value&quot; computation
+</code></pre>
+<h1>Version 713.16.13.554 :</h1>
+<p>Delivery date (YYYYMMDD):		04/06/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Short sell validation : for external funds, round the position quantity to the fund's trading unit digits</p>
+<h1>Version 713.16.13.552 :</h1>
+<p>Delivery date (YYYYMMDD):		31/05/2018
+Source control label:			
+Software version:				7.1.3.16.13
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Short sell validation : for bonds, compare the minimum nominal against the remaining nominal</p>
+<h1>Version 713.16.12.546 :</h1>
+<p>Delivery date (YYYYMMDD):		22/05/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Add the received execution currency in the sophis file
+&gt; Filter out 'GS' while retrieving the account
+&gt; Set the number of digits of the quantity based on the trading unit, e.g. 1 -&gt; 0 digit, 0.01 -&gt; 2 digits etc.</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding : multiple enhancements and fixes</p>
+<p>MEDIO_GUI - modification
+&gt; Add &quot;Medio Variance Swap&quot; model</p>
+<p>MEDIO_UCITS - modification
+&gt; A new table &quot;MEDIO_TKT_ALLOTMENT_UCITS&quot; needs to be installed in order to map the allotments</p>
+<h1>Version 713.16.12.544 :</h1>
+<p>Delivery date (YYYYMMDD):		09/05/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Fixed an issue setting the ISIN</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding : fixed a crash where orders are created on faulty instruments<br />
+&gt; FX Rolling : fixed an issue where forward date is changed prior to loading the positions</p>
+<h1>Version 713.16.12.542 :</h1>
+<p>Delivery date (YYYYMMDD):		29/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Fixed an ACK/NACK issues
+&gt; Fixed an random crash when sending multiple orders at the start of the server</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Short sell validation : Check external fund's trading units
+&gt; MAML Instrument Adjustment : force DOB Quantity rounding tickbox</p>
+<h1>Version 713.16.12.540 :</h1>
+<p>Delivery date (YYYYMMDD):		23/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX rolling : exclude virtual positions</p>
+<h1>Version 713.16.12.539 :</h1>
+<p>Delivery date (YYYYMMDD):		20/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; WF activity GetSingleOrder: returns a SingleOrder object</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding and : fixes a refresh issue
+&gt; FX rolling : multiple issue fixes</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; SFE 3/10 Year Treasury Bond Futures : divides the unit exposure by 100</p>
+<h1>Version 713.16.12.538 :</h1>
+<p>Delivery date (YYYYMMDD):		18/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_UCITS - modification
+&gt; Basket Swap : returns delta cash</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; Futures : takes the conversion  ratio into account
+&gt; SFE 3/10 Year Treasury Bond Futures : unit exposure calculation uses dirty price instead of last</p>
+<p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Execution quantity maps to the received quantity instead of the send quantity
+&gt; Reflects the fund's trading unit in the order quantity when traded in units</p>
+<h1>Version 713.16.12.537 :</h1>
+<p>Delivery date (YYYYMMDD):		12/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding and FX rolling : start workflow rather than drafting order</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; NDF fixes</p>
+<h1>Version 713.16.12.536 :</h1>
+<p>Delivery date (YYYYMMDD):		11/04/2018
+Source control label:			
+Software version:				7.1.3.16.12
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding and FX rolling : forward date forced to next Monday if it's a weekend
+&gt; FX Hedging &amp; Funding and FX rolling : start workflow rather than drafting order
+&gt; Order validation : populate NDF instrument type/allotment</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; Support NDF : the same calculation as fx forward</p>
+<h1>Version 713.16.10.535 :</h1>
+<p>Delivery date (YYYYMMDD):		05/04/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Allotment condition &quot;IsGFPFund&quot;: removed. Instead, generic conditons are populated at run time as per values inserted in a user table &quot;MEDIO_TKT_ALLOTMENT_CONDS&quot;</p>
+<h1>Version 713.16.10.534 :</h1>
+<p>Delivery date (YYYYMMDD):		05/04/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX Hedging &amp; Funding : A refresh button is added to allow manually updating the data source</p>
+<h1>Version 713.16.10.525 :</h1>
+<p>Delivery date (YYYYMMDD):		28/03/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Allotment condition &quot;Has a market&quot;: Removed
+&gt; Allotment condition &quot;IsGFPFund&quot;: Return true if an external fund's legal form is included in a predefined list:
+<add Section="ALLOTMENT_GFPFund" Entry="LEGAL_FORM"
+Value="Open-End Fund" /></p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation : Empty counterparty on creation</p>
+<h1>Version 713.16.10.523 :</h1>
+<p>Delivery date (YYYYMMDD):		23/03/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; MAML Instrument Adjustment : Feed correct MAML strategy in extraction view
+&gt; Order creation validation : MAML check bug fixes</p>
+<h1>Version 713.16.9.522 :</h1>
+<p>Delivery date (YYYYMMDD):		19/03/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; MAML Instrument Adjustment :  Launch open MAML strategies in the IA window
+&gt; Order creation validation : Populate effective date if null</p>
+<h1>Version 713.16.9.521 :</h1>
+<p>Delivery date (YYYYMMDD):		14/03/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Hedging &amp; Funding : FX rolling order validation fixes</p>
+<h1>Version 713.16.9.520 :</h1>
+<p>Delivery date (YYYYMMDD):		14/03/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation &quot;Short sell&quot; : substract the simulated orders from short selling check
+&gt; Order creation validation &quot;FX check&quot; : force validation on the dynamic order builder
+&gt; Order creation validation &quot;FX check&quot; : default the NDF flag on pre-defined list of currencies (toolkit table : MEDIO_NDF_CURRENCY)
+&gt; Hedging &amp; Funding : run order valition checks upon sending orders
+&gt; Hedging &amp; Funding : display the payment currency instead of instrument currency</p>
+<h1>Version 713.16.9.519 :</h1>
+<p>Delivery date (YYYYMMDD):		13/03/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation &quot;short sell&quot; : check only on Equity, ETF, Index instruments
+&gt; Order creation validation &quot;Assignation&quot; : Assign orders to user group &quot;Derivatives&quot; if not from &quot;Treasure Traders&quot;
+<add Section="MEDIO_USERGROUP" Entry="FX EXCEPTION group name" Value="Treasury Trader" />
+<add Section="MEDIO_USERGROUP" Entry="FX DEFAULT group name" Value="Derivatives trader" />
+&gt; Order creation validation &quot;FX marketway&quot; : Force the target currency to ccy1 of a marketway pair if it's not in market way
+&gt; Order creation validation &quot;Trading account&quot; : Force trading account when empty to a default one</p>
+<h1>Version 713.16.9.517 :</h1>
+<p>Delivery date (YYYYMMDD):		05/03/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; WF activity CheckShortSelling: true if no short selling in any allocation of an order</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation : check if an order is a short sell
+&gt; Order creation validation : workaround for a core issue where counterparty uses a negative ident</p>
+<h1>Version 713.16.9.516 :</h1>
+<p>Delivery date (YYYYMMDD):		28/02/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Broker fee condition &quot;Is MAML&quot; : check if the trade is from an MAML folio</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; Plugin &quot;CSxTradingAccountPlugin&quot;: bug fixes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation : force trading account to be a default one in case of FXALL orders have multiple allocations upon creation</p>
+<p>MEDIO.FXCompliance.net - modification
+&gt; Column naming change :
+Commitment - FX Forwards CCY (gross) -&gt; Commitment - FX Forwards CCY (net)
+Commitment - FX Forwards CCY (net) -&gt; Commitment - FX Forwards CCY (net/hedge)</p>
+<h1>Version 713.16.9.515 :</h1>
+<p>Delivery date (YYYYMMDD):		27/02/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Deal aggregator &quot;DeAggregate by counterparty&quot; : bug fixes</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; Plugin &quot;CSxTradingAccountPlugin&quot;: support multiple allocations as per set up</p>
+<h1>Version 713.16.9.513 :</h1>
+<p>Delivery date (YYYYMMDD):		26/02/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Deal aggregator &quot;DeAggregate by counterparty&quot; : do not apply the default aggregation rule if trades have different counterparties</p>
+<h1>Version 713.16.9.512 :</h1>
+<p>Delivery date (YYYYMMDD):		23/02/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OMS.WF4Activities - modification
+&gt; WF activity CheckPortfolioName: returns true if all allocations match a given portfolio name</p>
+<p>MEDIO.GUI - modification
+&gt; Broker fee condition(s) &quot;Is country&quot;
+&gt; Broker fee condition &quot;SEDOL Starts With 0 or 3&quot;
+&gt; IsLastExecution bug fixes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Order creation validation : check and throw an message if allocations are not from MAML</p>
+<h1>Version 713.16.9.509 :</h1>
+<p>Delivery date (YYYYMMDD):		20/02/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Set accrued as 0 for bonds -&gt; cash credit/debit
+&gt; Fixed an issue for merger-like trades</p>
+<h1>Version 713.16.9.508 :</h1>
+<p>Delivery date (YYYYMMDD):		14/02/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Fully Executed Action: fixed the SQL request that gets the related deals</p>
+<h1>Version 713.16.9.507 :</h1>
+<p>Delivery date (YYYYMMDD):		14/02/2018
+Source control label:			
+Software version:				7.1.3.16.10
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_UCITS - small change on CDX</p>
+<h1>Version 713.16.9.503 :</h1>
+<p>Delivery date (YYYYMMDD):		12/02/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Fix incorrect bond price for:
+- CorporateActionCreator
+- MergerLikeCreator
+Bonds are in % the price must be multiplied by 100.</p>
+<p>MEDIO_UCITS - modification
+&gt; Convertibles: CommitmentConvert = NumSecurities * (ConversionRatio / Proportion) * UnderlyingLast * Delta
+&gt; CDX: CommitmentConvert = nominal</p>
+<h1>Version 713.16.9.498 :</h1>
+<p>Delivery date (YYYYMMDD):		12/02/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.GUI - modification
+&gt; Fully Executed Action: fixed a bug while checking order quantity vs executed quantity
+apply the same fully executed event to every trade generated from this order</p>
+<h1>Version 713.16.9.494 :</h1>
+<p>Delivery date (YYYYMMDD):		06/07/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Handle currency quotation in  hundredth. If CCY != UPPER(CCY) the quotation is in hundredth. Eg GBp means quoted in pence.
+&gt; Remove the previous partial mecanism CurrenciesForSharesPricedInSubunitsList
+&gt; Use the new mecanism for
+- EquityLikeCreator
+- CorporateActionCreator
+- CollateralCreator
+- MergerLikeCreator</p>
+<h1>Version 713.16.9.481 :</h1>
+<p>Delivery date (YYYYMMDD):		29/01/2018
+Source control label:			
+Software version:				7.1.3.16.09
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; CA Cash Credit/Debit : If on a bond, price will be multiplied by 100
+&gt; CA SecuritiesDeposit/SecuritiesWithdrawal/RightsEntitlement/ExchangeOrExchangeOffer/PublicPurchaseOffer : Accrued will be 0 if underlying is a bond
+&gt; Regression issue : Discard tickets if filtered out by a pre-defined list of funds</p>
+<h1>Version 713.16.7.478 :</h1>
+<p>Delivery date (YYYYMMDD):		25/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; Hedging &amp; Funding : fixed a rounding issue</p>
+<p>MEDIO.GUI - modification
+&gt; Fully Executed Action: fixed a bug while checking order quantity vs executed quantity</p>
+<h1>Version 713.16.7.477 :</h1>
+<p>Delivery date (YYYYMMDD):		24/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Medio.FIXPlugin.net - modification
+&gt; Dll naming change: from Medio.FIXQuantityPlugin to Medio.FIXPlugin.net
+&gt; New plugin for EMSX: CSxTag310Plugin which populates tag 310's value to &quot;FUT&quot; if the instrument is a future option
+&gt; Configuration details can be found in the installation notes</p>
+<p>MEDIO.OrderAutomation.net - modification
+&gt; FX roll : add the ability to display only MAML positions in the GUI</p>
+<p>MEDIO.BackOffice.net - modification
+&gt; Allotment condition &quot;Has a market&quot;: returns true if the instrument has a market</p>
+<h1>Version 713.16.7.475 :</h1>
+<p>Delivery date (YYYYMMDD):		16/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>Mediolanum_RMA_FILTER - modification
+&gt; Futures: RBC ID mapping reverted to column FutureTradeCode</p>
+<p>MEDIO_UCITS - modification
+&gt; CDS: overridden the default instrument name matching mechanism to allotment based</p>
+<h1>Version 713.16.7.474 :</h1>
+<p>Delivery date (YYYYMMDD):		11/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<p>MEDIO_DOB_INDICATOR - modification
+&gt; FX spot/forward fixes</p>
+<h1>Version 713.16.7.473 :</h1>
+<p>Delivery date (YYYYMMDD):		10/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.CORE - modification</p>
+<blockquote>
+<p>Ported the items below to MEDIO.BackOffice.net</p>
+</blockquote>
+</li>
+<li><p>MEDIO.BackOffice.net - new</p>
+<blockquote>
+<p>The following items were migrated from the MEDIO.CORE project:
+- Thirdparty settlement rule condition(s) &quot;Is settlement place&quot;
+- Thirdparty settlement rule condition(s) &quot;Is country&quot;
+- BO Kernel Workflow Selector condition(s) &quot;Thirdparty agreement&quot;</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.470 :</h1>
+<p>Delivery date (YYYYMMDD):		09/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+<blockquote>
+<p>CA cash adjustment tickets : reflect the underlying market quotation type in setting the quantity</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.469 :</h1>
+<p>Delivery date (YYYYMMDD):		08/01/2018
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.OrderAutomation.net - modification</p>
+<blockquote>
+<p>Hedging &amp; Funding : added a workaround while retrieving the executions by the API</p>
+</blockquote>
+</li>
+<li><p>MEDIO_DOB_INDICATOR - modification</p>
+<blockquote>
+<p>Listed Options are supported: the monetary exposure needs to represent the premium and the weight the premium in % NAV</p>
+</blockquote>
+</li>
+<li><p>MEDIO_UCITS  - modification</p>
+<blockquote>
+<p>UCITS Commitment : CDX matched by allotment instead of by underlying, removed factor /100</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.452 :</h1>
+<p>Delivery date (YYYYMMDD):		19/12/2017
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.CORE - modification</p>
+<blockquote>
+<p>Thirdparty settlement rule condition &quot;Is settlement place&quot;: populate at application launch time with the name &quot;Is XXX&quot;. XXX being the settlement place where it's stored as an external ref on a thirdparty.
+Thirdparty settlement rule condition &quot;Is country&quot;: populate at application launch time with the name &quot;Is YYY&quot;. YYY being the country of a thirdparty.
+For both types of the conditions, a linked between a market place and a thirdparty is mandatory. You will need to populate a market external ref definition, and define the definition name in the toolkit config (default value: &quot;PLACE OF SETT REF&quot;):
+<add Section="MEDIO_THIRDPARTY_CONDITION" Entry="Settlement Place Reference" Value="PLACE OF SETT REF" />
+Then populate the external ref value with the thirdparty's reference</p>
+</blockquote>
+</li>
+<li><p>MEDIO_UCITS  - modification</p>
+<blockquote>
+<p>DLL naming change: from MEDIO_UCITS_CALCULATION to MEDIO_UCITS</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.444 :</h1>
+<p>Delivery date (YYYYMMDD):		11/12/2017
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+<blockquote>
+<p>Term deposit: this file type is supported by the RBC filter (new) now. Make sure to manually or using the ETL tool to create the instrument first.</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.442 :</h1>
+<p>Delivery date (YYYYMMDD):		08/12/2017
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification</p>
+<blockquote>
+<p>Deal check &quot;Underlying RIC Check&quot; :	Check the RIC of the following instruments:
+EQU-Options|EQU-Stock Derivatives
+EQU-Swaps-All|EQU-Swaps-Equity Swap Variable Index
+EQU-Volatility Derivative
+BO Condition &quot;Medio - Is Hedged&quot; :	bug fixes</p>
+</blockquote>
+</li>
+<li><p>SophisETLGUI.exe - modification</p>
+<blockquote>
+<p>Bug fixes</p>
+</blockquote>
+</li>
+<li><p>Mediolanum_RMA_FILTER  - modification</p>
+<blockquote>
+<p>CA - EARLY REDEMPTION: set quantity to notional</p>
+</blockquote>
+</li>
+<li><p>MEDIO_UCITS_CALCULATION  - new</p>
+<blockquote>
+<p>Standard column &quot;UCITS Commitment&quot; enhancement :	CDX uses the same formula as CDS
+Seller: max(Nominal, Nominal<em>UnderlyingLast/100)
+Buyer: Nominal</em>UnderlyingLast/100</p>
+</blockquote>
+</li>
+<li><p>MEDIO.RBCOrderAdapter.net - modification</p>
+<blockquote>
+<p>Generates a &quot;.ok&quot; file which the same name as the order csv file</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.7.439 :</h1>
+<p>Delivery date (YYYYMMDD):		05/12/2017
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification</p>
+<blockquote>
+<p>New column 'Initial Margin'
+Aggregate the NetAmount of trades with Business Event name in the group specified in the configuration file:
+<add Section="IMReporting" Entry="BusinessEventGroupName" Value="ToDefine: IM Reporting Group" />
+The column is not updated in real-time. One has to run 'F8' to update the data.</p>
+</blockquote>
+<blockquote>
+<p>BO condition ( Medio - Is Hedge) : returns ture if &quot;hedge&quot; is in the portfolio path</p>
+</blockquote>
+</li>
+<li><p>MEDIO_ETL - modification</p>
+<blockquote>
+<p>SophisETLGUI.exe : a GUI that allows to launch RIMES benchmark uploads on demand, on selected files, as well as load other more general files</p>
+</blockquote>
+</li>
+<li><p>Mediolanum_RMA_FILTER  - modification (all on new versions only)
+&gt; CA - BONUS/SCRIP ISSUE : 2 tickets booked on the new security
+&gt; CA - SECURITIES DEPOSIT : ticket booked on the new security
+&gt; CA - EARLY REDEMPTION: price type changes to In Percent
+&gt; CA - FUTURE: maps FeesAmountInTransactionCurrency to counterparty fees instead of broker fees</p>
+</li>
+</ul>
+<h1>Version 713.16.7.435 :</h1>
+<p>Delivery date (YYYYMMDD):		28/11/2017
+Source control label:			
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>Mediolanum_RMA_FILTER  - modification (all on new versions only)
+&gt; CA - BONUS/SCRIP ISSUE : 2 tickets booked on the new security
+&gt; CA - SECURITIES DEPOSIT : ticket booked on the new security
+&gt; CA - EARLY REDEMPTION: price type changes to In Percent
+&gt; CA - FUTURE: maps FeesAmountInTransactionCurrency to conterparty fees instead of broker fees</p>
+</li>
+<li><p>MEDIO.GUI - modification
+&gt; Automatic transmit conditions  - MEDIO : IS MODIFIED AUTO; MEDIO : NEW AUTO TICKET
+&gt; Startegy level action : link a share with a startegy in order to populate the NAV correctly in a semi-automatic way<br />
+&gt; Position contextmenu : Show NAV</p>
+</li>
+</ul>
+<h1>Version 713.16.27 :</h1>
+<p>Delivery date (YYYYMMDD):		22/11/2017
+Source control label:			MEDIOLANUM_713.16.27
+Software version:				7.1.3.16.07
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Recompiled against 713.16 HF 07</li>
+</ul>
+<h1>Version 713.16.26 :</h1>
+<p>Delivery date (YYYYMMDD):		21/11/2017
+Source control label:			MEDIOLANUM_713.16.26
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Asset class mapping logic changes to matching the number of columns with a predefined list (only applies for the new version)
+&gt; CA - price type : the type should be &quot;in payment currency&quot; if the payment ccy is different from sec currency</li>
+</ul>
+<h1>Version 713.16.25 :</h1>
+<p>Delivery date (YYYYMMDD):		15/11/2017
+Source control label:			MEDIOLANUM_713.16.25
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO.OrderAutomation.net - modification
+&gt; FX roll :	origination strategy and trading account system will follow per configuration in the parameters selector
+A default origination strategy &quot;FX Roll&quot; will be used, in order to change it, you need to add/update the custom parameter:
+<add Section="MEDIO_OMS_FXROLL" Entry="FXROLLOriginationStrategy"
+Value="FX Roll" />
+&gt; Hedging &amp; Funding : trading account will follow per configuration in the parameters selector</li>
+</ul>
+<h1>Version 713.16.24 :</h1>
+<p>Delivery date (YYYYMMDD):		10/11/2017
+Source control label:			MEDIOLANUM_713.16.24
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO.GUI - modification
+&gt; Automatic transmit conditions  : Medio - Is Delegate, On Settlement Date, On Trade Date</li>
+</ul>
+<h1>Version 713.16.23 :</h1>
+<p>Delivery date (YYYYMMDD):		07/11/2017
+Source control label:			MEDIOLANUM_713.16.23
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification
+&gt; Fully Executed Deal Action: fixes an issue when aggregating executed quantities for sell orders</p>
+</li>
+<li><p>MEDIO.OrderAutomation.net - modification
+&gt; FX roll : order external system will follow per configuration in the parameters selector
+&gt; Hedging &amp; Funding : order external system will follow per configuration in the parameters selector</p>
+</li>
+</ul>
+<h1>Version 713.16.22 :</h1>
+<p>Delivery date (YYYYMMDD):		03/11/2017
+Source control label:			MEDIOLANUM_713.16.22
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO.GUI - modification
+&gt; Fully Executed Deal Action: Add a second check on the order qty against executed qty</li>
+</ul>
+<h1>Version 713.16.21 :</h1>
+<p>Delivery date (YYYYMMDD):		02/11/2017
+Source control label:			MEDIOLANUM_713.16.21
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; CA - early redemption: -Qty/Notional, @Price use In Percent with Accrued, New Amount (Credit)</li>
+</ul>
+<h1>Version 713.16.20 :</h1>
+<p>Delivery date (YYYYMMDD):		31/10/2017
+Source control label:			MEDIOLANUM_713.16.20
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_RBC_NAV - new project</li>
+</ul>
+<h1>Version 713.16.19 :</h1>
+<p>Delivery date (YYYYMMDD):		30/10/2017
+Source control label:			MEDIOLANUM_713.16.19
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO_ETL - modification
+&gt; Add missing references in the logs</p>
+</li>
+<li><p>MEDIO.OrderAutomation.net - modification
+&gt; FX roll : few bug fixes</p>
+</li>
+</ul>
+<h1>Version 713.16.18 :</h1>
+<p>Delivery date (YYYYMMDD):		26/10/2017
+Source control label:			MEDIOLANUM_713.16.18
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification
+&gt; Medio - Is delegate condition : returns true for a delagate trade, ie. not in a MAML folio, false otherwise</p>
+</li>
+<li><p>Mediolanum_RMA_FILTER  - modification
+&gt; FX : NDF is set as per configuration in sophis, the NDF field is not in use anymore</p>
+</li>
+</ul>
+<h1>Version 713.16.17 :</h1>
+<p>Delivery date (YYYYMMDD):		25/10/2017
+Source control label:			MEDIOLANUM_713.16.17
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_ETL - modification
+&gt; New transform step: MedioDBFilter that connects to the db directly and runs queries (for performance improvement purposes)</li>
+</ul>
+<h1>Version 713.16.16 :</h1>
+<p>Delivery date (YYYYMMDD):		23/10/2017
+Source control label:			MEDIOLANUM_713.16.16
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.OrderAutomation.net - modification
+&gt; FX roll : displays empty values at currency level</p>
+</li>
+<li><p>MEDIO_ETL - modification
+&gt; Includes missing dependency dlls in the release zip
+&gt; Fixes dlls versioning</p>
+</li>
+</ul>
+<h1>Version 713.16.15 :</h1>
+<p>Delivery date (YYYYMMDD):		20/10/2017
+Source control label:			MEDIOLANUM_713.16.15
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>MEDIO.OrderAutomation.net - modification
+&gt; Fixed an oracle issue which happens when loading virtual positions</p>
+</li>
+<li><p>MEDIO.RBCOrderAdapter.net - modification
+&gt; Remove the 'FTP' part from the OrderAdapter</p>
+</li>
+<li><p>MEDIO_ETL - modification
+&gt; Add new transform step: MedioSOAFilter which filters out records based on external ref and date
+&gt; Add Web Api communication to allow executing SOA methods</p>
+</li>
+<li><p>MEDIO.GUI - modification
+&gt; Trade Thru Zero Deal Action : bug fixes</p>
+</li>
+</ul>
+<h1>Version 713.16.14 :</h1>
+<p>Delivery date (YYYYMMDD):		18/10/2017
+Source control label:			MEDIOLANUM_713.16.14
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>MEDIO_ETL - modification
+&gt; Add new transform step: GroupBySum
+&gt; Add Medio Strat/share NAV load configs</li>
+</ul>
+<h1>Version 713.16.13 :</h1>
+<p>Delivery date (YYYYMMDD):		17/10/2017
+Source control label:			MEDIOLANUM_713.16.13
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification
+&gt; Trade Thru Zero Deal Action : fixed an issue with filtering on trades
+&gt; Fully Executed Action: customer parameter made to be nullable</p>
+</li>
+<li><p>MEDIO_ETL - modification
+&gt; Support the ETL framework to upload benchmark components and prices</p>
+</li>
+</ul>
+<h1>Version 713.16.12 :</h1>
+<p>Delivery date (YYYYMMDD):		16/10/2017
+Source control label:			MEDIOLANUM_713.16.12
+Software version:				7.1.3.16.05
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Recompiled against 713.16 HF 05</li>
+</ul>
+<h1>Version 713.16.11 :</h1>
+<p>Delivery date (YYYYMMDD):		13/10/2017
+Source control label:			MEDIOLANUM_713.16.11
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>MEDIO.GUI - modification
+&gt; Fully Executed Deal Action: add a new deal action called: Fully Executed Action
+In the line of the workflow that allows multiple executions add this KernelEngine.
+Create a new line that moves the trade from this line to the fully executed line:
+<add Section="MEDIO_BACKOFFICE_DEALACTION" Entry="AfterFinalExecution_EventName" Value="FullyExecuted" /></li>
+</ul>
+<h1>Version 713.16.10 :</h1>
+<p>Delivery date (YYYYMMDD):		11/10/2017
+Source control label:			MEDIOLANUM_713.16.10
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>Mediolanum_RMA_FILTER  - modification
+&gt; Cash/Collateral Bond/Cash: remove the 'Reversal' flag in setting the quantity/amount
+&gt; Bug fixes for the new filter version</p>
+</li>
+<li><p>MEDIO.GUI - modification
+&gt; Trade Thru Zero Deal Action: 1) change the deal check to deal action
+2) do not change the business event, instead apply different external ref values</p>
+</li>
+</ul>
+<h1>Version 713.16.9 :</h1>
+<p>Delivery date (YYYYMMDD):		09/10/2017
+Source control label:			MEDIOLANUM_713.16.09
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification or
+&gt; Bonds: do not use the 'Reversal' field - apply the modification on both the old/new versions</li>
+</ul>
+<h1>Version 713.16.8 :</h1>
+<p>Delivery date (YYYYMMDD):		28/09/2017
+Source control label:			MEDIOLANUM_713.16.08
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Bonds: do not use the 'Reversal' field. Nominal is already negative in RBC file</li>
+</ul>
+<h1>Version 713.16.7 :</h1>
+<p>Delivery date (YYYYMMDD):		25/09/2017
+Source control label:			MEDIOLANUM_713.16.07
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO.GUI - modification
+&gt; BO Deal check: do not call 'SaveToDatabase'</li>
+</ul>
+<h1>Version 713.16.6 :</h1>
+<p>Delivery date (YYYYMMDD):		22/09/2017
+Source control label:			MEDIOLANUM_713.16.06
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Futures: map the field &quot;Fees Amount in Transaction Currency&quot; to broker fee</li>
+</ul>
+<h1>Version 713.16.5 :</h1>
+<p>Delivery date (YYYYMMDD):		22/09/2017
+Source control label:			MEDIOLANUM_713.16.05
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.GUI - modification</p>
+<blockquote>
+<p>BO Deal check
+* Short Sell Check: business event of a short sell trade will be adjusted, the following parameters are mandatory:
+<add Section="MEDIO_BACKOFFICE_DEALCHECK" Entry="ShortSellBusEventGroup" Value="Short Sell Test" />
+<add Section="MEDIO_BACKOFFICE_DEALCHECK" Entry="ModifyEventID" Value="387" />
+<add Section="MEDIO_BACKOFFICE_DEALCHECK" Entry="ShortSellBusEvent" Value="5869" /></p>
+</blockquote>
+</li>
+<li><p>Release candidate: SophisNightMonitor - creation</p>
+<blockquote>
+<p>A monitoring tool that's designed to report daily the status of servers, performance, along with other user-defined tasks</p>
+</blockquote>
+</li>
+<li><p>MEDIO.RBCOrderAdapter.net - modification</p>
+<blockquote>
+<p>CR: value date send to RBC in new format dd/MM/yyyy</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.4 :</h1>
+<p>Delivery date (YYYYMMDD):		31/08/2017
+Source control label:			MEDIOLANUM_713.16.04
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.OrderAutomation.net - modification</p>
+<blockquote>
+<p>Scenario
+* Medio FX Forward Roll : User interface that enables rolling existing FX forward positions to a future date and maintaining the link to original equity/fixed income trades</p>
+</blockquote>
+</li>
+<li><p>MEDIO.RBCOrderAdapter.net - modification</p>
+<blockquote>
+<p>Settlement date parsing fixes</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.3 :</h1>
+<p>Delivery date (YYYYMMDD):		24/08/2017
+Source control label:			MEDIOLANUM_713.16.03
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>MEDIO.OrderAutomation.net - new</p>
+<blockquote>
+<p>Scenario
+* Medio Hedging &amp; Funding Blotter : User interface that allows the user to have a consolidated view to manage their FX exposure</p>
+</blockquote>
+<blockquote>
+<p>Criterium
+* Hedging/Funding : group each parent position/trade with its funding and hedging orders/positions/trades
+* FO Asset class - Hedging/Funding : FX trades are grouped under the Equity bucket
+* Parent Order ID : display trades parent order id</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.2 :</h1>
+<p>Delivery date (YYYYMMDD):		08/08/2017
+Source control label:			MEDIOLANUM_713.16.02
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_ETL - modification
+<blockquote>
+<p>Add dependency dlls in the release package
+Support the date format '08/AUG/2017' (<xmlFieldType>DateDDMMMYYYY</xmlFieldType>) in the extraction chain</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.1 :</h1>
+<p>Delivery date (YYYYMMDD):		07/08/2017
+Source control label:			MEDIOLANUM_713.16.01
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>MEDIO_ETL - New
+<blockquote>
+<p>ETL framework to upload external funds' NAV/GAV</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.16.0 :</h1>
+<p>Delivery date (YYYYMMDD):		26/07/2017
+Source control label:			MEDIOLANUM_713.16.00
+Software version:				7.1.3.16
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Recompiled for patch 16</li>
+</ul>
+<h1>Version 713.15.13 :</h1>
+<p>Delivery date (YYYYMMDD):		26/07/2017
+Source control label:			MEDIOLANUM_713.15.13
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li><p>Mediolanum_RMA_FILTER  - modification
+&gt; CA - CapitalIncreaseVsPayment: reported as CA Adjustment (Securities) if there are securities and cash, otherwise just CA Adjustment (Cash)</p>
+</li>
+<li><p>MEDIO.ClauseBuilder.net  - New
+&gt; Enhanced version of the standard &quot;Autocall&quot; template</p>
+</li>
+</ul>
+<h1>Version 713.15.12 :</h1>
+<p>Delivery date (YYYYMMDD):		20/07/2017
+Source control label:			MEDIOLANUM_713.15.12
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; CA: fixes an issue that causes IS crashes in case of no ticker/ISIN</li>
+</ul>
+<h1>Version 713.15.11 :</h1>
+<p>Delivery date (YYYYMMDD):		19/07/2017
+Source control label:			MEDIOLANUM_713.15.11
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; CA - Cancellation: apply the Reversal mechanism to the CA trades where a cancellation is identified
+Toolkit parameter:
+Section = &quot;MediolanumRMA&quot;
+Entry = &quot;CorporateActionReversalCodes&quot;
+Value = &quot;56&quot;</li>
+</ul>
+<h1>Version 713.15.10 :</h1>
+<p>Delivery date (YYYYMMDD):		06/07/2017
+Source control label:			MEDIOLANUM_713.15.10
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; CA - Cancellation Support / Script: create a cash ticket in the CA uploader
+&gt; Collateral - cash: set the correct counterparty by BIC</li>
+</ul>
+<h1>Version 713.15.9 :</h1>
+<p>Delivery date (YYYYMMDD):		30/06/2017
+Source control label:			MEDIOLANUM_713.15.09
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>Mediolanum_RMA_FILTER  - modification
+&gt; Cash - interest payment: identify interest payment from other cash tickets by transaction type being Sn (where n = 1 .. 8)
+&gt; CA - cash credit: net amount fixes<br />
+&gt; CA - Bonus / Script: net amount not populated fixes
+&gt; Collateral: new format that contains cash/bond/equity trades</p>
+</li>
+<li><p>MEDIO.CORE - modification
+&gt; Add BO Kernel Workflow Selector condition to help route trades to the correct workflow. The configuration is in thirdparty/Agreement/Law where it will be defined as a toolkit parameter:
+<add Section="MEDIO_BACKOFFICE_CONDITION" Entry="Thirdparty agreement" Value="Electronic Matching" /></p>
+</li>
+</ul>
+<h1>Version 713.15.8 :</h1>
+<p>Delivery date (YYYYMMDD):		14/06/2017
+Source control label:			MEDIOLANUM_713.15.08
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Invoice: gross and net amount should stay the same as quantity
+&gt; Invoice: fees should be booked under the nostro Account Cash folio</li>
+</ul>
+<h1>Version 713.15.8 :</h1>
+<p>Delivery date (YYYYMMDD):		14/06/2017
+Source control label:			MEDIOLANUM_713.15.08
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Invoice: gross and net amount should stay the same as quantity
+&gt; Invoice: fees should be booked under the nostro Account Cash folio</li>
+</ul>
+<h1>Version 713.15.7 :</h1>
+<p>Delivery date (YYYYMMDD):		05/06/2017
+Source control label:			MEDIOLANUM_713.15.07
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Mediolanum_RMA_FILTER  - modification
+&gt; Cash: A new parameter to filter out cash tickets by �transaction type code� field, paramter entry: UnacceptedTransactionTypes (e.g. &quot;EE;SE&quot;)
+&gt; Equity-like: multiply spot by 100 not only by currency (which was the previous logic), but also by BBG ticker that contains certain key words that's indicating the market place where quotation is already in pence
+Toolkit parameter:
+Section = &quot;MediolanumRMA&quot;
+Entry = &quot;SharesPricedInSubunits&quot;
+Value = &quot;GBP-LN;ILS-IT;ZAR-SJ&quot;</li>
+</ul>
+<h1>Version 713.15.6 :</h1>
+<p>Delivery date (YYYYMMDD):		24/05/2017
+Source control label:			MEDIOLANUM_713.15.06
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Recompiled for patch 15</li>
+</ul>
+<h1>Version 713.14.13 :</h1>
+<p>Delivery date (YYYYMMDD):		24/05/2017
+Source control label:			MEDIOLANUM_713.14.13
+Software version:				7.1.3.14
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li><p>Mediolanum_RMA_FILTER  - modification
+&gt; Cash: apply different business event for interest payment (custom paramter: InterestPaymentBusinessEvent)
+&gt; CA: defaulting business event to 'CA Adjustment (Securities)' and 'CA Adjustment (Cash)', custom parameters:
+SpinOffBusinessEvent
+MergerBusinessEvent
+AmalgamationBusinessEvent
+BonusOrScripIssueBusinessEvent
+SubscriptionBusinessEvent
+RightsEntitlementBusinessEvent
+SecuritiesWithdrawalBusinessEvent
+ReverseSplitBusinessEvent
+SecuritiesDepositBusinessEvent
+ConversionBusinessEvent
+CashCreditBusinessEvent
+CapitalReductionWithPaymentBusinessEvent
+CapitalIncreaseVsPaymentBusinessEvent
+DistributionInSecuritiesBusinessEvent
+PublicPurchaseOfferBusinessEvent
+ExchangeOrExchangeOfferBusinessEvent
+AdditionalSplitBusinessEvent
+SplitBusinessEvent
+CashDebitBusinessEvent
+DividendBusinessEvent
+InterestBusinessEvent
+FinalRedemptionBusinessEvent
+EarlyRedemptionBusinessEvent
+WarrantExerciseBusinessEvent</p>
+</li>
+<li><p>MEDIO_IntegrationServiceAction  - modification</p>
+<blockquote>
+<p>Set cash net amount only if the operator is a designated one ('RBCUploader' being the default one, but configurable) to prevent from callback misfiring</p>
+</blockquote>
+</li>
+</ul>
+<h1>Version 713.14.12 :</h1>
+<p>Delivery date (YYYYMMDD):		23/05/2017
+Source control label:			MEDIOLANUM_713.14.12
+Software version:				7.1.3.14
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): No</p>
+<ul>
+<li>Recompiled for patch 14</li>
+<li>MEDIO.OrderAutomation.net  - modification
+&gt; execution dialog bug fixes</li>
+</ul>
+<h1>Version 713.15.5 :</h1>
+<p>Delivery date (YYYYMMDD):		19/05/2017
+Source control label:			MEDIOLANUM_713.15.5
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>MEDIO_IntegrationServiceAction - modification
+&gt; Set net amount for cash tickets at IS level (RMA does not allow setting amount)</li>
+</ul>
+<h1>Version 713.15.4 :</h1>
+<p>Delivery date (YYYYMMDD):		18/05/2017
+Source control label:			MEDIOLANUM_713.15.4
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Mediolanum_RMA_FILTER - modification
+&gt; Corporate Actions: Add splits in merger-like process</li>
+</ul>
+<h1>Version 713.15.3 :</h1>
+<p>Delivery date (YYYYMMDD):		11/05/2017
+Source control label:			MEDIOLANUM_713.15.3
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>Mediolanum_RMA_FILTER - modification
+&gt; TA cash: change the instrument naming format
+toolkit parameter:
+Section = &quot;MediolanumRMA&quot;
+Entry = &quot;TACashInstrumentNameFormat&quot;
+DefaultValue = S/R %COMMON_ID% %CURRENCY%</li>
+<li>MEDIO_GUI - modification
+&gt; Add option data model: Margin call model</li>
+</ul>
+<h1>Version 713.15.0.02 :</h1>
+<p>Delivery date (YYYYMMDD):		20170504
+Source control label:			MEDIOLANUM_713.15.0.02
+Software version:				7.1.3.15
+Client projects name:			MEDIOLANUM
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>A rebuild of last version in patch 15</li>
+</ul>
+<h1>Version 713.14.0.11 :</h1>
+<p>Delivery date (YYYYMMDD):	04/05/2017
+Source control label:		MEDIOLANUM_713.14.0.11
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- MEDIO_GUI - modification
+&gt; Add criteria 'Trade Ident' : standard trade refcon</p>
+<h1>Version 713.14.0.10 :</h1>
+<p>Delivery date (YYYYMMDD):	03/05/2017
+Source control label:		MEDIOLANUM_713.14.0.10
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- Mediolanum_RMA_FILTER:
+&gt; Corporate Actions:
+A new filter is created to replay the merger-like tickets instead of processing 2 tickets in one RMA filter;
+A new RMA server has to be set up the same way as RBCUploader, expect that ErrorReplay/Replay/loadedStatus = 1</p>
+<h1>Version 713.14.0.9 :</h1>
+<p>Delivery date (YYYYMMDD):	03/05/2017
+Source control label:		MEDIOLANUM_713.14.0.9
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- Mediolanum_RMA_FILTER:
+&gt; TA cash: fixes on mapping the SR cash instruments
+* toolkit parameter:
+Section = &quot;MediolanumRMA&quot;
+Entry = &quot;TACashInstrumentNameFormat&quot;
+DefaultValue = S/R for fund '%FUND%'</p>
+<pre><code>  &gt; Portfolio id matching bug fixed  
+  &gt; Corporate Actions: support all RBC CA types, namely (number being rbc type): 
+		Subscription = 9,
+		RightsEntitlement = 13,
+		SecuritiesWithdrawal = 14,
+		ReverseSplit = 15,
+		SpinOff = 16,
+		SecuritiesDeposit = 17,
+		Conversion = 33,
+		CashCredit = 34,
+		CapitalReductionWithPayment = 36,
+		CapitalIncreaseVsPayment = 51,
+		DistributionInSecurities = 52,
+		BonusOrScripIssue = 55,
+		PublicPurchaseOffer = 56,
+		ExchangeOrExchangeOffer = 58,
+		Merger = 59,
+		AdditionalSplit = 60,
+		Split = 61,
+		CashDebit = 68,
+		Dividend = 74,
+		Interest = 75,
+		FinalRedemption = 76,
+		EarlyRedemption = 77,
+		Amalgamation = 83,  
+		WarrantExercise = 90
+	
+</code></pre>
+<h1>Version 713.15.0.10 :</h1>
+<p>Delivery date (YYYYMMDD):		20170426
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.10
+Software version:				7.1.3.15
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes</p>
+<ul>
+<li>A rebuild of last version in patch 15</li>
+</ul>
+<h1>Version 713.14.0.8 :</h1>
+<p>Delivery date (YYYYMMDD):	24/04/2017
+Source control label:		MEDIOLANUM_713.14.0.8
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- Mediolanum_RMA_FILTER:
+&gt; Fixed income: price in rbc are quoted in percentage, so we multiply the recalculated price by 100</p>
+<h1>Version 713.14.0.7 :</h1>
+<p>Delivery date (YYYYMMDD):	20/04/2017
+Source control label:		MEDIOLANUM_713.14.0.7
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- Mediolanum_RMA_FILTER:
+&gt; Fund: GBP -&gt; price multiply by 100 (same as done for equity)<br />
+&gt; FX: re-cal fx spot instead of using the rbs rate for reconciliation purpose
+&gt; FX: reversal flag
+&gt; Equity: include 'Sell'/'Buy' in the reversal logic</p>
+<h1>Version 713.14.0.6 :</h1>
+<p>Delivery date (YYYYMMDD):	20/04/2017
+Source control label:		MEDIOLANUM_713.14.0.6
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- new deal input window field: TKT_RBC_TRADE_ID
+- RBC Trade IDs are stored in EXTRNL_REFERENCES_TRADES table</p>
+<h1>Version 713.14.0.0 :</h1>
+<p>Delivery date (YYYYMMDD):	17/02/2017
+Source control label:		MEDIOLANUM_0.713.12.4
+Software version:			7.1.3.14
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+New features (creation, modification, deletion):
+- rebuild for 713.14</p>
+<h1>Version 0.713.12.4 :</h1>
+<p>Delivery date (YYYYMMDD):	15/02/2017
+Source control label:		MEDIOLANUM_0.713.12.4
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- Recompiled against 713 patch 14 
+</code></pre>
+<h1>Version 0.713.12.4 :</h1>
+<p>Delivery date (YYYYMMDD):	17/01/2017
+Source control label:		MEDIOLANUM_0.713.12.4
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO_DOB_INDICATOR - creation
+	&gt;	Asset Value in % of NAV for everything but:
+		[Last] * [Contract size] * FOREX(Future CCY, Fund CCY) * [Nb Securities] in % of NAV for Index futures 
+		[Number of securities] * FOREX(CCY1 , Fund CCY) in % of NAV for FX spot and Forwards
+</code></pre>
+<h1>Version 0.713.12.3 :</h1>
+<p>Delivery date (YYYYMMDD):	09/01/2017
+Source control label:		MEDIOLANUM_0.713.12.3
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO_COMPLIANCE - creation
+	&gt; Criteria 
+		1) Medio Thirdparty Credit: a flag(YES/NO) which is a user property from MEDIO_Credit on a thirdparty to segregate credit institutions from other types of counterparties
+		2) Medio Thirdparty Rating: A++, A+, etc. from a user property MEDIO_Rating on a thirdparty
+</code></pre>
+<h1>Version 0.713.12.2 :</h1>
+<p>Delivery date (YYYYMMDD):	28/10/2016
+Source control label:		MEDIOLANUM_0.713.12.2
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO_GUI - modification
+	&gt; fixed an issue while saving pit closing time in the index GUI
+</code></pre>
+<h1>Version 0.713.12.1 :</h1>
+<p>Delivery date (YYYYMMDD):	17/10/2016
+Source control label:		MEDIOLANUM_0.713.12.1
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO_GUI - creation
+	&gt; Add Index dialog fields: Pit opening time
+	
+- MEDIO.TransactionAction - creation
+	&gt; Deal action: Add check on pit opening hour 
+</code></pre>
+<h1>Version 0.713.12.0 :</h1>
+<p>Delivery date (YYYYMMDD):	30/09/2016
+Source control label:		MEDIOLANUM_0.713.12.0
+Software version:			7.1.3.12
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO.OMS.WF4Activities - creation
+	&gt; WF4 activity &quot;CheckAsianFutureMarkets&quot;: Set the order property &quot;MEDIO_OUTSIDE_HRS&quot; to be true if:
+		1) Order instrument is a future 
+		2) The underlying index of the future has a &quot;pit closing time&quot;, and a &quot;Market time zone&quot;
+		3) Current trade time in market local time is after pit closing time
+		 
+	&gt; WF4 activity &quot;GetOrderInstrument&quot;: Returns an object of type &quot;OrderInstrument&quot; that contains the following fields:
+		* Name 
+		* Ref 
+		* Currency 
+		* Type
+
+- MEDIO_GUI - creation
+	&gt; Add Index dialog fields: Pit closing time, market time zone 
+	&gt; Add Transaction dialog fields: outside trading hours, trade date changing log 
+	
+- MEDIO.TransactionAction - creation
+	&gt; Deal action: Similiar functionality as WF4 activity &quot;CheckAsianFutureMarkets&quot;, expect set trade date per execution to the next business day
+</code></pre>
+<h1>Version 0.713.9.1 :</h1>
+<p>Delivery date (YYYYMMDD):	03/02/2016
+Source control label:		MEDIOLANUM_0.713.9.1
+Software version:			7.1.3.9
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification</p>
+<pre><code>- MEDIO_UCITS_CALCULATION - modification
+  &gt; Columns (Toolkit group): 
+    * Net commitment: bug fixes on fund level aggregation and column editability
+</code></pre>
+<h1>Version 0.713.9.0 :</h1>
+<p>Delivery date (YYYYMMDD):	02/02/2016
+Source control label:		MEDIOLANUM_0.713.9.0
+Software version:			7.1.3.9
+Client projects name:		MEDIOLANUM
+DLL Section in config file		: DLL/ASSEMBLY_DLL
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): Yes
+SQL Scripts (Yes/No): Yes
+Distinctive feature:
+New features (creation, modification, deletion): creation/modification
+- MEDIO.HEDGING.NET - creation
+&gt; Post-trade Netting and Hedging validation widget
+&gt; Hegding check WF: Creation and modification of a trade is audited in the table: MEDIO_AUDIT_HEDGING_POSITION</p>
+<pre><code>- MEDIO_UCITS_CALCULATION - creation
+  &gt; Columns (Toolkit group): 
+    * Net commitment
+	* Hedging Status
+	* AIFMD Exposure (Gross)
+	* AIFMD Levergae (Gross)
+	* Fund Gross Commitment
+	* Standard column enhancement: UCITS commitment -&gt; CDS
+	* AIFMD Exposure (Commitment)
+	* AIFMD Levergae (Commitment)
+
+  &gt; GUI enhancement 
+    * New Barrier option field: Max delta 
+	* New trade screen fields: 1. MEDIO_HEDGE_CHECK 2. MEDIO_COMMENTS (User right check: &quot;Hedge Check&quot;)
+	
+  &gt; Criterium
+    * group by Hegding status: not hedging, hedging, validated, refused 
+</code></pre>

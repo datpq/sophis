@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ToolkitPath>$(Toolkit_v74x)</ToolkitPath>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitPath)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>
+    </DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>false</Optimize>
+    <DefineConstants>;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{091FDD08-C965-46CC-998E-B920A67A5F4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mediolanum_RMA_FILTER</RootNamespace>
+    <AssemblyName>Mediolanum_RMA_FILTER</AssemblyName>
+    <ReferencePath>$(MisysInstallDir);$(ToolkitPath)\..\..\sophis\shared\api;$(MSBuildThisFileDirectory)\..\Repository\x64\7.2.0.1AndLater\</ReferencePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Oracle.DataAccess">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(Vob_Repository)\x64\7.2.0.1AndLater\Oracle.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="QuickFix">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisConfiguration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisCommonConfiguration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisWcfFramework">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Risque">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Value">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisApi">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisCashRecon">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisConfiguration" />
+    <Reference Include="Sophis.DotNetCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitGUI">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetTools">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitBackOffice">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetValue">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisRmaInterfaces">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisRmaPersistence">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisRmaTicket">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisRmaXmlUtil">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisTransactionServiceContract">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisTreasuryGUI">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MediolanumVersion.cs">
+      <Link>MediolanumVersion.cs</Link>
+    </Compile>
+    <Compile Include="Const\CSxRBCConstants.cs" />
+    <Compile Include="Filters\CSxFIXTSOXTag54.cs" />
+    <Compile Include="Filters\CSxEMSXFilter.cs" />
+    <Compile Include="Filters\CSxFIXTSOXDirtyPriceFilter.cs" />
+    <Compile Include="Filters\CSxFIXTSOXQtyTypeTag854Filter.cs" />
+    <Compile Include="Filters\CSxRBCOrderFilter.cs" />
+    <Compile Include="Filters\CSxTag1909.cs" />
+    <Compile Include="TicketCreator\CSxAllCustodyTransCreator.cs" />
+    <Compile Include="TicketCreator\CSxGenericTrade.cs" />
+    <Compile Include="TicketCreator\CSxTermDepositCreator.cs" />
+    <Compile Include="_ToDeDecommissioned\CSxCAMergerFilter.cs" />
+    <Compile Include="Data\CSxCachingDataManager.cs" />
+    <Compile Include="Filters\CSxRBCCAMergerFilter.cs" />
+    <Compile Include="Filters\CSxRBCCSVFilter.cs" />
+    <Compile Include="TicketCreator\CSxCAMergerLikeCreator.cs" />
+    <Compile Include="TicketCreator\CSxCollateralCreator.cs" />
+    <Compile Include="Tools\CSxRBCHelper.cs" />
+    <Compile Include="Interfaces\IRBCTicketCreator.cs" />
+    <Compile Include="TicketCreator\RBCTicketCreatorFactory.cs" />
+    <Compile Include="_ToDeDecommissioned\PostitUpdater.cs" />
+    <Compile Include="_ToDeDecommissioned\RBC_Filter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_ToDeDecommissioned\Mediolanum_RMA_FILTERMain.cs" />
+    <Compile Include="_ToDeDecommissioned\CSxValidationUtil.cs" />
+    <Compile Include="_ToDeDecommissioned\SafeDictionary.cs" />
+    <Compile Include="TicketCreator\AbstractBase\BaseTicketCreator.cs" />
+    <Compile Include="TicketCreator\CSxBond2Creator.cs" />
+    <Compile Include="TicketCreator\CSxCashCreator.cs" />
+    <Compile Include="TicketCreator\CSxCorporateActionCreator.cs" />
+    <Compile Include="TicketCreator\CSxEquityLikeCreator.cs" />
+    <Compile Include="TicketCreator\CSxForexCreator.cs" />
+    <Compile Include="TicketCreator\CSxForexHedgeCreator.cs" />
+    <Compile Include="TicketCreator\CSxFutureCreator.cs" />
+    <Compile Include="TicketCreator\CSxInvoiceCreator.cs" />
+    <Compile Include="TicketCreator\CSxOptionCreator.cs" />
+    <Compile Include="TicketCreator\CSxSwapCreator.cs" />
+    <Compile Include="TicketCreator\CSxTACashCreator.cs" />
+    <Compile Include="TicketCreator\CSxUnknownCreator.cs" />
+    <Compile Include="Tools\G.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\fieldconfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="version\ReleaseNotes.Mediolanum_RMA_FILTER.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_Mediolanum_RMA_FILTERScript.sql" />
+    <None Include="SQL\Mediolanum_RMA_FILTERScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MEDIO.CORE\MEDIO.CORE.csproj">
+      <Project>{28797AAA-C5A9-4A14-8E66-D4856BA91A55}</Project>
+      <Name>MEDIO.CORE</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Mediolanum_RMA_FILTER_CLI\Mediolanum_RMA_FILTER_CLI.vcxproj">
+      <Project>{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}</Project>
+      <Name>Mediolanum_RMA_FILTER_CLI</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\MEDIO_ETL\SophisETL.ISEngine\SophisETL.ISEngine.csproj">
+      <Project>{cdc5c548-0cd1-460f-aa52-70584fd28394}</Project>
+      <Name>SophisETL.ISEngine</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--<PropertyGroup>
+    <PostBuildEvent>call "$(VS100COMNTOOLS)\SophisPostBuild.bat" "$(ToolkitPath)" "$(TargetPath)" "$(ProjectPath)" $(PlatformName) $(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>-->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

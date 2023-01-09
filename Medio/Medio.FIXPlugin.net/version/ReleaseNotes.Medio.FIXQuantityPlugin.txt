@@ -1,0 +1,97 @@
+Version 1.0.6.0 :
+===================
+Delivery date (YYYYMMDD):		20170209
+Source control label:			Medio.FIXQuantityPlugin_1.0.6.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug Fixed:
+- Fixed Tag 54 regression (changes were applied for non-swap deals)
+
+Version 1.0.5.0 :
+===================
+Delivery date (YYYYMMDD):		20170131
+Source control label:			Medio.FIXQuantityPlugin_1.0.5.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+- Using entity name from fund for tag 671
+
+Version 1.0.4.0 :
+===================
+Delivery date (YYYYMMDD):		20170130
+Source control label:			Medio.FIXQuantityPlugin_1.0.4.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
+- Replaced Tag 671 get account function
+
+Version 1.0.3.0 :
+===================
+Delivery date (YYYYMMDD):		20170127
+Source control label:			Medio.FIXQuantityPlugin_1.0.3.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+- For tag 671, the fund entity account will be used
+
+Version 1.0.2.0 :
+===================
+Delivery date (YYYYMMDD):		20170123
+Source control label:			Medio.FIXQuantityPlugin_1.0.2.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+- Fixed Tags 673 and 54 issue
+
+Version 1.0.1.0 :
+===================
+Delivery date (YYYYMMDD):		20170123
+Source control label:			Medio.FIXQuantityPlugin_1.0.1.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+- Tag670Plugin FIX Gateway feature
+
+Installation:
+1. Copy Medio.FIXQuantityPlugin.NET.dll in ElectronicMarket\FIXGateway\bin folder
+2. Open the FixGateway.config from Configuration manager: 
+Add a new entry in Fix->Sophis->Business Plugins Collection
+ClassName="Medio.FXSwapsPlugin.Tag670Plugin" 
+Module="./bin/Medio.FIXQuantityPlugin.NET.dll" 
+
+Version 1.0.0.0 :
+===================
+Delivery date (YYYYMMDD):	
+Source control label:			Medio.FIXQuantityPlugin_1.0.0.0
+Software version:				7.1.3.12
+Client projects name:			Medio.FIXQuantityPlugin
+Installation on Server (Yes/No): Yes
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+- Tag80Plugin FIX Gateway filter
+
+Installation:
+1. Copy Medio.FIXQuantityPlugin.NET.dll in ElectronicMarket\FIXGateway\bin folder
+2. Open the FixGateway.config from Configuration manager: 
+Add a new entry in Fix->Sophis->Business Plugins Collection
+ClassName="Medio.FIXQuantityPlugin.Tag80Plugin" 
+Module="./bin/Medio.FIXQuantityPlugin.NET.dll" 

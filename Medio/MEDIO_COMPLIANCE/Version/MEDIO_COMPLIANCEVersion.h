@@ -1,0 +1,15 @@
+#ifndef _MEDIO_COMPLIANCE_Version_H_
+#define _MEDIO_COMPLIANCE_Version_H_
+
+#include "SphInc\SphBuildVersion.h"
+#include "..\MediolanumVersion.h"
+
+#define MEDIO_COMPLIANCE_VERSION 				MEDIOLANUM_VERSION
+#define MEDIO_COMPLIANCE_VERSION_STR			MEDIOLANUM_VERSION_STR
+#ifdef WIN32
+	#define MEDIO_COMPLIANCE_TOOLKIT_DESCRIPTION	"MEDIO_COMPLIANCE (x86)"
+#else
+	#define MEDIO_COMPLIANCE_TOOLKIT_DESCRIPTION	"MEDIO_COMPLIANCE (x64)"
+#endif
+
+#endif // _MEDIO_COMPLIANCE_Version_H_

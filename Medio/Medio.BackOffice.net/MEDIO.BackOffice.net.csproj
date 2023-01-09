@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ToolkitPath>$(Toolkit_v74x)</ToolkitPath>
+    <CustomerEnvDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), global.props))</CustomerEnvDir>
+    <CustomerEnvDir Condition="$(CustomerEnvDir) == '' ">$(ToolkitPath)\SphWizard\TemplateEnvironment</CustomerEnvDir>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <Import Project="$(CustomerEnvDir)\global.props" Condition=" '$(GlobalImported)' != 'true'  " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{73E6EAED-B880-4599-A4C1-BD5009BD184F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MEDIO.BackOffice.net</RootNamespace>
+    <AssemblyName>MEDIO.BackOffice.net</AssemblyName>
+    <ReferencePath>$(MisysInstallDir);$(MSBuildThisFileDirectory)\..\Repository\x64\7.2.0.1AndLater\</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>
+    </DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <Optimize>false</Optimize>
+    <DefineConstants>;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.DataAccess">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DataAccess.NH">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.OMS.BL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.OMS.Client">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.WF.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisBackOfficeKernel">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisBackOfficeOTC">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisConfiguration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisCommonConfiguration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DotNetCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitBackOffice">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitGUI">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetValue">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MediolanumConstants.cs" />
+    <Compile Include="..\MediolanumVersion.cs">
+      <Link>MediolanumVersion.cs</Link>
+    </Compile>
+    <Compile Include="src\InstrumentAction\CSxAbsPoolFactorCheck.cs" />
+    <Compile Include="src\InstrumentAction\CSxBondNotionalCheck.cs" />
+    <Compile Include="src\InstrumentAction\CSxRussianBondRedemption.cs" />
+    <Compile Include="src\DealAction\CSxDealActionRBCABS.cs" />
+    <Compile Include="src\DealCheck\CheckExecutionAveragePrice.cs" />
+    <Compile Include="src\DealCheck\CheckFXALLExternalReference.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Medio.BackOffice.netMain.cs" />
+    <Compile Include="src\Allotment\CSxAllotConditionModel.cs" />
+    <Compile Include="src\Allotment\CSxGenericAllotmentCondition.cs" />
+    <Compile Include="src\DealCheck\CSxIsMirroredTradeDealCheck.cs" />
+    <Compile Include="src\DealCheck\CheckOperatorCheckDeal.cs" />
+    <Compile Include="src\DealCondition\CSxThirdpartyCondition.cs" />
+    <Compile Include="src\KernelEngine\CSxEmailKernelEngine.cs" />
+    <Compile Include="src\KernelEngine\CSxEventExecAveragePrice.cs" />
+    <Compile Include="src\KernelEngine\CSxExecutionAveragePriceKernelEngine.cs" />
+    <Compile Include="src\KernelEngine\CSxMedioEmailReport.cs" />
+    <Compile Include="src\KernelEngine\CSxRefreshFeesKernelEngine.cs" />
+    <Compile Include="src\KernelEngine\CSxSendToBBHKernelEngine.cs" />
+    <Compile Include="src\Thirdparty\CSxThirdpartyAction.cs" />
+    <Compile Include="src\Thirdparty\CSxThirdpartySettlementCondition.cs" />
+    <Compile Include="src\Thirdparty\CSxThridpartyListener.cs" />
+    <Compile Include="src\Utils\Email\CSxEmailSender.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="version\ReleaseNotes.Medio.BackOffice.net.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_Medio.BackOffice.netScript.sql" />
+    <None Include="SQL\Medio.BackOffice.netScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MEDIO.CORE\MEDIO.CORE.csproj">
+      <Project>{28797aaa-c5a9-4a14-8e66-d4856ba91a55}</Project>
+      <Name>MEDIO.CORE</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--<PropertyGroup>
+    <PostBuildEvent>call "$(VS100COMNTOOLS)\SophisPostBuild.bat" "$(ToolkitPath)" "$(TargetPath)" "$(ProjectPath)" $(PlatformName) $(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>-->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

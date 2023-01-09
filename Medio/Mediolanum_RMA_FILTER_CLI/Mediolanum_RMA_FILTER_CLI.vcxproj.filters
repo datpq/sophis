@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{c1327f42-d3fb-4173-9730-4bfa3a0a8529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{494fa06f-e32e-40d6-97d2-c57227ad58ef}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{81fb0db8-4fb0-4e88-95fb-e1af6abca0f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Mediolanum_RMA_FILTER_CLIMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="CSxCorporateActionUtil.cpp" />
+    <ClCompile Include="CLICorporateActionUtil.cpp" />
+    <ClCompile Include="CSxForexUtils.cpp" />
+    <ClCompile Include="CLIForexUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_Mediolanum_RMA_FILTER_CLIScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\Mediolanum_RMA_FILTER_CLIScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.Mediolanum_RMA_FILTER_CLI.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\Mediolanum_RMA_FILTER_CLI.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Mediolanum_RMA_FILTER_CLIVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\Mediolanum_RMA_FILTER_CLIVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxCorporateActionUtil.h" />
+    <ClInclude Include="CSxForexUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\Mediolanum_RMA_FILTER_CLI.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

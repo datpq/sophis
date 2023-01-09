@@ -1,0 +1,15 @@
+Version 1.0.0.0 :
+===================
+
+Delivery date (YYYYMMDD):	
+Source control label:		MEDIO_RBC_NAV_1.0.0.0
+Software version:	
+Client projects name:		MEDIO_RBC_NAV
+DLL Section in ini file		: DLL 
+Installation on Server (Yes/No): 
+Installation on Client (Yes/No): 
+SQL Scripts (Yes/No): 
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+Parameters:

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{f8cf6d76-0c71-4483-8da9-35fd0332a2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{a16074ab-ce19-44c3-a4e9-caa1d8d853a5}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{9915a5f9-ca22-4eca-9b3a-bc7e60bb49aa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MEDIO_RBC_NAVMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="CSxPortfolioColumnRBCNAV.cpp" />
+    <ClCompile Include="CSxPortfolioColumnRBCWeight.cpp" />
+    <ClCompile Include="CSxUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_MEDIO_RBC_NAVScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\MEDIO_RBC_NAVScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.MEDIO_RBC_NAV.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_RBC_NAV.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_RBC_NAVVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\MEDIO_RBC_NAVVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxPortfolioColumnRBCNAV.h" />
+    <ClInclude Include="CSxPortfolioColumnRBCWeight.h" />
+    <ClInclude Include="CSxUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\MEDIO_RBC_NAV.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,4 @@
+Name,Reference,Currency,Market,Model,Definition_type,Is_drifted,Pricing,Hedge_ratio,Record_date,Return_computation,Cash_computation,Resize,Resize_to,Instrument,Weight
+TTT_SR_4,TTT_SR_4,EUR,OTCL,Standard,Weight,true,Last,0,2021-05-25,true,true,true,ReferenceNAV,68038327,10
+TTT_SR_4,TTT_SR_4,EUR,OTCL,Standard,Weight,true,Last,0,2021-05-25,true,true,true,ReferenceNAV,68068136,20
+TTT_SR_4,TTT_SR_4,EUR,OTCL,Standard,Weight,true,Last,0,2021-05-25,true,true,true,ReferenceNAV,67869498,70

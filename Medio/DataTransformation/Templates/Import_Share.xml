@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:trade="http://www.sophis.net/trade" 
+             xmlns:sph="http://www.sophis.net/Instrument">
+
+	<fpml:header>
+		<fpml:conversationId conversationIdScheme=""/>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">SENDER</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>		
+	</fpml:header>
+
+	<sph:share xmlns:sph="http://www.sophis.net/Instrument" xmlns:common="http://sophis.net/sophis/common" common:persistenceType="Create">
+
+	  <sph:productType>Equity-Shares</sph:productType>
+	
+	  <sph:feature>With Market</sph:feature>
+	
+	  <sph:identifier>
+	    <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Reference">AC FP Equity Test</sph:reference>
+	  </sph:identifier>
+	
+	  <sph:name>ACCOR SA</sph:name>
+	
+	  <sph:currency>EUR</sph:currency>
+	
+	  <sph:sectors>
+	    <sph:sector sph:provider="Geographical Sectors">
+	      <sph:code>Europe</sph:code>
+	      <sph:name>Europe</sph:name>
+	      <sph:comment>Europe</sph:comment>
+	      <sph:index>
+	        <sph:sophis>67318044</sph:sophis>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Bloomberg">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="CmaentityId">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Cusip">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="DaDDId">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="GlobeopUnderlying30">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Isin">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Reference">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Sophisref">AMI_long</sph:reference>
+	        <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Ticker">AMI_long</sph:reference>
+	      </sph:index>
+	    </sph:sector>
+	  </sph:sectors>
+	
+	  <sph:market>
+	    <sph:sophis>EXPA</sph:sophis>
+	    <sph:name>Euronext Paris</sph:name>
+	    <sph:place>PARIS</sph:place>
+	    <sph:reference sph:modifiable="UniquePrioritary" sph:name="Rimes">Paris</sph:reference>
+	    <sph:priceQuotationType>Currency</sph:priceQuotationType>
+	  </sph:market>
+	
+	  <sph:businessCenters>
+	    <common:businessCenter common:businessCenterScheme="http://www.fpml.org/spec/2000/business-center-1-0">EUPA</common:businessCenter>
+	  </sph:businessCenters>
+	
+	  <sph:pointValue>
+	    <sph:quotationType>InPrice</sph:quotationType>
+	    <sph:averagePrice>1.000000000000</sph:averagePrice>
+	    <sph:unrealized>1.000000000000</sph:unrealized>
+	    <sph:realized>1.000000000000</sph:realized>
+	    <sph:inAmount>1.000000000000</sph:inAmount>
+	    <sph:inAnotherCurrency>1.000000000000</sph:inAnotherCurrency>
+	  </sph:pointValue>
+	
+	  <sph:allotment>Shares</sph:allotment>
+	
+	  <sph:status>Available</sph:status>
+	
+	  <sph:comment>x</sph:comment>
+	
+	  <sph:extraFields/>
+	  
+	  <sph:pricing>
+	    <sph:nature>A</sph:nature>
+	    <sph:model>Standard</sph:model>
+	    <sph:isCleared>false</sph:isCleared>
+	  </sph:pricing>
+	
+	  <sph:accountingRef>--12-31</sph:accountingRef>
+	
+	  <sph:tradingUnit>0.000000000000</sph:tradingUnit>
+	
+	  <sph:country>EUR</sph:country>
+	
+	  <sph:recordDate>Included</sph:recordDate>
+	
+	  <sph:beta>1.000000000000</sph:beta>
+	
+	</sph:share>
+
+</exch:import>

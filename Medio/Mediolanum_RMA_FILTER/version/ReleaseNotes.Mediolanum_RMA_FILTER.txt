@@ -1,0 +1,720 @@
+Version 713.14.0.5 :
+===================
+Delivery date (YYYYMMDD):		20170412
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.5
+Software version:				7.1.3.14
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+- Depositary issue for CAs
+- Future quantity for sell trades is positive
+New features:
+ - SR/Cash Styling
+ - Counterparty Detail
+
+ Parameters:
+
+Section = "MediolanumRMA"
+Entry = "CommentUpdaterEnabled"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "CommentUpdaterDelay"
+DefaultValue = 300
+
+Section = "MediolanumRMA"
+Entry = "CommentUpdaterSource"
+DefaultValue = "RBCUploader"
+
+
+Version 713.14.0.4 :
+===================
+Delivery date (YYYYMMDD):		20170411
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.4
+Software version:				7.1.3.14
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+New features:
+ - Trades are created for Securities deposit/withdrawal, cash credit/debit and merger corporate actions
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "DefaultBOKernelEvent"
+DefaultValue = "New deal accept"
+
+Section = "MediolanumRMA"
+Entry = "CashCreditBusinessEvent"
+DefaultValue = "Free Attribution"
+
+Section = "MediolanumRMA"
+Entry = "CashDebitBusinessEvent"
+DefaultValue = "Free Attribution"
+
+Section = "MediolanumRMA"
+Entry = "SecuritiesDepositBusinessEvent"
+DefaultValue = "Free Attribution"
+
+Section = "MediolanumRMA"
+Entry = "SecuritiesWithdrawalBusinessEvent"
+DefaultValue = "Free Attribution"
+
+Section = "MediolanumRMA"
+Entry = "MergerBusinessEvent"
+DefaultValue = "Merger"
+
+
+Version 713.14.0.3 :
+===================
+Delivery date (YYYYMMDD):		20170404
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.3
+Software version:				7.1.3.14
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+New features:
+ - The counterparty for delegates will now be the one received in csv unless use default counterparty parameter is true
+
+Version 713.14.0.2 :
+===================
+Delivery date (YYYYMMDD):		20170403
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.2
+Software version:				7.1.3.14
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+New features:
+ - BO Kernel Workflow Event override parameters
+ - External Fund Identifier filter file parameter (path to a file that contains allowed ExtFundIds, each on separate line)
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "ExtFundIdFilterFile"
+DefaultValue = <Empty string>
+
+Section = "MediolanumRMA"
+Entry = "OverrideCreationEvent"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "MAMLTradeCreationEvent"
+DefaultValue = <Empty string>
+
+Section = "MediolanumRMA"
+Entry = "DelegateTradeCreationEvent"
+DefaultValue = <Empty string>
+
+
+Version 713.14.0.1 :
+===================
+Delivery date (YYYYMMDD):		20170131
+Source control label:			Mediolanum_RMA_FILTER_713.14.0.1
+Software version:				7.1.3.14
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+New features:
+- Counterparties for MAML trades
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "DefaultHedgeCounterparty"
+DefaultValue = "FX Hedge Counterparty"
+
+Version 1.2.10.0 :
+===================
+Delivery date (YYYYMMDD):		20170131
+Source control label:			Mediolanum_RMA_FILTER_1.2.10.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+[#61] Duplicate deals when instrument is unknown
+
+Version 1.2.9.0 :
+===================
+Delivery date (YYYYMMDD):		20170112
+Source control label:			Mediolanum_RMA_FILTER_1.2.9.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+New features:
+
+- Added BusinessEvent parameters for cash instruments:
+
+* CashTransferBusinessEvent -> The name of the business event that will be used for cash instruments
+* InvoiceBusinessEvent -> The name of the business event that will be used for invoice instruments
+* TACashBusinessEvent -> The name of the business event that will be used for TACash instruments
+
+- InstrumentNameFormat parameters (CashTransferInstrumentNameFormat, InvoiceInstrumentNameFormat, TACashInstrumentNameFormat)
+allow the following variables in the name of instruments:
+
+%CURRENCY% - Currency received in CSV
+%FEETYPE% - [Available only for Invoice instruments] Fee type received in CSV
+%DESTINATIONACCOUNT% - External fund identifier received in CSV
+%SOURCEACCOUNT% - External fund identifier received in CSV
+%BUSINESSEVENT% - Value of CashTransferBusinessEvent/InvoiceBusinessEvent/TACashBusinessEvent parameter
+%COUNTERPARTY% - value of DefaultCounterparty parameter
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "CashTransferBusinessEvent"
+DefaultValue = "" (Will use FusionInvest default business event)
+
+Section = "MediolanumRMA"
+Entry = "InvoiceBusinessEvent"
+DefaultValue = "" (Will use FusionInvest default business event)
+
+Section = "MediolanumRMA"
+Entry = "TACashBusinessEvent"
+DefaultValue = "" (Will use FusionInvest default business event)
+
+Version 1.2.8.0 :
+===================
+Delivery date (YYYYMMDD):		20170105
+Source control label:			Mediolanum_RMA_FILTER_1.2.8.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): Yes
+Bug fixed:
+Refined code for [#95] Cash portfolio; added SQL script.
+
+Version 1.2.7.0 :
+===================
+Delivery date (YYYYMMDD):		20170103
+Source control label:			Mediolanum_RMA_FILTER_1.2.7.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
+[#95] Cash portfolio
+
+Version 1.2.6.0 :
+===================
+Delivery date (YYYYMMDD):		20161227
+Source control label:			Mediolanum_RMA_FILTER_1.2.6.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
+[#95] Cash portfolio
+
+Version 1.2.5.0 :
+===================
+Delivery date (YYYYMMDD):		20161222
+Source control label:			Mediolanum_RMA_FILTER_1.2.5.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Removed fix:
+[#115] Escaping XML characters
+
+Version 1.2.4.0 :
+===================
+Delivery date (YYYYMMDD):		20161219
+Source control label:			Mediolanum_RMA_FILTER_1.2.4.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+Renamed corporate actions column names to match latest RBC file
+Bug fixed:
+[#115] Escaping XML characters
+
+Version 1.2.3.0 :
+===================
+Delivery date (YYYYMMDD):		20161128
+Source control label:			Mediolanum_RMA_FILTER_1.2.3.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+New features:
+[#56] Handling of Reversal Flag (only for instruments that have a reversal flag column)
+[#59] Subunit Pricing - SharesPricedInSubunits custom parame
+Bug fixed:
+[#103] Settlement date & payment date mapping for all instruments
+
+Version 1.2.2.0 :
+===================
+Delivery date (YYYYMMDD):		20161115
+Source control label:			Mediolanum_RMA_FILTER_1.2.2.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
++ Future bloomberg mapping modified
++ All bonds are now booked by notional
+
+Version 1.2.1.0 :
+===================
+Delivery date (YYYYMMDD):		20161114
+Source control label:			Mediolanum_RMA_FILTER_1.2.1.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
++ SHA1 hash for corporate action and duplicate checking for corporate action
+
+Version 1.2.0.0 :
+===================
+Delivery date (YYYYMMDD):		20161111
+Source control label:			Mediolanum_RMA_FILTER_1.2.0.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
++ SHA1 hashes are generated as external references for trades to avoid duplicates
+
+Version 1.1.6.0 :
+===================
+Delivery date (YYYYMMDD):		20161018
+Source control label:			Mediolanum_RMA_FILTER_1.1.6.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
++ All instruments work with both ddMMyyyy and dd/MM/yyyy formats
++ Fix for funds (fund instruments were identified as loans)
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "FundBloombergRequestType"
+DefaultValue = "Equity"
+
+
+Version 1.1.5.0 :
+===================
+Delivery date (YYYYMMDD):		20161018
+Source control label:			Mediolanum_RMA_FILTER_1.1.5.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Bug fixed:
++ Fix for swaps (when instrument ID is unknown, it will be set to zero so the XML message will get to status FAILED)
++ Instruments for corporate actions are searched by name, reference and external reference in database
++ All instruments, excepting Futures, Options ans Swaps work with both ddMMyyyy and dd/MM/yyyy formats
++ When Bloomberg or ISIN is not found in the inbound CSV file, the instrument ID is set to zero (this will prevent deals from getting stuck in PENDING status) 
+
+Version 1.1.4.0 :
+===================
+Delivery date (YYYYMMDD):		20161014
+Source control label:			Mediolanum_RMA_FILTER_1.1.4.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
++ Corporate actions will trigger FAILED status instead of SUCCESS status
+
+Version 1.1.3.0 :
+===================
+Delivery date (YYYYMMDD):		20161012
+Source control label:			Mediolanum_RMA_FILTER_1.1.3.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
++ Adding implementation for Merger, Amalgamation, Spin-Off and Bonus Or Scrip Issue corporate actions
++ Adding Mediolanum_RMA_FILTER_CLI as dependency
+Bug fixed:
++ Fix for CFD (Swap inbound CSV) issue
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "SpinOffBusinessEvent"
+DefaultValue = "SpinOff"
+
+Section = "MediolanumRMA"
+Entry = "MergerBusinessEvent"
+DefaultValue = "Merger"
+
+Section = "MediolanumRMA"
+Entry = "AmalgamationBusinessEvent"
+DefaultValue = "Merger"
+
+Section = "MediolanumRMA"
+Entry = "BonusOrScripIssueBusinessEvent"
+DefaultValue = "Free Attribution"
+
+Section = "MediolanumRMA"
+Entry = "DefaultErrorFolio"
+DefaultValue = 1
+
+
+
+
+Version 1.1.2.0 :
+===================
+Delivery date (YYYYMMDD):		20161007
+Source control label:			Mediolanum_RMA_FILTER_1.1.2.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
++ Modified bloomberg code column mapping for Futures (form "BloombergCode" to "FutureTradeCode")
+
+Version 1.1.1.0 :
+===================
+Delivery date (YYYYMMDD):		20161006
+Source control label:			Mediolanum_RMA_FILTER_1.1.1.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
++ Fix for "Futures" and "Options" Data Service request error
+
+Version 1.1.0.0 :
+===================
+Delivery date (YYYYMMDD):		20161005
+Source control label:			Mediolanum_RMA_FILTER_1.1.0.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
++ Using Notional instead of quantity for bonds
++ All instruments other than bonds are calculated "in price"
++ Added more logs
++ Additional exception handling
++ Changed mapping for FX Hedge FX Rate from "ClientSpotRate" to "ClientAllInRate"
++ Fixed Folio and Broker mapping issue for Bonds ("Bond2")
++ Replacing date validation for Equity, Bonds, Loans and Funds (fixed date format issue)
++ Fix for "Futures" exception
+
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "CashTransferInstrumentNameFormat"
+DefaultValue = "Cash for currency '%CURRENCY%'"
+
+Section = "MediolanumRMA"
+Entry = "InvoiceInstrumentNameFormat"
+DefaultValue = "%FEETYPE% %CURRENCY%"
+
+Section = "MediolanumRMA"
+Entry = "TACashInstrumentNameFormat"
+DefaultValue = "Cash for currency '%CURRENCY%'"
+
+%CURRENCY% is the currency received in the CSV file
+%FEETYPE% is the fee type received in the "invoice" CSV file
+
+
+Version 1.0.12.0 :
+===================
+Delivery date (YYYYMMDD):		20161004
+Source control label:			Mediolanum_RMA_FILTER_1.0.12.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Fixed FX rate issue for all currencies
+ + Modified swap date format to d/M/yyyy
+ + Price type for all instruments exceping bonds, forex and cash transfers is "in amount"
+ + Price type for bonds is "in percentage"
+ + Default value for "ValidateForexAmount" custom parameter is false
+ + Added more logs
+
+Version 1.0.11.0 :
+===================
+Delivery date (YYYYMMDD):		20161003
+Source control label:			Mediolanum_RMA_FILTER_1.0.11.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Fixed FX spot issue
+
+Version 1.0.10.0 :
+===================
+Delivery date (YYYYMMDD):		20160929
+Source control label:			Mediolanum_RMA_FILTER_1.0.10.0
+Software version:				7.1.3.12
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Added mapping for settlement currency in equity deals
+New features (creation, modification, deletion):
+ + Filter for importing Swap trades
+
+Version 1.0.9.0 :
+===================
+Delivery date (YYYYMMDD):		20160923
+Source control label:			Mediolanum_RMA_FILTER_1.0.9.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Fixed issues in FX rate mapping for FX deals
+
+Version 1.0.8.0 :
+===================
+Delivery date (YYYYMMDD):		20160920
+Source control label:			Mediolanum_RMA_FILTER_1.0.8.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Fixed issue in Options implementation (an exception was preventing options from being imported)
+
+Version 1.0.7.0 :
+===================
+Delivery date (YYYYMMDD):		20160920
+Source control label:			Mediolanum_RMA_FILTER_1.0.7.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Forex hedge was not working for "Sell" trade side
+ + Fixed value date mapping issue for forex deals
+New features (creation, modification, deletion):
+ + Cash trades are booked in "Cash" fund subfolio
+ + Forex hedge files are booked in subfolios of "Hedge" fund subfolio
+
+Version 1.0.6.0 :
+===================
+Delivery date (YYYYMMDD):		20160916
+Source control label:			Mediolanum_RMA_FILTER_1.0.6.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Mofified mappings for Bonds
+ + Forex Hedge "Maturity date" is now mapped to "Value Date" in Sophis
+New features (creation, modification, deletion):
+ + More details in document class validation functions logs for date formats
+ + Commented code that assigns nostro/lostro accounts
+Parameters:
+
+Version 1.0.5.0 :
+===================
+Delivery date (YYYYMMDD):		20160915
+Source control label:			Mediolanum_RMA_FILTER_1.0.5.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + Renamed "BLOOMBERG" to "TICKER", added default parameter to set default toolkit universal
+New features (creation, modification, deletion):
+ + Filter for importing TA cash transfers and Forex Hedge
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "TooolkitDefaultUniversal"
+DefaultValue = "TICKER"
+
+Section = "MediolanumRMA"
+Entry = "TooolkitBondUniversal"
+DefaultValue = "ISIN"
+
+
+
+Version 1.0.4.0 :
+===================
+Delivery date (YYYYMMDD):		20160909
+Source control label:			Mediolanum_RMA_FILTER_1.0.4.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+ + Filter for importing cash transfers
+Parameters:
+
+Version 1.0.3.0 :
+===================
+Delivery date (YYYYMMDD):		20160909
+Source control label:			Mediolanum_RMA_FILTER_1.0.3.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+ + Filter for importing futures
+Parameters:
+
+Version 1.0.2.0 :
+===================
+Delivery date (YYYYMMDD):		20160907
+Source control label:			Mediolanum_RMA_FILTER_1.0.2.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+ + NDF trades were not booked
+ + Could not book equities and bonds with SELL side
+New features (creation, modification, deletion):
+ + Filter for importing listed options, loans
+ + Transaction ID mapped to BORemarks and Broker name mapped to FORemarks
+ + MAMLZCodes toolkit parameter to select broker by BIC Code (SWIFT) instead of DelegateManagerID when the trade account contains a MAML Z Code.
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "UseDefaultCounterparty"
+DefaultValue = true
+
+Section = "MediolanumRMA"
+Entry = "UseDefaultDepositary"
+DefaultValue = true
+
+Section = "MediolanumRMA"
+Entry = "ReplaceBORemarks"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "DefaultDepositary"
+DefaultValue = "RBC Custody"
+
+Section = "MediolanumRMA"
+Entry = "DefaultCounterparty"
+DefaultValue = "DELEGATE"
+
+Section = "MediolanumRMA"
+Entry = "MAMLZCodes"
+DefaultValue = "Z8719429;Z8730529;Z8730528;Z8894216;Z8730525;Z5950209;Z8894216;Z8730525;Z5950209;Z5950206;Z5950206"
+
+
+
+Version 1.0.1.0 :
+===================
+Delivery date (YYYYMMDD):		20160830
+Source control label:			Mediolanum_RMA_FILTER_1.0.1.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+ + Filter for importing forex
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "ValidateForexAmount"
+DefaultValue = true
+
+Section = "MediolanumRMA"
+Entry = "ForexAmountEpsilon"
+DefaultValue = 0.01
+
+
+Version 1.0.0.0 :
+===================
+Delivery date (YYYYMMDD):		20160830
+Source control label:			Mediolanum_RMA_FILTER_1.0.0.0
+Software version:				7.1.3.11
+Client projects name:			Mediolanum_RMA_FILTER
+Installation on Server (Yes/No): Yes (Rich Market Adapter)
+Installation on Client (Yes/No): No
+SQL Scripts (Yes/No): No
+Distinctive feature:
+Bug fixed:
+New features (creation, modification, deletion):
+ + Filter for importing bonds and equity
+Parameters:
+
+Section = "MediolanumRMA"
+Entry = "UseStrategyFolios"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "ValidateGrossAmount"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "ValidateNetAmount"
+DefaultValue = false
+
+Section = "MediolanumRMA"
+Entry = "GrossAmountEpsilon"
+DefaultValue = 0.1
+
+Section = "MediolanumRMA"
+Entry = "NetAmountEpsilon"
+DefaultValue = 0.1

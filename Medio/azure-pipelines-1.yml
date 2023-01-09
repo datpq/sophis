@@ -1,0 +1,52 @@
+
+trigger:
+- Medio74
+
+pool: BuildServer
+
+variables:
+  major: 1
+  minor: $[counter(variables['major'], 100)]
+  TOOLKIT_VERSION: $(minor)
+
+
+steps:
+
+- checkout: self
+- task: PowerShell@2
+  inputs:
+    filePath: '.\MAKEFILE\IncreaseVersion.ps1'
+    
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+    
+- task: MSBuild@1
+  inputs:
+    solution: MEDIO_v21_Delivery.sln
+    msbuildVersion: '15.0'
+    msbuildArchitecture: 'x64'
+    platform: 'x64'
+    configuration: 'Release'
+
+- task: BatchScript@1
+  inputs:
+    fileName: '.\MAKEFILE\PushVersion.bat'
+    
+- task: PowerShell@2
+  inputs:
+    filePath: '.\MAKEFILE\DeployArtifacts.ps1'
+
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(build.artifactstagingdirectory)\..\binaries'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: 'D:\DELIVERY\Mediolanum_213.0.0_v$(TOOLKIT_VERSION).zip'
+    replaceExistingArchive: false

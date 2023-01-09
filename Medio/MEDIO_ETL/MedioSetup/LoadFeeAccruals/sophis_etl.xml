@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sophisETL xmlns="http://www.sophis.net/SophisETL" xmlns:etl="http://www.sophis.net/SophisETL">
+
+	<log>
+		<logFileName>%%log_file%%</logFileName>
+		<debugMode>true</debugMode>
+	</log>
+
+	<chain name="BenchmarkComponentUpdate">
+
+		<extract name="ReadCSVData" class="SophisETL.Extract.CSVExtract.CSVExtract, SophisETL.Extract, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<target>records_feeAccruals</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Extract/CSVExtract">
+				<inputFile>%%csv_file%%</inputFile>
+				<separator>;</separator> 
+				<skipLine>1</skipLine>
+				<headerLine>1</headerLine>
+				<csvFields>
+					<field position="2">
+						<xmlFieldName>MANAGER_CODE</xmlFieldName>				
+					</field>
+				
+					<field position="3">
+						<xmlFieldName>TRADE_DATE</xmlFieldName>
+						<xmlFieldType>DateDDMMYYYY</xmlFieldType>
+						<separator>/</separator>
+					</field>
+					<field position="1">
+						<xmlFieldName>FUND_NAME</xmlFieldName>				
+					</field>
+					<field position="6">
+						<xmlFieldName>ACCRUED_AMOUNT</xmlFieldName>
+					</field>
+					<field>
+						<xmlFieldName>FOLIO_PATH</xmlFieldName>
+					</field>
+				</csvFields>
+			</etl:settings>
+		</extract>			
+		
+		<transform name="UpdateDateFormat" class="SophisETL.Transform.Date.Date, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_feeAccruals</source>
+			<target>records_feeAccruals_MOD1</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Date">
+				<date dateName="TRADE_DATE">
+					<dateType>DateYYYYMMDD</dateType>
+					<separator>-</separator>
+				</date>
+			</etl:settings>
+		</transform>						
+		
+		
+		<transform name="SumAccruedValue" class="SophisETL.Transform.GroupByAndSum.GroupByAndSum, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_feeAccruals_MOD1</source>
+			<target>records_feeAccruals_MOD2</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/GroupByAndSum">
+				<groupByList> 
+				<groupByField>FUND_NAME</groupByField>
+				<sumField>ACCRUED_AMOUNT</sumField>
+				<filterField>MANAGER_CODE</filterField>
+				<folioPathField>FOLIO_PATH</folioPathField>
+				<depositaryField>DEPOSITARY_NAME</depositaryField>
+				</groupByList> 
+			</etl:settings>
+		</transform>
+		
+		
+		<transform name="CSVToXML" class="SophisETL.Transform.Velocity.VelocityTransformer, SophisETL.Transform.Velocity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_feeAccruals_MOD2</source>
+			<target>recordsXML</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Velocity">
+				<template>LoadFeeAccrualsTemplate.xml</template>
+				<targetField>xmlImportMessage</targetField>
+			</etl:settings>
+		</transform>							
+		
+		
+		<load name="ISLoad" class="SophisETL.Load.XmlISLoader.XmlISLoader, SophisETL.Load.SOA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>recordsXML</source>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Load/XmlISLoader">
+				<sourceField>xmlImportMessage</sourceField>
+			</etl:settings>
+		</load>
+
+	</chain>
+
+	<!-- We use a standard CSV Report -->
+	<report name="CSVReport" class="SophisETL.Reporting.CSVReport.CSVReportingHandler, SophisETL.Reporting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+		<etl:settings xmlns="http://www.sophis.net/SophisETL/Reporting/CSVReport">
+			<reportName>%%report_file%%</reportName> 
+			<separator>;</separator>
+			<!-- begin Options -->
+			<reportType>recordNotLoadedOnly</reportType>
+			<skipFooter>true</skipFooter>			
+			<!-- end Options -->
+		</etl:settings>
+	</report>
+
+</sophisETL>

@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+             xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+             xmlns:sph="http://www.sophis.net/Instrument" xmlns:folio="http://www.sophis.net/folio"
+             xmlns:user="http://www.sophis.net/user">
+
+	<fpml:header>
+		<fpml:conversationId conversationIdScheme=""/>
+		<fpml:messageId messageIdScheme="http://www.sophis.net/gxml/exchange/messageIdScheme/simple">001</fpml:messageId>
+		<fpml:sentBy partyIdScheme="http://www.sophis.net/party/partyId/name">SENDER</fpml:sentBy>
+		<fpml:sendTo partyIdScheme="http://www.sophis.net/party/partyId/name">SOPHIS</fpml:sendTo>
+		<fpml:creationTimestamp>2005-09-19T13:52:00</fpml:creationTimestamp>
+	</fpml:header>
+
+	<trade:trade common:persistenceType="UpdateOrCreate" trade:creationWorkflowEventName="BBH Upload" trade:updateWorkflowEventName="BBH Upload" xmlns:trade="http://www.sophis.net/trade" xmlns:common="http://sophis.net/sophis/common" xmlns:folio="http://www.sophis.net/folio" xmlns:instrument="http://www.sophis.net/Instrument" xmlns:ns0="http://www.sophis.net/SSI" xmlns:ns1="http://www.sophis.net/NostroAccountReference" xmlns:party="http://www.sophis.net/party">
+    <trade:tradeHeader>
+      <trade:partyTradeIdentifier>
+        <party:partyReference>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </party:partyReference>
+        <trade:tradeId trade:tradeIdScheme="http://www.sophis.net/trade/tradeId/externalReference">82570</trade:tradeId>
+      </trade:partyTradeIdentifier>
+      <trade:extendedPartyTradeInformation>
+        <trade:partyReference>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </trade:partyReference>
+        <trade:trader trade:traderScheme="http://www.sophis.net/user/userId/name">BBHUploader</trade:trader>
+        <folio:identifierAllocationRule>
+          <folio:folio>
+            <folio:portfolioName folio:portfolioNameScheme="http://www.sophis.net/folio/portfolioName/id">12790</folio:portfolioName>
+          </folio:folio>
+        </folio:identifierAllocationRule>
+        <trade:businessEvent>Purchase/Sale</trade:businessEvent>
+        <trade:origin>Automatic</trade:origin>
+        <trade:comment>20220311-16:09:08</trade:comment>
+        <trade:backofficeStatus>No Status</trade:backofficeStatus>
+        <trade:intentToClear>false</trade:intentToClear>
+        <trade:largeSizeTrade>false</trade:largeSizeTrade>
+        <trade:originatingEvent>Trade</trade:originatingEvent>
+        <trade:extraFields>
+		</trade:extraFields>					
+      </trade:extendedPartyTradeInformation>
+      <trade:tradeDate>2022-05-05</trade:tradeDate>
+      <trade:pnLDate>2022-05-05</trade:pnLDate>
+      <trade:settlementDate>2022-05-09</trade:settlementDate>
+      <trade:tradeTime>13:48:57+01:00</trade:tradeTime>
+      <trade:paymentDate>2022-05-09</trade:paymentDate>
+    </trade:tradeHeader>
+    <trade:tradeProduct>
+      <trade:instrument>
+        <instrument:reference instrument:modifiable="UniqueNotPrioritary" instrument:name="Ticker">MSFT US Equity</instrument:reference>
+      </trade:instrument>
+      <trade:principalPayment>
+        <trade:buyerPartyReference>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </trade:buyerPartyReference>
+        <trade:sellerPartyReference>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </trade:sellerPartyReference>
+        <trade:principalSettlement>
+          <trade:numberOfSecurities>123456.000000000000</trade:numberOfSecurities>
+          <trade:spot trade:inSettlementCurrency="false" trade:type="InAmount">289.980000000000</trade:spot>
+          <trade:paymentMethod></trade:paymentMethod>
+          <trade:SMDT></trade:SMDT>
+          <trade:amount>
+            <trade:currency>USD</trade:currency>
+            <trade:amount>35801005.439999997616</trade:amount>
+          </trade:amount>
+          <trade:grossAmount>
+            <trade:currency>USD</trade:currency>
+            <trade:amount>35799770.879999995232</trade:amount>
+          </trade:grossAmount>
+          <trade:valueDate>
+            <common:unadjustedDate>2022-05-09</common:unadjustedDate>
+            <common:dateAdjustments>
+              <common:businessDayConvention>NONE</common:businessDayConvention>
+            </common:dateAdjustments>
+          </trade:valueDate>
+        </trade:principalSettlement>
+      </trade:principalPayment>
+    </trade:tradeProduct>
+    <trade:entityPartyReference>
+      <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+    </trade:entityPartyReference>
+     <trade:extendedTradeSide>
+      <trade:orderer>
+        <party:party>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </party:party>
+      </trade:orderer>
+      <trade:entity>
+        <party:party>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </party:party>
+      </trade:entity>
+      <trade:counterparty>
+        <party:party>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </party:party>
+      </trade:counterparty>
+      <trade:depositary>
+        <party:party>
+          <party:partyId party:partyIdScheme="http://www.sophis.net/party/partyId/id">10004330</party:partyId>
+        </party:party>
+      </trade:depositary>
+    </trade:extendedTradeSide>
+    <trade:documentation/>
+  </trade:trade>
+</exch:import>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build"  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    This script exposes MsBuild targets to produce a software component package.
+    
+    Targets are defined in the imported SoftwareComponent.targets file.
+    The main lifecycle is:
+    - PrepareBuildEnvironment
+    - Build
+    - Install
+    - Package
+    
+    Run target "DisplayInformation" to get info.
+
+    Mandatory MsBuild items must be defined here:
+	Properties:
+	- SolutionFile
+	- ProductName
+
+	Item groups:
+	- Artifacts
+
+	Targets:
+	- CheckBuildPrerequisites
+	- PrepareBuildEnvironment
+  -->
+
+  <!--
+  ============================================================
+  Mandatory properties
+  ============================================================
+  -->
+  <PropertyGroup>
+    <!-- Solution file can be a visual studio sln, or a msbuild file having clean, build and rebuild targets -->
+    <ToolkitSourcesDir>$(MSBuildProjectDirectory)\..</ToolkitSourcesDir>
+    <SolutionFile>$(ToolkitSourcesDir)\MEDIO_v21_Delivery.sln</SolutionFile>
+    <ProductName>Mediolanum</ProductName>
+    <BuildEnvironment>VS2017</BuildEnvironment>
+    <BuildWithDevenv>true</BuildWithDevenv>
+
+    <Platform Condition="$(Platform) == '' ">x64</Platform>
+    <Configuration Condition="$(Configuration) == '' ">Release</Configuration>
+
+  </PropertyGroup>
+  <!--
+  ============================================================
+  Custom properties
+  ============================================================
+  -->
+
+  <PropertyGroup>
+    <ProductVersion>AUTO_VERSION</ProductVersion>
+    <ReleaseNote>MediolanumReleaseNotes.txt</ReleaseNote>
+  </PropertyGroup>
+
+  <!--
+  ============================================================
+  Mandatory item groups
+  ============================================================
+  -->
+
+  <ItemGroup>
+
+    <!-- SQL-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MediolanumSQL_Base.sql;
+						$(ToolkitSourcesDir)\MediolanumSQL_Iterative.sql;
+            $(ToolkitSourcesDir)\MediolanumSQL_RollbackTKT.sql;
+			$(ToolkitSourcesDir)\Medio.BackOffice.net\SQL\Medio.BackOffice.netScript.sql;
+			$(ToolkitSourcesDir)\Medio.BackOffice.net\SQL\Rollback_Medio.BackOffice.netScript.sql;
+			$(ToolkitSourcesDir)\MEDIO_GUI\SQL\MEDIO_UserRight_ExpiredFX_Script.sql;
+			$(ToolkitSourcesDir)\MEDIO_GUI\SQL\Rollback_MEDIO_UserRight_ExpiredFX_Script.sql;">
+      <DestDir>.\SQL</DestDir>
+    </Artifacts>
+
+    <!-- Release notes-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MediolanumReleaseNotes.txt;
+						 $(ToolkitSourcesDir)\MediolanumInstallation.txt;">
+      <DestDir>.\ReleaseNotes</DestDir>
+    </Artifacts>
+
+    <!-- CLIENT bin-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MEDIO_GUI\$(Platform)\$(Configuration)\MEDIO_GUI.dll;
+						$(ToolkitSourcesDir)\MEDIO.OMS.WF4Activities\bin\$(Platform)\$(Configuration)\MEDIO.OMS.WF4Activities.dll;
+						$(ToolkitSourcesDir)\MEDIO_COMPLIANCE\$(Platform)\$(Configuration)\MEDIO_COMPLIANCE.dll;
+						$(ToolkitSourcesDir)\MEDIO_DOB_INDICATOR\$(Platform)\$(Configuration)\MEDIO_DOB_INDICATOR.dll;
+						$(ToolkitSourcesDir)\MEDIO.OrderAutomation.net\bin\$(Configuration)\$(Platform)\MEDIO.OrderAutomation.NET.dll;
+						$(ToolkitSourcesDir)\MEDIO.ClauseBuilder.net\bin\$(Configuration)\$(Platform)\MEDIO.ClauseBuilder.net.dll;
+						$(ToolkitSourcesDir)\MEDIO.FXCompliance.net\MEDIO.FXCompliance.net\bin\$(Configuration)\$(Platform)\MEDIO.FXCompliance.net.dll;
+						$(ToolkitSourcesDir)\MEDIO.CORE\bin\$(Configuration)\$(Platform)\MEDIO.CORE.dll;
+            $(ToolkitSourcesDir)\MEDIO_UCITS\$(Platform)\$(Configuration)\MEDIO_UCITS.dll;
+            $(ToolkitSourcesDir)\MEDIO.BackOffice.net\bin\$(Configuration)\$(Platform)\MEDIO.BackOffice.net.dll;
+						$(ToolkitSourcesDir)\MEDIO_RBC_NAV\$(Platform)\$(Configuration)\MEDIO_RBC_NAV.dll;
+						$(ToolkitSourcesDir)\MEDIO.NestedRule.net\bin\$(Configuration)\$(Platform)\MEDIO.NestedRule.net.dll;">
+      <DestDir>.\client</DestDir>
+    </Artifacts>
+
+    <!-- SophisMonitor-->
+    <Artifacts Include="$(ToolkitSourcesDir)\SophisNightMonitor\SophisNightMonitor\bin\$(Configuration)\$(Platform)\SophisNightMonitor.exe;
+						$(ToolkitSourcesDir)\SophisNightMonitor\SophisNightMonitorConfiguration\bin\$(Configuration)\$(Platform)\SophisNightMonitorConfiguration.dll;
+            $(ToolkitSourcesDir)\SophisNightMonitor\SophisNightMonitor\SampleConfig\Risk.config;
+            $(ToolkitSourcesDir)\SophisNightMonitor\SophisNightMonitor\src\EmailServer\Templates\layout.html;
+            $(ToolkitSourcesDir)\SophisNightMonitor\SophisNightMonitor\src\EmailServer\Templates\NightMonitorReport.xslt;
+            ">
+      <DestDir>.\client\SophisMonitor</DestDir>
+    </Artifacts>
+    
+    <!-- SERVICES - shared api-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MEDIO_GUI\$(Platform)\$(Configuration)\MEDIO_GUI.dll;
+               $(ToolkitSourcesDir)\MEDIO.OMS.WF4Activities\bin\$(Platform)\$(Configuration)\MEDIO.OMS.WF4Activities.dll;
+               $(ToolkitSourcesDir)\MEDIO.TransactionAction\bin\$(Configuration)\$(Platform)\MEDIO.TransactionAction.dll;
+               $(ToolkitSourcesDir)\MEDIO_COMPLIANCE\$(Platform)\$(Configuration)\MEDIO_COMPLIANCE.dll;
+               $(ToolkitSourcesDir)\MEDIO_DOB_INDICATOR\$(Platform)\$(Configuration)\MEDIO_DOB_INDICATOR.dll;
+			   $(ToolkitSourcesDir)\MEDIO.OrderAutomation.net\bin\$(Configuration)\$(Platform)\MEDIO.OrderAutomation.NET.dll;
+               $(ToolkitSourcesDir)\MEDIO.ClauseBuilder.net\bin\$(Configuration)\$(Platform)\MEDIO.ClauseBuilder.net.dll;
+               $(ToolkitSourcesDir)\MEDIO_UCITS\$(Platform)\$(Configuration)\MEDIO_UCITS.dll;
+               $(ToolkitSourcesDir)\MEDIO_IntegrationServiceAction\x64\Release\MEDIO_IntegrationServiceAction.dll;
+               $(ToolkitSourcesDir)\MEDIO.FXCompliance.net\MEDIO.FXCompliance.net\bin\$(Configuration)\$(Platform)\MEDIO.FXCompliance.net.dll;
+			   $(ToolkitSourcesDir)\MEDIO.CORE\bin\$(Configuration)\$(Platform)\MEDIO.CORE.dll;
+			   $(ToolkitSourcesDir)\MEDIO.BackOffice.net\bin\$(Configuration)\$(Platform)\MEDIO.BackOffice.net.dll;  
+               $(ToolkitSourcesDir)\MEDIO_RBC_NAV\$(Platform)\$(Configuration)\MEDIO_RBC_NAV.dll;
+			   $(ToolkitSourcesDir)\MEDIO.NestedRule.net\bin\$(Configuration)\$(Platform)\MEDIO.NestedRule.net.dll;">
+      <DestDir>.\servers\sophis\shared\api</DestDir>
+    </Artifacts>
+
+    <!-- DEBUG-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MEDIO_GUI\$(Platform)\$(Configuration)\MEDIO_GUI.pdb;
+              $(ToolkitSourcesDir)\MEDIO.TransactionAction\bin\$(Configuration)\$(Platform)\MEDIO.TransactionAction.pdb;
+              $(ToolkitSourcesDir)\MEDIO_COMPLIANCE\$(Platform)\$(Configuration)\MEDIO_COMPLIANCE.pdb;
+              $(ToolkitSourcesDir)\MEDIO_DOB_INDICATOR\$(Platform)\$(Configuration)\MEDIO_DOB_INDICATOR.pdb;
+              $(ToolkitSourcesDir)\MEDIO.OrderAutomation.net\bin\$(Configuration)\$(Platform)\MEDIO.OrderAutomation.NET.pdb;
+              $(ToolkitSourcesDir)\MEDIO.ClauseBuilder.net\bin\$(Configuration)\$(Platform)\MEDIO.ClauseBuilder.net.pdb;
+              $(ToolkitSourcesDir)\MEDIO_UCITS\$(Platform)\$(Configuration)\MEDIO_UCITS.pdb;
+              $(ToolkitSourcesDir)\MEDIO.BackOffice.net\bin\$(Configuration)\$(Platform)\MEDIO.BackOffice.net.pdb;
+						  $(ToolkitSourcesDir)\MEDIO.CORE\bin\$(Configuration)\$(Platform)\MEDIO.CORE.pdb">
+      <DestDir>.\client\debug</DestDir>
+    </Artifacts>
+
+    <!-- Schema-->
+    <Artifacts Include="$(ToolkitSourcesDir)\MEDIO.ClauseBuilder.net\schema\ToolkitExoticMask.xsd;">
+      <DestDir>.\client\schema</DestDir>
+    </Artifacts>
+
+    
+    <!-- RMA-->
+    <Artifacts Include="
+						$(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\bin\Release\x64\Mediolanum_RMA_FILTER.dll;
+						$(ToolkitSourcesDir)\Mediolanum_RMA_FILTER_CLI\$(Platform)\$(Configuration)\Mediolanum_RMA_FILTER_CLI.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.ISEngine\bin\$(Configuration)\SophisETL.ISEngine.dll;
+						$(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\Service_References\Sophis.UniversalAdapter.Configuration.dll;
+						$(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\Service_References\SophisServerDotNet.exe.config;
+						">
+      <DestDir>.\servers\sophis\Market\RichMarketAdapter\bin</DestDir>
+    </Artifacts>
+
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\Resources\fieldconfig.xml;
+            $(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\config\RBCUploader.config;
+            $(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\config\RBCUploader_MergerReplay.config;
+						">
+      <DestDir>.\servers\sophis\Market\RichMarketAdapter\config</DestDir>
+    </Artifacts>
+
+    <!-- FIXGateway -->
+    <Artifacts Include="
+						$(ToolkitSourcesDir)\MEDIO.CORE\bin\$(Configuration)\$(Platform)\MEDIO.CORE.dll;
+						$(ToolkitSourcesDir)\Medio.FIXPlugin.net\bin\Release\x64\Medio.FIXPlugin.net.dll;
+                        $(ToolkitSourcesDir)\Mediolanum_RMA_FILTER\bin\Release\x64\Mediolanum_RMA_FILTER.dll;
+						$(ToolkitSourcesDir)\Mediolanum_RMA_FILTER_CLI\$(Platform)\$(Configuration)\Mediolanum_RMA_FILTER_CLI.dll;
+						">
+      <DestDir>.\servers\sophis\Market\FIXGateway\bin</DestDir>
+    </Artifacts>
+	<!-- OrderAdapter -->
+    <Artifacts Include="
+						$(ToolkitSourcesDir)\MEDIO.RBCOrderAdapter.net\bin\$(Configuration)\$(Platform)\MEDIO.RBCOrderAdapter.net.dll;
+						">
+      <DestDir>.\servers\sophis\Market\OrderAdapter\bin</DestDir>
+    </Artifacts>
+
+    <Artifacts Include="
+			    	$(ToolkitSourcesDir)\MEDIO.RBCOrderAdapter.net\Config\OrderAdapter_RBC.config;
+            $(ToolkitSourcesDir)\MEDIO.RBCOrderAdapter.net\Config\RMA_RBCOrder.config;
+						">
+      <DestDir>.\servers\sophis\Market\OrderAdapter\config</DestDir>
+    </Artifacts>
+
+	<!-- ETL -->
+    <Artifacts Include="
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL\bin\$(Platform)\$(Configuration)\SophisETL.exe;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Common\bin\$(Platform)\$(Configuration)\SophisETL.Common.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Extract\bin\$(Platform)\$(Configuration)\SophisETL.Extract.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.ISEngine\bin\$(Configuration)\SophisETL.ISEngine.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Load\bin\$(Platform)\$(Configuration)\SophisETL.Load.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Load.SOA\bin\$(Platform)\$(Configuration)\SophisETL.Load.SOA.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Queue\bin\$(Platform)\$(Configuration)\SophisETL.Queue.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Common\bin\$(Platform)\$(Configuration)\SophisETL.Common.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Transform\bin\$(Platform)\$(Configuration)\SophisETL.Transform.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Reporting\bin\$(Platform)\$(Configuration)\SophisETL.Reporting.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL.Transform.Velocity\bin\$(Platform)\$(Configuration)\SophisETL.Transform.Velocity.dll;
+            			$(ToolkitSourcesDir)\MEDIO_ETL\SophisETL\bin\$(Platform)\$(Configuration)\NVelocity.dll;
+						$(ToolkitSourcesDir)\MEDIO_ETL\SophisETLGUI\bin\$(Platform)\$(Configuration)\SophisETLGUI.exe;
+						">
+						<!--$(Toolkit_v713x_x64)\..\..\SophisTools.dll;
+                        $(Toolkit_v713x_x64)\..\..\SophisPop.dll;
+						$(Toolkit_v713x_x64)\..\..\SophisConfiguration.dll;
+						$(Toolkit_v713x_x64)\..\..\..\Services\sophis\UniversalAdapter\UniversalAdapter\bin\Sophis.UniversalAdapter.Configuration.dll;
+						$(Toolkit_v713x_x64)\..\..\..\Services\sophis\shared\api\Sophis.Services.30.dll;
+						$(Toolkit_v713x_x64)\..\..\..\Services\sophis\shared\api\Sophis.Services.30.XmlSerializers.dll;
+                        $(Toolkit_v713x_x64)\..\..\..\Services\sophis\shared\api\SophisISDecrypter.dll;
+                        $(Toolkit_v713x_x64)\..\..\..\Services\sophis\shared\api\SophisISEncrypter.dll;
+                        $(Toolkit_v713x_x64)\..\..\..\Services\sophis\shared\api\Sophis.Services.30.XmlSerializers.dll;
+						-->
+      <DestDir>.\servers\sophis\ETL\bin</DestDir>
+    </Artifacts>
+
+    <Artifacts Include="
+				$(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\NAV\SophisETL.exe.config;
+                $(ToolkitSourcesDir)\MEDIO_ETL\SophisETLGUI\bin\$(Platform)\$(Configuration)\SophisETLGUI.exe.Config;
+
+						">
+      <DestDir>.\servers\sophis\ETL\sample_config</DestDir>
+    </Artifacts>
+    
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\NAV\config\sophis_etl.xml;">
+      <DestDir>.\servers\sophis\ETL\bin\config</DestDir>
+    </Artifacts>
+    
+    <!--NAV-->
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\NAV\config\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\NAV\NAV_Template.xml;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\NAV</DestDir>
+    </Artifacts>
+    
+    <!--BenchmarkPrice-->
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkPrice\BenchmarkPriceTemplate.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkPrice\parametersDated.ini;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkPrice\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkPrice\UploadBenchmarkPrices.cmd;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\BenchmarkPrice</DestDir>
+    </Artifacts>
+    
+    
+    <!--BenchmarkCompPrice-->
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkCompPrice\BenchmarkPriceTemplate.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkCompPrice\parametersDated.ini;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkCompPrice\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkCompPrice\UploadBenchmarkPrices.cmd;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkCompPrice\SOAcheckLastPriceByExternalRef.xml;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\BenchmarkCompPrice</DestDir>
+    </Artifacts>
+    
+        
+    <!--BenchmarkComp-->
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkComp\BenchmarkComponent_Template.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkComp\parametersDated.ini;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkComp\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\BenchmarkComp\UploadBenchmarkComponents.cmd;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\BenchmarkComp</DestDir>
+    </Artifacts>
+
+    <!--Strat/Share NAV-->
+    <Artifacts Include="
+			      $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\NAV_share_setup.xlsx;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\parameters.ini;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\StrategyShareNAVTemplate.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\UploadStratNAV.cmd;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\StrategyShareNAV\XCP2P156SMVDAY_20170926.csv;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\StrategyShareNAV</DestDir>
+    </Artifacts>
+	
+	    <Artifacts Include="
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\LoadFeeAccruals\parameters.ini;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\LoadFeeAccruals\sophis_etl.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\LoadFeeAccruals\LoadFeeAccrualsTemplate.xml;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\LoadFeeAccruals\UploadFeeAccruals.cmd;
+            $(ToolkitSourcesDir)\MEDIO_ETL\MedioSetup\LoadFeeAccruals\XCP2P156SMVDAY_20170926.csv;
+            ">
+      <DestDir>.\servers\sophis\ETL\config\LoadFeeAccruals</DestDir>
+    </Artifacts>
+      
+  </ItemGroup>
+
+  <!--
+  ============================================================
+  Optional targets:
+  ============================================================
+  -->
+
+  <!-- Import common scripts for building, installing and packaging software components. -->
+  <PropertyGroup>
+    <CommonScriptsDir>delivery.common</CommonScriptsDir>
+  </PropertyGroup>
+
+  <Import Project="$(CommonScriptsDir)\SoftwareComponent.targets"/>
+
+  <!--
+  ============================================================
+  Mandatory targets:
+  According to your project, some specific tasks need to be run before building.
+  note: it is important that these targets are defined after the "SoftwareComponent.targets" import directive.
+  ============================================================
+  -->
+
+  <!-- Placeholder to execute check on the environment needed for your build process.
+    example of those can include:
+    - environment variables
+    - directories, etc ...) . -->
+  <Target Name="CheckBuildEnvironment">
+  </Target>
+
+  <Target Name="PrepareBuildEnvironment">
+  </Target>
+  
+</Project>

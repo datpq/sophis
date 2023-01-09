@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{5ea53b11-cf67-4b4b-897b-9784b75ba0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQL Files">
+      <UniqueIdentifier>{d6bb899e-9785-4108-a712-0020606054aa}</UniqueIdentifier>
+      <Extensions>sql</Extensions>
+    </Filter>
+    <Filter Include="Version Files">
+      <UniqueIdentifier>{6dfc5e13-9454-4a54-aa78-6ad64ee0d32d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MEDIO_IntegrationServiceActionMain.cpp" />
+    <ClCompile Include="entrypoint.cpp" />
+    <ClCompile Include="MediolanumTransactionAction.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Rollback_MEDIO_IntegrationServiceActionScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="SQL\MEDIO_IntegrationServiceActionScript.sql">
+      <Filter>SQL Files</Filter>
+    </None>
+    <None Include="Version\ReadMe.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Version\ReleaseNotes.MEDIO_IntegrationServiceAction.txt">
+      <Filter>Version Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_IntegrationServiceAction.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\MEDIO_IntegrationServiceActionVersion.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version\MEDIO_IntegrationServiceActionVersion.h">
+      <Filter>Version Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediolanumTransactionAction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\MEDIO_IntegrationServiceAction.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

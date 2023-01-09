@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sophisETL xmlns="http://www.sophis.net/SophisETL" xmlns:etl="http://www.sophis.net/SophisETL">
+
+	<log>
+		<logFileName>ETL_LogFile.log</logFileName>
+		<debugMode>true</debugMode>
+	</log>
+
+	<chain name="MedioShareNAVGAV">
+
+		<extract name="ReadCSVData" class="SophisETL.Extract.CSVExtract.CSVExtract, SophisETL.Extract, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<target>records_GAVNAV</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Extract/CSVExtract">
+				<inputFile>GAV_NAV_ADJUST_20170425.csv</inputFile>
+				<separator>;</separator> 
+				<skipLine>1</skipLine>
+				<headerLine>0</headerLine>
+				<csvFields>
+					<field position="1">
+						<xmlFieldName>SubFundID</xmlFieldName>
+					</field>
+					<field position="2">
+						<xmlFieldName>DateOfTheReport</xmlFieldName>
+						<xmlFieldType>DateDDMMYYYY</xmlFieldType>
+						<separator>/</separator>
+					</field>
+					<field position="3">
+						<xmlFieldName>ShareClassIdentifier</xmlFieldName>
+					</field>					
+					<field position="4">
+						<xmlFieldName>NavPerUnit</xmlFieldName>
+					</field>					
+					<field position="9">
+						<xmlFieldName>AdjustedNAVPerUnit</xmlFieldName>
+					</field>					
+					<field position="10">
+						<xmlFieldName>AdjustedGAVPerUnit</xmlFieldName>
+					</field>
+				</csvFields>
+			</etl:settings>
+		</extract>			
+		
+		<transform name="UpdateDateFormat" class="SophisETL.Transform.Date.Date, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_GAVNAV</source>
+			<target>records_GAVNAV_MOD1</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Date">
+				<date dateName="DateOfTheReport">
+					<dateType>DateYYYYMMDD</dateType>
+					<separator>-</separator>
+				</date>
+				
+			</etl:settings>
+		</transform>
+		
+		<transform name="CreateDBCODE" class="SophisETL.Transform.AlterString.AlterString, SophisETL.Transform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_GAVNAV_MOD1</source>
+			<target>records_GAVNAV_MOD2</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/AlterString">
+				<alterString sourceField="SubFundID" sourceField2="ShareClassIdentifier" separatorField="_" targetField="DBCODE" type="Join">
+				</alterString>
+				
+			</etl:settings>
+		</transform>		
+		
+				
+		<transform name="CSVToXML" class="SophisETL.Transform.Velocity.VelocityTransformer, SophisETL.Transform.Velocity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>records_GAVNAV_MOD2</source>
+			<target>recordsXML</target>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Transform/Velocity">
+				<template>NAV_Template.xml</template>
+				<targetField>xmlImportMessage</targetField>
+			</etl:settings>
+		</transform>						
+		
+		<load name="ISLoad" class="SophisETL.Load.XmlISLoader.XmlISLoader, SophisETL.Load.SOA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+			<source>recordsXML</source>
+			<etl:settings xmlns="http://www.sophis.net/SophisETL/Load/XmlISLoader">
+				<sourceField>xmlImportMessage</sourceField>
+			</etl:settings>
+		</load>
+
+	</chain>
+
+	<!-- We use a standard CSV Report -->
+	<report name="CSVReport" class="SophisETL.Reporting.CSVReport.CSVReportingHandler, SophisETL.Reporting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+		<etl:settings xmlns="http://www.sophis.net/SophisETL/Reporting/CSVReport">
+			<reportName>ReportErrors.csv</reportName> 
+			<separator>;</separator>
+			<!-- begin Options -->
+			<reportType>recordNotLoadedOnly</reportType>
+			<skipFooter>true</skipFooter>			
+			<!-- end Options -->
+		</etl:settings>
+	</report>
+
+</sophisETL>

@@ -1,0 +1,9 @@
+MEDIO;RBC;20160729;094519;;CREATE2315723703;TXT;FTP_CUS;1;
+CREATE;MEDIO;3703;;;;;;;20160729;094519;;9478;TEST;s_cpty;INDEX;CDS_Index;OS_index;OS_index;;;20510102;.02;MODIFIED FOLLOWING;Q;OST;ACT/365;Cash;231572;NEW;INC;20160726;20160727;0.56;BUY;320000;;OST;-110077.01;20160729;;114117;3703;0;6662;
+
+
+
+FROM;TO;DATE;TIME;PATH;NAME;EXTNAME;ANSWER1;COUNT 
+MEDIO;RBC;20160905;114649;;CREATE11273671746;TXT;FTP_CUS;1
+ACTION; EMETTEUR; EXT-REF; INTERNAL_ORIGID; INTERNAL_ID; INTERNAL_STATUS; EXTERNAL_ORIGID; EXTERNAL_ID; EXTERNAL_STATUS; DATE_OUT; TIME_OUT; ERROR_MESSAGE; Portfolio ID AM; Portfolio Name; Counterparty name (compensation broker); CDS Type; Reference Entity Name; Underlying ID; Underlying RED Pair code; Index Series; Index Version; Scheduled Termination date; Fixed rate/Deal Spread; Busines Days Convention; Payment frequency; Deal Currency; Day Count; Settlement type; Trade ID; NEW/CANC; OP/INC/CL; Trade date; Last Accrual date; Actual spread; Fund position; Notional Amount; Upfron Payer; Payment CCY; Upfront Payment; Upfront Payment Settlement Date; CDS Seniority; Trade Time; Trade Identifier DTCC; Original Trade ID; UTI (Unique trade identifier) 
+CREATE;MEDIO;1746;;;;;;;20160905;114649;;DB8123Z1230001;Credit;SOCIETE GENERALE;SINGLE;;ITX.EUXO.HY S24 12/20;;;;20201221;.05;MODNEAREST;Q;EUR;ACT/360;Cash;1127367;NEW;CL;20160905;20160906;0;BUY;509281;;EUR;-25451.81;20160908;Senior Secured;014609;1746;0;2UTI;

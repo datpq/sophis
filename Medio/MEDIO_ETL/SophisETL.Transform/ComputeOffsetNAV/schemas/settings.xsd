@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/ComputeOffsetNAV" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/ComputeOffsetNAV">
+
+  <element name="settings" type="tns:Settings"/>
+
+  <complexType name="Settings">
+    <sequence>
+      <element name="ComputeList" type="tns:ComputeElement" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="ComputeElement">
+    <sequence>
+      <element name="ComputeField" type="string" minOccurs="0" maxOccurs="1" />
+    </sequence>
+    <attribute name="computeFieldName"	 type="string" use="required" />
+  </complexType>
+
+
+</schema>

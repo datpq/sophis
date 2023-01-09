@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL">
+
+  <!-- This Schema contains the definition of the standard settings for the SophisETL Framework -->
+  <element name="sophisETL" type="tns:SophisETL"/>
+  <complexType name="SophisETL">
+    <sequence>
+      <element name="log"       type="tns:LogSettings"         minOccurs="1" maxOccurs="1" />
+      <element name="chain"     type="tns:ETLChainDefinition"  minOccurs="1" maxOccurs="1"/>
+      <element name="report"    type="tns:Report"              minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="LogSettings">
+    <sequence>
+      <element name="logFileName"     type="string"  minOccurs="0" maxOccurs="1" default="SophisETL.log"/>
+      <element name="timeStampFormat" type="string"  minOccurs="0" maxOccurs="1" default="[dd/MM/yyyy HH:mm:ss.fff]"/>
+      <element name="alsoOnConsole"   type="boolean" minOccurs="0" maxOccurs="1" default="false"/>
+      <element name="debugMode"       type="boolean" minOccurs="0" maxOccurs="1" default="false"/>
+      <element name="clearFile"       type="boolean" minOccurs="0" maxOccurs="1" default="false"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="Report">
+    <sequence>
+      <element name="settings" type="tns:AnySettings" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+    <attribute name="name"  type="string" use="optional" default="Report"/>
+    <attribute name="class" type="string" use="required"/>
+  </complexType>
+
+  <!-- Chain Definition -->
+  <complexType name="ETLChainDefinition">
+      <sequence>
+
+        <!-- Extract Definition -->
+        <element name="extract" minOccurs="1" maxOccurs="unbounded">
+          <complexType>
+            <sequence>
+              <element name="target"   type="string"    minOccurs="1" maxOccurs="1"/>
+              <element name="settings" type="tns:AnySettings" minOccurs="0" maxOccurs="1"/>
+            </sequence>
+            <attribute name="name" type="string" use="optional"/>
+            <attribute name="class" type="string" use="required"/>
+          </complexType>
+        </element>
+
+        <!-- Transform Definition -->
+        <element name="transform" minOccurs="0" maxOccurs="unbounded">
+          <complexType>
+            <sequence>
+              <element name="source"   type="string"    minOccurs="1" maxOccurs="unbounded"/>
+              <element name="target"   type="string"    minOccurs="1" maxOccurs="unbounded"/>
+              <element name="settings" type="tns:AnySettings" minOccurs="0" maxOccurs="1"/>
+            </sequence>
+            <attribute name="name" type="string" use="optional"/>
+            <attribute name="class" type="string" use="required"/>
+          </complexType>
+        </element>
+
+        <!-- Load Definition -->
+        <element name="load" minOccurs="1" maxOccurs="unbounded">
+          <complexType>
+            <sequence>
+              <element name="source"   type="string"    minOccurs="1" maxOccurs="1"/>
+              <element name="settings" type="tns:AnySettings" minOccurs="0" maxOccurs="1"/>
+            </sequence>
+            <attribute name="name" type="string" use="optional"/>
+            <attribute name="class" type="string" use="required"/>
+          </complexType>
+        </element>
+
+        <!-- Engine Definition -->
+        <element name="engine" minOccurs="0" maxOccurs="unbounded">
+          <complexType>
+            <sequence>
+              <element name="settings" type="tns:AnySettings" minOccurs="0" maxOccurs="1"/>
+            </sequence>
+            <attribute name="class" type="string" use="required"/>
+          </complexType>
+        </element>
+        
+      </sequence>
+      <attribute name="name" use="optional" default="ETLChain"/>
+  </complexType>
+
+  <complexType name="AnySettings">
+    <sequence>
+      <any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+</schema>

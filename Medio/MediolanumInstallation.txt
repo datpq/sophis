@@ -1,0 +1,377 @@
++++++++ This file should contain +++++++++
+1)	DLLs to be released and where
+2)  Toolkit parameters required
+3)	Additional config details linked to toolkit 
+* If there's no new version found - use the last one, meaning there's no change in this release
+* Otherwise there's should be a new version containing the lastest config
+++++++++++++++++++++++++++++++++++++++++++
+
+++++++ Toolkit Modification Process ++++++
+When updating a toolkit project (or adding a new project) the process will then run as follows:
+1) Make changes to solution.
+	a. Make sure your compilation doesn't throw any errors OR WARNINGS.
+	b. Test the changes locally, as normal, and when you are ready to release...
+2) Update each of the C++ and C# version files with the new release version.
+3) Update the solution release note, adding at the top details of your release.
+	a. Increment the version in the release note, including the Source Control Label.
+4) Update the installation.txt file, any READMEs, SQLs, etc etc.
+5) Check the solution in, with appropiate comments, and log onto the build server to release.
+	a. Note that if you have added a new project (or intend to include additional artifacts) you will need to update the .build.proj file on the build server.
+++++++++++++++++++++++++++++++++++++++++++
+
+
+###############################
+##          GENERAL          ##
+###############################
+
+1. CLIENT:
+	* Binaries: please copy content of the client folder from the released ZIP.
+	* APIConfiguration>Toolkit>DLLs:
+                <clear />
+                <add Name="MEDIO_GUI" />
+				<add Name="MEDIO_COMPLIANCE" />
+				<add Name="MEDIO_DOB_INDICATOR" />
+				<add Name="MEDIO_UCITS_CALCULATION" />
+	* APIConfiguration>Toolkit>Assembly DLLs:
+	    <clear />
+		<add Name="MEDIO.BackOffice.net" />
+		<add Name="MEDIO.ClauseBuilder.net" />
+		<add Name="MEDIO.MEDIO.OrderAutomation.NET.net" />
+		<add Name="MEDIO.FXCompliance.net" />
+		<add Name="MEDIO.NestedRule.net" />
+	* APIConfiguration>Toolkit>CustomParameters:
+        <clear />
+		<add Section="MEDIO_BACKOFFICE_CONDITION" Entry="Thirdparty agreement" Value="Electronic Matching" />
+		<add Section="MEDIO_BACKOFFICE_CONDITION" Entry="Delegate Upload event" Value="Delegate Upload" />
+		<add Section="MEDIO_BACKOFFICE_CONDITION" Entry="MAML Upload event" Value="MAML Upload" />
+        	<add Section="MEDIO_BACKOFFICE_DEALACTION" Entry="TradeThruZeroKernelStatusGroup" Value="ALL" />
+		<add Section="VMReporting" Entry="BusinessEventGroupName" Value="WFS - VARIATION MARGIN" />
+		<add Section="MEDIO_BO_DEALACTION_CUSTOM_SECTION" Entry="MEDIO_BO_DEALACTION_CUSTOM_SECTION_CHECKAVPRICE" Value="Check Av Price" />
+
+2. SERVER 
+	Binaries: please copy content of the server shared api folder from the released ZIP.
+	
+	1) TRANSACTION SERVER
+		* APIConfiguration>Toolkit>DLLs:
+					<clear />
+					<add Name="MEDIO_GUI" />
+		* APIConfiguration>Toolkit>Assembly DLLs:
+					<clear />
+					<add Name="MEDIO.TransactionAction" />
+		* APIConfiguration>Toolkit>CustomParameters:
+					<add Section="MEDIO_BACKOFFICE_DEALACTION" Entry="AfterFinalExecution_EventName" Value="FullyExecuted" />
+					<add Section="MEDIO_BO_DEALACTION_CUSTOM_SECTION" Entry="MEDIO_BO_DEALACTION_CUSTOM_SECTION_CHECKAVPRICE" Value="Check Av Price" />
+
+	2) COMPLIANCE MASTER/WORKER
+		* APIConfiguration>Toolkit>DLLs:
+				<add Name="MEDIO_COMPLIANCE" />
+				<add Name="MEDIO_RBC_NAV" />
+				<add Name="MEDIO_UCITS" />
+				<add Name="MEDIO_GUI" />
+		* APIConfiguration>Toolkit>Assembly DLLs:
+					<clear />
+					<add Name="MEDIO.FXCompliance.net" />
+					<add Name="MEDIO.NestedRule.net" />
+
+
+	3) INTEGRATION SERVER
+		* APIConfiguration>Toolkit>DLLs:
+				<add Name="MEDIO_GUI" />
+				<add Name="MEDIO_IntegrationServiceAction" />
+				<add Name="Medio.BackOffice.net" />
+		* APIConfiguration>Toolkit>CustomParameters:
+				<add Section="MEDIO_BO_DEALACTION_CUSTOM_SECTION" Entry="MEDIO_BO_DEALACTION_CUSTOM_SECTION_CHECKAVPRICE" Value="Check Av Price" />
+
+	4) RichMarketAdapter/RBCUploader:
+			<RichMarketAdapter>
+
+			/*** OLD version ***/
+			   <Filters>
+				<clear />
+				<add SourceIdList="*" ClassName="Mediolanum_RMA_FILTER.RBC_Filter"
+				 Module="Mediolanum_RMA_FILTER" />
+			   </Filters>
+
+			/*** NEW version : refactored version of the old filter ***/
+				<Filters>
+				<clear />
+				<add SourceIdList="*" ClassName="Mediolanum_RMA_FILTER.Filters.CSxRBCCSVFilter"
+				 Module="Mediolanum_RMA_FILTER" />
+			   </Filters>
+
+			 <APIConfiguration>
+			  <Toolkit>
+			   <CustomParameters>
+				<clear />
+				<add Section="MediolanumRMA" Entry="ValidateForexAmount" Value="false" />
+				<add Section="MediolanumRMA" Entry="DefaultBOKernelEvent" Value="Book and Accept (FO)" />
+				<add Section="MediolanumRMA" Entry="ReplaceBORemarks" Value="true" />
+				<add Section="MediolanumRMA" Entry="FundBloombergRequestType"
+				 Value="ExternalFund " />
+				<add Section="MediolanumRMA" Entry="SharesPricedInSubunits" Value="GBP;ILS;ZAR" />
+				<add Section="MediolanumRMA" Entry="OverrideCreationEvent" Value="true" />
+				<add Section="MediolanumRMA" Entry="MAMLTradeCreationEvent" Value="MAML Upload" />
+				<add Section="MediolanumRMA" Entry="DelegateTradeCreationEvent"
+				 Value="Delegate Upload" />
+				<add Section="MediolanumRMA" Entry="DefaultHedgeCounterparty"
+				 Value="HEDGEPRGM" />
+				<add Section="MediolanumRMA" Entry="UseDefaultCounterparty" Value="false" />
+				<add Section="MediolanumRMA" Entry="CashTransferBusinessEvent"
+				 Value="Cash Transfer" />
+				<add Section="MediolanumRMA" Entry="TACashBusinessEvent" Value="Subscription/Redemption" />
+				<add Section="MediolanumRMA" Entry="UseDefaultDepositary" Value="false" />
+				<add Section="MediolanumRMA" Entry="CADefaultBusinessEvent" Value="Free" />
+				<add Section="MediolanumRMA" Entry="TACashInstrumentNameFormat"
+				 Value="S/R for fund '%FUND%'" />
+				<add Section="MediolanumRMA" Entry="CorporateActionReversalCodes"
+				Value="56" />
+			   </CustomParameters>
+			  </Toolkit>
+			  
+		/*** NEW VERSION 12/06/2019***/
+		
+		Added functionality to connect to IS DataExchange service, for that 3 new file in the Market\RichMarketAdapter\bin folder should be present from the package:
+			-SophisETL.ISEngine
+			-Sophis.UniversalAdapter.Configuration.dll
+			-SophisServerDotNet.exe.config to be modified such as entry :
+			
+			DataExchangeUri="http://localhost:9070/DataExchangeWsHttpRouter/DataExchangeService" 
+			
+			correspond to the proper hostname (if IS not on same server as RMA, and proper Dataexchange service port number (general IS port number)
+			
+			/*** NEW VERSION 27/09/2019***/
+			
+			Implementation of new CR #55 for Accrual Fees Upload.
+			- New Module in ETL\LoadFeesAccruals. should be present 
+			- Run the last section ----  MEDIO_0. 713.19.9:	  ---- 
+			- Change the parameters.ini file to point to proper csv entry file.
+			
+		/*** NEW VERSION 01/06/2019 ***/
+		
+		New Parameter at the end
+		
+			<APIConfiguration>
+			  <Toolkit>
+			   <CustomParameters>
+				<clear />
+				<add Section="MediolanumRMA" Entry="ValidateForexAmount" Value="false" />
+				<add Section="MediolanumRMA" Entry="DefaultBOKernelEvent" Value="Book and Accept (FO)" />
+				<add Section="MediolanumRMA" Entry="ReplaceBORemarks" Value="true" />
+				<add Section="MediolanumRMA" Entry="FundBloombergRequestType"
+				 Value="ExternalFund " />
+				<add Section="MediolanumRMA" Entry="SharesPricedInSubunits" Value="GBP;ILS;ZAR" />
+				<add Section="MediolanumRMA" Entry="OverrideCreationEvent" Value="true" />
+				<add Section="MediolanumRMA" Entry="MAMLTradeCreationEvent" Value="MAML Upload" />
+				<add Section="MediolanumRMA" Entry="DelegateTradeCreationEvent"
+				 Value="Delegate Upload" />
+				<add Section="MediolanumRMA" Entry="DefaultHedgeCounterparty"
+				 Value="HEDGEPRGM" />
+				<add Section="MediolanumRMA" Entry="UseDefaultCounterparty" Value="false" />
+				<add Section="MediolanumRMA" Entry="CashTransferBusinessEvent"
+				 Value="Cash Transfer" />
+				<add Section="MediolanumRMA" Entry="TACashBusinessEvent" Value="Subscription/Redemption" />
+				<add Section="MediolanumRMA" Entry="UseDefaultDepositary" Value="false" />
+				<add Section="MediolanumRMA" Entry="CADefaultBusinessEvent" Value="Free" />
+				<add Section="MediolanumRMA" Entry="TACashInstrumentNameFormat"
+				 Value="S/R for fund '%FUND%'" />
+				<add Section="MediolanumRMA" Entry="CorporateActionReversalCodes"
+				Value="56" />
+				<add Section="MediolanumRMA" Entry="PriceInUnderlyingCCY" Value="false" />
+			   </CustomParameters>
+			  </Toolkit>
+
+		/*** NEW version : 18/Dec/2020 ***/
+		Accounts ending with COLIN should now have Collateral In business event and COLOUT should have Collateral Out, instead of previous Cash Transfer and Interest Payment.
+		The configuration and details can be found at "CR2020.01 FUS-709-CR RBC Uploader_XX.docx" and "CR2020.01 FUS-709-CR RBC Uploader_doc_XX.docx"
+		Configuration now includes 2 new parameters CollateralInBusinessEvent and CollateralOutBusinessEvent
+			<add Section="MediolanumRMA" Entry="CollateralInBusinessEvent" Value="Collateral In" />
+			<add Section="MediolanumRMA" Entry="CollateralOutBusinessEvent" Value="Collateral Out" />
+
+
+	5) RichMarketAdapter/RBCUploader_MergerReplay:
+		<RichMarketAdapter>
+
+		/*** OLD version ***/
+		   <Filters>
+			<clear />
+			<add SourceIdList="*" ClassName="Mediolanum_RMA_FILTER.CSxCAMergerFilter"
+			 Module="Mediolanum_RMA_FILTER" />
+		   </Filters>
+
+		/*** NEW version : refactored version of the old filter ***/
+		   <Filters>
+			<clear />
+			<add SourceIdList="*" ClassName="Mediolanum_RMA_FILTER.Filters.CSxRBCCAMergerFilter"
+			 Module="Mediolanum_RMA_FILTER" />
+		   </Filters>
+
+		 <APIConfiguration>
+		  <Toolkit>
+		   <CustomParameters>
+			<clear />
+			<add Section="MediolanumRMA" Entry="ValidateForexAmount" Value="false" />
+			<add Section="MediolanumRMA" Entry="DefaultBOKernelEvent" Value="Book and Accept (FO)" />
+			<add Section="MediolanumRMA" Entry="ReplaceBORemarks" Value="true" />
+			<add Section="MediolanumRMA" Entry="FundBloombergRequestType"
+			 Value="ExternalFund " />
+			<add Section="MediolanumRMA" Entry="SharesPricedInSubunits" Value="GBP;ILS;ZAR" />
+			<add Section="MediolanumRMA" Entry="OverrideCreationEvent" Value="true" />
+			<add Section="MediolanumRMA" Entry="MAMLTradeCreationEvent" Value="MAML Upload" />
+			<add Section="MediolanumRMA" Entry="DelegateTradeCreationEvent"
+			 Value="Delegate Upload" />
+			<add Section="MediolanumRMA" Entry="DefaultHedgeCounterparty"
+			 Value="HEDGEPRGM" />
+			<add Section="MediolanumRMA" Entry="UseDefaultCounterparty" Value="false" />
+			<add Section="MediolanumRMA" Entry="CashTransferBusinessEvent"
+			 Value="Cash Transfer" />
+			<add Section="MediolanumRMA" Entry="TACashBusinessEvent" Value="Subscription/Redemption" />
+			<add Section="MediolanumRMA" Entry="UseDefaultDepositary" Value="false" />
+			<add Section="MediolanumRMA" Entry="CADefaultBusinessEvent" Value="Free" />
+			<add Section="MediolanumRMA" Entry="TACashInstrumentNameFormat"
+			 Value="S/R for fund '%FUND%'" />
+		   </CustomParameters>
+		  </Toolkit>
+		 </APIConfiguration>
+		 <ErrorReplay>
+		  <Replay LoadedStatus="1" />
+		 </ErrorReplay>
+
+	5) RichMarketAdapter/RBCOrderAdapter:
+			<?xml version="1.0" encoding="utf-8"?>
+			<configuration>
+				<configSections>
+					<section name="ConfigurationNode" type="sophis.configuration.ConfigurationNodeSection, SophisConfiguration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			  <sectionGroup name="RichMarketAdapter" type="sophis.configuration.rich.RichCoreGroup, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+						<section name="Core" type="sophis.configuration.rich.CoreSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			   <section name="Persistence" type="sophis.configuration.rich.PersistenceSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			   <section name="Transaction" type="sophis.configuration.rich.TransactionSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			   <section name="XML" type="sophis.configuration.rich.XMLSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			  </sectionGroup>
+					<sectionGroup name="Service" type="sophis.configuration.common.ServiceGroup, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+						<section name="Service" type="sophis.configuration.common.ServiceSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			  </sectionGroup>
+					<sectionGroup name="SophisFile" type="RichMarketAdapter.ticket.adapters.sophisfile.SophisFileGroup, SophisFile, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+						<section name="File" type="RichMarketAdapter.ticket.adapters.sophisfile.SophisFileSection, SophisFile, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			   <section name="Mail" type="sophis.configuration.file.MailAlertSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			  </sectionGroup>
+				 <sectionGroup name="APIConfiguration" type="Sophis.API.Configuration.APIConfigurationGroup, Sophis.API.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+			   <section name="Toolkit" type="Sophis.API.Configuration.ToolkitSection, Sophis.API.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			  </sectionGroup>
+			 </configSections>
+				<ConfigurationNode Name="RmaSophisFile" Type="RichMarketAdapter.ticket.adapters.sophisfile.SophisFileNode, SophisFile, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" />
+			 <RichMarketAdapter>
+					<Core SourceID="RBCOrderAdapter" Adapter="SophisFile" AdapterClass="RichMarketAdapter.ticket.adapters.sophisfile.SophisAdapter"
+			   AdapterAssembly="SophisFile" Communicator="xml" GenerateExternal="true" />
+			  <Persistence />
+			  <Transaction />
+			  <XML ServerURL="http://FR1CSWPSFFR0021:9090/DataExchangeWsHttpRouter\DataExchangeServiceRMA"
+			   Login="RBCUploader" Password="LEFHCHFLIFDHAGMHDNHOCEACHGPMDGMK" />
+			 </RichMarketAdapter>
+				<Service>
+					<Service>
+			   <ServiceTypes>
+				<add ClassName="RichMarketAdapter.core.RichMarketAdapterTask"
+				 Module="SophisRichCore" />
+			   </ServiceTypes>
+			  </Service>
+			 </Service>
+			 <SophisFile>
+			  <File />
+			  <Mail />
+			 </SophisFile>
+			 <APIConfiguration>
+			  <Toolkit>
+			   <DLLs>
+				<clear />
+			   </DLLs>
+			  </Toolkit>
+			 </APIConfiguration>
+			</configuration>
+
+	6) OrderAdapter/OrderAdapter_RBC:
+		<configuration>
+		<configSections>
+			<section name="ConfigurationNode" type="sophis.configuration.ConfigurationNodeSection, SophisConfiguration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			<sectionGroup name="OACommon" type="sophis.OA.Common.Configuration.OACommonGroup, Sophis.OA.Common.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+				<section name="TablesDefinition" type="sophis.OA.Common.Configuration.TablesDefinitionSection, Sophis.OA.Common.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			</sectionGroup>
+			<sectionGroup name="OrderAdapter" type="sophis.configuration.order.OrderCoreGroup, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+				<section name="Core" type="sophis.configuration.order.OrderCoreSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+				<section name="OrderPersistence" type="sophis.configuration.order.OrderPersistenceSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			</sectionGroup>
+			<sectionGroup name="RBC" type="MEDIO.RBCOrderAdapter.RBCConfigurationSectionGroup, MEDIO.RBCOrderAdapter.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" >
+				<section name="EventsConfiguration" type="MEDIO.RBCOrderAdapter.WFEventsConfigurationSection, MEDIO.RBCOrderAdapter.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" allowExeDefinition="MachineToLocalUser" />
+				<section name="FTPConnection" type="MEDIO.RBCOrderAdapter.FTPConfigurationSection, MEDIO.RBCOrderAdapter.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" allowExeDefinition="MachineToLocalUser" />
+				<section name="RBCConfiguration" type="MEDIO.RBCOrderAdapter.ConfigurationSectionList, MEDIO.RBCOrderAdapter.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" allowExeDefinition="MachineToLocalUser" />
+			</sectionGroup>
+			<sectionGroup name="Service" type="sophis.configuration.common.ServiceGroup, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" >
+				<section name="Service" type="sophis.configuration.common.ServiceSection, SophisAdapterCommon.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" allowExeDefinition="MachineToLocalUser" />
+			</sectionGroup>
+		</configSections>
+		<ConfigurationNode Name="OrderAdapterCommon" Type="sophis.OA.Common.Configuration.OACommonNode, Sophis.OA.Common.Configuration, Version=21.2.0.0, Culture=neutral, PublicKeyToken=799442e4f418bb07" />
+		<OrderAdapter>
+			<Core AdapterClass="MEDIO.RBCOrderAdapter.CSxRBCOrderAdapter"
+				AdapterAssembly="MEDIO.RBCOrderAdapter.net" InstrumentReferences="TICKER"
+				MarketReferences="MIC" />
+		</OrderAdapter>
+		<RBC>
+			<RBCConfiguration ToRBCFolder="D:\RBC_FTP_test\SentToRBC" FromRBCFolder="D:\RBC_FTP_test\FromRBC"
+				RMAdapterFilePath="D:\misys\services_64\sophis\RichMarketAdapter\RichMarketAdapter\data\sophisFile" />
+			<FTPConnection FtpUrl="ftp://localhost" FtpPort="21" FtpUsername="RBCUser"
+				FtpPassword="password" />
+			<EventsConfiguration UseACKFiles="true" />
+		</RBC>
+		<Service>
+			<Service InitialConnection="0">
+				<ServiceTypes>
+					<clear />
+					<add ClassName="sophis.orderadapter.GenericOrderAdapterTask"
+						Module="SophisGenericOrderAdapter" />
+				</ServiceTypes>
+			</Service>
+		</Service>
+	</configuration>
+
+	7) FIXGateway - FXALL:
+		  <Plugins>
+			<clear />
+			<add ClassName="sophis.orderadapter.fix.plugin.FxAll44Service" Module="./bin/SophisOrderFix.dll" />
+			<add ClassName="Medio.FIXPlugin.net.Tag80Service" Module="./bin/Medio.FIXPlugin.NET.dll" />
+			<add ClassName="Medio.FIXPlugin.net.Tag670Service" Module="./bin/Medio.FIXPlugin.NET.dll" />
+			<add ClassName="Medio.FIXPlugin.net.CSxTag7055Service" Module="./bin/Medio.FIXPlugin.NET.dll" />
+			<add ClassName="Medio.FIXPlugin.net.CSxTag79Service" Module="./bin/Medio.FIXPlugin.NET.dll" />
+		   </Plugins>
+		  </Sophis>
+		  
+		  <RichMarketAdapter>
+		     <Filters>
+				<clear />
+				<add ClassName="Mediolanum_RMA_FILTER.Filters.CSxInputFilter"
+				 Module="./Mediolanum_RMA_FILTER" />
+			  </Filters>
+		</RichMarketAdapter>
+		
+		<Toolkit>
+		   <AssemblyDLLs>
+			<clear />
+		   </AssemblyDLLs>
+		   <CustomParameters>
+			<clear />
+			<add Section="MEDIO_FIX_7055" Entry="FX_FORWARD" Value="HEDGE" />
+			<add Section="MEDIO_FIX_7055" Entry="FX_SPOT" Value="SPOT" />
+		   </CustomParameters>
+		  </Toolkit>
+
+	8) FIXGateway - EMSX:
+			<Plugins>
+				<clear />
+				<add ClassName="Medio.FIXPlugin.net.CSxTag310Service" Module="./bin/Medio.FIXPlugin.net.dll" />
+			</Plugins>
+
+	9) RichMarketAdapter/RBC:
+		<RichMarketAdapter>
+		<Filters>
+			<clear />
+			<add SourceIdList="*" ClassName="Mediolanum_RMA_FILTER.Filters.CSxRBCOrderFilter "
+			Module="Mediolanum_RMA_FILTER" />
+		</Filters>

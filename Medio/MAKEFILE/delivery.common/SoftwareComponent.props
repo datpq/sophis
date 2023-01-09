@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SoftwareComponentPropsImported>true</SoftwareComponentPropsImported>
+  </PropertyGroup>
+
+  <!--
+    ============================================================
+                     Optionnal imports
+      Local .user files can be imported.
+      - SoftwareComponent.props.user used for all .build.proj in the same directory
+      - (project name).user used for only one project
+    ============================================================
+  -->
+  <Import Project="$(MSBuildProjectDirectory)\SoftwareComponent.props.user" Condition="Exists('$(MSBuildProjectDirectory)\SoftwareComponent.props.user')" />
+  <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
+  <!--
+    ============================================================
+                     Common properties
+    ============================================================
+  -->
+  <PropertyGroup>
+
+    <Platform Condition="$(Platform) == '' ">x64</Platform>
+    <Configuration Condition="$(Configuration) == '' ">Release</Configuration>
+    <ProductionMode Condition="$(ProductionMode) != 'true' ">false</ProductionMode>
+
+    <!--
+        Many projects depends on risque and value.
+        Some properties are defined here to help build and packaging. -->
+    <RisqueRepositoryDir Condition="$(RisqueViewDir) != '' ">$(RisqueRepositoryDir)</RisqueRepositoryDir>
+    <ValueRepositoryDir Condition="$(ValueViewDir) != '' ">$(ValueViewDir)\repository</ValueRepositoryDir>
+
+    <!-- Locations for this project -->
+    <ViewRootDir Condition="$(ViewRootDir) == '' ">$(MisysThisComponentDir)</ViewRootDir>
+    <RepositoryDir Condition="$(RepositoryDir) == '' ">$(ViewRootDir)\repository</RepositoryDir>
+    <KeyFile Condition="$(KeyFile) == '' ">$(RepositoryServer)\Repository\public\dev_repository\Common\sophis\key\SophisKey.snk</KeyFile>
+    <GeneratedDir Condition="$(GeneratedDir) == '' ">$(ViewRootDir)\output</GeneratedDir>
+    <DeliveryDir Condition="$(DeliveryDir) == '' ">$(GitRepositoryDir)\delivery</DeliveryDir>
+    <!-- PackageDir, if not overriden, will be defaulted in SoftwareComponent.targets , based on the component type  -->
+    <PackageDir></PackageDir>
+    <!-- InstallDir, if not overriden, will be defaulted in SoftwareComponent.targets , based on the component type and name -->
+    <InstallDir></InstallDir>
+    <ImplicitlyInstallArtifacts>true</ImplicitlyInstallArtifacts>
+    <BuildInParallel Condition="$(BuildInParallel) != 'false'">true</BuildInParallel>
+    <!-- If InstallWhatIf is set to true, Install will not really install but perform a dry run, check invalid properties and miissing artifacts -->
+    <InstallWhatIf Condition="$(InstallWhatIf) != 'true' ">false</InstallWhatIf>
+    <!-- Additional MsBuild arguments to pass as global variables for the .sln or projects to be built -->
+    <AdditionalMsBuildArguments Condition="$(AdditionalMsBuildArguments) == '' "></AdditionalMsBuildArguments>
+    <InstallPdbs Condition="$(InstallPdbs) == '' AND $(Configuration) == 'Debug' ">true</InstallPdbs>
+    <InstallPdbs Condition="$(InstallPdbs) != 'true' ">false</InstallPdbs>
+    <!-- Properties for signing binaries -->
+    <TrustedCertificateSign Condition="$(TrustedCertificateSign) != 'true' ">false</TrustedCertificateSign>
+    <TrustedCertificateFile Condition="$(TrustedCertificateFile) == '' ">$(RisqueRepositoryDir)\Finastra\Certificate\Finastra.pfx</TrustedCertificateFile>
+    <TrustedCertificatePassword Condition="$(TrustedCertificatePassword) == '' "></TrustedCertificatePassword>
+  </PropertyGroup>
+
+</Project>

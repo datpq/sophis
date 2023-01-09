@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Reporting/CSVReport" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Reporting/CSVReport">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="reportName" type="string" minOccurs="1" maxOccurs="1"/>
+      <element name="separator" type="string" minOccurs="1" maxOccurs="1"/>
+	  <element name="reportType" type="tns:ReportType" minOccurs="1" maxOccurs="1"/>
+	  <element name="fields" type="tns:Field" minOccurs="0" maxOccurs="1"/>
+	  <!-- Number of lines to skip before actually reading the records (default: 0) -->
+	  <element name="skipFooter"   type="boolean"   default="false"   minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+	<simpleType name="ReportType">
+		<restriction base="string">
+			<enumeration value="allRecord"></enumeration>
+			<enumeration value="recordNotLoadedOnly"></enumeration>
+			<enumeration value="recordLoadedOnly"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="Field">
+		<sequence>
+			<element name="fieldName" type="string" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+</schema>

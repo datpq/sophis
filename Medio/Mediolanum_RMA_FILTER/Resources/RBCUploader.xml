@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sophis.net/richmarketadapter"
+                name="CSVsample" type="CSV">
+                <trade>
+                               <field id="side" default="SECURITIES PURCHASE" column="1000">
+                                               <binding sophis="BUY" external="SECURITIES PURCHASE"/>
+                                                <binding sophis="SELL" external="SECURITIES SELL"/>
+                               </field>
+                               <field id="MAINSTRUMENTTYPE" default="BOND" column="1000">
+                                               <binding sophis="STOCK" external="BOND"/>
+                                               <binding sophis="STOCK" external="EQUITIES"/>
+                               </field>
+                               <field id="QUANTITY" default="100" column="1000"/>
+                               <field id="SPOT" default="100" column="1000"/>
+                               <field id="MAINSTRUMENTNAME" default="NOREFERENCE" column="1000"/>
+                               <field id="kind" default="C" column="1000">
+                                               <binding sophis="CREATE" external="C"/>
+                                               <binding sophis="MODIFY" external="M"/>
+                                               <binding sophis="CANCEL" external="A"/>
+                                               <binding sophis="REPLACE" external="R"/>
+                               </field>
+                               <field id="universal" default="BOND" column="1000">
+                                               <binding sophis="ISIN" external="BOND"/>
+                                               <binding sophis="TICKER" external="EQUITIES"/>
+                               </field>
+                               <field id="USERSTRING" default="RBCUploader"/>
+                </trade>
+</format>

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediolanum_RMA_FILTER", "Mediolanum_RMA_FILTER.csproj", "{091FDD08-C965-46CC-998E-B920A67A5F4E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mediolanum_RMA_FILTER_CLI", "..\Mediolanum_RMA_FILTER_CLI\Mediolanum_RMA_FILTER_CLI.vcxproj", "{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediolanumRMAQuery", "..\MediolanumRMAQuery\MediolanumRMAQuery\MediolanumRMAQuery.csproj", "{C326353F-5094-411B-B6D8-22C8BDB2352A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{091FDD08-C965-46CC-998E-B920A67A5F4E}.Debug|x64.ActiveCfg = Debug|x64
+		{091FDD08-C965-46CC-998E-B920A67A5F4E}.Debug|x64.Build.0 = Debug|x64
+		{091FDD08-C965-46CC-998E-B920A67A5F4E}.Release|x64.ActiveCfg = Release|x64
+		{091FDD08-C965-46CC-998E-B920A67A5F4E}.Release|x64.Build.0 = Release|x64
+		{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}.Debug|x64.ActiveCfg = Debug|x64
+		{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}.Debug|x64.Build.0 = Debug|x64
+		{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}.Release|x64.ActiveCfg = Release|x64
+		{C0B9C47B-FA5A-4DF8-B494-2CF74820EF1F}.Release|x64.Build.0 = Release|x64
+		{C326353F-5094-411B-B6D8-22C8BDB2352A}.Debug|x64.ActiveCfg = Debug|x64
+		{C326353F-5094-411B-B6D8-22C8BDB2352A}.Debug|x64.Build.0 = Debug|x64
+		{C326353F-5094-411B-B6D8-22C8BDB2352A}.Release|x64.ActiveCfg = Release|x64
+		{C326353F-5094-411B-B6D8-22C8BDB2352A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

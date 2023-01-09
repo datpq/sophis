@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Transform/Replace" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Transform/Replace">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <!-- One or More replace operation -->
+      <element name="replace" type="tns:Replace" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="Replace">
+    <sequence>
+      <element name="simpleMatch" type="tns:SimpleMatch" minOccurs="0" maxOccurs="unbounded" />
+	  <element name="regexMatch" type="tns:RegexMatch" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="sourceField" type="string" use="required" />
+    <attribute name="targetField" type="string" use="required" />
+  </complexType>
+
+  <!-- A simple match is a pure String to String replacement -->
+  <complexType name="SimpleMatch">
+    <attribute name="match"   type="string" use="required" />
+    <attribute name="replace" type="string" use="required" />
+  </complexType>
+  
+  <complexType name="RegexMatch">
+    <attribute name="match"   type="string" use="required" />
+    <attribute name="replace" type="string" use="required" />
+  </complexType>
+
+</schema>

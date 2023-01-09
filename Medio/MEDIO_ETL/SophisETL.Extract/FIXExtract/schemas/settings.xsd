@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://www.sophis.net/SophisETL/Extract/FIXExtract" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sophis.net/SophisETL/Extract/FIXExtract">
+
+  <element name="settings" type="tns:Settings"/>
+  <complexType name="Settings">
+    <sequence>
+      <element name="inputFile" type="string"        minOccurs="1" maxOccurs="1"/>
+      <element name="separator" type="string"        minOccurs="0" maxOccurs="1"/>
+      <element name="escape"    type="string"        minOccurs="0" maxOccurs="1"/>
+
+      <!-- Number of lines to skip before actually reading the records (default: 0) -->
+      <element name="skipLine"   type="int"          minOccurs="0" maxOccurs="1"/>
+
+      <!-- Number of a line starting at 1 that will be interpreted as the headers line
+           Headers line is used to give default field names if the fields are not specifically
+           defined in the FIX tag (default: 0, means no header line)
+           (this has no impact on the skipLine tag which must be set properly to avoid reading
+           the headers line if one exists) -->
+      <element name="headerLine" type="int"          minOccurs="0" maxOccurs="1"/>
+
+      <element name="FIX" type="tns:FIXFields" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="FIXFields">
+    <sequence>
+      <element name="field" type="tns:FIXField" maxOccurs="unbounded" minOccurs="0"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="FIXField">
+    <sequence>
+      <element name="xmlFieldName" type="string"               maxOccurs="1" minOccurs="1"/>
+      <element name="xmlFieldType" type="tns:FIXFieldTypeEnum" maxOccurs="1" minOccurs="1"/>
+      <element name="nullable"     type="boolean"              maxOccurs="1" minOccurs="0" default="false"/>
+      <element name="separator"    type="string"               maxOccurs="1" minOccurs="0" default=""/>
+    </sequence>
+    <attribute name="position" type="int" use="required"></attribute>
+  </complexType>
+
+  <simpleType name="FIXFieldTypeEnum">
+    <restriction base="string">
+      <enumeration value="String"></enumeration>
+      <enumeration value="Number"></enumeration>
+      <enumeration value="DateYYYYMMDD"></enumeration>
+      <enumeration value="DateDDMMYYYY"></enumeration>
+    </restriction>
+  </simpleType>
+</schema>
