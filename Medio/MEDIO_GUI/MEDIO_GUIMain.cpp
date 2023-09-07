@@ -54,6 +54,7 @@
 #include "CSxThirdPartyActionCountryCode.h"
 #include "BrokerFeeCondition\CSxBrokerFeesCtryCode.h"
 #include "BrokerFeeCondition\CSxBrokerFeesException.h"
+#include "PositionVisibility\CSxPositionVisibilityHook.h"
 
 
 //}}SOPHIS_TOOLKIT_INCLUDE
@@ -169,15 +170,29 @@ UNIVERSAL_MAIN
 		INITIALISE_TRANSACTION_ACTION(CSxFXCheckDeal, oBeforeDatabaseSaving, "ACheckDeal")
 	}
 
-	INITIALISE_PORTFOLIO_COLUMN(CSxBondTypeColumn,"Medio Bond Type")
-	INITIALISE_PORTFOLIO_COLUMN(CSxMarketValueAggregateColumn, "Market Value Custom Aggregate")
+	INITIALISE_PORTFOLIO_COLUMN(CSxBondTypeColumn, "Medio Bond Type")
+		INITIALISE_PORTFOLIO_COLUMN(CSxMarketValueAggregateColumn, "Market Value Custom Aggregate")
 
-	INITIALISE_TRANSACTION_ACTION(CSxGrossConsiderationAction,oBeforeDatabaseSaving,"CSxGrossConsiderationAction")
-	INITIALISE_TRANSACTION_ACTION(CSxCDSPriceAction, oBeforeDatabaseSaving, "CSxCDSPriceAction")
+		INITIALISE_TRANSACTION_ACTION(CSxGrossConsiderationAction, oBeforeDatabaseSaving, "CSxGrossConsiderationAction")
+		INITIALISE_TRANSACTION_ACTION(CSxCDSPriceAction, oBeforeDatabaseSaving, "CSxCDSPriceAction")
 
-	INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotCTMCondition, "Is Not CTM")
-	INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotSSBCondition, "Is Not SSB")
-	INITIALISE_THIRDPARTY_ACTION(CSxThirdPartyActionCountryCode, oBefore, "Country Code Validation")
+		INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotCTMCondition, "Is Not CTM")
+		INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotSSBCondition, "Is Not SSB")
+		INITIALISE_THIRDPARTY_ACTION(CSxThirdPartyActionCountryCode, oBefore, "Country Code Validation")
 
+	
+	CSxPositionVisibilityHook::_HedgeSet = CSxSQLHelper::GetHedgeFoliosFromConfig();
+	CSRUserRights currentUser;
+	currentUser.LoadDetails();
+	
+	if (currentUser.HasAccess("See Expired FX Frwd"))
+	{
+		CSxPositionVisibilityHook::_seeExpiredFXUserRight = true;
+	}
+	if (currentUser.HasAccess("See Hedge Positions"))
+	{
+		CSxPositionVisibilityHook::_seeHedgeUserRight = true;
+	}
+	
 //}}SOPHIS_INITIALIZATION
 } 

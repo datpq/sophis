@@ -571,18 +571,21 @@ namespace Mediolanum_RMA_FILTER
             public const int Quantity = 4;
             public const int Spot = 5;
             public const int SpotType = 6;
-            public const int TradeDate = 7;
-            public const int ValueDate = 8;
-            public const int CounterpartyId = 9;
-            public const int DepositaryId = 10;
-            public const int BrokerId = 11;
-            public const int Entity = 12;
-            public const int EventId = 13;
-            public const int Currency = 14;
-            public const int Comments = 15;
-            public const int UserId = 16;
-            public const int ExtraFields = 17;
-            public const int TotalCount = 18;
+            public const int Amount = 7;
+            public const int TradeDate = 8;
+            public const int ValueDate = 9;
+            public const int CounterpartyId = 10;
+            public const int DepositaryId = 11;
+            public const int BrokerId = 12;
+            public const int Entity = 13;
+            public const int EventId = 14;
+            public const int Currency = 15;
+            public const int Isin = 16;
+            public const int Comments = 17;
+            public const int UserId = 18;
+            public const int ExtraFields = 19;
+            public const int Info = 20;
+            public const int TotalCount = 21;
         }
     }
 

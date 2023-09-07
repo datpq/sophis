@@ -39,6 +39,9 @@
     <ClCompile Include="CSxGrossLeverageNavPercent.cpp">
       <Filter>Columns</Filter>
     </ClCompile>
+    <ClCompile Include="CSxCTDSicovam.cpp">
+      <Filter>Columns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Version\ReadMe.txt">
@@ -87,6 +90,9 @@
       <Filter>Columns</Filter>
     </ClInclude>
     <ClInclude Include="CSxGrossLeverageNavPercent.h">
+      <Filter>Columns</Filter>
+    </ClInclude>
+    <ClInclude Include="CSxCTDSicovam.h">
       <Filter>Columns</Filter>
     </ClInclude>
   </ItemGroup>

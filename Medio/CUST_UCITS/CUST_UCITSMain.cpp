@@ -13,6 +13,7 @@
 #include "CSxGrossLeverageColumn.h"
 #include "CSxGrossLeverageFundCcy.h"
 #include "CSxGrossLeverageNavPercent.h"
+#include "CSxCTDSicovam.h"
 
 
 //}}SOPHIS_TOOLKIT_INCLUDE
@@ -40,6 +41,7 @@ UNIVERSAL_MAIN
 	Initialise_UCITS_Data_Custom(iDerivative, ALLOTMENT_LISTED_OPTION, new CSxUCIT_Filter(iDerivative, ALLOTMENT_LISTED_OPTION, "FX-Vanilla Option"), new CSxUCIT_Calculator<__ALLOTMENT_LISTED_OPTION__>());
 
 	INITIALISE_PORTFOLIO_COLUMN(CSxCheapestToDeliver, "Price CTD")
+	INITIALISE_PORTFOLIO_COLUMN(CSxCTDSicovam, "Id CTD")
 	INITIALISE_PORTFOLIO_COLUMN(CSxGrossLeverageColumn, "Gross Leverage")
 	INITIALISE_PORTFOLIO_COLUMN(CSxGrossLeverageFundCcy, "Gross Leverage curr. fund")
 	INITIALISE_PORTFOLIO_COLUMN(CSxGrossLeverageNavPercent, "Gross Leverage in % of NAV")

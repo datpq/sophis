@@ -80,6 +80,9 @@
     <Reference Include="Sophis.Core">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Sophis.DailyData">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Sophis.DotNetCore">
       <Private>False</Private>
     </Reference>
@@ -187,6 +190,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
@@ -222,6 +226,17 @@
     <Compile Include="Source\Criteria\CSxHedgingFundingCriterium.cs" />
     <Compile Include="Source\Criteria\CSxMarketCapCriterium.cs" />
     <Compile Include="Source\Criteria\CSxParentOrderIDCriterium.cs" />
+    <Compile Include="Source\DataModel\FxAutoCDB.cs" />
+    <Compile Include="Source\DataModel\FxAutoCurrency.cs" />
+    <Compile Include="Source\DataModel\FxAutoMarket.cs" />
+    <Compile Include="Source\DataModel\FxAutoSleeve.cs" />
+    <Compile Include="Source\DataModel\FXAutoSleeveFolio.cs" />
+    <Compile Include="Source\GUI\CSxFXAutomationSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\GUI\CSxFXAutomationSetting.Designer.cs">
+      <DependentUpon>CSxFXAutomationSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\DataModel\CSxCustomAllocationData.cs" />
     <Compile Include="Source\DataModel\CSxCustomAllocation.cs" />
     <Compile Include="Source\DataModel\CSxCustomOrder.cs" />
@@ -231,6 +246,12 @@
     <Compile Include="Source\Data\CSxDataManager.cs" />
     <Compile Include="Source\EvenListener\CSxDOBEventListener.cs" />
     <Compile Include="Source\EvenListener\CSxTradeEvent.cs" />
+    <Compile Include="Source\GUI\CSxFXAutomationForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\GUI\CSxFXAutomationForm.Designer.cs">
+      <DependentUpon>CSxFXAutomationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\GUI\CSxFXRollingForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -266,6 +287,8 @@
     <Compile Include="Source\OrderCreationValidator\CSxOrderCreationThirdpartyValidator.cs" />
     <Compile Include="Source\Scenarios\CSxDynamicOrderBuilderMAML.cs" />
     <Compile Include="Source\Scenarios\CSxForwardRollingScenario.cs" />
+    <Compile Include="Source\Scenarios\CSxFXAutomationScenario.cs" />
+    <Compile Include="Source\Scenarios\CSxFXAutomationSettingScenario.cs" />
     <Compile Include="Source\Scenarios\CSxHedgingFundingOrdersScenario.cs" />
     <Compile Include="Source\Tools\CSxUtils.cs" />
   </ItemGroup>
@@ -284,6 +307,7 @@
     <None Include="Source\GUI\Icons\money.png" />
     <None Include="Source\GUI\Icons\parentOrder.png" />
     <None Include="Source\GUI\Icons\simpleButtonRefresh.Image.png" />
+    <None Include="SQL\PH.sql" />
     <Content Include="version\ReleaseNotes.MEDIO.OrderAutomation.net.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +321,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\GUI\CSxFXAutomationForm.resx">
+      <DependentUpon>CSxFXAutomationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\GUI\CSxFXAutomationSetting.resx">
+      <DependentUpon>CSxFXAutomationSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxFXRollingForm.resx">
       <DependentUpon>CSxFXRollingForm.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxOrderSendingReport.resx">
       <DependentUpon>CSxOrderSendingReport.cs</DependentUpon>

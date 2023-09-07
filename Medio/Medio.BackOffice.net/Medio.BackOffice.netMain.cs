@@ -71,8 +71,10 @@ namespace Medio.BackOffice.net
 				  sophis.instrument.CSMInstrumentAction.Register("CSxRussianBondRedemption", sophis.instrument.CSMInstrumentAction.eMOrder.M_oCreation, new CSxRussianBondRedemption());
                
                 sophis.instrument.CSMInstrumentAction.Register("CSxAbsPoolFactorCheck", sophis.instrument.CSMInstrumentAction.eMOrder.M_oModification, new CSxAbsPoolFactorCheck());
-                
-				}
+
+                sophis.portfolio.CSMPortfolioColumn.Register("MEDIO Pay DirtyPrice", new SwapPayLegDirtyPrice());
+                sophis.portfolio.CSMPortfolioColumn.Register("MEDIO Rec DirtyPrice", new SwapRecLegDirtyPrice());
+            }
             catch(Exception ex)
             {
                 CSMLog.Write("MainClass","EntryPoint", CSMLog.eMVerbosity.M_error, "Error in entry point:" + ex.Message);

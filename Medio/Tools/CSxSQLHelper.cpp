@@ -41,6 +41,17 @@ std::vector<long> CSxSQLHelper::GetAllotmentsFromConfig()
 	return AllotmentVec;
 }
 
+std::set<string> CSxSQLHelper::GetHedgeFoliosFromConfig()
+{
+	std::set<string> hedgeFolioNames;
+	_STL::string hedgeList = "";
+	ConfigurationFileWrapper::getEntryValue("MEDIO_HEDGE_FOLIOS", "HEDGE_NAMES", hedgeList, "LHC;SHC;SHD;LHD");
+	std::string delimiter = ";";
+	std::set<string> SplitVec;
+	boost::split(SplitVec, hedgeList, boost::is_any_of(delimiter));
+	return SplitVec;
+}
+
 /*static*/long CSxSQLHelper::LoadAllotmentIdFromDB(std::string allotmentName)
 {
 	long id = 0;

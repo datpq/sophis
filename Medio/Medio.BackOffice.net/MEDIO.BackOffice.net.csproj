@@ -108,6 +108,8 @@
     <Compile Include="..\MediolanumVersion.cs">
       <Link>MediolanumVersion.cs</Link>
     </Compile>
+    <Compile Include="src\Columns\SwapPayLegDirtyPrice.cs" />
+    <Compile Include="src\Columns\SwapRecLegDirtyPrice.cs" />
     <Compile Include="src\InstrumentAction\CSxAbsPoolFactorCheck.cs" />
     <Compile Include="src\InstrumentAction\CSxBondNotionalCheck.cs" />
     <Compile Include="src\InstrumentAction\CSxRussianBondRedemption.cs" />

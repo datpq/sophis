@@ -60,6 +60,7 @@
     <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesException.cpp" />
     <ClCompile Include="CSxCDSPriceAction.cpp" />
     <ClCompile Include="CSxGrossConsiderationAction.cpp" />
+    <ClCompile Include="CSxReportingHedge.cpp" />
     <ClCompile Include="CSxThirdPartyActionCountryCode.cpp" />
     <ClCompile Include="DealCheck\CSxFXCheckDeal.cpp" />
     <ClCompile Include="GUI\CSxVarianceSwapDlg.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesException.h" />
     <ClInclude Include="CSxCDSPriceAction.h" />
     <ClInclude Include="CSxGrossConsiderationAction.h" />
+    <ClInclude Include="CSxReportingHedge.h" />
     <ClInclude Include="CSxThirdPartyActionCountryCode.h" />
     <ClInclude Include="DealCheck\CSxFXCheckDeal.h" />
     <ClInclude Include="GUI\CSxVarianceSwapDlg.h" />

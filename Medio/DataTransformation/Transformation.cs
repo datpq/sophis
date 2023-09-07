@@ -14,6 +14,9 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using Oracle.DataAccess.Client;
 using DataTransformation.Settings;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using Microsoft.Office.Interop.Excel;
 
 namespace DataTransformation
 {
@@ -28,7 +31,10 @@ namespace DataTransformation
         MIL_NavFund,
         MIL_Trade_RMA,
         MIL_Cash_RMA,
+        REFI_CA,
+        REFI_CA_SR,
         BBH_Fee,
+        BBH_JE,
         BBH_IM_Orig,
         BBH_IM_Mirr,
         BBH_IM_Orig_Rev,
@@ -79,7 +85,8 @@ namespace DataTransformation
 
         public static PdtTransformationSetting InitializeAndSaveConfig(string configFile)
         {
-            Logger.Info("InitializeAndSaveConfig.BEGIN");
+            Logger.Warn("InitializeAndSaveConfig.BEGIN");
+            Logger.Warn("YOU ARE IN DEBUG MODE. SWITCH TO PRODUCTION MODE BEFORE GOING LIVE.");
             var Setting = new PdtTransformationSetting
             {
                 Tables = new[] {
@@ -88,17 +95,42 @@ namespace DataTransformation
                         File = "MIFL_ME_01ANATIT_*",
                         keyExpression = "lineVal.Substring(0, 10).Trim()",
                         columnsExpression = new[] {
-                            "lineVal.Substring(10, 4).Trim()",
-                            "lineVal.Substring(30, 2).Trim()",
-                            "lineVal.Substring(32, 12).Trim()",
-                            "lineVal.Substring(47, 20).Trim()",
-                            "lineVal.Substring(67, 20).Trim()",
-                            "lineVal.Substring(127, 8).Trim()",
-                            "lineVal.Substring(220, 2).Trim()",
-                            "lineVal.Substring(222, 4).Trim()",
-                            "lineVal.Substring(236, 40).Trim()",
-                            "lineVal.Substring(398, 1).Trim()",
-                            "lineVal.Substring(397, 1) + lineVal.Substring(381, 15 - int.Parse(lineVal.Substring(396, 1))) + \".\" + lineVal.Substring(396 - int.Parse(lineVal.Substring(396, 1)), int.Parse(lineVal.Substring(396, 1)))",
+                            "lineVal.Substring(50, 4).Trim()",
+                            "lineVal.Substring(70, 2).Trim()",
+                            "lineVal.Substring(72, 12).Trim()",
+                            "lineVal.Substring(87, 20).Trim()",
+                            "lineVal.Substring(107, 20).Trim()",
+                            "lineVal.Substring(167, 8).Trim()",
+                            "lineVal.Substring(260, 2).Trim()",
+                            "lineVal.Substring(262, 4).Trim()",
+                            "lineVal.Substring(276, 40).Trim()",
+                            "lineVal.Substring(438, 1).Trim()",
+                            "lineVal.Substring(437, 1) + lineVal.Substring(421, 15 - int.Parse(lineVal.Substring(436, 1))) + \".\" + lineVal.Substring(436 - int.Parse(lineVal.Substring(436, 1)), int.Parse(lineVal.Substring(436, 1)))",
+                        }
+                    },
+                    new PdtLookupTable{
+                        Name = "REFI_CA_TABLE_BY_ID",
+                        File = "REFI_CA_LOOKUP*",
+                        csvSeparator = ',',
+                        processingCondition = @"lineVal.Split(';')[4] == ""CAP"" || (lineVal.Split(';')[4] == ""DIV"" && lineVal.Split(';')[8] != """")",
+                        keyExpression = @"lineVal.Split(';')[4]+""_""+lineVal.Split(';')[41]",//Corporate Actions Type_Corporate Actions ID
+                        columnsExpression = new[] {
+                            "lineVal.Split(';')[18] == \"\" ? \"1\" : lineVal.Split(';')[18]",//CAP.numerator
+                            "lineVal.Split(';')[17] == \"\" ? \"1\" : lineVal.Split(';')[17]",//CAP.denumerator
+                            "System.DateTime.ParseExact(lineVal.Split(';')[14], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")",//CAP.Effective Date
+                            "System.DateTime.ParseExact(lineVal.Split(';')[29], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")",//CAP.Subscription Period Start Date
+                            "System.DateTime.ParseExact(lineVal.Split(';')[30], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")",//CAP.Subscription Period End Date
+                            "lineVal.Split(';')[8] == \"\" ? \"1\" : lineVal.Split(';')[8]",//DIV.Dividend Rate
+                        }
+                    },
+                    new PdtLookupTable{
+                        Name = "REFI_CA_TABLE_BY_ISIN",
+                        File = "REFI_CA_LOOKUP*",
+                        csvSeparator = ',',
+                        processingCondition = @"lineVal.Split(';')[4] == ""CAP""",
+                        keyExpression = @"lineVal.Split(';')[4]+""_""+lineVal.Split(';')[0]",//Corporate Actions Type_ISIN
+                        columnsExpression = new[] {
+                            "lineVal.Split(';')[42]",//CapType
                         }
                     },
                     new PdtLookupTable {
@@ -407,6 +439,10 @@ namespace DataTransformation
                     csvSrcSeparator = ',',
                     csvDestSeparator = DEFAULT_CSV_SEPARATOR,
                     csvSkipLines = 1,
+                    //rowClowing = new PdtRowCloning {
+                    //    Ntimes = 5,
+                    //    Expression = "lineVal.Substring(0, lineVal.LastIndexOf(\",\")+1) + (DateTime.ParseExact(lineVal.Substring(lineVal.LastIndexOf(\",\")+1), \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).AddDays($cloneIdx)).ToString(\"dd/MM/yyyy\")"
+                    //},
                     columns = new []
                     {
                         new PdtColumn { name = "FUND_NAME", destPaths = new [] { new PdtColumnDest { path = "Fund name" } } },
@@ -434,14 +470,19 @@ namespace DataTransformation
                         new PdtColumn { name = "INCOME_RECEIVABLE", isRequired = true, isRelativeToRootNode = true },
                         new PdtColumn { name = "CHARGES_DUE", isRequired = true, isRelativeToRootNode = true },
                         new PdtColumn { name = "OTHER", isRequired = true, isRelativeToRootNode = true },
-                        new PdtColumn { name = "TOTAL_FUND_VALUE", isRequired = true, isRelativeToRootNode = true },
-                        new PdtColumn { name = "TOTAL_FUND_UNITS", isRequired = true, isRelativeToRootNode = true },
                         new PdtColumn {
-                            name = "EXACT_PRICE",
+                            name = "TOTAL_FUND_VALUE",
                             isRequired = true,
                             isRelativeToRootNode = true,
-                            destPaths = new [] { new PdtColumnDest { path = "Nav Net" } }
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "Nav Net",
+                                    expression = "double.Parse(colVal)"
+                                }
+                            }
                         },
+                        new PdtColumn { name = "TOTAL_FUND_UNITS", isRequired = true, isRelativeToRootNode = true },
+                        new PdtColumn { name = "EXACT_PRICE", isRequired = true, isRelativeToRootNode = true },
                         new PdtColumn {
                             name = "NAV_DATE",
                             isRequired = true,
@@ -449,7 +490,7 @@ namespace DataTransformation
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Date Nav",
-                                    expression = "System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd-MMM-yyyy\").ToUpper()"
+                                    expression = "System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).AddDays(@\"$InputFile\".Substring(@\"$InputFile\".Length - 6, 1) == \"_\" ? int.Parse(@\"$InputFile\".Substring(@\"$InputFile\".Length - 5, 1)) : 0).ToString(\"dd-MMM-yyyy\").ToUpper()"
                                 }
                             }
                         },
@@ -458,7 +499,7 @@ namespace DataTransformation
                 new PdtTransformation
                 {
                     name = TransName.MIL_Trade_RMA.ToString(),
-                    type = TransType.Csv2Csv,
+                    type = TransType.Excel2Csv,
                     label = "MIL Trade RMA Preparation",
                     templateFile = "RMA_GenericTrade.csv",
                     category = "Medio",
@@ -469,14 +510,31 @@ namespace DataTransformation
                             name = "TransactionType",
                             expressionBefore = "lineVal.Split('$CsvSrcSep')[1]",
                         },
+                        new PdtVariable {
+                            name = "TradeType",
+                            expressionBefore = "\"$TransactionType\" == \"Sell\" || \"$TransactionType\" == \"Buy\" || \"$TransactionType\" == \"ForwardFX\" ? \"Purchase/Sale\" : \"Cash Transfer\"",
+                        },
+                        new PdtVariable {
+                            name = "UserTranID1",
+                            expressionBefore = "lineVal.Split('$CsvSrcSep')[21]",
+                        },
                     },
-                    processingCondition = "\"$TransactionType\" == \"Sell\" || \"$TransactionType\" == \"Buy\"",
+                    processingCondition = "\",Sell,Buy,Withdraw,Deposit,AccountingRelated,GrossAmountDividend,ForwardFX,Repo,ReverseRepo,\".IndexOf(\",$TransactionType,\") >= 0 && \",211,212,213,214,215,216,217,218,219,220,221,222MASTER,223,224,225,226,227,228,229,230,236,237,300MASTER,301MASTER,302MASTER,303MASTER,611,612,614,617,626,627,628,629,631,642,646,647,648,650,651,652,653,654,656,657,658,659,660,661,662,664,677,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,697,698,699,700,701,703,704,705,706,707,708,709,710,711,712,713,714,715,\".IndexOf(\",\" + lineVal.Split('$CsvSrcSep')[5] + \",\") >= 0 && !(\"$TransactionType\" == \"AccountingRelated\" && (\"$UserTranID1\".IndexOf(\"Accrual\") >= 0 || \"$UserTranID1\".IndexOf(\"Day\") >= 0 || \"$UserTranID1\".IndexOf(\"support\") >= 0)) && !(\"$TransactionType\" == \"GrossAmountDividend\" && \"$UserTranID1\".IndexOf(\"div_reinvestment\") >= 0)",
                     columns = new [] {
                         new PdtColumn {
                             name = "Tran ID",
                             isRequired = true,
                             isRelativeToRootNode = true,
-                            destPaths = new [] { new PdtColumnDest { path = "ExternalRef" } }
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "ExternalRef",
+                                    expression = "\"SS&C TRADE ID: \" + colVal"
+                                },
+                                new PdtColumnDest {
+                                    path = "Info",
+                                    expression = "\"MIL_Trade_RMA\""
+                                },
+                            }
                         },
                         new PdtColumn {
                             name = "Trans Type",
@@ -485,7 +543,7 @@ namespace DataTransformation
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "TradeType",
-                                    expression = "\"Purchase/Sale\""
+                                    expression = "\"$TradeType\""
                                 },
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
@@ -510,7 +568,7 @@ namespace DataTransformation
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "TradeDate",
-                                    expression = "colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                    expression = "System.Text.RegularExpressions.Regex.IsMatch(colVal, @\"^\\d+$\") ? (new System.DateTime(1900, 1, 1).AddDays(int.Parse(colVal)-2)).ToString(\"yyyy-MM-dd\") : System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
                                 },
                             }
                         },
@@ -521,7 +579,7 @@ namespace DataTransformation
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "ValueDate",
-                                    expression = "colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                    expression = "System.Text.RegularExpressions.Regex.IsMatch(colVal, @\"^\\d+$\") ? (new System.DateTime(1900, 1, 1).AddDays(int.Parse(colVal)-2)).ToString(\"yyyy-MM-dd\") : System.DateTime.ParseExact(colVal, \"dd/MM/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
                                 },
                             }
                         },
@@ -539,7 +597,7 @@ SELECT IDENT FROM (
 SELECT IDENT, NAME FROM FOLIO F
     START WITH IDENT IN (SELECT MNEMO FROM TITRES WHERE MNEMO_V2 = '"" + colVal + @""')
 CONNECT BY PRIOR IDENT = MGR)
-WHERE NAME = 'Investments MIFL'"""
+WHERE NAME IN ('Investments', 'Investments MIFL')"""
                                     },
                                     path = "BookId"
                                 },
@@ -547,17 +605,9 @@ WHERE NAME = 'Investments MIFL'"""
                                     Lookup = new PdtColumnLookup {
                                         Table = "SQL",
                                         Expression = @"@""
-SELECT ENTITE FROM (
-SELECT IDENT, NAME, ENTITE FROM FOLIO F
-    START WITH IDENT IN (SELECT MNEMO FROM TITRES WHERE MNEMO_V2 = '"" + colVal + @""')
-CONNECT BY PRIOR IDENT = MGR)
-WHERE NAME = 'Investments MIFL'"""
+SELECT F.ENTITE FROM FOLIO F JOIN TITRES T ON T.MNEMO = F.IDENT AND T.MNEMO_V2 = '"" + colVal + ""'"""
                                     },
                                     path = "Entity"
-                                },
-                                new PdtColumnDest {
-                                    path = "CounterpartyId",
-                                    expression = "10004088"
                                 },
                             }
                         },
@@ -566,18 +616,24 @@ WHERE NAME = 'Investments MIFL'"""
                             name = "Investment",
                             isRequired = true,
                             isRelativeToRootNode = true,
-                            destPaths = new [] { new PdtColumnDest {
-                                Lookup = new PdtColumnLookup {
-                                    Table = "SQL",
-                                    Expression = @"@""
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"""$TradeType"" == ""Cash Transfer"" ? ""SELECT SICOVAM FROM TITRES WHERE LIBELLE='Cash for currency ''"" + lineVal.Split('$CsvSrcSep')[11] + ""'''"" : ""$TransactionType"" == ""ForwardFX"" ? @""
+SELECT SICOVAM FROM TITRES WHERE TYPE = 'E' AND QUOTATION_TYPE = 1
+    AND ((MARCHE=STR_TO_DEVISE('"" + colVal.Substring(0, 3) + ""') AND DEVISECTT=STR_TO_DEVISE('"" + lineVal.Split('$CsvSrcSep')[11].Substring(0, 3) + ""')) OR (MARCHE=STR_TO_DEVISE('"" + lineVal.Split('$CsvSrcSep')[11].Substring(0, 3) + ""') AND DEVISECTT=STR_TO_DEVISE('"" + colVal.Substring(0, 3) + ""')))"" : @""
+SELECT SICOVAM FROM TITRES WHERE REFERENCE = '"" + colVal + @""'
+UNION
 SELECT T.SICOVAM
 FROM EXTRNL_REFERENCES_DEFINITION ERD
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
     JOIN TITRES T ON T.SICOVAM = ERI.SOPHIS_IDENT
-WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
+WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'""" },
+                                    path = "InstrumentRef"
                                 },
-                                path = "InstrumentRef"
-                            } }
+                                new PdtColumnDest { path = "Isin"}
+                            }
                         },
                         new PdtColumn {
                             name = "Quantity",
@@ -585,10 +641,45 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                             isRelativeToRootNode = true,
                             destPaths = new [] { new PdtColumnDest {
                                 path = "Quantity",
-                                expression = "(\"$TransactionType\" == \"Buy\" ? \"+\" : \"-\") + colVal"
+                                Lookup = new PdtColumnLookup {
+                                    Table = "SQL",
+                                    Expression = @"@""
+SELECT CASE WHEN '$TransactionType' NOT IN ('Sell', 'Buy') THEN
+        CASE WHEN '$TransactionType' IN ('ForwardFX') THEN CASE WHEN '"" + lineVal.Split('$CsvSrcSep')[11] + @""'='EUR.F' THEN -1 * "" + lineVal.Split('$CsvSrcSep')[9] + @"" ELSE TO_NUMBER(COALESCE('"" + colVal + @""', '0')) END
+        ELSE (CASE WHEN '$TransactionType' IN ('Deposit', 'GrossAmountDividend', 'ReverseRepo') THEN -1 ELSE 1 END) * "" + lineVal.Split('$CsvSrcSep')[9] + @"" END
+    ELSE (CASE WHEN '$TransactionType' IN ('Sell') THEN -1 ELSE 1 END) * "" + (colVal=="""" ? ""0"" : colVal) + @"" /
+        CASE WHEN NOT EXISTS (
+            SELECT * FROM EXTRNL_REFERENCES_DEFINITION ERD
+                JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
+                JOIN TITRES T ON T.SICOVAM = ERI.SOPHIS_IDENT 
+                    AND T.AFFECTATION IN ('1900', '1660','1420','13','12','1204','1540','1560')
+            WHERE ERD.REF_NAME = 'ISIN'
+                AND ERI.VALUE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""')
+                AND NOT EXISTS (SELECT * FROM TITRES WHERE REFERENCE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""'
+                    AND AFFECTATION IN ('1900', '1660','1420','13','12','1204','1540','1560')) THEN 1 ELSE
+        (SELECT NOMINAL FROM TITRES WHERE REFERENCE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""'
+        UNION
+        SELECT T.NOMINAL FROM EXTRNL_REFERENCES_DEFINITION ERD
+            JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
+            JOIN TITRES T ON T.SICOVAM = ERI.SOPHIS_IDENT 
+        WHERE ERD.REF_NAME = 'ISIN'
+            AND ERI.VALUE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""') END END QUANTITY
+FROM DUAL"""
+                                },
+                                //expression = "\"$TransactionType\" == \"AccountingRelated\" ? lineVal.Split('$CsvSrcSep')[9] : ((\"$TransactionType\" == \"Sell\" ? \"-\" : \"\") + colVal)"
                             } }
                         },
-                        new PdtColumn { name = "Settle Net Amount", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn {
+                            name = "Settle Net Amount",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "Amount",
+                                    expression = "\"$TransactionType\"==\"ForwardFX\" && lineVal.Split('$CsvSrcSep')[11]==\"EUR.F\" ? \"-\" + lineVal.Split('$CsvSrcSep')[8] : (\",Buy,ForwardFX,Withdraw,AccountingRelated,Repo,\".IndexOf(\",$TransactionType,\") >= 0 ? \"\" : \"-\") + colVal"
+                                }
+                            }
+                        },
                         new PdtColumn {
                             name = "Unit Price",
                             isRequired = true,
@@ -596,11 +687,33 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Spot",
-                                    expression = "double.Parse(colVal)"
+                                    expression = "\"$TransactionType\" == \"Sell\" || \"$TransactionType\" == \"Buy\" || \"$TransactionType\" == \"ForwardFX\" ? double.Parse(colVal) : 1"
                                 },
                                 new PdtColumnDest {
                                     path = "SpotType",
-                                    expression = "0"
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT CASE WHEN '$TransactionType' NOT IN ('Sell', 'Buy') THEN 0
+    WHEN NOT EXISTS (
+        SELECT * FROM EXTRNL_REFERENCES_DEFINITION ERD
+            JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
+            JOIN TITRES T ON T.SICOVAM = ERI.SOPHIS_IDENT 
+                AND T.AFFECTATION IN ('1900', '1660','1420','13','12','1204','1540','1560')
+        WHERE ERD.REF_NAME = 'ISIN'
+            AND ERI.VALUE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""')
+            AND NOT EXISTS (SELECT * FROM TITRES WHERE REFERENCE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""'
+                AND AFFECTATION IN ('1900', '1660','1420','13','12','1204','1540','1560')) THEN 0
+    ELSE (SELECT NVL(QUOTATION_TYPE, 0) FROM TITRES WHERE REFERENCE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""'
+        UNION
+        SELECT NVL(T.QUOTATION_TYPE, 0)
+        FROM EXTRNL_REFERENCES_DEFINITION ERD
+            JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
+            JOIN TITRES T ON T.SICOVAM = ERI.SOPHIS_IDENT 
+        WHERE ERD.REF_NAME = 'ISIN'
+            AND ERI.VALUE = '"" + lineVal.Split('$CsvSrcSep')[7] + @""') END SPOT_TYPE
+FROM DUAL"""
+                                    },
                                 }
                             }
                         },
@@ -608,20 +721,56 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                             name = "Settle Currency",
                             isRequired = true,
                             isRelativeToRootNode = true,
-                            destPaths = new [] { new PdtColumnDest { path = "Currency" } }
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "Currency",
+                                    expression = "colVal.Substring(0, 3)"
+                                }
+                            }
                         },
                         new PdtColumn { name = "Book Amount", isRequired = true, isRelativeToRootNode = true},
                         new PdtColumn { name = "FX Rate", isRequired = true, isRelativeToRootNode = true},
-                        new PdtColumn { name = "Broker", isRequired = true, isRelativeToRootNode = true},
-                        new PdtColumn { name = "Custodian", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn {
+                            name = "Broker",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "Comments",
+                                    expression = "\",Sell,Buy,\".IndexOf(\",$TransactionType,\") >= 0 ? \"$TransactionType_MIL TA: \" + colVal : \"$TransactionType\""
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = "\"SELECT CODE FROM TIERSPROPERTIES WHERE NAME = 'MIL TA' AND VALUE = '\" + colVal + \"'\"",
+                                    },
+                                    path = "CounterpartyId"
+                                }
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Custodian",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = "\"SELECT IDENT FROM TIERS WHERE NAME = '\" + colVal + \"'\"",
+                                    },
+                                    path = "DepositaryId"
+                                }
+                            }
+                        },
                         new PdtColumn { name = "Cust Account", isRequired = true, isRelativeToRootNode = true},
                         new PdtColumn { name = "Currency", isRequired = true, isRelativeToRootNode = true},
                         new PdtColumn { name = "Accrued Interest", isRequired = true, isRelativeToRootNode = true},
                         new PdtColumn { name = "Input Date", isRequired = true, isRelativeToRootNode = true},
                         new PdtColumn { name = "Trans Desc", isRequired = true, isRelativeToRootNode = true},
-                        new PdtColumn { name = " User Tran ID 1", isRequired = true, isRelativeToRootNode = true},
-                        new PdtColumn { name = " User Tran ID 2", isRequired = true, isRelativeToRootNode = true},
-                        new PdtColumn { name = " Fund Structure", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "User Tran ID 1", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "User Tran ID 2", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Fund Structure", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Cash Source", isRequired = true, isRelativeToRootNode = true},
                     }
                 },
                 new PdtTransformation
@@ -649,7 +798,11 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                                 new PdtColumnDest {
                                     path = "Currency",
                                     expression = "colVal == \"European Euro\" ? \"EUR\" : colVal"
-                                }
+                                },
+                                new PdtColumnDest {
+                                    path = "Info",
+                                    expression = "\"MIL_Cash_RMA\""
+                                },
                             }
                         },
                         new PdtColumn { name = "Group1", isRequired = true, isRelativeToRootNode = true},
@@ -724,6 +877,8 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                                 Lookup = new PdtColumnLookup {
                                     Table = "SQL",
                                     Expression = @"@""
+SELECT SICOVAM FROM TITRES WHERE REFERENCE = '"" + colVal + @""'
+UNION
 SELECT T.SICOVAM
 FROM EXTRNL_REFERENCES_DEFINITION ERD
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.REF_IDENT = ERD.REF_IDENT
@@ -766,6 +921,780 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                 },
                 new PdtTransformation
                 {
+                    name = TransName.REFI_CA.ToString(),
+                    type = TransType.Csv2Xml,
+                    label = "Refinitiv Corporate Action",
+                    templateFile = "REFI_CA.xml",
+                    category = "Medio",
+                    //fileBreakExpression = @"lineVal.Split(';')[0]+""_""+""$XmlType"".Replace("" "", """")",
+                    fileBreakExpression = @"lineVal.Split(';')[0]",
+                    repeatingRootPath = "//*[local-name() = 'corporateActionList']",
+                    repeatingChildrenPath = "//*[local-name() = 'corporateAction']",
+                    csvSkipLines = 1,
+                    csvSrcSeparator = ',',
+                    variables = new[] {
+                        new PdtVariable { name = "CAType", expressionBefore = "lineVal.Split(';')[4]"},
+                        new PdtVariable { name = "DivType", expressionBefore = "lineVal.Split(';')[24]"},
+                        new PdtVariable { name = "CapType", expressionBefore = "lineVal.Split(';')[42]"},
+                        new PdtVariable { name = "XmlType", expressionBefore = @"
+""$CAType"" == ""DIV"" ? (
+    ""$DivType"" == ""Cash Dividend"" && lineVal.Split(';')[32] == ""JPY"" && lineVal.Split(';')[48]!=""Forecast"" ? ""Standard Dividend Japanese"" :
+    ""$DivType"" == ""Cash Dividend"" && lineVal.Split(';')[12] != """" && lineVal.Split(';')[12] != lineVal.Split(';')[32] ? ""Standard Dividend In Another Currency"" :
+    ""$DivType"" == ""Cash Dividend"" && lineVal.Split(';')[32] != ""JPY"" && lineVal.Split(';')[43]==""Mandatory"" ? ""Standard Dividend"" :
+    //""$DivType"" == ""Cash with Stock Alternative"" ? ""Standard Dividend with option"" :
+    ""$DivType"" == ""Stock Dividend"" ? ""Standard Stock Dividend"" : ""Unknown"") :
+    (""$CapType"" == ""Non-renounceable scrip issue in same stock"" ? ""Standard SCRIP"" :
+    ""$CapType"" ==  ""Return of capital"" ? ""Standard Return of Capital"" :
+    ""$CapType"" ==  ""Stock split"" ? ""Standard Stock Split"" :
+    ""$CapType"" ==  ""Stock consolidation"" ? ""Standard Reverse Stock Split"" :
+    ""$CapType"" ==  ""Capital Reduction (CRD)"" ? ""Standard Share Capital Consolidation"" :
+    //""$CapType"" ==  ""Non-renounceable scrip issue in same stock"" ? ""Standard Bonus Right Issue"" :
+    ""$CapType"" ==  ""Demerger (DEM)"" ? ""Standard Spin-Off"" :""Unkown"")"},
+                        new PdtVariable {
+                            name = "numerator",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "0" },
+                            expressionAfter=@"""@Standard SCRIP@Standard Stock Split@Standard Reverse Stock Split@Standard Share Capital Consolidation@"".IndexOf(""$XmlType"") >= 0 ? (lineVal.Split(';')[18]=="""" ? ""1"" : lineVal.Split(';')[18]) : (colVal=="""" ? ""1"" : colVal)",
+                        },
+                        new PdtVariable {
+                            name = "denominator",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "1" },
+                            expressionAfter=@"""@Standard SCRIP@Standard Stock Split@Standard Reverse Stock Split@Standard Share Capital Consolidation@"".IndexOf(""$XmlType"") >= 0 ? (lineVal.Split(';')[17]=="""" ? ""1"" : lineVal.Split(';')[17]) : (colVal=="""" ? ""1"" : colVal)",
+                        },
+                        new PdtVariable {
+                            name = "EffectiveDate",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "2" },
+                        },
+                        new PdtVariable {
+                            name = "SubscriptionPeriodStartDate",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "3" },
+                        },
+                        new PdtVariable {
+                            name = "SubscriptionPeriodEndDate",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "4" },
+                        },
+                        new PdtVariable {
+                            name = "DividendRate",
+                            expressionBefore = @"""DIV_""+lineVal.Split(';')[41]",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ID", ColumnIndex = "5" },
+                        },
+                    },
+                    processingCondition = @"
+((""@Standard Dividend@Standard Dividend Japanese@Standard Dividend with option@Standard Stock Dividend@Standard Dividend In Another Currency@"".IndexOf(""@$XmlType@"") >= 0 && ""$CAType"" == ""DIV"") ||
+(""@Standard SCRIP@Standard Return of Capital@Standard Stock Split@Standard Reverse Stock Split@Standard Renaming@Standard Share Capital Consolidation@Standard Bonus Right Issue@Standard Spin-Off@"".IndexOf(""@$XmlType@"") >= 0 && ""$CAType"" == ""CAP""))",
+                    postProcessEvent = @"
+        var nodePaths = new List<string>();
+        if (""$XmlType"" == ""Standard Dividend"") {
+            nodePaths.Add(""//*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'noImpactOnNetAmountIfRounding']"");
+            nodePaths.Add(""//*[local-name() = 'instrumentUnavailable']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Dividend In Another Currency"") {
+            nodePaths.Add(""//*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Dividend Japanese"") {
+            nodePaths.Add(""//*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Stock Dividend"") {
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'noImpactOnNetAmountIfRounding']"");
+            nodePaths.Add(""//*[local-name() = 'instrumentUnavailable']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard SCRIP"") {
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'noImpactOnNetAmountIfRounding']"");
+            nodePaths.Add(""//*[local-name() = 'instrumentUnavailable']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Return of Capital"") {
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'noImpactOnNetAmountIfRounding']"");
+            nodePaths.Add(""//*[local-name() = 'instrumentUnavailable']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Stock Split"") {
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'paymentDate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'exdivDate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Spin-Off"") {
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'paymentDate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'coefficient']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        if (""$XmlType"" == ""Standard Reverse Stock Split"") {
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'paymentDate']"");
+            nodePaths.Add(""//*[local-name() = 'exdivDate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'coefficient']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'newNameOfCompany']"");
+            if (""Name,ISIN"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'nameChange']"").InnerText) < 0) {
+                nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'nameChange']"");
+                nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'newNameOfCompany']"");
+            }
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+        }
+        if (""$XmlType"" == ""Standard Share Capital Consolidation"") {
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'paymentDate']"");
+            nodePaths.Add(""//*[local-name() = 'exdivDate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'coefficient']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+        }
+        if (""$XmlType"" == ""Standard Dividend with option"") {
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            nodePaths.Add(""//*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'noImpactOnNetAmountIfRounding']"");
+            nodePaths.Add(""//*[local-name() = 'instrumentUnavailable']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'nameChange']"");
+            nodePaths.Add(""//*[local-name() = 'newNameOfCompany']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+        }
+        foreach(string path in nodePaths) {
+            var nodes = doc.SelectNodes(path);
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                var node = nodes.Item(i);
+                node.ParentNode.RemoveChild(node);
+            }
+        }",
+                    columns = new []
+                    {
+                        new PdtColumn {
+                            name = "ISIN",
+                            isRequired = true,
+                            isRelativeToRootNode = false,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT T.SICOVAM
+FROM TITRES T
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + colVal + @""'
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI_REFI ON ERI_REFI.SOPHIS_IDENT = T.SICOVAM AND ERI_REFI.VALUE = '"" + lineVal.Split(';')[49] + @""'
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD_REFI ON ERD_REFI.REF_IDENT = ERI_REFI.REF_IDENT AND ERD_REFI.REF_NAME = 'Refinitiv_Exch_Code'
+WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT != 0)"""
+                                    },
+                                    path = "//*[local-name() = 'identifier']/*[local-name() = 'sophis']"
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        File = "REFI_CA_ISO.csv",
+                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? ""Name"" : ""ISIN"") : null",
+                                    },
+                                    path = "//*[local-name() = 'nameChange']",
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        File = "REFI_CA_ISO.csv",
+                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? lineVal.Split(';')[1].Trim('""').Substring(6) : colVal) : null",
+                                    },
+                                    path = "//*[local-name() = 'newNameOfCompany']",
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "CUSIP", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "SEDOL", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Ticker", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Corporate Actions Type", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Ex Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'type']",
+                                    expression = "\"$XmlType\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'ticketToGenerate']",
+                                    expression = @"""$XmlType""==""Standard Share Capital Consolidation"" ? ""ClosingTicket"" : ""Both"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'ticketToGenerate']",
+                                    expression = @"""$XmlType""==""Standard Share Capital Consolidation"" ? ""OpeningTicket"" : ""Both"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'businessEvent1']",
+                                    expression = @"
+""@Standard Dividend In Another Currency@"".IndexOf(""@$XmlType@"") >= 0 ? ""Final Dividend"" :
+""@Standard Reverse Stock Split@"".IndexOf(""@$XmlType@"") >= 0 ? ""Purchase/Sale"" :
+""@Standard Dividend Japanese@"".IndexOf(""@$XmlType@"") >= 0 ? ""Dividend Confirmed"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'businessEvent1']",
+                                    expression = @"
+""@Standard Share Capital Consolidation@"".IndexOf(""@$XmlType@"") >= 0 ? ""Exercise"" :
+""@Standard Reverse Stock Split@"".IndexOf(""@$XmlType@"") >= 0 ? ""Split"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'businessEvent2']",
+                                    expression = @"
+""@Standard Dividend In Another Currency@"".IndexOf(""@$XmlType@"") >= 0 ? ""Estimated Dividend"" :
+""@Standard Reverse Stock Split@"".IndexOf(""@$XmlType@"") >= 0 ? ""Split"" :
+""@Standard Dividend Japanese@"".IndexOf(""@$XmlType@"") >= 0 ? ""Dividend To Be Confirmed"" : """""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'corporateActionType']",
+                                    expression = @"
+""$XmlType"".StartsWith(""Standard Dividend"") || ""$XmlType""==""Standard Return of Capital"" ? ""Dividend"" :
+""@Standard SCRIP@Standard Stock Dividend@"".IndexOf(""@$XmlType@"") >= 0 ? ""Free attribution"" :
+""$XmlType""==""Standard Stock Split"" ? ""Split"" :
+""$XmlType""==""Standard Spin-Off"" ? ""Demerger"" :
+""$XmlType""==""Standard Reverse Stock Split"" ? ""Post Rounding"" :
+""$XmlType""==""Standard Share Capital Consolidation"" ? ""Merger Average Price"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'corporateActionType']",
+                                    expression = @"
+""$XmlType""==""Standard Dividend with option"" ? ""Free attribution"" :
+""$XmlType""==""Standard Reverse Stock Split"" ? ""Split"" :
+""$XmlType""==""Standard Share Capital Consolidation"" ? ""Post Rounding"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'corporateActionType']",
+                                    expression = @"
+""$XmlType""==""Standard Dividend with option"" ? ""Free attribution"" :
+""$XmlType""==""Standard Reverse Stock Split"" ? ""Standard Renaming"" :
+""$XmlType""==""Standard Share Capital Consolidation"" ? ""Merger Average Price"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'remark']",
+                                    expression = @"""@Standard Reverse Stock Split@Standard Share Capital Consolidation@"".IndexOf(""@$XmlType@"") >= 0 ? ""CashedOutAtClosingPrice"" : ""$XmlType""==""Standard Dividend In Another Currency"" ? ""DividendInStockCurrency"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'remark']",
+                                    expression = @"""@Standard Share Capital Consolidation@"".IndexOf(""@$XmlType@"") >= 0 ? ""CashedOutAtClosingPrice"" : ""Unknown"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'exdivDate']",
+                                    expression = "\"$CAType\" == \"DIV\" ? System.DateTime.ParseExact(colVal, \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\") : System.DateTime.ParseExact(lineVal.Split(';')[20], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Dividend Record Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'recordDate']",
+                                    expression = @"
+""@Standard Dividend In Another Currency@Standard Stock Dividend@Standard Dividend@Standard Dividend Japanese@Standard Dividend with option@"".IndexOf(""@$XmlType@"") >= 0 ?
+System.DateTime.ParseExact(colVal, ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+""@Standard Stock Split@Standard Reverse Stock Split@Standard Share Capital Consolidation@"".IndexOf(""@$XmlType@"") >= 0 ?
+//Effective Date
+System.DateTime.ParseExact(lineVal.Split(';')[14], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+//Record Date
+System.DateTime.ParseExact(lineVal.Split(';')[15], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"")"
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'corporateActionDate']",
+                                    expression = @"
+""@Standard SCRIP@Standard Return of Capital@"".IndexOf(""@$XmlType@"") >= 0 ?
+//Record Date
+System.DateTime.ParseExact(lineVal.Split(';')[15], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+""@Standard Dividend Japanese@Standard Dividend In Another Currency@Standard Dividend with option@Standard Dividend@Standard Stock Dividend@"".IndexOf(""@$XmlType@"") >= 0 ?
+//Dividend Record Date
+System.DateTime.ParseExact(colVal, ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+""@Standard Stock Split@Standard Reverse Stock Split@Standard Share Capital Consolidation@"".IndexOf(""@$XmlType@"") >= 0 ?
+//Effective Date
+System.DateTime.ParseExact(lineVal.Split(';')[14], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+""@Standard Spin-Off@Standard SCRIP@"".IndexOf(""@$XmlType@"") >= 0 ?
+//Capital Change Ex Date
+System.DateTime.ParseExact(lineVal.Split(';')[20], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") :
+//Record Date
+System.DateTime.ParseExact(lineVal.Split(';')[15], ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"")"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Dividend Pay Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'paymentDate']",
+                                    //No need to lookup for EffectiveDate as it's on the same line. But as lookup is already done --> use it
+                                    expression = @"""@Standard Dividend Japanese@Standard Dividend In Another Currency@Standard Dividend with option@Standard Dividend@Standard Stock Dividend@"".IndexOf(""@$XmlType@"") >= 0 ? System.DateTime.ParseExact(colVal, ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") : ""$EffectiveDate"""
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Dividend Rate", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'coefficient']",
+                                    expression = @"
+""@Standard Dividend with option@Standard Dividend@Standard Dividend Japanese@"".IndexOf(""$XmlType"") >= 0 ? colVal :
+""@Standard Return of Capital@Standard Dividend In Another Currency@"".IndexOf(""$XmlType"") >= 0 ? ""$DividendRate"" :
+""@Standard Stock Dividend@Standard SCRIP@"".IndexOf(""$XmlType"") >= 0 ? ((double)$numerator/$denominator).ToString() :
+""@Standard Stock Split@Standard Reverse Stock Split@"".IndexOf(""@$XmlType@"") >= 0 ? lineVal.Split(';')[18] : ""0"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'cash']",
+                                    expression = @"""@Standard Dividend In Another Currency@"".IndexOf(""$XmlType"") >= 0 ? colVal : """""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'coefficient']",
+                                    expression = @"""@Standard Dividend with option@"".IndexOf(""$XmlType"") >= 0 ? ((double)$numerator/$denominator).ToString() : ""1"""
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Annualised Dividend Gross Amount", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Annualised Dividend Net Amount", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Declared Rate", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'currencyRate']",
+                                    expression = "colVal != \"\" ? colVal : \"1\""
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Declared Rate Currency", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Corporate Action Notes", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Effective Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Record Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Actual Adjustment Factor", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'rfactor']",
+                                    expression = @"""@Standard Spin-Off@"".IndexOf(""@$XmlType@"") >= 0 ? colVal : ""0.000000"""
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Old Shares Terms", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'denominator']",
+                                    expression = "$denominator"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "New Shares Terms", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'numerator']",
+                                    expression = "$numerator"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Round Lot Size", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Capital Change Ex Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'EffectiveDate']",
+                                    expression = @"""@Standard Return of Capital@"".IndexOf(""@$XmlType@"") >= 0 ? System.DateTime.ParseExact(colVal, ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") : """""
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Capital Change New Security ISIN", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT T.SICOVAM
+FROM TITRES T
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + colVal + @""'
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'"""
+                                    },
+                                    path = "//*[local-name() = 'diffusedCode']/*[local-name() = 'sophis']"
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Capital Change New Security PILC", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Payment Type", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Payment Type Description", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Rights Identifier", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Rights ISIN", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Offer Price", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Offer Price Currency", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Subscription Period Start Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'electionStartDate']",
+                                    expression = "\"$CAType\" == \"DIV\" ? \"$SubscriptionPeriodStartDate\" : System.DateTime.ParseExact(lineVal.Split(';')[14], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Subscription Period End Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'electionEndDate'] | //*[local-name() = 'resultDate']",
+                                    expression = "\"$CAType\" == \"DIV\" ? \"$SubscriptionPeriodEndDate\" : System.DateTime.ParseExact(lineVal.Split(';')[14], \"MM/dd/yyyy\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Dividend Announcement Date", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'resultDate']",
+                                    expression = @"""@Standard Dividend with option@"".IndexOf(""$XmlType"") >= 0 ? ""$EffectiveDate"" : ""$CAType"" == ""DIV"" ? System.DateTime.ParseExact(colVal, ""MM/dd/yyyy"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"") : """""
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Dividend Currency", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'currency']" } }
+                        },
+                        new PdtColumn { name = "Dividend Currency Description", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Ex Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Pay Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Payment Type", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Record Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Delete Marker", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Market Event ID", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Capital Change Event Type", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Corporate Actions ID", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'reference']" } }
+                        },
+                        new PdtColumn { name = "Capital Change Event Type Description", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Mandatory/Voluntary Description", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'category']",
+                                    expression = "colVal == \"Choice\" ? \"Mandatory with choice\" : \"Mandatory\""
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Mandatory/Voluntary Indicator", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Capital Change Announcement Date", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Event Status", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Type Marker", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Dividend Type Marker Description", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Exchange Code", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "Exchange Description", isRequired = true, isRelativeToRootNode = true},
+                    }
+                },
+                new PdtTransformation
+                {
+                    name = TransName.REFI_CA_SR.ToString(),
+                    type = TransType.Csv2Xml,
+                    label = "Refinitiv Corporate Action Standard Renaming",
+                    templateFile = "REFI_CA.xml",
+                    category = "Medio",
+                    //fileBreakExpression = @"lineVal.Split(';')[0].Substring(5)+""_""+""$XmlType"".Replace("" "", """")",
+                    fileBreakExpression = @"lineVal.Split(';')[0].Substring(5)",
+                    repeatingRootPath = "//*[local-name() = 'corporateActionList']",
+                    repeatingChildrenPath = "//*[local-name() = 'corporateAction']",
+                    csvSkipLines = 1,
+                    csvSrcSeparator = ';',
+                    variables = new[] {
+                        new PdtVariable { name = "XmlType", expressionBefore = "\"Standard Renaming\""},
+                        new PdtVariable { name = "DuplicateXmlType",
+                            expressionBefore = @"""CAP_""+lineVal.Split(';')[0].Substring(5)",
+                            Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ISIN", ColumnIndex = "0" },
+                            expressionAfter=@"""Stock consolidation"" == colVal ? ""Standard Reverse Stock Split"" : ""Unknown""",
+                        },
+                    },
+                    processingCondition = @"""$DuplicateXmlType"" != ""Standard Reverse Stock Split""",
+                    postProcessEvent = @"
+        var nodePaths = new List<string>();
+        if (""$XmlType"" == ""Standard Renaming"") {
+            nodePaths.Add(""//*[local-name() = 'conversionRatio']"");
+            nodePaths.Add(""//*[local-name() = 'resultDate']"");
+            nodePaths.Add(""//*[local-name() = 'result']"");
+            nodePaths.Add(""//*[local-name() = 'electionStartDate']"");
+            nodePaths.Add(""//*[local-name() = 'electionEndDate']"");
+            nodePaths.Add(""//*[local-name() = 'EffectiveDate']"");
+            nodePaths.Add(""//*[local-name() = 'paymentDate']"");
+            nodePaths.Add(""//*[local-name() = 'exdivDate']"");
+            nodePaths.Add(""//*[local-name() = 'rfactor']"");
+            nodePaths.Add(""//*[local-name() = 'roundingType']"");
+            nodePaths.Add(""//*[local-name() = 'roundingOnClosingPosition']"");
+            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'businessEvent2']"");
+            nodePaths.Add(""//*[local-name() = 'remark']"");
+            nodePaths.Add(""//*[local-name() = 'cash']"");
+            nodePaths.Add(""//*[local-name() = 'coefficient']"");
+            nodePaths.Add(""//*[local-name() = 'currency']"");
+            nodePaths.Add(""//*[local-name() = 'currencyRate']"");
+            nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
+            if (""Name,ISIN"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"").InnerText) < 0) {
+                nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"");
+                nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'newNameOfCompany']"");
+            }
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]"");
+        }
+        foreach(string path in nodePaths) {
+            var nodes = doc.SelectNodes(path);
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                var node = nodes.Item(i);
+                node.ParentNode.RemoveChild(node);
+            }
+        }",
+                    columns = new []
+                    {
+                        new PdtColumn { name = "ISIN", isRequired = true, isRelativeToRootNode = false,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT T.SICOVAM
+FROM TITRES T
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + colVal.Substring(5) + @""'
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'
+WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT != 0)"""
+                                    },
+                                    path = "//*[local-name() = 'identifier']/*[local-name() = 'sophis']"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "70E", isRequired = true, isRelativeToRootNode = true},
+                        new PdtColumn { name = "22F", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'type'] | //*[local-name() = 'corporateActionType']",
+                                    expression = "\"$XmlType\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'businessEvent1']",
+                                    expression = "\"Renaming\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'category']",
+                                    expression = "\"Mandatory\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'nameChange']",
+                                    expression = @"colVal==""CHAN//NAME"" ? ""Name"" : ""ISIN"""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'newNameOfCompany']",
+                                    expression = @"colVal==""CHAN//NAME"" ? lineVal.Split(';')[1].Substring(6) : lineVal.Split(';')[0].Substring(5)"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "20C", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'reference']",
+                                    expression = "colVal.Substring(6)"
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "98A", isRequired = true, isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'recordDate'] | //*[local-name() = 'corporateActionDate']",
+                                    expression = @"System.DateTime.ParseExact(colVal.Substring(6), ""yyyyMMdd"", System.Globalization.CultureInfo.InvariantCulture).ToString(""yyyy-MM-dd"")"
+                                }
+                            }
+                        },
+                    }
+                },
+                new PdtTransformation
+                {
                     name = TransName.BBH_Fee.ToString(),
                     type = TransType.Csv2Xml,
                     label = "Infomediary Fee",
@@ -777,7 +1706,7 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -930,7 +1859,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -1010,6 +1939,235 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                 },
                 new PdtTransformation
                 {
+                    name = TransName.BBH_JE.ToString(),
+                    type = TransType.Csv2Xml,
+                    label = "Infomediary Clearer Journal Entry",
+                    templateFile = "BBH_IM.xml",
+                    category = "Medio",
+                    repeatingRootPath = "//*[local-name() = 'import']",
+                    repeatingChildrenPath = "//*[local-name() = 'trade']",
+                    csvSrcSeparator = ',',
+                    variables = new[] {
+                        new PdtVariable {
+                            name = "EventType",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
+                        },
+                        new PdtVariable{
+                            name = "OnBoarded",
+                            expressionBefore = "lineVal.Split('$CsvSrcSep')[6]",
+                            Lookup = new PdtColumnLookup {
+                                Table = "MEDIO_BBH_FUNDFILTER",
+                                ColumnIndex = "-1",
+                            },
+                        },
+                    },
+                    processingCondition = "\"$EventType\" == \"JE\" && (lineVal.Split('$CsvSrcSep')[3] == \"GSILGB2X\" || (lineVal.Split('$CsvSrcSep')[3] == \"JPMSGB2L\" && \"$OnBoarded\" != \"\"))",
+                    columns = new [] {
+                        new PdtColumn {
+                            name = "Event Type",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'businessEvent']",
+                                    expression = "\"$EventType\" == \"FE\" ? \"Clearing Broker Fees\" : \"$EventType\" == \"IM\" ? \"Initial Margin\" : \"$EventType\" == \"MI\" ? \"Clearing Broker Interests\" : \"$EventType\" == \"MC\" ? \"Clearer Margin Call\" : \"$EventType\" == \"JE\" ? \"Cash Transfer\" : \"Unknown\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'comment']",
+                                    expression = "\"Clearer Journal Entry\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'origin']",
+                                    expression = "\"Electronic\""
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Sender Reference",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'tradeId'][contains(@*[local-name() = 'tradeIdScheme'], 'tradeId/externalReference')]" } }
+                        },
+                        new PdtColumn {
+                            name = "Clearer Reference",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Clearing Broker BIC",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Executing Broker",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Account",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT A.ACCOUNT_ADJUSTMENT_FOLIO
+FROM BO_TREASURY_ACCOUNT A
+    JOIN BO_TREASURY_EXT_REF R ON R.ACC_ID = A.ID
+    JOIN BO_TREASURY_EXT_REF_DEF D ON D.REF_ID = R.REF_ID AND D.REF_NAME = 'CBAccountID'
+WHERE R.VALUE = '"" + colVal + ""'""",
+                                    },
+                                    path = @"
+//*[local-name() = 'portfolioName'][contains(@*[local-name() = 'portfolioNameScheme'], 'portfolioName/id')] |
+//*[local-name() = 'externalReference']/*[local-name() = 'name' and text() = 'RootPortfolio']/../*[local-name() = 'value']",
+                                },
+                                new PdtColumnDest {
+                                    path = @"
+//*[local-name() = 'partyTradeIdentifier']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')] |
+//*[local-name() = 'extendedPartyTradeInformation']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')] |
+//*[local-name() = 'buyerPartyReference']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')] |
+//*[local-name() = 'entityPartyReference']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')] |
+//*[local-name() = 'entity']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')]",
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT A.ENTITY
+FROM BO_TREASURY_ACCOUNT A
+    JOIN BO_TREASURY_EXT_REF R ON R.ACC_ID = A.ID
+    JOIN BO_TREASURY_EXT_REF_DEF D ON D.REF_ID = R.REF_ID AND D.REF_NAME = 'CBAccountID'
+WHERE R.VALUE = '"" + colVal + ""'"""
+                                    },
+                                },
+                                new PdtColumnDest {
+                                    path = @"
+//*[local-name() = 'counterparty']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')] |
+//*[local-name() = 'sellerPartyReference']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')]",
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT T.IDENT
+FROM BO_TREASURY_ACCOUNT A
+    JOIN BO_TREASURY_EXT_REF R ON R.ACC_ID = A.ID
+    JOIN BO_TREASURY_EXT_REF_DEF D ON D.REF_ID = R.REF_ID AND D.REF_NAME = 'CBAccountID'
+    JOIN TIERS T ON T.REFERENCE = A.CUSTODIAN
+WHERE R.VALUE = '"" + colVal + ""'"""
+                                    },
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'accountId']",
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT A.ID
+FROM BO_TREASURY_ACCOUNT A
+    JOIN BO_TREASURY_EXT_REF R ON R.ACC_ID = A.ID
+    JOIN BO_TREASURY_EXT_REF_DEF D ON D.REF_ID = R.REF_ID AND D.REF_NAME = 'CBAccountID'
+WHERE R.VALUE = '"" + colVal + ""'"""
+                                    },
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT T.IDENT
+FROM BO_TREASURY_ACCOUNT A
+    JOIN BO_TREASURY_EXT_REF R ON R.ACC_ID = A.ID
+    JOIN BO_TREASURY_EXT_REF_DEF D ON D.REF_ID = R.REF_ID AND D.REF_NAME = 'CBAccountID'
+    JOIN BO_TREASURY_ACCOUNT CUS ON CUS.ACCOUNT_AT_CUSTODIAN = CASE WHEN (A.ACCOUNT_AT_CUSTODIAN LIKE 'DB%' OR A.ACCOUNT_AT_CUSTODIAN LIKE 'LU%') THEN SUBSTR(A.ACCOUNT_AT_CUSTODIAN, 0, 14) ELSE SUBSTR(A.ACCOUNT_AT_CUSTODIAN, 0, 4) END
+    JOIN TIERS T ON T.REFERENCE = CUS.CUSTODIAN
+WHERE R.VALUE = '"" + colVal + ""'""",
+                                    },
+                                    path = "//*[local-name() = 'depositary']//*[local-name() = 'partyId'][contains(@*[local-name() = 'partyIdScheme'], 'id')]",
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "CommonId",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Currency",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest { path = "//*[local-name() = 'currency']" },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'reference']",
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT SICOVAM FROM TITRES WHERE LIBELLE = 'Cash for currency ''"" + colVal + ""'''"""
+                                    },
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Trade Date",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'tradeDate']",
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Value Date",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'unadjustedDate'] | //*[local-name() = 'adjustedPaymentDate'] | //*[local-name() = 'tradeHeader']/*[local-name() = 'paymentDate']",
+                                    expression = "colVal.Trim() == \"\" ? System.DateTime.ParseExact(lineVal.Split(',')[8], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\") : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")"
+                                },
+                            }
+                        },
+                        new PdtColumn { name = "Quantity", isRequired = true, isRelativeToRootNode = true },
+                        new PdtColumn {
+                            name = "Net Amount",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'principalSettlement']/*[local-name() = 'amount']/*[local-name() = 'amount']",
+                                    expression = "\"$EventType\" == \"FE\" ? (double.Parse(lineVal.Split(',')[13]) + double.Parse(lineVal.Split(',')[14]) + double.Parse(lineVal.Split(',')[15])) : -double.Parse(colVal)"
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'numberOfSecurities']",
+                                    expression = "\"$EventType\" == \"FE\" ? (double.Parse(lineVal.Split(',')[13]) + double.Parse(lineVal.Split(',')[14]) + double.Parse(lineVal.Split(',')[15])) : double.Parse(colVal)"
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'spot']",
+                                    expression = "1"
+                                }
+                            }
+                        },
+                        new PdtColumn { name = "Bloomberg Ticker", isRequired = true, isRelativeToRootNode = true },
+                        new PdtColumn {
+                            name = "Broker fees",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'otherPartyPayment'][contains(@*[local-name() = 'paymentTypeScheme'], 'brokerFees')]//*[local-name() = 'amount']" } }
+                        },
+                        new PdtColumn {
+                            name = "Counterparty fees",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'otherPartyPayment'][contains(@*[local-name() = 'paymentTypeScheme'], 'couterpartyFees')]//*[local-name() = 'amount']" } }
+                        },
+                        new PdtColumn {
+                            name = "Market fees",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "//*[local-name() = 'otherPartyPayment'][contains(@*[local-name() = 'paymentTypeScheme'], 'marketFees')]//*[local-name() = 'amount']" } }
+                        },
+                    }
+                },
+                new PdtTransformation
+                {
                     name = TransName.BBH_IM_Orig.ToString(),
                     type = TransType.Csv2Xml,
                     label = "Infomediary Initial Margin Original",
@@ -1021,7 +2179,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -1165,7 +2323,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -1250,7 +2408,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -1395,7 +2553,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -1480,7 +2638,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -1648,7 +2806,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             //destPaths = new [] {
                             //    new PdtColumnDest {
                             //        path = "//*[local-name() = 'tradeDate']",
-                            //        expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                            //        expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                             //    },
                             //}
                         },
@@ -1733,7 +2891,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -1878,7 +3036,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -1963,7 +3121,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -2127,7 +3285,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             //destPaths = new [] {
                             //    new PdtColumnDest {
                             //        path = "//*[local-name() = 'tradeDate']",
-                            //        expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                            //        expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                             //    },
                             //}
                         },
@@ -2212,7 +3370,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -2356,7 +3514,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -2389,7 +3547,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'principalSettlement']/*[local-name() = 'amount']/*[local-name() = 'amount']",
-                                    expression = "\"$EventType\" == \"FE\" ? (double.Parse(lineVal.Split(',')[13]) + double.Parse(lineVal.Split(',')[14]) + double.Parse(lineVal.Split(',')[15])) : double.Parse(colVal)"
+                                    expression = "\"$EventType\" == \"FE\" ? (double.Parse(lineVal.Split(',')[13]) + double.Parse(lineVal.Split(',')[14]) + double.Parse(lineVal.Split(',')[15])) : lineVal.Split('$CsvSrcSep')[3] == \"JPMSGB2L\" ? -double.Parse(colVal) : double.Parse(colVal)"
                                 }
                             }
                         },
@@ -2441,7 +3599,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -2586,7 +3744,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "(\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || lineVal.Split(',')[3] == \"JPMSGB2L\") ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "(\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" || lineVal.Split(',')[3] == \"JPMSGB2L\") ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -2671,7 +3829,7 @@ WHERE R.VALUE = '"" + colVal + ""'""",
                     variables = new[] {
                         new PdtVariable {
                             name = "EventType",
-                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : \"\"",
+                            expressionBefore = "lineVal.Split(',')[0] == \"Clearing Broker Fees\" ? \"FE\" : lineVal.Split(',')[0] == \"Initial Margin\" ? \"IM\" : lineVal.Split(',')[0] == \"Monthly Interest\" ? \"MI\" : lineVal.Split(',')[0] == \"Clearer Margin Calls\" ? \"MC\" : lineVal.Split(',')[0] == \"Clearer Journal Entry\" ? \"JE\" : \"Unknown\"",
                         },
                         new PdtVariable{
                             name = "OnBoarded",
@@ -2818,7 +3976,7 @@ WHERE R.VALUE = '"" + colVal + ""'"""
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'tradeDate']",
-                                    expression = "(\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || lineVal.Split(',')[3] == \"JPMSGB2L\") ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
+                                    expression = "(\"$EventType\" == \"FE\" || \"$EventType\" == \"IM\" || \"$EventType\" == \"JE\" || lineVal.Split(',')[3] == \"JPMSGB2L\") ? (colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\")) : (lineVal.Split(',')[9].Trim() == \"\" ? \"\" : System.DateTime.ParseExact(lineVal.Split(',')[9], \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"yyyy-MM-dd\"))"
                                 },
                             }
                         },
@@ -2961,9 +4119,13 @@ WHERE R.VALUE = '"" + lineVal.Split('|')[42] + ""'"""
 SELECT A.LIBELLE FROM TITRES T
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM
     JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT
-        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'SOPHISREF', 'ID_BB_UNIQUE')
+        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'ID_BB_UNIQUE')
     JOIN AFFECTATION A ON A.IDENT = T.AFFECTATION
-WHERE ERI.VALUE = '"" + lineVal.Split('|')[68] + ""'"""
+WHERE ERI.VALUE = '"" + lineVal.Split('|')[68] + @""'
+UNION
+SELECT A.LIBELLE FROM TITRES T
+    JOIN AFFECTATION A ON A.IDENT = T.AFFECTATION
+WHERE T.REFERENCE = '"" + lineVal.Split('|')[68] + ""'"""
                             },
                         }
                     },
@@ -4854,9 +6016,13 @@ WHERE R.VALUE = '"" + lineVal.Split('|')[42] + ""'"""
 SELECT A.LIBELLE FROM TITRES T
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM
     JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT
-        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'SOPHISREF', 'ID_BB_UNIQUE')
+        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'ID_BB_UNIQUE')
     JOIN AFFECTATION A ON A.IDENT = T.AFFECTATION
-WHERE ERI.VALUE = '"" + lineVal.Split('|')[68] + ""'"""
+WHERE ERI.VALUE = '"" + lineVal.Split('|')[68] + @""'
+UNION
+SELECT A.LIBELLE FROM TITRES T
+    JOIN AFFECTATION A ON A.IDENT = T.AFFECTATION
+WHERE T.REFERENCE = '"" + lineVal.Split('|')[68] + ""'"""
                             },
                         }
                     },
@@ -4876,6 +6042,10 @@ WHERE ERI.VALUE = '"" + lineVal.Split('|')[68] + ""'"""
                                 new PdtColumnDest {
                                     path = "TradeType",
                                     expression = "\"Purchase/Sale\""
+                                },
+                                new PdtColumnDest {
+                                    path = "Info",
+                                    expression = "\"BBH_DIM_Trade_RMA\""
                                 },
                                 new PdtColumnDest {
                                     path = "Comments",
@@ -5321,8 +6491,10 @@ WHERE R.VALUE = '"" + colVal + ""'""",
 SELECT T.SICOVAM FROM TITRES T
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM
     JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT
-        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'SOPHISREF', 'ID_BB_UNIQUE')
-WHERE ERI.VALUE = '"" + colVal + ""'"""
+        AND ERD.REF_NAME IN ('BBG_B3_ID', 'CUSIP', 'TICKER', 'ID_BB_UNIQUE')
+WHERE ERI.VALUE = '"" + colVal + @""'
+UNION
+SELECT T.SICOVAM FROM TITRES T WHERE T.REFERENCE = '"" + colVal + ""'"""
                                 },
                                 path = "InstrumentRef"
                             } }
@@ -5649,15 +6821,15 @@ WHERE ERI.VALUE = '"" + colVal + ""'"""
                         },
                         new PdtVariable {
                             name = "MfTS",
-                            expressionBefore = "DateTime.ParseExact(lineVal.Split('$CsvSrcSep')[8], \"MM/dd/yyyy HH:mm:ss\", CultureInfo.InvariantCulture).ToString(\"yyyyMMdd HHmmss\")",
+                            expressionBefore = "new DateTime(Math.Min(DateTime.Today.Ticks-1, DateTime.ParseExact(lineVal.Split('$CsvSrcSep')[8], \"MM/dd/yyyy HH:mm:ss\", CultureInfo.InvariantCulture).Ticks)).ToString(\"yyyyMMdd HHmmss\")",
                         },
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && lineVal.Split('$CsvSrcSep')[7] == \"PAID\" ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "lineVal.Split('$CsvSrcSep')[7] == \"PAID\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -5796,15 +6968,15 @@ WHERE ERI.VALUE = '"" + colVal + ""'"""
                         },
                         new PdtVariable {
                             name = "MfTS",
-                            expressionBefore = "DateTime.ParseExact(lineVal.Split('$CsvSrcSep')[8], \"MM/dd/yyyy HH:mm:ss\", CultureInfo.InvariantCulture).ToString(\"yyyyMMdd HHmmss\")",
+                            expressionBefore = "new DateTime(Math.Min(DateTime.Today.Ticks-1, DateTime.ParseExact(lineVal.Split('$CsvSrcSep')[8], \"MM/dd/yyyy HH:mm:ss\", CultureInfo.InvariantCulture).Ticks)).ToString(\"yyyyMMdd HHmmss\")",
                         },
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && lineVal.Split('$CsvSrcSep')[7] == \"PAID\" ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "lineVal.Split('$CsvSrcSep')[7] == \"PAID\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -5952,10 +7124,10 @@ WHERE ERI.VALUE = '"" + colVal + ""'"""
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && lineVal.Split('$CsvSrcSep')[7] == \"PAID\" ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "lineVal.Split('$CsvSrcSep')[7] == \"PAID\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && \",CCPM,CCPC,SWCC,SWBC,TBCC,INTE,\".IndexOf(\",\" + lineVal.Split('$CsvSrcSep')[16] + \",\") >= 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && \",CCPM,CCPC,SWCC,SWBC,TBCC,\".IndexOf(\",\" + lineVal.Split('$CsvSrcSep')[16] + \",\") >= 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -6413,7 +7585,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "SecurityDescription",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "1",
@@ -6425,14 +7597,14 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         },
                         new PdtVariable{
                             name = "MaturityDate",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "5",
                             },
                         },
                     },
-                    processingCondition = "\"$SecurityDescription\" == \"BONDS\" && lineVal.Substring(73, 4) == \"RTIT\" && string.Compare(\"$MaturityDate\", lineVal.Substring(36, 8).Trim()) > 0",
+                    processingCondition = "\"$SecurityDescription\" == \"BONDS\" && lineVal.Substring(113, 4) == \"RTIT\" && string.Compare(\"$MaturityDate\", lineVal.Substring(76, 8).Trim()) > 0",
                     columns = new []
                     {
                         new PdtColumn
@@ -6447,7 +7619,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Security Description",
@@ -6486,7 +7658,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Ex Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -6522,7 +7694,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] { 
                                 new PdtColumnDest {
                                     path = "LST Name",
-                                    expression="colVal.Trim() == \"RTIT\" ? (string.Compare(\"$MaturityDate\", lineVal.Substring(36, 8).Trim()) > 0 ? \"Early Redemption\" : \"Final Redemption\") : \"\"",
+                                    expression="colVal.Trim() == \"RTIT\" ? (string.Compare(\"$MaturityDate\", lineVal.Substring(76, 8).Trim()) > 0 ? \"Early Redemption\" : \"Final Redemption\") : \"\"",
                                 },
                                 new PdtColumnDest {
                                     path = "LST Type",
@@ -6542,7 +7714,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                         },
                         new PdtColumn
                         {
@@ -6551,7 +7723,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Out Quantity",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -6601,7 +7773,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Net Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -6611,7 +7783,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Gross Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 }
                             }
                         },
@@ -6663,7 +7835,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "SecurityDescription",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "1",
@@ -6675,14 +7847,14 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         },
                         new PdtVariable{
                             name = "MaturityDate",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "5",
                             },
                         },
                     },
-                    processingCondition = "\"$SecurityDescription\" == \"BONDS\" && lineVal.Substring(73, 4) == \"RTIT\" && string.Compare(\"$MaturityDate\", lineVal.Substring(36, 8).Trim()) <= 0",
+                    processingCondition = "\"$SecurityDescription\" == \"BONDS\" && lineVal.Substring(113, 4) == \"RTIT\" && string.Compare(\"$MaturityDate\", lineVal.Substring(76, 8).Trim()) <= 0",
                     columns = new []
                     {
                         new PdtColumn
@@ -6697,7 +7869,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Security Description",
@@ -6736,7 +7908,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Ex Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -6772,7 +7944,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "LST Name",
-                                    expression="colVal.Trim() == \"RTIT\" ? (string.Compare(\"$MaturityDate\", lineVal.Substring(36, 8).Trim()) > 0 ? \"Early Redemption\" : \"Final Redemption\") : \"\"",
+                                    expression="colVal.Trim() == \"RTIT\" ? (string.Compare(\"$MaturityDate\", lineVal.Substring(76, 8).Trim()) > 0 ? \"Early Redemption\" : \"Final Redemption\") : \"\"",
                                 },
                                 new PdtColumnDest {
                                     path = "LST Type",
@@ -6801,7 +7973,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Out Quantity",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -6851,7 +8023,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Net Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -6861,7 +8033,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Gross Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 }
                             }
                         },
@@ -7151,7 +8323,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "SecurityDescription",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "1",
@@ -7162,7 +8334,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             },
                         },
                     },
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && ((\"$SecurityDescription\" == \"EQUITIES\" && (lineVal.Substring(73, 4) == \"ATIT\" || lineVal.Substring(73, 4) == \"VTIT\")) || lineVal.Substring(73, 4) == \"SOFO\" || lineVal.Substring(73, 4) == \"RIFO\")",
+                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && ((\"$SecurityDescription\" == \"EQUITIES\" && (lineVal.Substring(113, 4) == \"ATIT\" || lineVal.Substring(113, 4) == \"VTIT\")) || lineVal.Substring(113, 4) == \"SOFO\" || lineVal.Substring(113, 4) == \"RIFO\")",
                     columns = new []
                     {
                         new PdtColumn
@@ -7177,7 +8349,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Security Description",
@@ -7223,7 +8395,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -7270,7 +8442,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                             destPaths = new []{ 
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -7295,7 +8467,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Quantity",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -7345,7 +8517,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Net Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -7355,7 +8527,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Gross Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 }
                             }
                         },
@@ -7419,7 +8591,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "SecurityDescription",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "1",
@@ -7430,7 +8602,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             },
                         },
                     },
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && \"$SecurityDescription\" == \"BONDS\" && (lineVal.Substring(73, 4) == \"ATIT\" || lineVal.Substring(73, 4) == \"VTIT\")",
+                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && (\"$SecurityDescription\" == \"BONDS\" || \"$SecurityDescription\" == \"CONVERTIBLES\") && (lineVal.Substring(113, 4) == \"ATIT\" || lineVal.Substring(113, 4) == \"VTIT\")",
                     columns = new []
                     {
                         new PdtColumn
@@ -7445,7 +8617,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Security Description",
@@ -7507,7 +8679,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -7563,7 +8735,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                             destPaths = new []{ 
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -7588,7 +8760,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Quantity",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -7643,7 +8815,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Net Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -7653,7 +8825,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Gross Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 }
                             }
                         },
@@ -7717,14 +8889,14 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "TransactionType",
-                            expressionBefore = "(lineVal.Substring(47, 4).Trim() == \"ADI\" || lineVal.Substring(47, 4).Trim() == \"VDI\") ? \"SPOT\" : ((lineVal.Substring(47, 4).Trim() == \"AVFW\" || lineVal.Substring(47, 4).Trim() == \"AAFW\") ? \"FORWARD\" : \"UNKNOWN\")"
+                            expressionBefore = "\",ADI,VDI,\".IndexOf(\",\" + lineVal.Substring(47, 4).Trim() + \",\") >= 0 ? \"SPOT\" : \",AVFW,AAFW,\".IndexOf(\",\" + lineVal.Substring(47, 4).Trim() + \",\") >= 0 ? \"FORWARD\" : \"UNKNOWN\""
                         },
                         new PdtVariable {
                             name = "TradeDateCorrected",
                             expressionBefore = "(string.Compare(lineVal.Substring(31, 8).Trim(), lineVal.Substring(39, 8).Trim()) == 1 ? System.DateTime.ParseExact(lineVal.Substring(39, 8).Trim(), \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).AddDays(\"$TransactionType\" == \"SPOT\" ? -2 : -3) : System.DateTime.ParseExact(lineVal.Substring(31, 8).Trim(), \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture)).ToString(\"yyyyMMdd\")"
                         },
                     },
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && lineVal.Substring(51, 1) == \"+\" && (lineVal.Substring(47, 4).Trim() == \"ADI\" || lineVal.Substring(47, 4).Trim() == \"VDI\" || lineVal.Substring(47, 4).Trim() == \"AVFW\" || lineVal.Substring(47, 4).Trim() == \"AAFW\")",
+                    processingCondition = "lineVal.Substring(51, 1) == \"+\" && ((\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && (\"$TransactionType\"==\"SPOT\" || \"$TransactionType\"==\"FORWARD\")) || (\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") >= 0 && \"$TransactionType\"==\"SPOT\" && lineVal.Substring(52, 8).Trim()==\"SSBMI\"))",
                     columns = new []
                     {
                         new PdtColumn
@@ -7736,15 +8908,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                 new PdtColumnDest { path = "External Fund Identifier" }
                             }
                         },
-                        new PdtColumn
-                        {
-                            name = "ISO Currency Code",
-                            len = 3,
-                        },
-                        new PdtColumn
-                        {
-                            name = "Internal Transaction Number",
-                            len = 12,
+                        new PdtColumn { name = "ISO Currency Code", len = 3},
+                        new PdtColumn { name = "Internal Transaction Number", len = 12,
                             destPaths = new []{ 
                                 new PdtColumnDest {path = "Transaction ID" },
                                 new PdtColumnDest {
@@ -7775,15 +8940,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                 }
                             }
                         },
-                        new PdtColumn
-                        {
-                            name = "Internal Contract Number",
-                            len = 10,
-                        },
-                        new PdtColumn
-                        {
-                            name= "Transaction Date",
-                            len = 8,
+                        new PdtColumn { name = "Internal Contract Number", len = 10 },
+                        new PdtColumn { name= "Transaction Date", len = 8,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
@@ -7791,37 +8949,23 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                     //expression = "colVal.Trim() == \"\" ? \"\" : System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(39, 8).Trim()) == 1 ? lineVal.Substring(39, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
-                        new PdtColumn
-                        {
-                            name = "Settle Date",
-                            len = 8,
+                        new PdtColumn { name = "Settle Date", len = 8,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Value Date",
                                     expression = "System.DateTime.ParseExact(colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
-                        new PdtColumn
-                        {
-                            name = "Type of Transaction",
-                            len = 4,
+                        new PdtColumn { name = "Type of Transaction", len = 4,
                             destPaths = new []{
                                 new PdtColumnDest { 
                                     path = "Type",
                                     expression = "\"$TransactionType\""
-                                    //expression = "(colVal == \"ADI\" || colVal == \"VDI\") ? \"SPOT\" : ((colVal == \"AVFW\" || colVal == \"AAFW\") ? \"FORWARD\" : \"UNKNOWN\")"
                                 } 
                             }
                         },
-                        new PdtColumn
-                        {
-                            name = "Sign of Transaction",
-                            len = 1,
-                        },
-                        new PdtColumn
-                        {
-                            name = "Broker Code",
-                            len = 8,
+                        new PdtColumn { name = "Sign of Transaction", len = 1 },
+                        new PdtColumn { name = "Broker Code", len = 8,
                             destPaths = new [] {
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -7839,26 +8983,10 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                 },
                             }
                         },
-                        new PdtColumn
-                        {
-                            name = "Current Amount",
-                            len = 17,
-                        },
-                        new PdtColumn
-                        {
-                            name = "Internal Security Number",
-                            len = 10,
-                        },
-                        new PdtColumn
-                        {
-                            name = "Position Type",
-                            len = 1,
-                        },
-                        new PdtColumn
-                        {
-                            name = "External reference",
-                            len = 16,
-                        },
+                        new PdtColumn { name = "Current Amount", len = 17 },
+                        new PdtColumn { name = "Internal Security Number", len = 10 },
+                        new PdtColumn { name = "Position Type", len = 1 },
+                        new PdtColumn { name = "External reference", len = 16 },
                     }
                 },
                 new PdtTransformation
@@ -7873,7 +9001,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "InstrumentType_OPTIONS",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "1",
@@ -7885,7 +9013,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         },
                         new PdtVariable{
                             name = "BloombergCodeType",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "0",
@@ -7900,7 +9028,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             }
                         }
                     },
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && \"$InstrumentType_OPTIONS\" == \"OPTIONS\" && (lineVal.Substring(73, 4).Trim() == \"AOP\" || lineVal.Substring(73, 4).Trim() == \"VOP\" || lineVal.Substring(73, 4).Trim() == \"AOC\" || lineVal.Substring(73, 4).Trim() == \"VOC\")",
+                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && \"$InstrumentType_OPTIONS\" == \"OPTIONS\" && (lineVal.Substring(113, 4).Trim() == \"AOP\" || lineVal.Substring(113, 4).Trim() == \"VOP\" || lineVal.Substring(113, 4).Trim() == \"AOC\" || lineVal.Substring(113, 4).Trim() == \"VOC\")",
                     columns = new []
                     {
                         new PdtColumn
@@ -7923,7 +9051,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
@@ -7983,7 +9111,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -8036,7 +9164,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                             destPaths = new []{ 
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -8075,7 +9203,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Quantity",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -8125,7 +9253,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -8189,7 +9317,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     variables = new[] {
                         new PdtVariable{
                             name = "BloombergCodeType",
-                            expressionBefore = "lineVal.Substring(6, 10).Trim()",
+                            expressionBefore = "lineVal.Substring(6, 50).Trim()",
                             Lookup = new PdtColumnLookup {
                                 Table = "MIFL_ME_01ANATIT",
                                 ColumnIndex = "0",
@@ -8204,7 +9332,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             }
                         }
                     },
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && (lineVal.Substring(73, 4).Trim() == \"AFUT\" || lineVal.Substring(73, 4).Trim() == \"VFUT\")",
+                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && (lineVal.Substring(113, 4).Trim() == \"AFUT\" || lineVal.Substring(113, 4).Trim() == \"VFUT\")",
                     columns = new []
                     {
                         new PdtColumn
@@ -8227,7 +9355,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
@@ -8289,7 +9417,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -8342,7 +9470,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                             destPaths = new []{ 
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -8374,7 +9502,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Qty",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -8424,7 +9552,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Amount",
-                                    expression = "(lineVal.Substring(77, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                                    expression = "(lineVal.Substring(117, 1) == \"A\" ? \"+\" : \"-\") + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
                                 } }
                         },
                         new PdtColumn
@@ -8485,7 +9613,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     category = "Medio",
                     //csvSrcSeparator = (char)0, // empty --> fixed length csv
                     csvDestSeparator = DEFAULT_CSV_SEPARATOR,
-                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && \",ACS,ESW,\".IndexOf(\",\" + lineVal.Substring(73, 3).Trim() + \",\") >= 0",
+                    processingCondition = "\",GFJL,GFJH,GFJG,GFJN,\".IndexOf(\",\" + lineVal.Substring(0, 6).Trim() + \",\") < 0 && \",ACS,ESW,\".IndexOf(\",\" + lineVal.Substring(113, 3).Trim() + \",\") >= 0",
                     columns = new []
                     {
                         new PdtColumn
@@ -8507,7 +9635,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Internal Security Number",
-                            len = 10,
+                            len = 50,
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
@@ -8531,7 +9659,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             destPaths = new [] {
                                 new PdtColumnDest {
                                     path = "Trade Date",
-                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(36, 8).Trim()) == 1 ? lineVal.Substring(36, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
+                                    expression = "System.DateTime.ParseExact(string.Compare(colVal, lineVal.Substring(76, 8).Trim()) == 1 ? lineVal.Substring(76, 8).Trim() : colVal, \"yyyyMMdd\", System.Globalization.CultureInfo.InvariantCulture).ToString(\"dd/MM/yyyy\")"
                                 } }
                         },
                         new PdtColumn
@@ -8574,7 +9702,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         new PdtColumn
                         {
                             name = "Broker Code",
-                            len = 8,
+                            len = 20,
                             destPaths = new []{ 
                                 new PdtColumnDest { 
                                     Lookup = new PdtColumnLookup {
@@ -9105,7 +10233,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             serializer.Serialize(writer, Setting);
             writer.Close();
 
-            Logger.Info("InitializeAndSaveConfig.END");
+            Logger.Warn("InitializeAndSaveConfig.END");
             return Setting;
         }
 
@@ -9217,12 +10345,41 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                 var rows = new Dictionary<string, string[]>();
                                 foreach (var lineVal in lookupLines)
                                 {
+                                    string newLineVal = lineVal;
+                                    if (table.csvSeparator != '\0')
+                                    {
+                                        var csvVals = Regex.Matches(newLineVal, $"(?:^|{table.csvSeparator})(\"(?:[^\"]+|\"\")*\"|[^{table.csvSeparator}]*)").Cast<Match>().Select(m => m.Value.TrimStart(table.csvSeparator)).ToArray();
+
+                                        //bool preProcessed = false;
+                                        for (int j = 0; j < csvVals.Length; j++)
+                                        {
+                                            if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
+                                            {
+                                                csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
+                                                //preProcessed = true;
+                                            }
+                                        }
+                                        //if (preProcessed)
+                                        //{
+                                            newLineVal = string.Join(DEFAULT_CSV_SEPARATOR.ToString(), csvVals);
+                                            Logger.Debug($"lineVal: {lineVal}");
+                                            Logger.Debug($"newLineVal: {newLineVal}");
+                                        //}
+                                    }
+
+                                    if (!string.IsNullOrEmpty(table.processingCondition))
+                                    {
+                                        var result = evaluateExpression("processingCondition", table.processingCondition, null, string.Empty, newLineVal);
+                                        Logger.Debug(string.Format("result={0}", result));
+                                        if (!bool.Parse(result)) continue;
+                                    }
+
                                     //Logger.Debug(string.Format("lineVal={0}", lineVal));
-                                    var rowKey = evaluateExpression(string.Format("Table {0}.Key", table.Name), table.keyExpression, null, string.Empty, lineVal);
+                                    var rowKey = evaluateExpression(string.Format("Table {0}.Key", table.Name), table.keyExpression, null, string.Empty, newLineVal);
                                     string[] rowCols = new string[table.columnsExpression.Length];
                                     for (int i = 0; i < table.columnsExpression.Length; i++)
                                     {
-                                        rowCols[i] = evaluateExpression(string.Format("Table {0}.Col.{1}", table.Name, i), table.columnsExpression[i], null, string.Empty, lineVal);
+                                        rowCols[i] = evaluateExpression(string.Format("Table {0}.Col.{1}", table.Name, i), table.columnsExpression[i], null, string.Empty, newLineVal);
                                     }
                                     rows[rowKey] = rowCols;
                                 }
@@ -9286,15 +10443,20 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         {
                             var lookupLines = File.ReadAllLines(fileEntries[0]);
                             Logger.Debug(string.Format("Evaluate Lookup: {0}, colVal={1}, File={2}", lookup.Expression, Val, lookup.File));
+                            string lookupResult = null;
                             foreach (var lineVal in lookupLines)
                             {
-                                var lookupResult = evaluateExpression(name, lookup.Expression, Variables, Val, lineVal);
+                                lookupResult = evaluateExpression(name, lookup.Expression, Variables, Val, lineVal);
                                 if (!string.IsNullOrWhiteSpace(lookupResult))
                                 {
                                     Val = lookupResult;
                                     Logger.Debug(string.Format("{0}, Val={1}", name, Val));
                                     break;
                                 }
+                            }
+                            if (string.IsNullOrWhiteSpace(lookupResult))
+                            {
+                                Logger.Warn($"lookup not found. Take the default value.");
                             }
                             Logger.Debug(string.Format("Evaluate Lookup END: Val={0}", Val));
                         }
@@ -9349,14 +10511,17 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             if (trans.type == TransType.Csv2Csv)
                 Transform2Csv(Setting, transName, inputFile, outputFile, failureFile);
             else if (trans.type == TransType.Csv2Xml)
-                Transform2Xml(Setting, transName, 0, inputFile, outputFile, failureFile);
+                Transform2Xml(Setting, transName, inputFile, outputFile, failureFile);
             else if (trans.type == TransType.Xml2Csv)
                 TransformXml2Csv(transIO, Setting, transName, inputFile, outputFile);
+            else if (trans.type == TransType.Excel2Csv)              
+                    Transform2Csv(Setting, transName, inputFile, outputFile, failureFile,true);
         }
 
         private static Dictionary<string, string> CacheLookupValuesFile = new Dictionary<string, string>();
         //private static Dictionary<string, string> CacheLookupValuesLines = new Dictionary<string, string>();
-        private static void Transform2Csv(PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputCsvFile, string failureFile)
+      
+        private static void Transform2Csv(PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputCsvFile, string failureFile, bool isExcelFile=false)
         {
             PdtTransformation trans = Setting.Transformations.Where(x => x.name == transName).FirstOrDefault();
             if (trans == null) throw new ArgumentException(string.Format("Transformation name not found: {0}", transName));
@@ -9387,7 +10552,53 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     Logger.Error(string.Format("Can not open file: {0}", inputCsvFile));
                     return;
                 }
-                lines = File.ReadAllLines(inputCsvFile);
+                if (isExcelFile == false)
+                {
+                    lines = File.ReadAllLines(inputCsvFile);
+                }
+                else
+                {
+                
+                    Excel.Application xlApp = new Excel.Application();
+                    var inputExcelFile = Path.IsPathRooted(inputCsvFile) ? inputCsvFile : Path.Combine(AppContext.BaseDirectory, inputCsvFile);
+                    Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(inputExcelFile);
+                    Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                    Excel.Range xlRange = xlWorksheet.UsedRange;
+
+                    int rowCount = xlRange.Rows.Count;
+                    int colCount = xlRange.Columns.Count;
+                    lines = new string[rowCount-1];                   
+                    int a = 0;
+                   
+                    for (int i = 2; i <= rowCount; i++)
+                    {
+                        string myLine = "";
+                        Excel.Range rngStart = (Excel.Range)xlWorksheet.Cells[i, 1];
+                        Excel.Range rngFin = (Excel.Range)xlWorksheet.Cells[i, colCount];
+                        Excel.Range rr = xlWorksheet.Range[rngStart, rngFin];
+
+                        foreach (var Result in rr.Value2)
+                        {
+                            if (Result != null)
+                            {
+                                myLine += Result.ToString() + trans.csvSrcSeparator;
+                            }
+                            else
+                                myLine += trans.csvSrcSeparator;
+                        }
+
+                        lines[a] = myLine.Substring(0, myLine.Length - 1);
+                        a++;
+                    }
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    Marshal.ReleaseComObject(xlRange);
+                    Marshal.ReleaseComObject(xlWorksheet);
+                    xlWorkbook.Close();
+                    Marshal.ReleaseComObject(xlWorkbook);
+                    xlApp.Quit();
+                    Marshal.ReleaseComObject(xlApp);
+                }
             }
             else
             {
@@ -9397,7 +10608,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 lines = Utils.ReadLines(() => Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName), Encoding.UTF8).ToArray();
             }
 
-            var GlobalVariables = new Dictionary<string, string>() { { "CsvSrcSep", trans.csvSrcSeparator.ToString() } };
+            var GlobalVariables = new Dictionary<string, string>() { { "CsvSrcSep", trans.csvSrcSeparator.ToString() }, { "InputFile", inputCsvFile } };
             if (trans.variables != null)
             {
                 foreach (var Var in trans.variables.Where(x => !string.IsNullOrEmpty(x.expressionStorage)).ToList())
@@ -9411,6 +10622,21 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             HashSet<string>[] uniqueKeys = null;
 
             lines = lines.Skip(trans.csvSkipLines).ToArray();
+            if (trans.rowCloning != null)
+            {
+                Logger.Debug($"Cloning rows Length={lines.Length}");
+                var clonedLines = new List<string>();
+                foreach(var line in lines) {
+                    for(int i=0; i<trans.rowCloning.Ntimes; i++)
+                    {
+                        var expression = trans.rowCloning.Expression.Replace("$cloneIdx", i.ToString());
+                        var clonedLine = evaluateExpression($"cloning {i}", expression, null, string.Empty, line);
+                        clonedLines.Add(clonedLine);
+                    }
+                }
+                lines = clonedLines.ToArray();
+                Logger.Debug($"After cloing rows Length={lines.Length}");
+            }
             //if (trans.csvSrcSeparator != '\0') lines = lines.Skip(1).ToArray();
             //CacheLookupValuesLines.Clear();
             using (var swOut = new StreamWriter(outputCsvFile))
@@ -9429,7 +10655,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         if (trans.csvSrcSeparator != '\0')
                         {
                             //var csvVals = inputLine.Split(trans.csvSrcSeparator);
-                            var csvVals = Regex.Matches(inputLine, @"[\""].+?[\""]|[^" + trans.csvSrcSeparator + "]+").Cast<Match>().Select(m => m.Value).ToArray();
+                            //var csvVals = Regex.Matches(inputLine, @"[\""].+?[\""]|[^" + trans.csvSrcSeparator + "]+").Cast<Match>().Select(m => m.Value).ToArray();
+                            var csvVals = Regex.Matches(inputLine, $"(?:^|{trans.csvSrcSeparator})(\"(?:[^\"]+|\"\")*\"|[^{trans.csvSrcSeparator}]*)").Cast<Match>().Select(m => m.Value.TrimStart(trans.csvSrcSeparator)).ToArray();
 
                             //TODO: Here we remove double quotes line by line. But we may need to do this for all lines as lines are used in computeLookup)
                             bool preProcessed = false;
@@ -9437,8 +10664,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             {
                                 if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
                                 {
-                                    csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
-                                    preProcessed = true;
+                                csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
+                                preProcessed = true;
                                 }
                             }
                             if (preProcessed)
@@ -9694,7 +10921,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             Logger.Debug("Transform2Csv.END");
         }
 
-        private static void Transform2Xml(PdtTransformationSetting Setting, string transName, int lineNumber, string inputCsvFile, string outputXmlFile, string failureFile)
+        private static void Transform2Xml(PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputXmlFile, string failureFile)
         {
             PdtTransformation trans = Setting.Transformations.Where(x => x.name == transName).FirstOrDefault();
             if (trans == null) throw new ArgumentException(string.Format("Transformation name not found: {0}", transName));
@@ -9738,10 +10965,9 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             //if (trans.csvSrcSeparator != '\0') lines = lines.Skip(1).ToArray();
             //string[] csvHeaders = lines[0].Split(trans.csvDestSeparator);
             string[] csvHeaders = trans.columns.Select(x => x.name).ToArray();
-            string[] csvVals = lines[lineNumber].Split(trans.csvSrcSeparator);
             var failureLines = new List<string>();
 
-            var GlobalVariables = new Dictionary<string, string>() { { "CsvSrcSep", trans.csvSrcSeparator.ToString() } };
+            var GlobalVariables = new Dictionary<string, string>() { { "CsvSrcSep", trans.csvSrcSeparator.ToString() }, { "InputFile", inputCsvFile } };
             if (trans.variables != null)
             {
                 foreach (var Var in trans.variables.Where(x => !string.IsNullOrEmpty(x.expressionStorage)).ToList())
@@ -9758,66 +10984,51 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
 
             //transformation for the absolute columns whose values are the same for all lines
             PdtColumn[] arrAbsoluteColumns = trans.columns.Where(x => !x.isRelativeToRootNode).ToArray();
-            foreach (PdtColumn col in arrAbsoluteColumns)
-            {
-                if (col.destPaths == null) continue;
-                string originalVal = GetCsvVal(csvHeaders, csvVals, col.name);
-                foreach (var destCol in col.destPaths)
-                {
-                    XmlNode nodeDest = doc.SelectSingleNode(destCol.path);
-                    Logger.Debug(string.Format("src={0}, dest={1}, textContent={2}", originalVal, nodeDest.Value, nodeDest.InnerText));
-                    nodeDest.InnerText = originalVal;
-                    Logger.Debug(string.Format("new value dest={0}, textContent={1}", nodeDest.Value, nodeDest.InnerText));
-                }
-            }
 
             //transformation for the relative columns whose values are different between lines
             string repeatingRootPath = trans.repeatingRootPath;
             string repeatingChildrenPath = trans.repeatingChildrenPath;
+            var docClone = (XmlDocument)doc.Clone();
+            XmlNode repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
+            XmlNodeList repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
+            XmlNode templateNode = repeatingChildrenNodes.Item(0);
 
+            string filePrimaryKeyVal = null;
+            Dictionary<string, string> lastLineVariables = null;
+            int bunchIndexPrimaryKey = 0;
             if (repeatingRootPath != null && !string.IsNullOrEmpty(repeatingRootPath)
                     && repeatingChildrenPath != null && !string.IsNullOrEmpty(repeatingChildrenPath))
             {
-                XmlNode repeatingRootNode = doc.SelectSingleNode(repeatingRootPath); // un seul noeud
-                XmlNodeList repeatingChildrenNodes = doc.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
-                XmlNode templateNode = repeatingChildrenNodes.Item(0);
-                for (int i = 1; i < repeatingChildrenNodes.Count; i++)
-                {
-                    repeatingRootNode.RemoveChild(repeatingChildrenNodes.Item(i));
-                }
-
                 //get list of columns whose values need to be filled in root node
-                PdtColumn[] arrRelativeColumns = trans.columns.Where(x => x.isRelativeToRootNode).ToArray();
+                PdtColumn[] arrRelativeColumns = trans.columns.Where(x => x.isRelativeToRootNode && x.destPaths != null).ToArray();
                 List<XmlNode> transformedNodes = new List<XmlNode>();
                 for (int i = 0; i < lines.Length; i++)
                 {
                     var inputLine = lines[i];
                     if (string.IsNullOrWhiteSpace(inputLine)) continue;
-                    //csvVals = inputLine.Split(trans.csvSrcSeparator);
-                    //csvVals = Regex.Matches(inputLine, @"[\""].+?[\""]|[^" + trans.csvSrcSeparator + "]+").Cast<Match>().Select(m => m.Value).ToArray();//this line doesn't take the empty elements
-                    var csvValList = Regex.Matches(inputLine, @"[\""].+?[\""]|[^" + trans.csvSrcSeparator + "]*").Cast<Match>().Select(m => m.Value).ToList(); //this line take the empty elements, but we have to remove the extra ones
-                    for (int idx= csvValList.Count-1; idx>0; idx--)
+                    var doubleQuotesProcessed = false;
+                    if (trans.csvSrcSeparator != '\0')
                     {
-                        if (csvValList[idx] == string.Empty && csvValList[idx - 1] != string.Empty) csvValList.RemoveAt(idx);
-                    }
-                    csvVals = csvValList.ToArray();
+                        var csvVals = Regex.Matches(inputLine, $"(?:^|{trans.csvSrcSeparator})(\"(?:[^\"]+|\"\")*\"|[^{trans.csvSrcSeparator}]*)").Cast<Match>().Select(m => m.Value.TrimStart(trans.csvSrcSeparator)).ToArray();
 
-                    //TODO: Here we remove double quotes line by line. But we may need to do this for all lines as lines are used in computeLookup)
-                    bool preProcessed = false;
-                    for(int j=0; j<csvVals.Length; j++)
-                    {
-                        if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
+                        //TODO: Here we remove double quotes line by line. But we may need to do this for all lines as lines are used in computeLookup)
+                        bool preProcessed = false;
+                        for (int j = 0; j < csvVals.Length; j++)
                         {
-                            csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
-                            preProcessed = true;
+                            if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
+                            {
+                                csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
+                                preProcessed = true;
+                            }
                         }
-                    }
-                    if (preProcessed)
-                    {
-                        string newInputLine = string.Join(trans.csvSrcSeparator.ToString(), csvVals);
-                        Logger.Debug($"inputLine: {inputLine}");
-                        Logger.Debug($"newInputLine: {newInputLine}");
-                        inputLine = newInputLine;
+                        if (preProcessed)
+                        {
+                            string newInputLine = string.Join(DEFAULT_CSV_SEPARATOR.ToString(), csvVals);
+                            doubleQuotesProcessed = true;
+                            Logger.Debug($"inputLine: {inputLine}");
+                            Logger.Debug($"newInputLine: {newInputLine}");
+                            inputLine = newInputLine;
+                        }
                     }
 
                     Logger.Debug(string.Format("Processing line {0}/{1}: {2}", i + 1, lines.Length, inputLine));
@@ -9906,10 +11117,82 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         if (!bool.Parse(result)) continue;
                     }
 
+                    string[] inputLineSplitted = null;
+                    if (doubleQuotesProcessed)
+                    {
+                        inputLineSplitted = inputLine.Split(DEFAULT_CSV_SEPARATOR);
+                    }
+                    else if (trans.csvSrcSeparator != '\0')
+                    {
+                        var CSVParser = new Regex(string.Format("{0}(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", trans.csvSrcSeparator == '|' ? "\\|" : trans.csvSrcSeparator.ToString()));
+                        inputLineSplitted = CSVParser.Split(inputLine); // separator placed within double quotes
+                                                                        //inputLineSplitted = inputLine.Split(trans.csvSrcSeparator);
+                    }
+
+                    var createNewFile = filePrimaryKeyVal == null;
+                    var newFilePrimaryKeyVal = evaluateExpression("newFileBreakExpression", trans.fileBreakExpression, Variables, string.Empty, inputLine);
+                    createNewFile = createNewFile || newFilePrimaryKeyVal != filePrimaryKeyVal;
+                    if (createNewFile) {
+                        if (string.IsNullOrEmpty(filePrimaryKeyVal))
+                        {
+                            for (int j = 1; j < repeatingChildrenNodes.Count; j++)
+                            {
+                                repeatingRootNode.RemoveChild(repeatingChildrenNodes.Item(j));
+                            }
+                        } else {//new primary key found --> break into new file. save current file.
+                            repeatingRootNode.RemoveChild(templateNode);
+                            for (int j = 0; j < transformedNodes.Count; j++)
+                            {
+                                repeatingRootNode.AppendChild(transformedNodes[j]);
+                            }
+                            transformedNodes.Clear();
+                            //postProcessEvent
+                            if (!string.IsNullOrEmpty(trans.postProcessEvent))
+                            {
+                                Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                            }
+                            var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
+                                Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
+                            Logger.Debug($"newFileBreak occurs. Saving to new file: {newFileBreakPath}");
+                            docClone.Save(newFileBreakPath);
+                            repeatingRootNode.RemoveAll();
+                            repeatingRootNode.AppendChild(templateNode);
+                            //create new one
+                            docClone = (XmlDocument)doc.Clone();
+                            repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
+                            repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
+                            templateNode = repeatingChildrenNodes.Item(0);
+                        }
+                        filePrimaryKeyVal = newFilePrimaryKeyVal;
+                        foreach (PdtColumn col in arrAbsoluteColumns)
+                        {
+                            if (col.destPaths == null) continue;
+                            var destColInfo = $"Absolute Column={col.name}";
+                            Logger.Debug(destColInfo);
+                            string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
+                            foreach (var destCol in col.destPaths)
+                            {
+                                Logger.Debug($"destPaths: path={destCol.path}, expression={destCol.expression}");
+
+                                var Val = computeLookup(destColInfo, originalVal, lines, null, destCol.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
+                                Val = evaluateExpression(destColInfo, destCol.expression, null, Val, inputLine);
+
+                                XmlNodeList nodeList = docClone.SelectNodes(destCol.path);
+                                for (int j = 0; j < nodeList.Count; j++)
+                                {
+                                    var nodeDest = nodeList.Item(j);
+                                    Logger.Debug(string.Format("src={0}, dest={1}, textContent={2}", Val, nodeDest.Value, nodeDest.InnerText));
+                                    nodeDest.InnerText = Val;
+                                    Logger.Debug(string.Format("new value dest={0}, textContent={1}", nodeDest.Value, nodeDest.InnerText));
+                                }
+                            }
+                        }
+                    }
+
                     foreach (PdtColumn col in arrRelativeColumns)
                     {
                         if (col.destPaths == null) continue;
-                        string originalVal = GetCsvVal(csvHeaders, csvVals, col.name);
+                        string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
                         foreach (var destCol in col.destPaths)
                         {
                             if (string.IsNullOrEmpty(destCol.path)) continue;
@@ -9934,7 +11217,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             }
                             else
                             {
-                                foreach (XmlNode nodeDest in doc.SelectNodes(destCol.path))
+                                foreach (XmlNode nodeDest in docClone.SelectNodes(destCol.path))
                                 {
                                     nodeDest.InnerText = Val;
                                     Logger.Debug($"path={destCol.path}, Val={Val}");
@@ -9943,6 +11226,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         }
                     }
                     transformedNodes.Add(templateNode.Clone());
+                    lastLineVariables = Variables;
                 }
 
                 if (trans.bunchSize > 0)
@@ -9954,20 +11238,40 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         repeatingRootNode.AppendChild(transformedNodes[i]);
                         if ((i+1)%trans.bunchSize == 0)
                         {
+                            //postProcessEvent
+                            if (!string.IsNullOrEmpty(trans.postProcessEvent))
+                            {
+                                Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                            }
                             var bunchFile = Path.Combine(Path.GetDirectoryName(outputXmlFile),
                                 Path.GetFileNameWithoutExtension(outputXmlFile) + "_" + string.Format("{0:0000}", ++bunchIndex) + Path.GetExtension(outputXmlFile));
-                            Logger.Debug($"Saving to bunch file: {bunchFile}");
-                            doc.Save(bunchFile);
+                            Logger.Debug($"Bunch size reached. Saving to bunch file: {bunchFile}");
+                            docClone.Save(bunchFile);
                             repeatingRootNode.RemoveAll();
+                            //create new one
+                            docClone = (XmlDocument)doc.Clone();
+                            repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
+                            repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
+                            templateNode = repeatingChildrenNodes.Item(0);
                         }
                     }
                     if (repeatingRootNode.HasChildNodes)
                     {
+                        //postProcessEvent
+                        if (!string.IsNullOrEmpty(trans.postProcessEvent))
+                        {
+                            Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                        }
                         var bunchFile = Path.Combine(Path.GetDirectoryName(outputXmlFile),
                             Path.GetFileNameWithoutExtension(outputXmlFile) + "_" + string.Format("{0:0000}", ++bunchIndex) + Path.GetExtension(outputXmlFile));
-                        Logger.Debug($"Saving to bunch file: {bunchFile}");
-                        doc.Save(bunchFile);
+                        Logger.Debug($"Saving the rest to bunch file: {bunchFile}");
+                        docClone.Save(bunchFile);
                         repeatingRootNode.RemoveAll();
+                        //create new one
+                        docClone = (XmlDocument)doc.Clone();
+                        repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
+                        repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
+                        templateNode = repeatingChildrenNodes.Item(0);
                     }
                     repeatingRootNode.AppendChild(templateNode);
                 }
@@ -9987,9 +11291,27 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     foreach (var fl in failureLines) swFailure.WriteLine(fl);
                 }
             }
-            // save the output file
-            Logger.Debug($"Saving to file: {outputXmlFile}");
-            doc.Save(outputXmlFile);
+            Compiler.CleanUp();
+            //postProcessEvent
+            if (!string.IsNullOrEmpty(trans.postProcessEvent))
+            {
+                Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+            }
+            if (!string.IsNullOrEmpty(filePrimaryKeyVal))
+            {
+                var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
+                    Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
+                Logger.Debug($"Saving all to new file: {newFileBreakPath}");
+                docClone.Save(newFileBreakPath);
+                repeatingRootNode.RemoveAll();
+                repeatingRootNode.AppendChild(templateNode);
+            }
+            else
+            {
+                // save the output file
+                Logger.Debug($"Saving to file: {outputXmlFile}");
+                docClone.Save(outputXmlFile);
+            }
             Logger.Debug("Transform2Xml.END");
         }
 

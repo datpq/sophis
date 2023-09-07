@@ -46,6 +46,7 @@
         </folio:identifierAllocationRule>
         <trade:businessEvent>GS Clearing Broker Fees</trade:businessEvent>
         <trade:origin>Automatic</trade:origin>
+        <trade:comment></trade:comment>
       </trade:extendedPartyTradeInformation>
       <trade:tradeDate>2022-05-16</trade:tradeDate>
       <trade:tradeTime>11:00:00</trade:tradeTime>

@@ -10,11 +10,17 @@
 
 using namespace sophis;
 using namespace portfolio;
+using namespace std;
 
 
 class CSxPositionVisibilityHook : public CSRPositionVisibilityHook
 {
 public:
+	static bool _seeExpiredFXUserRight;
+	static bool _seeHedgeUserRight;
+	static set<string> _HedgeSet;
+
+	
 	CSxPositionVisibilityHook() {};
 	~CSxPositionVisibilityHook() {};
 
@@ -29,8 +35,10 @@ protected:
 
 	// For log purpose
 	static const char* __CLASS__;
+	
 };
 
 static CSxPositionVisibilityHook gTKTPosVisibilityHook;
+
 
 #endif //__CSxPositionVisibilityHook_H__

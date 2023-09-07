@@ -82,11 +82,19 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                     }
                 }
                 string swapWay = fields.GetValue(RBCTicketType.SwapColumns.UpfrontAmountFlag); // R or P
+                string gtiLabel = fields.GetValue(RBCTicketType.SwapColumns.GTILabel).ToUpper();
                 if (swapWay.ToUpper().Equals("P"))
                 {
                     double nominalPayable = fields.GetValue(RBCTicketType.SwapColumns.NominalPayableLeg).ToDouble();
                     ticketMessage.SetTicketField(FieldId.SPOT_PROPERTY_NAME, 0.0, false); //Math.Abs(nominalPayable));
-                    ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, Math.Abs(nominalPayable), false);//.Sign(nominalPayable));
+                    if (gtiLabel == "INTEREST RATE SWAP (IRS) CLEARED" || gtiLabel == "CREDIT DEFAULT SWAP CLEARED")
+                    {
+                        ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, nominalPayable, false);
+                    }
+                    else
+                    {
+                        ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, Math.Abs(nominalPayable), false);//.Sign(nominalPayable));
+                    }
                     ticketMessage.SetTicketField(FieldId.PAYMENTCURRENCY_PROPERTY_NAME, fields.GetValue(RBCTicketType.SwapColumns.CurrencyPayableLeg));
                     ticketMessage.SetTicketField(FieldId.ACCRUED_PROPERTY_NAME, 0.0, false); // new for swap lates CR : accrued interest should be 0.
                 }
@@ -94,12 +102,19 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 {
                     double nominalReceivable = fields.GetValue(RBCTicketType.SwapColumns.NominalReceivableLeg).ToDouble();
                     ticketMessage.SetTicketField(FieldId.SPOT_PROPERTY_NAME, 0.0, false);// Math.Abs(nominalReceivable));
-                    ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, Math.Abs(nominalReceivable));//Math.Sign(nominalReceivable));
+                    if (gtiLabel == "INTEREST RATE SWAP (IRS) CLEARED" || gtiLabel == "CREDIT DEFAULT SWAP CLEARED")
+                    {
+                        ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, nominalReceivable);
+                    }
+                    else
+                    {
+                       ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, Math.Abs(nominalReceivable));//Math.Sign(nominalReceivable));
+                    }
                     ticketMessage.SetTicketField(FieldId.PAYMENTCURRENCY_PROPERTY_NAME, fields.GetValue(RBCTicketType.SwapColumns.CurrencyReceivableLeg));
                     ticketMessage.SetTicketField(FieldId.ACCRUED_PROPERTY_NAME, 0.0, false); // new for swap lates CR : accrued interest should be 0.
                 }
 
-                if (fields.GetValue(RBCTicketType.SwapColumns.GTILabel).ToUpper().Contains("CFD"))
+                if (gtiLabel.ToUpper().Contains("CFD"))
                 {
                     ticketMessage.SetTicketField(FieldId.MA_INSTRUMENTTYPE_PROPERTY_NAME, MAInstrumentTypeConstants.CFD);
                     ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME,fields.GetValue(RBCTicketType.SwapColumns.Quantity));

@@ -8,21 +8,29 @@ using MEDIO.CORE.Tools;
 using MEDIO.OrderAutomation.net.Source.Data;
 using Oracle.DataAccess.Client;
 using sophis.instrument;
+using sophis.market_data;
 using sophis.misc;
 using sophis.oms;
 using sophis.portfolio;
 using sophis.utils;
 using sophis.value;
-using Sophis.Data.Utils;
+using Sophis.DailyData.Impl;
+using sophisTools;
+using Sophis.DailyData.DBAccess.Entities;
+
 
 namespace MEDIO.OrderAutomation.net.Source.Criteria
 {
     public class CSxMarketCapCriterium : CSMCriterium
     {
         private const string fClassName = "CSxParentOrderIDCriterium";
-        private static string fColumnName = "Market Capitalization EUR";
+        private static string fDailyColumnName = "EQY_SH_OUT_REAL";
+        private static int fDailyColumnId = 3;
         private static double firstCapLevel = 5000000000;
         private static double secondCapLevel = 15000000000;
+        static CSMDailyDataMultisource _dailyDataSource=null;
+        static DateTime _fusionDate= DateTime.Today;
+        static int folioCcyEUR = 54875474;
 
         public CSxMarketCapCriterium(string columnName)
             : base()
@@ -35,8 +43,13 @@ namespace MEDIO.OrderAutomation.net.Source.Criteria
         {
             string levels = "";
             string colNameParam = "";
-            CSMConfigurationFile.getEntryValue("MARKET_CAP_SECTION", "COLUMN_NAME", ref colNameParam, "Market Capitalization EUR");
-            fColumnName = colNameParam;
+            int colId = 0;
+            CSMConfigurationFile.getEntryValue("MARKET_CAP_SECTION", "DAILY_COLUMN_NAME", ref colNameParam, "EQY_SH_OUT_REAL");
+            fDailyColumnName = colNameParam;
+
+            CSMConfigurationFile.getEntryValue("MARKET_CAP_SECTION", "DAILY_COLUMN_ID", ref colId, 3);
+            fDailyColumnId = colId;
+
 
             CSMConfigurationFile.getEntryValue("MARKET_CAP_SECTION", "BREACH_LEVELS", ref levels, "5000000000;15000000000");
             List<string> fields = levels.Split(';').ToList();
@@ -47,16 +60,31 @@ namespace MEDIO.OrderAutomation.net.Source.Criteria
                 firstCapLevel = firstParam;
                 secondCapLevel = secondParam;
             }
+
+            MULTISOURCE myS = new MULTISOURCE();
+            myS.NAME = fDailyColumnName;
+            myS.MULTISOURCEID = fDailyColumnId;
+            myS.AGGREGATION_METHOD = "Portfolio Underlying";
+            myS.DATATYPE = "Number";
+            myS.PSET = "DAILYDATA";
+            myS.DRT = false;
+            myS.MODEL = "STANDARD";
+            myS.INHERIT_FROM_ISSUER = false;
+            myS.SOURCE = "NULL";
+            myS.FIELD = "NULL";
+
+            _dailyDataSource = new CSMDailyDataMultisource(myS);
+
         }
 
         public override CSMCriterium Clone()
         {
-            return new CSxMarketCapCriterium(fColumnName);
+            return new CSxMarketCapCriterium();
         }
 
         public override CSMCriterium.MCriterionCaps GetCaps()
         {
-            return new MCriterionCaps(false, true, false);
+            return new MCriterionCaps(true, true, false);
         }
 
         public override void GetCode(SSMReportingTrade mvt, ArrayList list)
@@ -67,25 +95,56 @@ namespace MEDIO.OrderAutomation.net.Source.Criteria
                 list.Clear();
                 SSMOneValue value = new SSMOneValue();
                 value.fCode = -1;
-                SSMCellValue cellVal = new SSMCellValue();
-                SSMCellStyle cellStyle = new SSMCellStyle();
 
-                CSMPosition pos = CSMPosition.GetCSRPosition(mvt.mvtident, mvt.folio);
-                if (pos != null)
+                int instrCode = mvt.sicovam;
+                double? marketCap = 0;
+                double fxRate = 1;
+
+                int currentDate = sophis.market_data.CSMMarketData.GetCurrentMarketData().GetDate();
+                using (CSMDay contextDate = new CSMDay(currentDate))
                 {
+                    _fusionDate = new DateTime(contextDate.fYear, contextDate.fMonth, contextDate.fDay);
+                }
+             
+                        using (CSMInstrument posInstrument = CSMInstrument.GetInstance(instrCode))
+                            { 
+                            if (posInstrument != null)
+                            {
+                                double? nbOfShares = 0;
+                                nbOfShares = posInstrument.GetInstrumentCount();
+                                double lastFormula = 0;
+                                lastFormula = posInstrument.GetDerivativeSpot(CSMMarketData.GetCurrentMarketData());
+                               
+                                    if (_dailyDataSource.IsValid())
+                                    {
+                                        SSMDailyData? dailyNb = Sophis.DailyData.Impl.CSMDailyDataExtraction.Instance.ExtractFirstAvailable(instrCode, _dailyDataSource, _fusionDate, 100);
+                                        if (dailyNb != null)
+                                        {
+                                            if (dailyNb.Value.DataValue != null)
+                                            {
+                                                nbOfShares = dailyNb.Value.DataValue;
+                                            }
+                                        }
 
-                    CSMPortfolioColumn col = CSMPortfolioColumn.GetCSRPortfolioColumn(fColumnName);
-                    if (col != null)
-                    {
-                        col.GetPositionCell(pos, pos.GetPortfolioCode(), pos.GetPortfolioCode(), pos.GetExtraction(), 0, pos.GetInstrumentCode(), ref cellVal, cellStyle, true);
+                                    }
 
-                        double marketCap = 0;
-                        marketCap = cellVal.doubleValue;
+                               
+                                int instrCcy = posInstrument.GetCurrencyCode();
+                              
+                                if (instrCcy != 0 && folioCcyEUR != 0)
+                                {
+                                    fxRate = CSMMarketData.GetCurrentMarketData().GetForex(instrCcy, folioCcyEUR);
+                                }
 
-                        value.fCode = mvt.mvtident;
-                        if (marketCap == 0)
+                                double lastFx = lastFormula * fxRate;
+                                marketCap = nbOfShares * lastFx;
+
+                                LOG.Write(CSMLog.eMVerbosity.M_debug, "Computed market capitalization(nbOfShares*last*fx) for instrument " + instrCode.ToString() + " is "+nbOfShares.ToString()+" * "+ lastFx.ToString()+" = "+ marketCap.ToString());
+                            }
+
+                        if (marketCap==null || marketCap == 0)
                         {
-                            value.fCode = -1;
+                            value.fCode = -100;
                         }
                         else if (marketCap < firstCapLevel)
                         {
@@ -99,17 +158,17 @@ namespace MEDIO.OrderAutomation.net.Source.Criteria
                         {
                             value.fCode = 3;
                         }
+                        list.Add(value);
+                        LOG.End();
                     }
-                }
 
-                list.Add(value);
-                LOG.End();
             }
         }
 
         public override void GetName(int code, CMString name, long size)
         {
-            if (code == -1)
+         
+            if (code == -100)
             {
                 name.StringValue = "N/A";
             }

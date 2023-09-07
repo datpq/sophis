@@ -1,12 +1,9 @@
 using System;
 
 using sophis;
-using sophis.utils;
-using MEDIO.OrderAutomation.net;
 using MEDIO.OrderAutomation.net.Source.Criteria;
 using MEDIO.OrderAutomation.NET.Source.Column;
 using MEDIO.OrderAutomation.NET.Source.Criteria;
-using MEDIO.OrderAutomation.NET.Source.EvenListener;
 using MEDIO.OrderAutomation.NET.Source.OrderCreationValidator;
 using MEDIO.OrderAutomation.NET.Source.Scenarios;
 using sophis.oms;
@@ -34,6 +31,16 @@ namespace MEDIO.OrderAutomation.net
                 sophis.scenario.CSMScenario.Register("Medio Hedging & Funding Blotter", new MEDIO.OrderAutomation.net.Source.Scenarios.CSxHedgingFundingOrdersScenario());
                 sophis.scenario.CSMScenario.Register("Medio FX Forward Roll", new MEDIO.OrderAutomation.net.Source.Scenarios.CSxForwardRollingScenario());
                 sophis.scenario.CSMScenario.Register("Medio Instrument Adjustment", new CSxDynamicOrderBuilderMAML());
+                CSMUserRights user = new CSMUserRights();
+                user.LoadDetails();
+                if (user.HasAccess("FX Automation"))
+                {
+                    sophis.scenario.CSMScenario.Register("Medio FX Automation", new Source.Scenarios.CSxFXAutomationScenario());
+                }
+                if (user.HasAccess("FX Automation Setup"))
+                {
+                    sophis.scenario.CSMScenario.Register("Medio FX Automation Setup", new Source.Scenarios.CSxFXAutomationSettingScenario());
+                }
                 sophis.scenario.CSMScenario.Register("Medio FX Adjustment", new CSxDynamicOrderBuilderMAMLFX());//TO CHANGE
                 sophis.portfolio.CSMPositionCtxMenu.Register("Medio Instrument Adjustment", new CSxDynamicOrderBuilderMAMLCtx());
                 sophis.portfolio.CSMPositionCtxMenu.Register("Medio FX Adjustment", new CSxDynamicOrderBuilderMAMLFXCtx());

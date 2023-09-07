@@ -4,7 +4,7 @@
 #include "SphTools\SphOStrStream.h"
 #include "SphLLInc\portfolio\SphFolioStructures.h"
 #include "SphInc\market_data\SphMarketData.h"
-
+#include "SphInc\portfolio\SphReportingCustomFilter.h"
 
 using namespace sophis::market_data;
 
@@ -13,14 +13,17 @@ using namespace sophis::market_data;
 /*static*/ const char* CSxPositionVisibilityHook::__CLASS__ = "CSxPositionVisibilityHook";
 //-------------------------------------------------------------------------------------------------------------
 
+ bool CSxPositionVisibilityHook::_seeExpiredFXUserRight=false;
+ bool CSxPositionVisibilityHook::_seeHedgeUserRight=false;
+ set<string> CSxPositionVisibilityHook::_HedgeSet;
 
 bool CSxPositionVisibilityHook::GetPositionVisibilityHook(const TViewMvts * position,
-														  const TViewFolio * folio,
-														  const sophis::portfolio::PSRExtraction& extraction,
-														  long activePortfolioCode,
-														  ListeEtat viewType,
-														  etat_ligne filter,
-														  bool & visible) const
+	const TViewFolio * folio,
+	const sophis::portfolio::PSRExtraction& extraction,
+	long activePortfolioCode,
+	ListeEtat viewType,
+	etat_ligne filter,
+	bool & visible) const
 {
 	BEGIN_LOG("GetPositionVisibilityHook");
 
@@ -33,56 +36,44 @@ bool CSxPositionVisibilityHook::GetPositionVisibilityHook(const TViewMvts * posi
 
 	_STL::string descForDebug = FROM_STREAM("Position ident: " << position->ident << ", sicovam: " << position->sicovam);
 	try
-	{
-		CSRPosition pos((TViewMvts *)position);
-
-		// If unknown instrument, return false (no hook, let FI handle it)
-		const CSRInstrument * inst = CSRInstrument::GetInstance(position->sicovam);
-		if (!inst)
-		{
-			MESS(Log::debug, "No instrument; " << descForDebug.c_str());
-			END_LOG();
-			return false;
-		}
-
+	{	
 		bool hidePos = false;
-		char instType = inst->GetType();
-		if (instType == iForexSpot)
+
+		if (_seeExpiredFXUserRight == false)
 		{
-			long posMaturityDate = inst->GetExpiry();
-			long today = CSRMarketData::GetCurrentMarketData()->GetDate();
-			if (posMaturityDate < today)
+			const CSRInstrument * inst = CSRInstrument::GetInstance(position->sicovam);
+			if (inst != nullptr)
 			{
-				hidePos = true;
-				MESS(Log::debug, "Position " << descForDebug.c_str() << " is matured.");
+				if (inst->GetType() == iForexSpot)
+				{
+					long posMaturityDate = inst->GetExpiry();
+					long today = CSRMarketData::GetCurrentMarketData()->GetDate();
+					if (posMaturityDate < today)
+					{
+						hidePos = true;
+						MESS(Log::debug, "Position " << descForDebug.c_str() << " is matured.");
+					}
+				}
 			}
 		}
 
-		if (true == hidePos)
+		if (_seeHedgeUserRight == false)
 		{
-			//Position is matured and should be hidden, but user right may overwrite this.
-			bool userHasAccess = false;
-			CSRUserRights currentUser;
-			currentUser.LoadDetails();
-			if (currentUser.HasAccess("See Expired FX Frwd"))
+			std::string folName = folio->name;
+			if (_HedgeSet.find(folName) != _HedgeSet.end())
 			{
-				userHasAccess = true;
-				MESS(Log::debug, "Current user (" << currentUser.GetName() << ") has access to see expired FX Frwd positions");
+				const CSRInstrument * inst = CSRInstrument::GetInstance(position->sicovam);
+				if (inst != nullptr)
+				{
+					char instType = inst->GetType();
+					if (instType == iForexSpot || instType == iCommission || instType == iForexFuture || instType == iForexNonDeliverable)
+					{
+						hidePos = true;
+					}
+				}
 			}
-
-			if (true == userHasAccess)
-			{
-				MESS(Log::debug, "Position " << descForDebug.c_str() << " IS visible");
-				visible = true;
-				return true;
-			}
-
-			MESS(Log::debug, "Position " << descForDebug.c_str() << " is NOT visible");
-			visible = false;
-			return true;
-		}
-
-		return false;
+		}		
+		return hidePos;
 	}
 	catch (ExceptionBase exc)
 	{

@@ -299,13 +299,21 @@ CONNECT BY PRIOR IDENT = MGR", parameters));
                     int folioID = SetCashFolioID(ref ticketMessage, ExtFundId);
                     ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, _ActualNetAmount);
 
-                    SSMComplexReference ISIN = new SSMComplexReference();
-                    ISIN.type = "ISIN";
-                    ISIN.value = _Isin;
                     //force price type= "In Amount"
                     ticketMessage.SetTicketField(FieldId.SPOTTYPE_PROPERTY_NAME, transaction.SpotTypeConstants.IN_PRICE);
-                    int sico = CSMInstrument.GetCodeWithMultiReference(ISIN);
-                    ticketMessage.SetTicketField(FieldId.INSTRUMENTREF_PROPERTY_NAME, sico);
+                    int sicovam;
+                    if (!string.IsNullOrEmpty(_Isin))
+                    {
+                        SSMComplexReference ISIN = new SSMComplexReference();
+                        ISIN.type = "ISIN";
+                        ISIN.value = _Isin;
+                        sicovam = CSMInstrument.GetCodeWithMultiReference(ISIN);
+                    } else
+                    {
+                        logger.log(Severity.warning, "Isin is empty. Getting cash instrument by name...");
+                        sicovam = GetCashInstrumentSicovam(_Currency, RBCCustomParameters.Instance.CashTransferInstrumentNameFormat, null, ExtFundId, ExtFundId, RBCCustomParameters.Instance.CashTransferBusinessEvent, RBCCustomParameters.Instance.DefaultCounterpartyStr, null, folioID, null, ExtFundId);
+                    }
+                    ticketMessage.SetTicketField(FieldId.INSTRUMENTREF_PROPERTY_NAME, sicovam);
 
                     //ticketMessage.SetTicketField(FieldId.MA_INSTRUMENT_NAME, _Isin);
                 }

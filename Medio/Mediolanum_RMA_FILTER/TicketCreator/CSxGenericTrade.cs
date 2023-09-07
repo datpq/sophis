@@ -7,6 +7,7 @@ using RichMarketAdapter.ticket;
 using sophis.log;
 using transaction;
 using System.Globalization;
+using sophis.instrument;
 
 namespace Mediolanum_RMA_FILTER.TicketCreator
 {
@@ -29,6 +30,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 string _quantity = fields.GetValue(RBCTicketType.GenericTrade.Quantity);
                 string _spot = fields.GetValue(RBCTicketType.GenericTrade.Spot);
                 string _spotType = fields.GetValue(RBCTicketType.GenericTrade.SpotType);
+                string _amount = fields.GetValue(RBCTicketType.GenericTrade.Amount);
                 string _tradeDate = fields.GetValue(RBCTicketType.GenericTrade.TradeDate);
                 string _valueDate = fields.GetValue(RBCTicketType.GenericTrade.ValueDate);
                 string _counterpartyId = fields.GetValue(RBCTicketType.GenericTrade.CounterpartyId);
@@ -37,19 +39,29 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 string _entity = fields.GetValue(RBCTicketType.GenericTrade.Entity);
                 string _eventId = fields.GetValue(RBCTicketType.GenericTrade.EventId);
                 string _currency = fields.GetValue(RBCTicketType.GenericTrade.Currency);
+                string _isin = fields.GetValue(RBCTicketType.GenericTrade.Isin);
                 string _comments = fields.GetValue(RBCTicketType.GenericTrade.Comments);
                 string _userId = fields.GetValue(RBCTicketType.GenericTrade.UserId);
                 string _extraFields = fields.GetValue(RBCTicketType.GenericTrade.ExtraFields);
+                string _info = fields.GetValue(RBCTicketType.GenericTrade.Info);
 
-                logger.log(Severity.debug, $"SetTicketMessage.BEGIN(_tradeType={_tradeType}, _instrumentRef={_instrumentRef}, _bookId={_bookId}, _externalRef ={_externalRef}, _quantity={_quantity}, _spot={_spot}, _tradeDate={_tradeDate}, _valueDate={_valueDate}, _counterpartyId={_counterpartyId}, _depositaryId={_depositaryId}, _brokerId={_brokerId}, _entity={_entity}, _eventId={_eventId}, _currency={_currency}, _userId={_userId}, _extraFields={_extraFields})");
+                logger.log(Severity.debug, $"SetTicketMessage.BEGIN(_tradeType={_tradeType}, _instrumentRef={_instrumentRef}, _bookId={_bookId}, _externalRef ={_externalRef}, _quantity={_quantity}, _spot={_spot}, _amount={_amount}, _tradeDate={_tradeDate}, _valueDate={_valueDate}, _counterpartyId={_counterpartyId}, _depositaryId={_depositaryId}, _brokerId={_brokerId}, _entity={_entity}, _eventId={_eventId}, _currency={_currency}, _isin={_isin}, _userId={_userId}, _extraFields={_extraFields}, _info={_info})");
 
                 ticketMessage.SetTicketField(FieldId.TRADETYPE_PROPERTY_NAME, _BusinessEvents[_tradeType]);
-                ticketMessage.SetTicketField(FieldId.INSTRUMENTREF_PROPERTY_NAME, _instrumentRef);
+                if (!string.IsNullOrEmpty(_instrumentRef)) ticketMessage.SetTicketField(FieldId.INSTRUMENTREF_PROPERTY_NAME, _instrumentRef);
+                else
+                {
+                    logger.log(Severity.debug, $"_instrumentRef is empty. Use ISIN {_isin}");
+                    ticketMessage.SetTicketField(FieldId.MA_COMPLEX_REFERENCE_TYPE, "ISIN");
+                    ticketMessage.SetTicketField(FieldId.MA_INSTRUMENT_NAME, _isin);
+                }
+
                 ticketMessage.SetTicketField(FieldId.BOOKID_PROPERTY_NAME, _bookId);
                 ticketMessage.SetTicketField(FieldId.EXTERNALREF_PROPERTY_NAME, _externalRef);
                 ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, _quantity);
                 ticketMessage.SetTicketField(FieldId.SPOT_PROPERTY_NAME, _spot);
                 ticketMessage.SetTicketField(FieldId.SPOTTYPE_PROPERTY_NAME, _spotType);
+                ticketMessage.SetTicketField(FieldId.AMOUNT_PROPERTY_NAME, _amount);
                 if (!string.IsNullOrEmpty(_tradeDate))
                 {
                     try

@@ -4,7 +4,8 @@
     {
         Csv2Xml,
         Csv2Csv,
-        Xml2Csv
+        Xml2Csv,
+        Excel2Csv
     } 
 
     public class PdtTransformation
@@ -19,13 +20,15 @@
         public int csvSkipLines { get; set; }
         public char csvSrcSeparator { get; set; } // empty --> fixed length file
         public char csvDestSeparator { get; set; }
+        public string fileBreakExpression { get; set; }
         public int bunchSize { get; set; }
         public string[] uniqueConstraints { get; set; }
         public string[] checkConstraints { get; set; }
         public string processingCondition { get; set; }
+        public string postProcessEvent { get; set; }
         public PdtVariable[] variables { get; set; }
         public string[] groupBy { get; set; }
-
+        public PdtRowCloning rowCloning { get; set; }
         public PdtColumn[] columns { get; set; }
     }
 }

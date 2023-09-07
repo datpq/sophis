@@ -44,6 +44,9 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                     //28/09/2017: S Amet & C Benyahia
                     //Reversal flag removed after non vanilla fund migration 
                     ticketMessage.SetTicketField(FieldId.NOTIONAL_PROPERTY_NAME, quantity);
+					   //in scope only for Loans (DIM_TRADEFILE_OTHERS file)
+                    logger.log(Severity.debug, "Setting accrued as 0");
+                    ticketMessage.SetTicketField(FieldId.ACCRUEDAMOUNT_PROPERTY_NAME, 0.0);
                 }
                 else
                     ticketMessage.SetTicketField(FieldId.QUANTITY_PROPERTY_NAME, quantity);

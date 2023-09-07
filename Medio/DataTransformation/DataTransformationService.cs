@@ -179,6 +179,12 @@ namespace DataTransformation
                 {
                     if (outputFile.Contains("@FileSeq"))
                     {
+                        while(File.Exists(Path.Combine(transIO.OutputDir, outputFile.Replace("@FileSeq", fileSeq.ToString("D3"))))
+                            || File.Exists(Path.Combine(transIO.OutputDir, outputFile.Replace("@FileSeq", fileSeq.ToString("D3")) + ".processed")))
+                        {
+                            Logger.Warn($"File exists already. Increasing @FileSeq: {fileSeq}-->{fileSeq+1} " + outputFile.Replace("@FileSeq", fileSeq.ToString("D3")));
+                            Interlocked.Increment(ref fileSeq);
+                        }
                         outputFile = outputFile.Replace("@FileSeq", fileSeq.ToString("D3"));
                         Interlocked.Increment(ref fileSeq);
                         //fileSeq++;
@@ -186,6 +192,12 @@ namespace DataTransformation
                     }
                     if (outputFile.Contains("@SSBSeq"))
                     {
+                        while (File.Exists(Path.Combine(transIO.OutputDir, outputFile.Replace("@SSBSeq", ssbSeq.ToString("D3"))))
+                            || File.Exists(Path.Combine(transIO.OutputDir, outputFile.Replace("@SSBSeq", ssbSeq.ToString("D3")) + ".processed")))
+                        {
+                            Logger.Warn($"File exists already. Increasing @SSBSeq: {ssbSeq}-->{ssbSeq + 1} " + outputFile.Replace("@SSBSeq", ssbSeq.ToString("D3")));
+                            Interlocked.Increment(ref ssbSeq);
+                        }
                         outputFile = outputFile.Replace("@SSBSeq", ssbSeq.ToString("D3"));
                         Interlocked.Increment(ref ssbSeq);
                     }

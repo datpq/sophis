@@ -156,6 +156,7 @@
     <ClCompile Include="AutoTicket\CSxIsBBHIOnboardedDIMAutoTransmitCondition.cpp">
       <Filter>AutoTicket</Filter>
     </ClCompile>
+    <ClCompile Include="CSxReportingHedge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Rollback_MEDIO_GUIScript.sql">
@@ -294,6 +295,7 @@
     <ClInclude Include="AutoTicket\CSxIsBBHIOnboardedDIMAutoTransmitCondition.h">
       <Filter>AutoTicket</Filter>
     </ClInclude>
+    <ClInclude Include="CSxReportingHedge.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource\MEDIO_GUI.rc">

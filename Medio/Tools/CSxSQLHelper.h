@@ -14,6 +14,8 @@
 
 using namespace sophis::sql;
 
+using namespace std;
+
 
 struct SSxNameStr
 {
@@ -65,6 +67,7 @@ public:
 	}*/
 	static _STL::string GetTargetPortfolioName();
 	static std::vector<long> GetAllotmentsFromConfig();
+	static std::set<string> GetHedgeFoliosFromConfig();
 	static long LoadAllotmentIdFromDB(std::string allotmentName);
 };
 

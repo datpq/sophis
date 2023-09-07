@@ -237,6 +237,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                         logger.log(Severity.debug, "Ticket on unit traded bond or ABS bond " + ISIN + " ;Setting  accrued computed as BondInterest column: " + accrued);
                         ticketMessage.SetTicketField(FieldId.ACCRUEDAMOUNT_PROPERTY_NAME, accrued);
                     }
+                   
                 }
                 
 

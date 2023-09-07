@@ -7,6 +7,8 @@ using System.Text;
 using System.Diagnostics;
 using NLog;
 using System.Configuration;
+using System.Xml;
+using Microsoft.CSharp;
 
 namespace DataTransformation
 {
@@ -16,6 +18,7 @@ namespace DataTransformation
         private static Dictionary<string, string> CacheExpressionExeFiles = new Dictionary<string, string>();
         private static Dictionary<string, string> CacheExpressionValues = new Dictionary<string, string>();
         private static string EvaluateTemplateCode = null;
+        private static string EvaluateDocEventTemplateCode = null;
 
         public static string Evaluate(string expression, string colVal, string lineVal = "")
         {
@@ -79,13 +82,56 @@ namespace DataTransformation
             return output;
         }
 
+        public static void EvaluateDocEvent(string expression, Dictionary<string, string> Variables, XmlDocument doc)
+        {
+            Logger.Debug($"EvaluateDocEvent.BEGIN(expression={expression})");
+            var csc = new CSharpCodeProvider();
+            var parameters = new CompilerParameters(new[] {
+                "System.dll", "System.Xml.dll"});
+            if (EvaluateDocEventTemplateCode == null)
+            {
+                EvaluateDocEventTemplateCode = Utils.ReadAllTextFile("EvaluateDocEvent.cs"); // read from template
+                Logger.Debug($"Reading code from template: \n{EvaluateDocEventTemplateCode}");
+            }
+            if (Variables != null)
+            {
+                foreach (var Var in Variables)
+                {
+                    expression = expression.Replace("$" + Var.Key, Var.Value);
+                }
+            }
+            string fileContent = EvaluateDocEventTemplateCode.Replace("//123456789", expression);
+            var results = csc.CompileAssemblyFromSource(parameters, fileContent);
+            if (!results.Errors.HasErrors)
+            {
+                var t = results.CompiledAssembly.GetType("Program");
+                dynamic o = Activator.CreateInstance(t);
+                o.run(doc);
+            }
+            else
+            {
+                var errors = string.Join(Environment.NewLine,
+                    results.Errors.Cast<CompilerError>().Select(x => x.ErrorText));
+                throw new Exception(errors);
+            }
+            Logger.Debug("EvaluateDocEvent.END");
+        }
+
         public static void CleanUp()
         {
+            Logger.Debug($"CleanUp.BEGIN");
             foreach (var exeFile in CacheExpressionExeFiles.Values)
             {
-                File.Delete(exeFile);
+                try
+                {
+                    File.Delete(exeFile);
+                }
+                catch(Exception e) {
+                    Logger.Warn(e.Message);
+                }
             }
             CacheExpressionExeFiles.Clear();
+            Logger.Debug("CleanUp.END");
         }
 
         public static void CompileExecutable(string sourceFile, string destFile)

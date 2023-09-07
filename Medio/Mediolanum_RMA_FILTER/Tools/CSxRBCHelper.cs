@@ -779,7 +779,7 @@ namespace Mediolanum_RMA_FILTER.Tools
                     }
                     else // go back to normal matching .. little chance to reach here 
                     {
-                        logger.log(Severity.debug, "Cannot find any type by column number, try matching by fields value ... ");
+                        logger.log(Severity.debug, $"Cannot find any type by column number (fields.Count={fields.Count}), try matching by fields value ... ");
                         if (IsBond2(fields) || RBCTicketType.Bond3Columns.TotalCount == fields.Count)
                         {
                             return eRBCTicketType.Bond2;
