@@ -12,6 +12,7 @@ namespace DataTransformation.Settings
         private const string OutputFileKey = "OutputFile";
         private const string BackupKey = "BackupDir";
         private const string FailureKey = "FailureDir";
+        private const string SendFailureReportKey = "SendFailureReport";
         private const string EmailSubjectKey = "EmailSubject";
         private const string EmailRecipientToKey = "EmailRecipientTo";
         private const string EmailRecipientCCKey = "EmailRecipientCC";
@@ -63,6 +64,13 @@ namespace DataTransformation.Settings
         public string FailureDir
         {
             get { return (string)this[FailureKey]; }
+            set { this[FailureKey] = value; }
+        }
+
+        [ConfigurationProperty(SendFailureReportKey, DefaultValue = false, IsRequired = false)]
+        public bool SendFailureReport
+        {
+            get { return (bool)this[SendFailureReportKey]; }
             set { this[FailureKey] = value; }
         }
 

@@ -16,6 +16,25 @@ namespace DataTransformation
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
+        public static void SendErrorEmail(string errEmailubject, string failureFile)
+        {
+            string errEmailRcptTo = ConfigurationManager.AppSettings["ErrEmailRecipientTo"];
+            string errEmailRcptCC = ConfigurationManager.AppSettings["ErrEmailRecipientCC"];
+            string errEmailBody = ConfigurationManager.AppSettings["ErrEmailBody"];
+            if (!string.IsNullOrEmpty(errEmailRcptTo) && !string.IsNullOrEmpty(errEmailubject) && !string.IsNullOrEmpty(errEmailBody))
+            {
+                Logger.Debug($"Reporting error to {errEmailRcptTo} ({failureFile})");
+                try
+                {
+                    SendEmail(errEmailRcptTo, errEmailubject, errEmailBody, errEmailRcptCC, new[] { failureFile });
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e, "Error when sending email");
+                }
+            }
+        }
+
         public static void SendEmail(string recipientTo, string subject, string body, string recipientCC = null, string[] attachments = null)
         {
             var smtpHost = ConfigurationManager.AppSettings["SMTPHost"];

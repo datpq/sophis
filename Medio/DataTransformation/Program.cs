@@ -17,6 +17,7 @@ namespace DataTransformation
 
             if ((args.Length == 1) && (args[0] == "noservice"))
             {
+                DataTransformationService.debugMode = true;
                 (servicesToRun[0] as DataTransformationService).Start();
                 Thread.Sleep(Timeout.Infinite);
             }

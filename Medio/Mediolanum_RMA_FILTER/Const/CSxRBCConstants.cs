@@ -69,7 +69,9 @@ namespace Mediolanum_RMA_FILTER
         Rootportfolios,
         Delegatemanagers,
         Businessevents,
-        FundList
+        FundList,
+		StratAccountDetails,
+        RootStrategies
     };
 
     public enum eCollateralType

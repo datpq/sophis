@@ -157,6 +157,8 @@
       <Filter>AutoTicket</Filter>
     </ClCompile>
     <ClCompile Include="CSxReportingHedge.cpp" />
+    <ClCompile Include="CSxIsBrokerDIMCondition.cpp" />
+    <ClCompile Include="CSxNACKTemplateCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Rollback_MEDIO_GUIScript.sql">
@@ -296,6 +298,8 @@
       <Filter>AutoTicket</Filter>
     </ClInclude>
     <ClInclude Include="CSxReportingHedge.h" />
+    <ClInclude Include="CSxIsBrokerDIMCondition.h" />
+    <ClInclude Include="CSxNACKTemplateCondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource\MEDIO_GUI.rc">

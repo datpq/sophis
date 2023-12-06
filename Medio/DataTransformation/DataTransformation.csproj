@@ -180,6 +180,7 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Templates\SSB_AllCustodyTransactions.csv" />
     <EmbeddedResource Include="Templates\RMA_GenericTrade.csv" />
+    <EmbeddedResource Include="Templates\NACK_Reponse.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dt.xml" />
@@ -241,6 +242,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\REFI_CA.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\SWIFT_ACK_NACK.xml" />
+    <EmbeddedResource Include="Templates\SWIFT_ACK_NACK_Mir.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

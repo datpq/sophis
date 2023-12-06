@@ -54,6 +54,9 @@ namespace MEDIO.OrderAutomation.NET.Source.DataModel
         public double? AmountRaised { get; set; }
 
         [ReadOnly(true)]
+        public bool CanRaise { get; set; }
+
+        [ReadOnly(true)]
         public double? WeightNav { get; set; }
 
         [ReadOnly(true)]
@@ -84,6 +87,7 @@ ORDER BY PARENTID, NAME".BindFromQuery((IDataReader r) =>
                     DateSettlement = r["DATESETTLEMENT"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(r["DATESETTLEMENT"]),
                     BalanceRounded = r["BALANCEROUNDED"] == DBNull.Value ? null : (double?)Convert.ToDouble(r["BALANCEROUNDED"]),
                     AmountRounded = r["AMOUNTROUNDED"] == DBNull.Value ? null : (double?)Convert.ToDouble(r["AMOUNTROUNDED"]),
+                    CanRaise = true,
                 }
             );
         }

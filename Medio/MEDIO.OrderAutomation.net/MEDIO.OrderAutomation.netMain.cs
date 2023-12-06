@@ -8,7 +8,6 @@ using MEDIO.OrderAutomation.NET.Source.OrderCreationValidator;
 using MEDIO.OrderAutomation.NET.Source.Scenarios;
 using sophis.oms;
 using MEDIO.OrderAutomation.NET.Source.GUI;
-
 ///{{SOPHIS_TOOLKIT_INCLUDE (do not delete this line)
 
 //}}SOPHIS_TOOLKIT_INCLUDE
@@ -84,6 +83,10 @@ namespace MEDIO.OrderAutomation.net
                 sophis.portfolio.CSMPositionCtxMenu.Register("MEDIO Performance MtD", new CSxPerfDashboardMenu(1));
                 sophis.portfolio.CSMPositionCtxMenu.Register("MEDIO Performance QtD", new CSxPerfDashboardMenu(2));
 
+                sophis.scenario.CSMScenario.Register("Medio Subs/Reds Automation", new CSxSubsRedsAutomation());
+                sophis.portfolio.CSMPositionCtxMenu.Register("Medio Subs/Reds Automation", new CSxSubsRedsContextMenu());
+
+          
             //}}SOPHIS_INITIALIZATION
         }
 

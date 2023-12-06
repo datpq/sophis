@@ -25,7 +25,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator.AbstractBase
         #region Fields
         private static string _ClassName = typeof(BaseTicketCreator).Name;
         protected static Dictionary<string, int> _Rootportfolios = new Dictionary<string, int>();
-        protected static List<Tuple<int /*accountid*/, int/*entityid*/, string /*account_at_custodian*/>> _Delegatemanagers = new List<Tuple<int, int, string>>();
+        protected static List<Tuple<int /*accountid*/, int/*entityid*/, string /*account_at_custodian*/, string /*account_name*/>> _Delegatemanagers = new List<Tuple<int, int, string,string>>();
         protected static Dictionary<string, int> _BusinessEvents = new Dictionary<string, int>();
         protected eRBCTicketType _RbcTicketType;
         protected static List<string> _MAMLZCodesList = new List<string>();
@@ -38,7 +38,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator.AbstractBase
         {
             _Rootportfolios =   CSxCachingDataManager.Instance.GetItem(eMedioCachedData.Rootportfolios.ToString()) as Dictionary<string, int>;
             _BusinessEvents = CSxCachingDataManager.Instance.GetItem(eMedioCachedData.Businessevents.ToString()) as Dictionary<string, int>;
-            _Delegatemanagers = CSxCachingDataManager.Instance.GetItem(eMedioCachedData.Delegatemanagers.ToString()) as List<Tuple<int, int, string>>;
+            _Delegatemanagers = CSxCachingDataManager.Instance.GetItem(eMedioCachedData.Delegatemanagers.ToString()) as List<Tuple<int, int, string,string>>;
             _RbcTicketType = type;
             _MAMLZCodesList = RBCCustomParameters.Instance.MAMLZCodesList;
         }
@@ -132,7 +132,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator.AbstractBase
             }
         }
 
-        protected int GetDepositary(string commonIdentifier)
+        public int GetDepositary(string commonIdentifier)
         {
             using (Logger logger = new Logger(_ClassName, MethodBase.GetCurrentMethod().Name))
             {
@@ -174,7 +174,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator.AbstractBase
                     }
                     logger.log(Severity.debug, "Getting broker by DelegeteManagerID ...");
                     // Use DelelgateManagerId
-                    Tuple<int, int, string> delegatemanager = _Delegatemanagers.Find(x => (x.Item3.ToSafeString().ToUpper().CompareTo(commonIdentifier.ToUpper()) == 0));
+                    Tuple<int, int, string, string> delegatemanager = _Delegatemanagers.Find(x => (x.Item3.ToSafeString().ToUpper().CompareTo(commonIdentifier.ToUpper()) == 0));
                     if (delegatemanager != null)
                     {
                         logger.log(Severity.debug, "Found (delegate manager) broker id = " + delegatemanager.Item2 + " with account = " + commonIdentifier);
@@ -569,7 +569,7 @@ namespace Mediolanum_RMA_FILTER.TicketCreator.AbstractBase
             return res;
         }
 
-        protected int GetCashInstrumentSicovam(string Currency, string nameFormat, string feeName = null, string dstAccount = null, string srcAccount = null, string businessEvent = null, string counterparty = null, string allotment = null, int folio_id = 0, string fund = null, string commonIdentifier = null)
+        public int GetCashInstrumentSicovam(string Currency, string nameFormat, string feeName = null, string dstAccount = null, string srcAccount = null, string businessEvent = null, string counterparty = null, string allotment = null, int folio_id = 0, string fund = null, string commonIdentifier = null)
         {
             using (Logger logger = new Logger(_ClassName, MethodBase.GetCurrentMethod().Name))
             {

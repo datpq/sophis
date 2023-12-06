@@ -368,8 +368,8 @@ CONSTRUCTOR_PORTFOLIO_COLUMN_GROUP(CSxGrossLeverageColumn, MEDIO_COLUMNGROP_TKT)
 					double fxSellToFolio = 1.0;
 					double fxBuyToFolio = 1.0;
 
-					const CSRForexSpot* pFxSellToFolio = CSRForexSpot::GetCSRForexSpot(folioCcy, sellCcy);
-					const CSRForexSpot* pFxBuyToFolio = CSRForexSpot::GetCSRForexSpot(folioCcy, buyCcy);
+					const CSRForexSpot* pFxSellToFolio = CSRForexSpot::GetCSRForexSpot(folioCcy, buyCcy);
+					const CSRForexSpot* pFxBuyToFolio = CSRForexSpot::GetCSRForexSpot(folioCcy, sellCcy);
 
 					if (pFxSellToFolio && pFxBuyToFolio)
 					{
@@ -379,7 +379,8 @@ CONSTRUCTOR_PORTFOLIO_COLUMN_GROUP(CSxGrossLeverageColumn, MEDIO_COLUMNGROP_TKT)
 
 					double sellNotionalCcyFolio = sellNotional / fxSellToFolio;
 					double buyNotionalCcyFolio = buyNotional / fxBuyToFolio;
-					result = abs((sellNotionalCcyFolio + buyNotionalCcyFolio) * fxBuyToFolio);	// convert to instrument ccy
+					//result = abs((sellNotionalCcyFolio + buyNotionalCcyFolio) * fxBuyToFolio);	// convert to instrument ccy
+					result= abs((sellNotionalCcyFolio + buyNotionalCcyFolio) * fxSellToFolio);	// convert to instrument ccy
 				}
 			}
 			catch (const sophisTools::base::ExceptionBase& ex)

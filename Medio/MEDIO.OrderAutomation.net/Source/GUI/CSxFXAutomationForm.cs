@@ -121,23 +121,26 @@ WHERE F.IDENT = {x.ID}".ExecuteScalar<string>();
                     if (!folio.IsLoaded()) folio.Load();
                     x.MedioMarketValue = CSxColumnHelper.GetPortfolioColumn(int.Parse(x.ID), null, "Medio Market Value curr. global").doubleValue;
                 });
+                treeDCB.DataSource = arrData;
+                RefreshAmountByCurrency();
                 foreach (var dcb in arrData)
                 {
                     if (dcb.NodeType <= 1) continue;
                     var sleeveNode = arrData.Single(y => y.ID == dcb.ParentID.Split('_')[0] && y.NodeType == 1);
-                    var rbcStrategyNav = CSxColumnHelper.GetPortfolioColumn(int.Parse(sleeveNode.ID), null, "RBC Strategy NAV");
-                    log.Write(CSMLog.eMVerbosity.M_info, $"SleeveId={sleeveNode.ID}, RBC Strategy NAV={rbcStrategyNav.doubleValue}");
-                    dcb.WeightNav = dcb.AmountRounded.HasValue ? (double?)Math.Abs(dcb.AmountRounded.Value * 100 / rbcStrategyNav.doubleValue) : null;
+                    dcb.WeightNav = dcb.AmountCurGlb.HasValue ? (double?)Math.Abs(dcb.AmountCurGlb.Value * 100 / sleeveNode.MedioMarketValueCurGlb.Value) : null;
+                    //var rbcStrategyNav = CSxColumnHelper.GetPortfolioColumn(int.Parse(sleeveNode.ID), null, "RBC Strategy NAV");
+                    //log.Write(CSMLog.eMVerbosity.M_info, $"SleeveId={sleeveNode.ID}, RBC Strategy NAV={rbcStrategyNav.doubleValue}");
+                    //dcb.WeightNav = dcb.AmountRounded.HasValue ? (double?)Math.Abs(dcb.AmountRounded.Value * 100 / rbcStrategyNav.doubleValue) : null;
                 }
-                treeDCB.DataSource = arrData;
-                RefreshAmountByCurrency();
-                RefreshFilledOrders();
+                RefreshRaisedOrders();
                 treeDCB.ExpandAll();
             }
         }
 
         private void cmdRaiseOrders_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show($"Do you want to {cmdRaiseOrders.Text.ToLower()}?",
+                Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel) return;
             var arrData = treeDCB.DataSource as ICollection<FxAutoCDB>;
             if (arrData == null) return;
             using (var log = new CSMLog())
@@ -171,10 +174,11 @@ WHERE F.IDENT = {x.ID}".ExecuteScalar<string>();
                         }
                         var alloc = new AllocationRule();
                         alloc.PortfolioID = int.Parse(sleeveNode.ID);
-                        alloc.Quantity = dcbNode.AmountRounded.Value;
+                        alloc.Quantity = Math.Round(dcbNode.AmountRounded.Value, 2);
                         alloc.EntityID = (int)$@"SELECT CONNECT_BY_ROOT ENTITE ENTITE FROM FOLIO
 WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".ExecuteScalar<decimal>();
                         res.AllocationRulesSet.Allocations.Add(alloc);
+                        //res.AllocationRulesSet.QuantityType = EQuantityType.Amount;
 
                         res.CreationInfo = new CreationInfo();
                         res.CreationInfo.TimeStamp = DateTime.Now;
@@ -192,16 +196,24 @@ WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".Execut
                         res.Assignation.WorkStation = res.CreationInfo.WorkStation;
 
                         res.QuantityData = new Quantity();
-                        res.QuantityData.OrderedQty = dcbNode.AmountRounded.Value;
+                        //res.QuantityData.ExecutedAmount = 0;
+                        //res.QuantityData.ExecutedQty = 0;
+                        //res.QuantityData.ExecutionsCount = 0;
+                        //res.QuantityData.IsTotallyExecuted = false;
+                        //res.QuantityData.AllocatedQty = 0;
+                        res.QuantityData.OrderedQty = Math.Round(Math.Abs(dcbNode.AmountRounded.Value), 2);
 
                         res.OriginationStrategy = 16;//FX Automation
                         res.EffectiveTime = DateTime.Now;
                         res.BusinessEventId = 1;//P/S
                         res.TimeInForce = new TimeInForce { Type = ETimeInForce.GoodTillCancel, ExpiryDate = DateTime.Today };
-                        res.Comments.Add(new CommentInfo { Value = $"{user.GetName()}: Order generated from Medio FX Automation" });
+                        string commentSicovams = string.Join(",", node.Nodes.Where(x => (treeDCB.GetDataRecordByNode(x) as FxAutoCDB).CanRaise && x.Checked).Select(x => (treeDCB.GetDataRecordByNode(x) as FxAutoCDB).ID.Split('_')[3]));
+                        res.Comments.Add(new CommentInfo { Value = $"{user.GetName()}: Order generated from Medio FX Automation ({commentSicovams})" });
                         res.SettlementType = ESettlementType.Regular;
 
-                        OrderManagerConnector.Instance.GetOrderManager().CreateOrders(new List<IOrder> { res }, false, res.CreationInfo);
+                        var newOrders = OrderManagerConnector.Instance.GetOrderManager().CreateOrders(new List<IOrder> { res }, false, res.CreationInfo).ToList();
+                        newOrders.ForEach(x => OrderCreationValidatorManager.Instance.Validate(x, true));
+                        newOrders = OrderManagerConnector.Instance.GetOrderManager().CreateOrders(newOrders, true, res.CreationInfo).ToList();
                         cnt++;
                         //var sendingReport = new SimulatedOMSOrdersSendingReport("FXAutomation");
                         //var sm = sophis.OrderGeneration.FxSwapManagerForDOB.new_FxSwapManager(sendingReport);
@@ -220,7 +232,7 @@ WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".Execut
                     }
                 }
                 MessageBox.Show($"{cnt} Order(s) raised successfully", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshFilledOrders();
+                RefreshRaisedOrders();
             }
         }
 
@@ -327,12 +339,12 @@ WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".Execut
                     var childDcbNode = treeDCB.GetDataRecordByNode(child) as FxAutoCDB;
                     amountAll += childDcbNode.AmountRounded.Value;
                     amountCurGlbAll += childDcbNode.AmountCurGlb.Value;
-                    if (!child.Checked) continue;
+                    if (!childDcbNode.CanRaise || !child.Checked) continue;
                     amount += childDcbNode.AmountRounded.Value;
                     amountCurGlb += childDcbNode.AmountCurGlb.Value;
                 }
-                dcbNode.AmountRounded = node.CheckState == CheckState.Indeterminate ? amount : amountAll;
-                dcbNode.AmountCurGlb = node.CheckState == CheckState.Indeterminate ? amountCurGlb : amountCurGlbAll;
+                dcbNode.AmountRounded = node.CheckState == CheckState.Unchecked ? amountAll : amount;
+                dcbNode.AmountCurGlb = node.CheckState == CheckState.Unchecked ? amountCurGlbAll : amountCurGlb;
                 treeDCB.RefreshNode(node);
             }
         }
@@ -351,14 +363,20 @@ WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".Execut
             if (arrData == null) return false;
             var sleeveNode = arrData.Single(y => y.ID == dcbNode.ParentID.Split('_')[0] && y.NodeType == 1);
 
-            double amount = 0;
+            if (node.CheckState == CheckState.Unchecked)
+            {
+                return sleeveNode.Currency != dcbNode.Currency && sleeveNode.Threshold.HasValue
+                    && Math.Abs(dcbNode.AmountCurGlb.Value) > sleeveNode.Threshold;
+            }
+            double amountCurGlb = 0;
             foreach (TreeListNode child in node.Nodes)
             {
+                if (!child.Checked) continue;
                 var childNode = treeDCB.GetDataRecordByNode(child) as FxAutoCDB;
-                amount += childNode.AmountCurGlb.Value;
+                if (childNode.CanRaise) amountCurGlb += childNode.AmountCurGlb.Value;
             }
             bool ans = sleeveNode.Currency != dcbNode.Currency && sleeveNode.Threshold.HasValue
-                && Math.Abs(amount) > sleeveNode.Threshold;
+                && Math.Abs(amountCurGlb) > sleeveNode.Threshold;
             return ans;
         }
 
@@ -367,9 +385,13 @@ WHERE IDENT = {sleeveNode.ID} AND LEVEL = 3 CONNECT BY PRIOR IDENT = MGR".Execut
             bool raisable = canRaiseOrder(e.Node);
             e.Appearance.BackColor = raisable ? Color.Lavender : Color.Empty;
             e.Appearance.FontStyleDelta = raisable && e.Node.CheckState != CheckState.Unchecked ? FontStyle.Bold : FontStyle.Regular;
+            var dcbNode = treeDCB.GetDataRecordByNode(e.Node) as FxAutoCDB;
+            if (dcbNode.NodeType == 4) {
+                e.Appearance.BackColor = dcbNode.CanRaise ? Color.Empty : Color.LightGray;
+            }
         }
 
-        private void RefreshFilledOrders()
+        private void RefreshRaisedOrders()
         {
             var arrData = treeDCB.DataSource as ICollection<FxAutoCDB>;
             if (arrData == null) return;
@@ -385,7 +407,24 @@ SELECT SUM(ABS(OA.QUANTITY)) FROM ORDER_DESCRIPTOR OD
 WHERE OD.ORIGINATIONID = 16 AND OD.ISALIVE = 1
     AND OD.SETTLEMENTDATE = TO_DATE('{settlementDateStr}', 'YYYYMMDD')".ExecuteScalar<decimal?>();
             });
+            arrData.Where(x => x.NodeType == 4).ToList().ForEach(x =>//Instrument level
+            {
+                var sleeveNode = arrData.Single(y => y.ID == x.ParentID.Split('_')[0] && y.NodeType == 1);
+                var sicovam = x.ID.Split('_')[3];
+                var settlementDateStr = x.DateSettlement.Value.ToString("yyyyMMdd");
+                var orderId = (int?)$@"
+SELECT OD.ID FROM ORDER_DESCRIPTOR OD
+    JOIN ORDER_ALLOCATION OA ON OA.ORDERID = OD.ID AND OA.PORTFOLIOID = {sleeveNode.ID}
+    JOIN ORDER_WELLKNOWNTARGET OW ON OW.ID = OD.TARGETID
+    JOIN TITRES T ON T.SICOVAM = OW.SECURITYID AND T.DEVISECTT = STR_TO_DEVISE('{x.Currency}') AND T.MARCHE = STR_TO_DEVISE('{sleeveNode.Currency}')
+    JOIN ORDER_COMMENT OC ON OC.ORDERID = OD.ID AND OC.COMMENT_VALUE LIKE '%{sicovam}%'
+WHERE OD.ORIGINATIONID = 16 AND OD.ISALIVE = 1
+    AND OD.SETTLEMENTDATE = TO_DATE('{settlementDateStr}', 'YYYYMMDD')".ExecuteScalar<decimal?>();
+                x.CanRaise = orderId == null;
+            });
+            treeDCB.UncheckAll();
             treeDCB.RefreshDataSource();
+            RefreshButtons();
         }
 
         private void cmdRefreshSleeves_Click(object sender, EventArgs e)

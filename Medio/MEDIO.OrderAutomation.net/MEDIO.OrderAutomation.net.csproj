@@ -67,7 +67,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Oracle.DataAccess">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -124,6 +124,9 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="SophisAMDotNetUtils">
+      <Private>False</Private>
+    </Reference>
+	<Reference Include="SophisBackOfficeKernelGUI">
       <Private>False</Private>
     </Reference>
     <Reference Include="SophisAMGuiCommon">
@@ -231,6 +234,14 @@
     <Compile Include="Source\DataModel\FxAutoMarket.cs" />
     <Compile Include="Source\DataModel\FxAutoSleeve.cs" />
     <Compile Include="Source\DataModel\FXAutoSleeveFolio.cs" />
+    <Compile Include="Source\GUI\AccountsListForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\GUI\AccountsListForm.Designer.cs">
+      <DependentUpon>AccountsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\GUI\CSxAccountController.cs" />
+    <Compile Include="Source\GUI\CSxAccountDataModel.cs" />
     <Compile Include="Source\GUI\CSxFXAutomationSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -271,6 +282,15 @@
       <DependentUpon>CSxHedgingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\GUI\CSxPerfDashboardMenu.cs" />
+    <Compile Include="Source\GUI\CSxSubsRedsAutomation.cs" />
+    <Compile Include="Source\GUI\CSxSubsRedsContextMenu.cs" />
+    <Compile Include="Source\GUI\CSxSummaryController.cs" />
+    <Compile Include="Source\GUI\CSxSummaryScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\GUI\CSxSummaryScreen.Designer.cs">
+      <DependentUpon>CSxSummaryScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\GUI\SelectFXInstrument.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,6 +328,8 @@
     <None Include="Source\GUI\Icons\parentOrder.png" />
     <None Include="Source\GUI\Icons\simpleButtonRefresh.Image.png" />
     <None Include="SQL\PH.sql" />
+    <Content Include="Source\GUI\Icons\position.PNG" />
+    <Content Include="Source\GUI\Icons\strat.PNG" />
     <Content Include="version\ReleaseNotes.MEDIO.OrderAutomation.net.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +343,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\GUI\AccountsListForm.resx">
+      <DependentUpon>AccountsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxFXAutomationForm.resx">
       <DependentUpon>CSxFXAutomationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -329,12 +354,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxFXRollingForm.resx">
       <DependentUpon>CSxFXRollingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxOrderSendingReport.resx">
       <DependentUpon>CSxOrderSendingReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\CSxHedgingForm.resx">
       <DependentUpon>CSxHedgingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\GUI\CSxSummaryScreen.resx">
+      <DependentUpon>CSxSummaryScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\GUI\SelectFXInstrument.resx">
       <DependentUpon>SelectFXInstrument.cs</DependentUpon>
@@ -345,6 +374,10 @@
       <Project>{28797AAA-C5A9-4A14-8E66-D4856BA91A55}</Project>
       <Name>MEDIO.CORE</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Mediolanum_RMA_FILTER\Mediolanum_RMA_FILTER.csproj">
+      <Project>{091fdd08-c965-46cc-998e-b920a67a5f4e}</Project>
+      <Name>Mediolanum_RMA_FILTER</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mediolanum_RMA_FILTER_CLI\Mediolanum_RMA_FILTER_CLI.vcxproj">
       <Project>{c0b9c47b-fa5a-4df8-b494-2cf74820ef1f}</Project>
