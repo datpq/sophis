@@ -55,6 +55,8 @@
 #include "BrokerFeeCondition\CSxBrokerFeesCtryCode.h"
 #include "BrokerFeeCondition\CSxBrokerFeesException.h"
 #include "PositionVisibility\CSxPositionVisibilityHook.h"
+#include "CSxIsBrokerDIMCondition.h" 
+#include "CSxNACKTemplateCondition.h"
 
 
 //}}SOPHIS_TOOLKIT_INCLUDE
@@ -178,7 +180,10 @@ UNIVERSAL_MAIN
 
 		INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotCTMCondition, "Is Not CTM")
 		INITIALISE_KERNEL_ACTION_CONDITION(CSxIsNotSSBCondition, "Is Not SSB")
+		INITIALISE_KERNEL_ACTION_CONDITION(CSxIsBrokerDIMCondition, "Is Broker DIM")
 		INITIALISE_THIRDPARTY_ACTION(CSxThirdPartyActionCountryCode, oBefore, "Country Code Validation")
+
+		INITIALISE_TP_DOC_GEN_RULES_CONDITION(CSxNACKTemplateCondition, "Block Cash MGR NACK generation")
 
 	
 	CSxPositionVisibilityHook::_HedgeSet = CSxSQLHelper::GetHedgeFoliosFromConfig();

@@ -5,6 +5,7 @@ using sophis.utils;
 using sophis.portfolio;
 using Medio.BackOffice.net;
 using MEDIO.BackOffice.net.src.Allotment;
+using MEDIO.BackOffice.net.src.Scenario;
 using MEDIO.BackOffice.net.src.DealCondition;
 using MEDIO.BackOffice.net.src.KernelEngine;
 using MEDIO.BackOffice.net.src.Thirdparty;
@@ -34,7 +35,8 @@ namespace Medio.BackOffice.net
                 // Transaction Action for ABS
                 CSMTransactionAction.Register("CSxDealActionRBCABS", CSMTransactionAction.eMOrder.M_oSavingInDataBase, new CSxDealActionRBCABS());
 
-
+                //GUI
+                sophis.scenario.CSMScenario.Register("MedioStrategyUpdate", new CSxStrategyFilter());
                 // Kernel Engine 
                 CSMKernelEngine.Register("Medio Email Notification", new CSxEmailKernelEngine());
                 CSMKernelEngine.Register("Medio Execution Avg Price", new CSxExecutionAveragePriceKernelEngine());
@@ -70,6 +72,7 @@ namespace Medio.BackOffice.net
                 
 				  sophis.instrument.CSMInstrumentAction.Register("CSxRussianBondRedemption", sophis.instrument.CSMInstrumentAction.eMOrder.M_oCreation, new CSxRussianBondRedemption());
                
+
                 sophis.instrument.CSMInstrumentAction.Register("CSxAbsPoolFactorCheck", sophis.instrument.CSMInstrumentAction.eMOrder.M_oModification, new CSxAbsPoolFactorCheck());
 
                 sophis.portfolio.CSMPortfolioColumn.Register("MEDIO Pay DirtyPrice", new SwapPayLegDirtyPrice());

@@ -966,15 +966,51 @@ namespace Mediolanum_RMA_FILTER.Tools
             }
         }
 
-        public static List<Tuple<int, int, string>> GetDelegateManagers()
+		public static Dictionary<string, int> GetRootStrategiesIdent()
         {
             using (Logger logger = new Logger(_ClassName, MethodBase.GetCurrentMethod().Name))
             {
-                List<Tuple<int, int, string>> res = new List<Tuple<int, int, string>>();
+                Dictionary<string, int> retval = new Dictionary<string, int>();
                 try
                 {
-                    string sql = "SELECT R.ACC_ID, R.VALUE, A.ACCOUNT_AT_CUSTODIAN FROM  BO_TREASURY_ACCOUNT A, BO_TREASURY_EXT_REF R, BO_TREASURY_EXT_REF_DEF D WHERE A.ID = R.ACC_ID AND R.REF_ID = D.REF_ID AND D.REF_NAME = 'DelegateManagerID'";
-                    res = CSxDBHelper.GeTupleList<int, int, string>(sql);
+                    string sql = "SELECT A.ACCOUNT_AT_CUSTODIAN, R.VALUE AS ROOTPORTFOLIO FROM BO_TREASURY_ACCOUNT A, BO_TREASURY_EXT_REF R, BO_TREASURY_EXT_REF_DEF D  WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ID = R.ACC_ID AND R.REF_ID = D.REF_ID AND D.REF_NAME = 'RootPortfolio' and A.BLOCKEDCASH=0";
+                    retval = CSxDBHelper.GetDictionary<string, int>(sql);
+                }
+                catch (Exception ex)
+                {
+                    logger.log(Severity.error, "Error occurred while trying to read accounts from database: " + ex.Message + ". InnerException: " + ex.InnerException + ". StackTrace: " + ex.StackTrace);
+                }
+                return retval;
+            }
+        }
+        public static  List<Tuple<string, int, string,string>> GetStratAccountDetails()
+        {
+            using (Logger logger = new Logger(_ClassName, MethodBase.GetCurrentMethod().Name))
+            {
+                List<Tuple<string, int, string,string>> retval = new List<Tuple<string, int, string,string>>();
+                try
+                {
+                    string sql = "SELECT A.ACCOUNT_AT_CUSTODIAN, A.ID, A.ACCOUNT_AT_AGENT, A.ACCOUNT_NAME FROM BO_TREASURY_ACCOUNT A, BO_TREASURY_EXT_REF R, BO_TREASURY_EXT_REF_DEF D  WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ID = R.ACC_ID AND R.REF_ID = D.REF_ID AND D.REF_NAME = 'RootPortfolio'";
+                    retval = CSxDBHelper.GeTupleList<string, int, string, string>(sql);
+
+                }
+                catch (Exception ex)
+                {
+                    logger.log(Severity.error, "Error occurred while trying to read accounts from database: " + ex.Message + ". InnerException: " + ex.InnerException + ". StackTrace: " + ex.StackTrace);
+                }
+                return retval;
+            }
+        }
+      
+        public static List<Tuple<int, int, string,string>> GetDelegateManagers()
+        {
+            using (Logger logger = new Logger(_ClassName, MethodBase.GetCurrentMethod().Name))
+            {
+                List<Tuple<int, int, string,string>> res = new List<Tuple<int, int, string,string>>();
+                try
+                {
+                    string sql = "SELECT R.ACC_ID, R.VALUE, A.ACCOUNT_AT_CUSTODIAN, A.ACCOUNT_NAME FROM  BO_TREASURY_ACCOUNT A, BO_TREASURY_EXT_REF R, BO_TREASURY_EXT_REF_DEF D WHERE A.ID = R.ACC_ID AND R.REF_ID = D.REF_ID AND D.REF_NAME = 'DelegateManagerID'";
+                    res = CSxDBHelper.GeTupleList<int, int, string,string>(sql);
                 }
                 catch (Exception ex)
                 {

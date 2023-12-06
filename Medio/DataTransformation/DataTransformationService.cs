@@ -24,6 +24,7 @@ namespace DataTransformation
         private static int ssbSeq = 1;
         public const string DEFAULT_CONFIG = "dt.xml";
         private const string STORAGE = "storage.txt";
+        public static bool debugMode = false;
         public static OracleConnection DbConnection;
         List<TransformationWatcher> watchers = new List<TransformationWatcher>();
 
@@ -36,10 +37,13 @@ namespace DataTransformation
         {
             try
             {
-                if (System.Diagnostics.Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+                if (!debugMode)
                 {
-                    Logger.Debug("Another instance is running. No multiple instances are allowed.");
-                    return;
+                    if (System.Diagnostics.Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+                    {
+                        Logger.Debug("Another instance is running. No multiple instances are allowed.");
+                        return;
+                    }
                 }
                 var storageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, STORAGE);
                 if (File.Exists(storageFilePath))
@@ -107,8 +111,8 @@ namespace DataTransformation
         {
             Logger.Info("Initializing.BEGIN");
 
-            //Setting = Transformation.InitializeAndSaveConfig(DEFAULT_CONFIG);
-            Setting = Transformation.LoadConfigFromFile(DEFAULT_CONFIG);
+            if (debugMode) Setting = Transformation.InitializeAndSaveConfig(DEFAULT_CONFIG);
+            else Setting = Transformation.LoadConfigFromFile(DEFAULT_CONFIG);
 
             //SQL Connection parameters
             var connectionStrings = ConfigurationManager.AppSettings["OracleConnectionString"];
@@ -208,8 +212,20 @@ namespace DataTransformation
                     data["Sequences"]["SSBSeq"] = ssbSeq.ToString();
                     parser.WriteFile(storageFilePath, data);
                 }
-                var failureFile = Path.GetFileNameWithoutExtension(outputFile) + "_FAILURE" + Path.GetExtension(outputFile);
-                Transformation.Transform(transIO, Setting, transIO.Type, filePath, Path.Combine(transIO.OutputDir, outputFile), Path.Combine(transIO.FailureDir, failureFile));
+                var failureFile = Path.ChangeExtension(outputFile, null) + "_FAILURE.csv";
+                var failureDir = transIO.FailureDir;
+                if (!Path.IsPathRooted(failureDir)) failureDir = Path.Combine(transIO.OutputDir, failureDir);
+                if (!Directory.Exists(failureDir))
+                {
+                    Logger.Debug($"Creating failure dir: {failureDir}");
+                    Directory.CreateDirectory(failureDir);
+                }
+                if (!Directory.Exists(transIO.OutputDir))
+                {
+                    Logger.Debug($"Creating output dir: {transIO.OutputDir}");
+                    Directory.CreateDirectory(transIO.OutputDir);
+                }
+                Transformation.Transform(transIO, Setting, transIO.Type, filePath, Path.Combine(transIO.OutputDir, outputFile), Path.Combine(failureDir, failureFile));
             }
             catch (Exception e)
             {

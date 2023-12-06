@@ -45,6 +45,7 @@
             this.tlColParentID = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.imgColl = new DevExpress.Utils.ImageCollection(this.components);
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.cmdRefreshSleeves = new DevExpress.XtraEditors.SimpleButton();
             this.cmdGenDCB = new DevExpress.XtraEditors.SimpleButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.treeDCB = new DevExpress.XtraTreeList.TreeList();
@@ -66,7 +67,6 @@
             this.cmdCopy = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmdRefreshSleeves = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.dateParam.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateParam.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -89,6 +89,8 @@
             this.colBalance.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colBalance.Caption = "Balance";
             this.colBalance.FieldName = "BalanceRounded";
+            this.colBalance.Format.FormatString = "N2";
+            this.colBalance.Format.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBalance.Name = "colBalance";
             this.colBalance.Visible = true;
             this.colBalance.VisibleIndex = 1;
@@ -107,7 +109,6 @@
             // 
             this.dateParam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateParam.EditValue = null;
-            this.dateParam.Enabled = false;
             this.dateParam.Location = new System.Drawing.Point(31, 3);
             this.dateParam.Name = "dateParam";
             this.dateParam.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -252,6 +253,17 @@
             this.labelControl1.TabIndex = 5;
             this.labelControl1.Text = "Funds/Sleeves:";
             // 
+            // cmdRefreshSleeves
+            // 
+            this.cmdRefreshSleeves.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdRefreshSleeves.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefreshSleeves.ImageOptions.Image")));
+            this.cmdRefreshSleeves.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cmdRefreshSleeves.Location = new System.Drawing.Point(844, 3);
+            this.cmdRefreshSleeves.Name = "cmdRefreshSleeves";
+            this.cmdRefreshSleeves.Size = new System.Drawing.Size(19, 20);
+            this.cmdRefreshSleeves.TabIndex = 10;
+            this.cmdRefreshSleeves.Click += new System.EventHandler(this.cmdRefreshSleeves_Click);
+            // 
             // cmdGenDCB
             // 
             this.cmdGenDCB.Location = new System.Drawing.Point(3, 25);
@@ -296,6 +308,7 @@
             this.treeDCB.OptionsClipboard.AllowCopy = DevExpress.Utils.DefaultBoolean.True;
             this.treeDCB.OptionsClipboard.AllowExcelFormat = DevExpress.Utils.DefaultBoolean.True;
             this.treeDCB.OptionsClipboard.ClipboardMode = DevExpress.Export.ClipboardMode.Formatted;
+            this.treeDCB.OptionsSelection.MultiSelect = true;
             this.treeDCB.OptionsView.AutoWidth = false;
             this.treeDCB.OptionsView.CheckBoxStyle = DevExpress.XtraTreeList.DefaultNodeCheckBoxStyle.Check;
             this.treeDCB.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -419,7 +432,7 @@
             // 
             this.colWeightNav.AppearanceHeader.Options.UseTextOptions = true;
             this.colWeightNav.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colWeightNav.Caption = "WeightNav";
+            this.colWeightNav.Caption = "Weight in Nav";
             this.colWeightNav.FieldName = "WeightNav";
             this.colWeightNav.Format.FormatString = "N2";
             this.colWeightNav.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -509,17 +522,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1197, 560);
             this.tableLayoutPanel2.TabIndex = 11;
-            // 
-            // cmdRefreshSleeves
-            // 
-            this.cmdRefreshSleeves.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdRefreshSleeves.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefreshSleeves.ImageOptions.Image")));
-            this.cmdRefreshSleeves.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cmdRefreshSleeves.Location = new System.Drawing.Point(844, 3);
-            this.cmdRefreshSleeves.Name = "cmdRefreshSleeves";
-            this.cmdRefreshSleeves.Size = new System.Drawing.Size(19, 20);
-            this.cmdRefreshSleeves.TabIndex = 10;
-            this.cmdRefreshSleeves.Click += new System.EventHandler(this.cmdRefreshSleeves_Click);
             // 
             // CSxFXAutomationForm
             // 

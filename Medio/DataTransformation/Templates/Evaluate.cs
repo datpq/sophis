@@ -5,9 +5,19 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var colVal = args != null && args.Length > 0 ? args[0] : "";
-        var lineVal = args != null && args.Length > 1 ? args[1] : "";
-        solve(colVal, lineVal);
+        try
+        {
+            var colVal = args != null && args.Length > 0 ? args[0] : "";
+            var lineVal = args != null && args.Length > 1 ? args[1] : "";
+            solve(colVal, lineVal);
+        } catch (IndexOutOfRangeException e) {
+            Console.Out.Write("ERROR: " + e.Message);
+        // do not catch FormatException as empty string datetime parsing should be ignored
+        //} catch(FormatException e) {
+        //    Console.Out.Write("ERROR: " + e.Message);
+        } catch (Exception e) {
+            Console.Out.Write("WARN: " + e.Message);
+        }
     }
 
     private static DateTime LastDayOfWeek(DateTime dt)

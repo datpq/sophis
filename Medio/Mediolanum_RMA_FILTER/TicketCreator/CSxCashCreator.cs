@@ -13,7 +13,7 @@ using sophis.instrument;
 
 namespace Mediolanum_RMA_FILTER.TicketCreator
 {
-    class CSxCashCreator : BaseTicketCreator
+   public class CSxCashCreator : BaseTicketCreator
     {
         private static string _ClassName = typeof(CSxCashCreator).Name;
 
@@ -36,6 +36,11 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 if (CheckBBHFundId(ExtFundId) && fields.GetValue(RBCTicketType.CashColumns.UCITSVCode) == "MARG")
                 {
                     logger.log(Severity.warning, "Ignoring the ticket because MEDIO_BBH_FUNDFILTER parameter is enabled and the cash for [ " + ExtFundId + ", MARG ] will be done in the BBH Upload process");
+                    return true;
+                }
+                if (fields.GetValue(RBCTicketType.CashColumns.UCITSVCode) == "ACCT")
+                {
+                    logger.log(Severity.warning, "Ignoring the ticket because related cash tickets are created in Fusion already. [ " + ExtFundId + "]");
                     return true;
                 }
                 ticketMessage.SetUserField(RBCCustomParameters.Instance.RBCTransactionIDName, fields.GetValue(RBCTicketType.CashColumns.TransactionID));

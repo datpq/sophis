@@ -383,6 +383,50 @@ namespace MEDIO.CORE.Tools
             return res;
         }
 
+        public static List<Tuple<T1, T2, T3,T4>> GeTupleList<T1, T2, T3,T4>(string sqlQuery, List<OracleParameter> parameters = null)
+        {
+            var res = new List<Tuple<T1, T2, T3,T4>>();
+
+            using (var log = new CSMLog())
+            {
+                log.Begin("CSxDBHelper", MethodBase.GetCurrentMethod().Name);
+                try
+                {
+                    using (var cmd = DBContext.Connection.CreateCommand())
+                    {
+                        cmd.CommandText = sqlQuery;
+                        if (!parameters.IsNullOrEmpty())
+                        {
+                            cmd.BindByName = true;
+                            cmd.Parameters.Clear();
+                            foreach (var parameter in parameters)
+                            {
+                                cmd.Parameters.Add(parameter);
+                            }
+                        }
+                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var v1 = reader[0] != DBNull.Value ? (T1)Convert.ChangeType(reader[0], typeof(T1)) : default(T1);
+                                var v2 = reader[1] != DBNull.Value ? (T2)Convert.ChangeType(reader[1], typeof(T2)) : default(T2);
+                                var v3 = reader[2] != DBNull.Value ? (T3)Convert.ChangeType(reader[2], typeof(T3)) : default(T3);
+                                var v4 = reader[3] != DBNull.Value ? (T4)Convert.ChangeType(reader[3], typeof(T4)) : default(T4);
+
+                                res.Add(new Tuple<T1, T2, T3,T4>(v1, v2, v3,v4));
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    log.Write(CSMLog.eMVerbosity.M_error, String.Format("GetDictionary exception! {0}", e.Message));
+                }
+            }
+            return res;
+        }
+
+
         public static DataSet GetDataSet(string sqlQuery, List<OracleParameter> parameters = null)
         {
             DataSet dataSet = new DataSet();

@@ -67,7 +67,10 @@ namespace DataTransformation
         SSB2Rbc_NavFlow,
         SSB2Rbc_NavFund,
         SSB2Rbc_NavStrategy,
-        FundSettle2Rbc_OrderExec
+        FundSettle2Rbc_OrderExec,
+        Notify_CASH_MGR_NACK_Reponse,//SEA
+        SWIFT_ACK_NACK,//SEA
+        SWIFT_ACK_NACK_Mir//SEA
     }
 
     public static class Transformation
@@ -107,6 +110,13 @@ namespace DataTransformation
                             "lineVal.Substring(438, 1).Trim()",
                             "lineVal.Substring(437, 1) + lineVal.Substring(421, 15 - int.Parse(lineVal.Substring(436, 1))) + \".\" + lineVal.Substring(436 - int.Parse(lineVal.Substring(436, 1)), int.Parse(lineVal.Substring(436, 1)))",
                         }
+                    },
+                    new PdtLookupTable
+                    {
+                        Name = "MIFL_ME_11MOVCN",
+                        File = "MIFL_ME_11MOVCN_2",
+                        processingCondition = "lineVal.Substring(84, 4).Trim()==\"TDA\"",
+                        keyExpression = "lineVal.Substring(88, 12) + lineVal.Substring(0, 4).Trim()",
                     },
                     new PdtLookupTable{
                         Name = "REFI_CA_TABLE_BY_ID",
@@ -503,7 +513,7 @@ namespace DataTransformation
                     label = "MIL Trade RMA Preparation",
                     templateFile = "RMA_GenericTrade.csv",
                     category = "Medio",
-                    csvSrcSeparator = ',',
+                    csvSrcSeparator = DEFAULT_CSV_SEPARATOR,
                     csvDestSeparator = DEFAULT_CSV_SEPARATOR,
                     variables = new[] {
                         new PdtVariable {
@@ -1200,7 +1210,7 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'newNameOfCompany']"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'nameChange']"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'newNameOfCompany']"");
-            if (""Name,ISIN"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'nameChange']"").InnerText) < 0) {
+            if (""Name,ISIN,TICKER"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'nameChange']"").InnerText) < 0) {
                 nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'nameChange']"");
                 nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'newNameOfCompany']"");
             }
@@ -1225,7 +1235,6 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
             nodePaths.Add(""//*[local-name() = 'exdivDate']"");
             nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
             nodePaths.Add(""//*[local-name() = 'cash']"");
-            nodePaths.Add(""//*[local-name() = 'diffusedCode']"");
             nodePaths.Add(""//*[local-name() = 'coefficient']"");
             nodePaths.Add(""//*[local-name() = 'currency']"");
             nodePaths.Add(""//*[local-name() = 'currencyRate']"");
@@ -1238,6 +1247,8 @@ WHERE ERD.REF_NAME = 'ISIN' AND ERI.VALUE = '"" + colVal + ""'"""
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'rfactor']"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'businessEvent1']"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][3]/*[local-name() = 'businessEvent1']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'diffusedCode']"");
+            nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][2]/*[local-name() = 'diffusedCode']"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][5]"");
             nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][4]"");
         }
@@ -1295,14 +1306,20 @@ WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT !=
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
                                         File = "REFI_CA_ISO.csv",
-                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? ""Name"" : ""ISIN"") : null",
+                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (
+lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? ""Name"" :
+lineVal.Split(';')[0]==lineVal.Split(';')[5] && lineVal.Split(';')[6].Trim('""').StartsWith(""/TS/"") && lineVal.Split(';')[7].Trim('""').StartsWith(""/TS/"") && lineVal.Split(';')[6]!=lineVal.Split(';')[7] ? ""TICKER"" :
+lineVal.Split(';')[0]!=lineVal.Split(';')[5] && lineVal.Split(';')[0].Trim('""').StartsWith(""ISIN"") && lineVal.Split(';')[5].Trim('""').StartsWith(""ISIN"") && lineVal.Split(';')[6]==lineVal.Split(';')[7] ? ""ISIN"" : ""Unknown"") : null",
                                     },
                                     path = "//*[local-name() = 'nameChange']",
                                 },
                                 new PdtColumnDest {
                                     Lookup = new PdtColumnLookup {
                                         File = "REFI_CA_ISO.csv",
-                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? lineVal.Split(';')[1].Trim('""').Substring(6) : colVal) : null",
+                                        Expression = @"lineVal.Split(';')[0].Trim('""')==""ISIN "" + colVal ? (
+lineVal.Split(';')[2].Trim('""')==""CHAN//NAME"" ? lineVal.Split(';')[1].Trim('""').Substring(6) :
+lineVal.Split(';')[0]==lineVal.Split(';')[5] && lineVal.Split(';')[6].Trim('""').StartsWith(""/TS/"") && lineVal.Split(';')[7].Trim('""').StartsWith(""/TS/"") && lineVal.Split(';')[6]!=lineVal.Split(';')[7] ? lineVal.Split(';')[7].Trim('""').Split('/')[2] :
+lineVal.Split(';')[0]!=lineVal.Split(';')[5] && lineVal.Split(';')[0].Trim('""').StartsWith(""ISIN"") && lineVal.Split(';')[5].Trim('""').StartsWith(""ISIN"") && lineVal.Split(';')[6]==lineVal.Split(';')[7] ? lineVal.Split(';')[5].Trim('""').Substring(5) : ""Unknown"") : null",
                                     },
                                     path = "//*[local-name() = 'newNameOfCompany']",
                                 },
@@ -1502,7 +1519,10 @@ System.DateTime.ParseExact(lineVal.Split(';')[15], ""MM/dd/yyyy"", System.Global
 SELECT T.SICOVAM
 FROM TITRES T
     JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + colVal + @""'
-        JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'"""
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI_REFI ON ERI_REFI.SOPHIS_IDENT = T.SICOVAM AND ERI_REFI.VALUE = '"" + lineVal.Split(';')[49] + @""'
+        JOIN EXTRNL_REFERENCES_DEFINITION ERD_REFI ON ERD_REFI.REF_IDENT = ERI_REFI.REF_IDENT AND ERD_REFI.REF_NAME = 'Refinitiv_Exch_Code'
+WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT != 0)"""
                                     },
                                     path = "//*[local-name() = 'diffusedCode']/*[local-name() = 'sophis']"
                                 }
@@ -1579,20 +1599,26 @@ FROM TITRES T
                     templateFile = "REFI_CA.xml",
                     category = "Medio",
                     //fileBreakExpression = @"lineVal.Split(';')[0].Substring(5)+""_""+""$XmlType"".Replace("" "", """")",
-                    fileBreakExpression = @"lineVal.Split(';')[0].Substring(5)",
+                    fileBreakExpression = @"lineVal.Split(';')[3].Substring(6)",
                     repeatingRootPath = "//*[local-name() = 'corporateActionList']",
                     repeatingChildrenPath = "//*[local-name() = 'corporateAction']",
                     csvSkipLines = 1,
                     csvSrcSeparator = ';',
                     variables = new[] {
                         new PdtVariable { name = "XmlType", expressionBefore = "\"Standard Renaming\""},
+                        new PdtVariable { name = "nameChange", expressionBefore = @"lineVal.Split(';')[2]==""CHAN//NAME"" ? ""Name"" :
+lineVal.Split(';')[0]==lineVal.Split(';')[5] && lineVal.Split(';')[6].StartsWith(""/TS/"") && lineVal.Split(';')[7].StartsWith(""/TS/"") && lineVal.Split(';')[6]!=lineVal.Split(';')[7] ? ""TICKER"" :
+lineVal.Split(';')[0]!=lineVal.Split(';')[5] && lineVal.Split(';')[0].StartsWith(""ISIN"") && lineVal.Split(';')[5].StartsWith(""ISIN"") && lineVal.Split(';')[6]==lineVal.Split(';')[7] ? ""ISIN"" : ""Unknown"""},
+                        new PdtVariable { name = "newNameOfCompany", expressionBefore = @"lineVal.Split(';')[2]==""CHAN//NAME"" ? lineVal.Split(';')[1].Substring(6) :
+lineVal.Split(';')[0]==lineVal.Split(';')[5] && lineVal.Split(';')[6].StartsWith(""/TS/"") && lineVal.Split(';')[7].StartsWith(""/TS/"") && lineVal.Split(';')[6]!=lineVal.Split(';')[7] ? lineVal.Split(';')[7].Split('/')[2] :
+lineVal.Split(';')[0]!=lineVal.Split(';')[5] && lineVal.Split(';')[0].StartsWith(""ISIN"") && lineVal.Split(';')[5].StartsWith(""ISIN"") && lineVal.Split(';')[6]==lineVal.Split(';')[7] ? lineVal.Split(';')[5].Substring(5) : ""Unknown"""},
                         new PdtVariable { name = "DuplicateXmlType",
                             expressionBefore = @"""CAP_""+lineVal.Split(';')[0].Substring(5)",
                             Lookup = new PdtColumnLookup { Table = "REFI_CA_TABLE_BY_ISIN", ColumnIndex = "0" },
                             expressionAfter=@"""Stock consolidation"" == colVal ? ""Standard Reverse Stock Split"" : ""Unknown""",
                         },
                     },
-                    processingCondition = @"""$DuplicateXmlType"" != ""Standard Reverse Stock Split""",
+                    processingCondition = @"""$DuplicateXmlType"" != ""Standard Reverse Stock Split"" && ""$nameChange"" != ""Unknown""",
                     postProcessEvent = @"
         var nodePaths = new List<string>();
         if (""$XmlType"" == ""Standard Renaming"") {
@@ -1615,7 +1641,7 @@ FROM TITRES T
             nodePaths.Add(""//*[local-name() = 'currency']"");
             nodePaths.Add(""//*[local-name() = 'currencyRate']"");
             nodePaths.Add(""//*[local-name() = 'Exchange_Rate']"");
-            if (""Name,ISIN"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"").InnerText) < 0) {
+            if (""Name,ISIN,TICKER"".IndexOf(doc.SelectSingleNode(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"").InnerText) < 0) {
                 nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'nameChange']"");
                 nodePaths.Add(""//*[local-name() = 'adjustments']/*[local-name() = 'adjustment'][1]/*[local-name() = 'newNameOfCompany']"");
             }
@@ -1642,7 +1668,7 @@ FROM TITRES T
                                         Expression = @"@""
 SELECT T.SICOVAM
 FROM TITRES T
-    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + colVal.Substring(5) + @""'
+    JOIN EXTRNL_REFERENCES_INSTRUMENTS ERI ON ERI.SOPHIS_IDENT = T.SICOVAM AND ERI.VALUE = '"" + (colVal.StartsWith(""ISIN"") ? colVal.Substring(5) : """") + @""'
         JOIN EXTRNL_REFERENCES_DEFINITION ERD ON ERD.REF_IDENT = ERI.REF_IDENT AND ERD.REF_NAME = 'ISIN'
 WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT != 0)"""
                                     },
@@ -1667,11 +1693,11 @@ WHERE T.SICOVAM IN (SELECT SICOVAM FROM JOIN_POSITION_HISTOMVTS WHERE MONTANT !=
                                 },
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'nameChange']",
-                                    expression = @"colVal==""CHAN//NAME"" ? ""Name"" : ""ISIN"""
+                                    expression = @"""$nameChange"""
                                 },
                                 new PdtColumnDest {
                                     path = "//*[local-name() = 'newNameOfCompany']",
-                                    expression = @"colVal==""CHAN//NAME"" ? lineVal.Split(';')[1].Substring(6) : lineVal.Split(';')[0].Substring(5)"
+                                    expression = @"""$newNameOfCompany"""
                                 },
                             }
                         },
@@ -6826,10 +6852,10 @@ SELECT T.SICOVAM FROM TITRES T WHERE T.REFERENCE = '"" + colVal + ""'"""
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -6973,10 +6999,10 @@ SELECT T.SICOVAM FROM TITRES T WHERE T.REFERENCE = '"" + colVal + ""'"""
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && string.Compare(\"$MfTS\", DateTime.Today.AddTicks(-1).ToString(\"yyyyMMdd HHmmss\")) < 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -7124,10 +7150,10 @@ SELECT T.SICOVAM FROM TITRES T WHERE T.REFERENCE = '"" + colVal + ""'"""
                         new PdtVariable {
                             name = "MaxMfTS",
                             expressionStorage = "NoStorage",
-                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") ? \"$MfTS\" : \"$MaxMfTS\"",
+                            expressionBefore = "string.Compare(\"$MfTS\", \"$MaxMfTS\") >= 0 && (lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" ? \"$MfTS\" : \"$MaxMfTS\"",
                         },
                     },
-                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && \",CCPM,CCPC,SWCC,SWBC,TBCC,\".IndexOf(\",\" + lineVal.Split('$CsvSrcSep')[16] + \",\") >= 0",
+                    processingCondition = "(lineVal.Split('$CsvSrcSep')[7] == \"PAID\" || lineVal.Split('$CsvSrcSep')[7] == \"STCS\") && lineVal.Split('$CsvSrcSep')[16] != \"ACCT\" && lineVal.Split('$CsvSrcSep')[9] != \"INTERNAL TRANSACTION\" && string.Compare(\"$MfTS\", \"$LastMfTS\") > 0 && \",CCPM,CCPC,SWCC,SWBC,TBCC,\".IndexOf(\",\" + lineVal.Split('$CsvSrcSep')[16] + \",\") >= 0",
                     columns = new [] {
                         new PdtColumn {
                             name = "Fund",
@@ -8216,9 +8242,27 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             name = "CurrentAmount",
                             expressionBefore = "lineVal.Substring(112, 17)",
                             expressionAfter = "colVal.Substring(16, 1) + colVal.Substring(0, 15 - int.Parse(colVal.Substring(15, 1))) + \".\" + colVal.Substring(15 - int.Parse(colVal.Substring(15, 1)), int.Parse(colVal.Substring(15, 1)))"
+                        },
+                        new PdtVariable
+                        {
+                            name = "TDAFundM4",
+                            expressionBefore = "lineVal.Substring(88, 12) + \"M4\"",
+                            Lookup = new PdtColumnLookup {
+                                Table = "MIFL_ME_11MOVCN",
+                                ColumnIndex = "-1",
+                            },
+                        },
+                        new PdtVariable
+                        {
+                            name = "TDAFundM6",
+                            expressionBefore = "lineVal.Substring(88, 12) + \"M6\"",
+                            Lookup = new PdtColumnLookup {
+                                Table = "MIFL_ME_11MOVCN",
+                                ColumnIndex = "-1",
+                            },
                         }
                     },
-                    processingCondition = "lineVal.Substring(84, 4).Trim() == \"TDA\" && lineVal.Substring(0, 6).Trim() != \"M4\" && lineVal.Substring(0, 6).Trim() != \"M6\"",
+                    processingCondition = "\",M4,M6,\".IndexOf(\",\" + lineVal.Substring(0, 4).Trim() + \",\") < 0 && lineVal.Substring(84, 4).Trim() == \"TDA\" && (\"$TDAFundM4\" != \"\" || \"$TDAFundM6\" != \"\")",
                     columns = new []
                     {
                         new PdtColumn
@@ -9604,6 +9648,309 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         },
                     }
                 },
+                new PdtTransformation //Begin SEA
+                {
+                    name = TransName.SWIFT_ACK_NACK.ToString(),
+                    type = TransType.Csv2Xml,
+                    label = "SWIFT ACK NACK",
+                    templateFile = "SWIFT_ACK_NACK.xml",
+                    category = "Medio",
+                    repeatingRootPath = "//*[local-name() = 'import']",
+                    csvSkipLines = 1,
+                    repeatingChildrenPath = "//*[local-name() = 'trade']",
+                    csvSrcSeparator = ';',
+                    variables = new[] {
+                        new PdtVariable {
+                            name = "MessageId",
+                            expressionBefore = "(lineVal.Split(';')[0].Contains(\"FETALULLISV\") || lineVal.Split(';')[0].Contains(\"BILLIE2D\")) ?  lineVal.Split(';')[1].Substring(6) : lineVal.Split(';')[1]",
+                        },
+                        new PdtVariable {
+                            name = "TradeId",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""select trade_id from bo_messages where ident = "" + $MessageId +"""""
+                            },
+                        },
+                    },
+                    columns = new [] {
+                        new PdtColumn {
+                            name = "Source",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Trade ID",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new[]
+                            {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'tradeId']",
+                                    expression = "$TradeId"
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""Select ident from folio where ident = (select opcvm from join_position_histomvts where refcon = "" + $TradeId + "")""",
+                                    },
+                                    path = @"//*[local-name() = 'portfolioName'][contains(@*[local-name() = 'portfolioNameScheme'], 'portfolioName/id')]"
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Status",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'trade']/@*[local-name() = 'updateWorkflowEventName']",
+                                expression = "colVal == \"ACK\" ? \"Ack Received\" : \"Nack Received\""
+                                } }
+                        },
+                        new PdtColumn {
+                            name = "Remarks",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                    }
+                },
+                 new PdtTransformation
+                {
+                    name = TransName.SWIFT_ACK_NACK_Mir.ToString(),
+                    type = TransType.Csv2Xml,
+                    label = "SWIFT ACK NACK Mir",
+                    templateFile = "SWIFT_ACK_NACK_Mir.xml",
+                    category = "Medio",
+                    csvSkipLines = 1,
+                    repeatingRootPath = "//*[local-name() = 'import']",
+                    repeatingChildrenPath = "//*[local-name() = 'trade']",
+                    csvSrcSeparator = ';',
+                    variables = new[] {
+                        new PdtVariable {
+                            name = "MessageId",
+                            expressionBefore = "(lineVal.Split(';')[0].Contains(\"FETALULLISV\") || lineVal.Split(';')[0].Contains(\"BILLIE2D\")) ?  lineVal.Split(';')[1].Substring(6) : lineVal.Split(';')[1]",
+                        },
+                        new PdtVariable {
+                            name = "TradeId",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""select trade_id from bo_messages where ident = "" + $MessageId +"""""
+                            },
+                        },
+                    },
+                    columns = new [] {
+                        new PdtColumn {
+                            name = "Source",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Trade ID",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new[]
+                            {
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""select infos from histomvts where refcon = "" + $TradeId +""""",
+                                    },
+                                    path = "//*[local-name() = 'tradeHeader']//*[local-name() = 'partyTradeIdentifier']//*[local-name() = 'tradeId']"
+                                },
+                                new PdtColumnDest {
+                                    Lookup = new PdtColumnLookup {
+                                        Table = "SQL",
+                                        Expression = @"@""
+SELECT opcvm  
+FROM join_position_histomvts 
+WHERE refcon = TO_NUMBER((SELECT infos FROM histomvts WHERE refcon = ""+ $TradeId +""), '99999999')""",
+                                    },
+                                    path = @"//*[local-name() = 'portfolioName'][contains(@*[local-name() = 'portfolioNameScheme'], 'portfolioName/id')]"
+                                },
+                            }
+                        },
+                        new PdtColumn {
+                            name = "Status",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'trade']/@*[local-name() = 'updateWorkflowEventName']",
+                                expression = "colVal == \"ACK\" ? \"Ack Received\" : \"Nack Received\""
+                                } }
+                        },
+                        new PdtColumn {
+                            name = "Remarks",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'userComment']//*[local-name() = 'tradeIdentifier']//*[local-name() = 'tradeId']",
+                                expression = "lineVal.Split(';')[2] == \"NACK\" ? \"$TradeId\" : \"0000\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'boComment']",
+                                expression = "lineVal.Split(';')[2] == \"NACK\" ? colVal : \"\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'comment']",
+                                expression = "lineVal.Split(';')[2] == \"NACK\" ? colVal : \"Trade Acknowledged\""
+                                },
+                                new PdtColumnDest {
+                                    path = "//*[local-name() = 'dateTime']",
+                                expression = "System.DateTime.Now.ToString(\"o\")"
+                                }}
+                        },
+                    }
+                },
+                new PdtTransformation 
+                {
+                    name = TransName.Notify_CASH_MGR_NACK_Reponse.ToString(),
+                    type = TransType.Csv2Csv,
+                    label = "Notify CASH MGR NACK Reponse",
+                    templateFile = "NACK_Reponse.csv",
+                    category = "System",
+                    csvSkipLines = 1,
+                    csvSrcSeparator = DEFAULT_CSV_SEPARATOR,
+                    csvDestSeparator = DEFAULT_CSV_SEPARATOR,
+                    ClearEmptyOutput = true,
+                    variables = new[] {
+                        new PdtVariable {
+                            name = "MessageId",
+                            expressionBefore = "(lineVal.Split(';')[0].Contains(\"FETALULLISV\") || lineVal.Split(';')[0].Contains(\"BILLIE2D\")) ?  lineVal.Split(';')[1].Substring(6) : lineVal.Split(';')[1]",
+                        },
+                        new PdtVariable {
+                            name = "TradeId",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""select trade_id from bo_messages where ident = "" + $MessageId +"""""
+                            },
+                        },
+                        new PdtVariable {
+                            name = "MirrorId",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""select infos from histomvts where refcon = "" + $TradeId +"""""
+                            },
+                        },
+                        new PdtVariable {
+                            name = "OrigninalDetails",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""
+SELECT DISTINCT
+    hm.refcon || ';' || ts.name || ';' || str.name || ';' || bks.name || ';' || TO_CHAR(ah.DateModif, 'YYYYMMDD-HH24:MI:SS') || ';' || hm.DATENEG || ';' || hm.DATEVAL AS Combined_Column
+FROM
+    join_position_histomvts hm
+JOIN
+    audit_mvt ah ON ah.refcon = hm.refcon AND ah.version = hm.version
+JOIN
+    bo_kernel_status bks ON hm.backoffice = bks.id
+JOIN
+    tiers ts ON ts.ident = hm.entite
+LEFT JOIN
+    folio f ON f.ident = hm.opcvm
+LEFT JOIN
+    pfr_model_link pml ON pml.folio = (SELECT mgr FROM folio WHERE ident = f.mgr)
+LEFT JOIN
+    am_strategy str ON str.id = pml.strategy
+WHERE
+    hm.refcon = ""+ $TradeId+"""""
+                            },
+                        },
+                        new PdtVariable {
+                            name = "MirrorDetails",
+                            Lookup = new PdtColumnLookup {
+                                Table = "SQL",
+                                Expression = @"@""
+SELECT DISTINCT
+    hm.refcon || ';' || ts.name || ';' || str.name || ';' || bks.name || ';' || TO_CHAR(ah.DateModif, 'YYYYMMDD-HH24:MI:SS') AS Combined_Column
+FROM
+    join_position_histomvts hm
+JOIN
+    audit_mvt ah ON ah.refcon = hm.refcon AND ah.version = hm.version
+JOIN
+    bo_kernel_status bks ON hm.backoffice = bks.id
+JOIN
+    tiers ts ON ts.ident = hm.entite
+LEFT JOIN
+    folio f ON f.ident = hm.opcvm
+LEFT JOIN
+    pfr_model_link pml ON pml.folio = (SELECT mgr FROM folio WHERE ident = f.mgr)
+LEFT JOIN
+    am_strategy str ON str.id = pml.strategy
+WHERE
+    hm.refcon = ""+ $MirrorId+"""""
+                            },
+                        },
+                    },
+                    processingCondition = "lineVal.Split(';')[2] == \"NACK\"",
+                    columns = new []
+                    {
+                        new PdtColumn {
+                            name = "Custodian",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn {
+                            name = "Message ID",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] {
+                                new PdtColumnDest {
+                                    path = "MessageID",
+                                    expression = "\"$MessageId\""
+                                },
+                                new PdtColumnDest {
+                                    path = "TradeID",
+                                    expression = "\"$TradeId\""
+                                },
+                                new PdtColumnDest {
+                                    path = "TradeID_Mir",
+                                    expression = "\"$MirrorId\""
+                                },
+                                new PdtColumnDest {
+                                    path = "Entity",
+                                    expression = "\"$OrigninalDetails\".Split(';')[1]"
+                                },
+                                new PdtColumnDest {
+                                    path = "Strategy",
+                                    expression = "\"$OrigninalDetails\".Split(';')[2]"
+                                },
+                                new PdtColumnDest {
+                                    path = "Strategy_Mir",
+                                    expression = "\"$MirrorDetails\".Split(';')[2]"
+                                },new PdtColumnDest {
+                                    path = "Trade_Status",
+                                    expression = "\"$OrigninalDetails\".Split(';')[3]"
+                                },new PdtColumnDest {
+                                    path = "Trade date",
+                                    expression = "\"$OrigninalDetails\".Split(';')[5]"
+                                },new PdtColumnDest {
+                                    path = "Settlement date",
+                                    expression = "\"$OrigninalDetails\".Split(';')[6]"
+                                },new PdtColumnDest {
+                                    path = "Date and time",
+                                    expression = "\"$OrigninalDetails\".Split(';')[4]"
+                                },
+                            }
+                        },
+                        new PdtColumn
+                        {
+                            name = "Response",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                        },
+                        new PdtColumn
+                        {
+                            name = "Reason",
+                            isRequired = true,
+                            isRelativeToRootNode = true,
+                            destPaths = new [] { new PdtColumnDest { path = "NACK Error code" } }
+                        },
+                    }
+                },//END SEA
+
                 new PdtTransformation
                 {
                     name = TransName.SSB2Rbc_SwapTrade.ToString(),
@@ -10376,12 +10723,15 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
 
                                     //Logger.Debug(string.Format("lineVal={0}", lineVal));
                                     var rowKey = evaluateExpression(string.Format("Table {0}.Key", table.Name), table.keyExpression, null, string.Empty, newLineVal);
-                                    string[] rowCols = new string[table.columnsExpression.Length];
-                                    for (int i = 0; i < table.columnsExpression.Length; i++)
+                                    if (table.columnsExpression != null)
                                     {
-                                        rowCols[i] = evaluateExpression(string.Format("Table {0}.Col.{1}", table.Name, i), table.columnsExpression[i], null, string.Empty, newLineVal);
-                                    }
-                                    rows[rowKey] = rowCols;
+                                        string[] rowCols = new string[table.columnsExpression.Length];
+                                        for (int i = 0; i < table.columnsExpression.Length; i++)
+                                        {
+                                            rowCols[i] = evaluateExpression(string.Format("Table {0}.Col.{1}", table.Name, i), table.columnsExpression[i], null, string.Empty, newLineVal);
+                                        }
+                                        rows[rowKey] = rowCols;
+                                    } else rows[rowKey] = null;
                                 }
                                 lookupTables.Add(table.Name, rows);
                                 Logger.Debug(string.Format("Table {0}, {1} rows", table.Name, rows.Count));
@@ -10428,7 +10778,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     {
                         foreach (var Var in Variables)
                         {
-                            key = key.Replace("$" + Var.Key, Var.Value);
+                            key = key.Replace("$" + Var.Key, Var.Value.ToLiteral());
                         }
                     }
                     if (!CacheLookupValuesFile.ContainsKey(key))
@@ -10478,6 +10828,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             return Val;
         }
 
+        const string E_ERROR = "ERROR: ";
+        const string E_WARN = "WARN: ";
         private static string evaluateExpression(string name, string expression, Dictionary<string, string> Variables, string Val, string lineVal = "")
         {
             if (!string.IsNullOrEmpty(expression))
@@ -10487,7 +10839,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 {
                     foreach (var Var in Variables)
                     {
-                        expression = expression.Replace("$" + Var.Key, Var.Value);
+                        expression = expression.Replace("$" + Var.Key, Var.Value.ToLiteral());
                     }
                 }
                 try
@@ -10495,10 +10847,17 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     //Val = await CSharpScript.EvaluateAsync<string>(destCol.expression.Replace("colVal", $"\"{Val}\""));
                     Val = Compiler.Evaluate(expression, Val, lineVal);
                     Logger.Debug(string.Format("{0}, Val={1}", name, Val));
+                    if (Val.StartsWith(E_ERROR)) throw new Exception(Val.Substring(E_ERROR.Length));
+                    if (Val.StartsWith(E_WARN))
+                    {
+                        Val = string.Empty;
+                        Logger.Warn("Set Val to empty");
+                    }
                 }
                 catch (Exception e)
                 {
                     Logger.Error(e, "Error when evaluating expression");
+                    throw e;
                 }
             }
             return Val;
@@ -10509,19 +10868,19 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             PdtTransformation trans = Setting.Transformations.Where(x => x.name == transName).FirstOrDefault();
             if (trans == null) throw new ArgumentException(string.Format("Transformation name not found: {0}", transName));
             if (trans.type == TransType.Csv2Csv)
-                Transform2Csv(Setting, transName, inputFile, outputFile, failureFile);
+                Transform2Csv(transIO, Setting, transName, inputFile, outputFile, failureFile);
             else if (trans.type == TransType.Csv2Xml)
-                Transform2Xml(Setting, transName, inputFile, outputFile, failureFile);
+                Transform2Xml(transIO, Setting, transName, inputFile, outputFile, failureFile);
             else if (trans.type == TransType.Xml2Csv)
                 TransformXml2Csv(transIO, Setting, transName, inputFile, outputFile);
-            else if (trans.type == TransType.Excel2Csv)              
-                    Transform2Csv(Setting, transName, inputFile, outputFile, failureFile,true);
+            else if (trans.type == TransType.Excel2Csv)
+                Transform2Csv(transIO, Setting, transName, inputFile, outputFile, failureFile, true);
         }
 
         private static Dictionary<string, string> CacheLookupValuesFile = new Dictionary<string, string>();
         //private static Dictionary<string, string> CacheLookupValuesLines = new Dictionary<string, string>();
       
-        private static void Transform2Csv(PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputCsvFile, string failureFile, bool isExcelFile=false)
+        private static void Transform2Csv(TransformationIO transIO, PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputCsvFile, string failureFile, bool isExcelFile=false)
         {
             PdtTransformation trans = Setting.Transformations.Where(x => x.name == transName).FirstOrDefault();
             if (trans == null) throw new ArgumentException(string.Format("Transformation name not found: {0}", transName));
@@ -10637,19 +10996,21 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 lines = clonedLines.ToArray();
                 Logger.Debug($"After cloing rows Length={lines.Length}");
             }
-            //if (trans.csvSrcSeparator != '\0') lines = lines.Skip(1).ToArray();
-            //CacheLookupValuesLines.Clear();
-            using (var swOut = new StreamWriter(outputCsvFile))
+            var outputLines = new List<string[]>();
+            string outputCsvFileTemp = Path.GetTempPath() + Guid.NewGuid().ToString() + ".csv";
+            Logger.Debug($"saving to temporary file: {outputCsvFileTemp}");
+            using (var swOut = new StreamWriter(outputCsvFileTemp))
             {
                 swOut.WriteLine(headerLine);
-                var outputLines = new List<string[]>();
-                var failureLines = new List<string>();
+                var failureLines = new List<string[]>();
                 //using (var srIn = new StreamReader(inputCsvFile))
                 //{
                     //foreach(var inputLine in lines)
                     for(int i=0; i<lines.Length; i++)
                     {
                         var inputLine = lines[i];
+                    try
+                    {
                         if (string.IsNullOrWhiteSpace(inputLine)) continue;
                         var doubleQuotesProcessed = false;
                         if (trans.csvSrcSeparator != '\0')
@@ -10671,6 +11032,11 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             if (preProcessed)
                             {
                                 string newInputLine = string.Join(DEFAULT_CSV_SEPARATOR.ToString(), csvVals);
+                                if (inputLine.StartsWith(trans.csvSrcSeparator.ToString()))
+                                {
+                                    Logger.Warn($"inputLine start with empty column, so add new empty column in newInputLine");
+                                    newInputLine = DEFAULT_CSV_SEPARATOR.ToString() + newInputLine;
+                                }
                                 doubleQuotesProcessed = true;
                                 Logger.Debug($"inputLine: {inputLine}");
                                 Logger.Debug($"newInputLine: {newInputLine}");
@@ -10715,7 +11081,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                                 if (!bool.Parse(result))
                                 {
                                     Logger.Error($"CHECK CONSTRAINT VIOLATED. Line {i + 1}. result={result}");
-                                    failureLines.Add(inputLine);
+                                    failureLines.Add(new[] { inputLine, "Constraint Violated" });
                                     violated = true;
                                     break;
                                 }
@@ -10821,7 +11187,8 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                             }
                             catch (Exception e)
                             {
-                                Logger.Error(e, $"Error when processing column. columns.Length={trans.columns.Length}, currentPos={currentPos}");
+                                failureLines.Add(new[] { inputLine, $"Column={column.name} currentPos={currentPos}. " + e.Message });
+                                Logger.Error(e, $"Error when processing column. Column={column.name}, currentPos={currentPos}");
                             }
                             if (!lineToProcess) break;
                         }
@@ -10832,6 +11199,11 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         }
                         outputLines.Add(oneLine);
                         Logger.Debug(string.Format("After tranformation {0}/{1}: {2}", i+1, lines.Length, string.Join(trans.csvDestSeparator.ToString(), oneLine)));
+                    } catch(Exception e)
+                    {
+                        failureLines.Add(new[] { inputLine, e.Message });
+                        Logger.Error(e, $"Error while processing line: {inputLine}");
+                    }
                     }
                 //}
                 if (failureLines.Any())
@@ -10839,8 +11211,15 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                     Logger.Debug($"writing failure file: {failureLines.Count} lines");
                     using (var swFailure = new StreamWriter(failureFile))
                     {
-                        swFailure.WriteLine(headerLine);
-                        foreach (var fl in failureLines) swFailure.WriteLine(fl);
+                        swFailure.WriteLine($"{headerLine};Error");
+                        foreach (var fl in failureLines) swFailure.WriteLine($"{fl[0]};{fl[1]}");
+                    }
+                    if (transIO.SendFailureReport)
+                    {
+                        Logger.Debug($"Sending Failure Report email: TransName={transName}, File={failureFile}, lines={failureLines.Count}");
+                        string errEmailubject = ConfigurationManager.AppSettings["ErrEmailSubject"];
+                        errEmailubject = errEmailubject.Replace("$transName", transName);
+                        Utils.SendErrorEmail(errEmailubject, failureFile);
                     }
                 }
                 Compiler.CleanUp();
@@ -10918,10 +11297,18 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 }
             }
 
+            if (outputLines.Count()>0 || !trans.ClearEmptyOutput)
+            {
+                Logger.Debug($"Moving file: {Path.GetFileName(outputCsvFileTemp)} to {outputCsvFile}");
+                File.Move(outputCsvFileTemp, outputCsvFile);
+            } else
+            {
+                Logger.Debug("Empty output csv file is ignored");
+            }
             Logger.Debug("Transform2Csv.END");
         }
 
-        private static void Transform2Xml(PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputXmlFile, string failureFile)
+        private static void Transform2Xml(TransformationIO transIO, PdtTransformationSetting Setting, string transName, string inputCsvFile, string outputXmlFile, string failureFile)
         {
             PdtTransformation trans = Setting.Transformations.Where(x => x.name == transName).FirstOrDefault();
             if (trans == null) throw new ArgumentException(string.Format("Transformation name not found: {0}", transName));
@@ -10965,7 +11352,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
             //if (trans.csvSrcSeparator != '\0') lines = lines.Skip(1).ToArray();
             //string[] csvHeaders = lines[0].Split(trans.csvDestSeparator);
             string[] csvHeaders = trans.columns.Select(x => x.name).ToArray();
-            var failureLines = new List<string>();
+            var failureLines = new List<string[]>();
 
             var GlobalVariables = new Dictionary<string, string>() { { "CsvSrcSep", trans.csvSrcSeparator.ToString() }, { "InputFile", inputCsvFile } };
             if (trans.variables != null)
@@ -11005,228 +11392,244 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 for (int i = 0; i < lines.Length; i++)
                 {
                     var inputLine = lines[i];
-                    if (string.IsNullOrWhiteSpace(inputLine)) continue;
-                    var doubleQuotesProcessed = false;
-                    if (trans.csvSrcSeparator != '\0')
+                    try
                     {
-                        var csvVals = Regex.Matches(inputLine, $"(?:^|{trans.csvSrcSeparator})(\"(?:[^\"]+|\"\")*\"|[^{trans.csvSrcSeparator}]*)").Cast<Match>().Select(m => m.Value.TrimStart(trans.csvSrcSeparator)).ToArray();
-
-                        //TODO: Here we remove double quotes line by line. But we may need to do this for all lines as lines are used in computeLookup)
-                        bool preProcessed = false;
-                        for (int j = 0; j < csvVals.Length; j++)
+                        if (string.IsNullOrWhiteSpace(inputLine)) continue;
+                        var doubleQuotesProcessed = false;
+                        if (trans.csvSrcSeparator != '\0')
                         {
-                            if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
-                            {
-                                csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
-                                preProcessed = true;
-                            }
-                        }
-                        if (preProcessed)
-                        {
-                            string newInputLine = string.Join(DEFAULT_CSV_SEPARATOR.ToString(), csvVals);
-                            doubleQuotesProcessed = true;
-                            Logger.Debug($"inputLine: {inputLine}");
-                            Logger.Debug($"newInputLine: {newInputLine}");
-                            inputLine = newInputLine;
-                        }
-                    }
+                            var csvVals = Regex.Matches(inputLine, $"(?:^|{trans.csvSrcSeparator})(\"(?:[^\"]+|\"\")*\"|[^{trans.csvSrcSeparator}]*)").Cast<Match>().Select(m => m.Value.TrimStart(trans.csvSrcSeparator)).ToArray();
 
-                    Logger.Debug(string.Format("Processing line {0}/{1}: {2}", i + 1, lines.Length, inputLine));
-
-                    var Variables = new Dictionary<string, string>(GlobalVariables);
-
-                    //checking constraints
-                    if (trans.uniqueConstraints != null && trans.uniqueConstraints.Length > 0)
-                    {
-                        if (uniqueKeys == null)
-                        {
-                            uniqueKeys = new HashSet<string>[trans.uniqueConstraints.Length];
-                            for (int ic = 0; ic < uniqueKeys.Length; ic++) uniqueKeys[ic] = new HashSet<string>();
-                        }
-                        bool violated = false;
-                        for (int ic = 0; ic < trans.uniqueConstraints.Length; ic++)
-                        {
-                            var keyVal = evaluateExpression($"uniqueConstraint_{ic + 1}", trans.uniqueConstraints[ic], Variables, string.Empty, inputLine);
-                            if (uniqueKeys[ic].Contains(keyVal))
+                            //TODO: Here we remove double quotes line by line. But we may need to do this for all lines as lines are used in computeLookup)
+                            bool preProcessed = false;
+                            for (int j = 0; j < csvVals.Length; j++)
                             {
-                                Logger.Error($"UNIQUE CONSTRAINT VIOLATED. Line {i + 1}. Key={keyVal}");
-                                violated = true;
-                                break;
-                            }
-                            else
-                            {
-                                uniqueKeys[ic].Add(keyVal);
-                            }
-                        }
-                        if (violated) continue;
-                    }
-                    if (trans.checkConstraints != null && trans.checkConstraints.Length > 0)
-                    {
-                        bool violated = false;
-                        for(int ic=0; ic<trans.checkConstraints.Length; ic++)
-                        {
-                            var result = evaluateExpression($"checkConstraint_{ic+1}", trans.checkConstraints[ic], Variables, string.Empty, inputLine);
-                            if (!bool.Parse(result))
-                            {
-                                Logger.Error($"CHECK CONSTRAINT VIOLATED. Line {i + 1}. result={result}");
-                                failureLines.Add(inputLine);
-                                violated = true;
-                                break;
-                            }
-                        }
-                        if (violated) continue;
-                    }
-
-                    var lineToProcess = true;
-                    if (trans.variables != null)
-                    {
-                        foreach (var Var in trans.variables)
-                        {
-                            var variableInfo = string.Format("Variable={0}", Var.name);
-                            Logger.Debug(variableInfo);
-                            var Val = Variables.ContainsKey(Var.name) ? Variables[Var.name] : string.Empty;
-                            Val = evaluateExpression(variableInfo, Var.expressionBefore, Variables, Val, inputLine);
-                            //if (Var.Lookup != null) {
-                            //    var key = string.Format("colVal={0}, Expression={1}, Depth={2}", Val, Var.Lookup.Expression, Var.Lookup.Depth);
-                            //    if (!CacheLookupValuesLines.ContainsKey(key))
-                            //    {
-                            Val = computeLookup(variableInfo, Val, lines, Variables, Var.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
-                            //        CacheLookupValuesLines[key] = Val;
-                            //    }
-                            //    else
-                            //    {
-                            //        Val = CacheLookupValuesLines[key];
-                            //        Logger.Debug(string.Format("Lookup return value from cache={0}, key={1}", Val, key));
-                            //    }
-                            //}
-                            Val = evaluateExpression(variableInfo, Var.expressionAfter, Variables, Val, inputLine);
-                            Variables[Var.name] = Val;
-                            if (GlobalVariables.ContainsKey(Var.name)) GlobalVariables[Var.name] = Val;
-                            if (!string.IsNullOrEmpty(Var.expressionStorage) && Var.expressionStorage != "NoStorage" && i==lines.Length - 1)
-                            {
-                                var storeVal = evaluateExpression(variableInfo, Var.expressionStorage, Variables, string.Empty);
-                                Utils.AddOrUpdateAppSettings(Var.name, storeVal);
-                            }
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(trans.processingCondition))
-                    {
-                        var result = evaluateExpression("processingCondition", trans.processingCondition, Variables, string.Empty, inputLine);
-                        Logger.Debug(string.Format("result={0}", result));
-                        if (!bool.Parse(result)) continue;
-                    }
-
-                    string[] inputLineSplitted = null;
-                    if (doubleQuotesProcessed)
-                    {
-                        inputLineSplitted = inputLine.Split(DEFAULT_CSV_SEPARATOR);
-                    }
-                    else if (trans.csvSrcSeparator != '\0')
-                    {
-                        var CSVParser = new Regex(string.Format("{0}(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", trans.csvSrcSeparator == '|' ? "\\|" : trans.csvSrcSeparator.ToString()));
-                        inputLineSplitted = CSVParser.Split(inputLine); // separator placed within double quotes
-                                                                        //inputLineSplitted = inputLine.Split(trans.csvSrcSeparator);
-                    }
-
-                    var createNewFile = filePrimaryKeyVal == null;
-                    var newFilePrimaryKeyVal = evaluateExpression("newFileBreakExpression", trans.fileBreakExpression, Variables, string.Empty, inputLine);
-                    createNewFile = createNewFile || newFilePrimaryKeyVal != filePrimaryKeyVal;
-                    if (createNewFile) {
-                        if (string.IsNullOrEmpty(filePrimaryKeyVal))
-                        {
-                            for (int j = 1; j < repeatingChildrenNodes.Count; j++)
-                            {
-                                repeatingRootNode.RemoveChild(repeatingChildrenNodes.Item(j));
-                            }
-                        } else {//new primary key found --> break into new file. save current file.
-                            repeatingRootNode.RemoveChild(templateNode);
-                            for (int j = 0; j < transformedNodes.Count; j++)
-                            {
-                                repeatingRootNode.AppendChild(transformedNodes[j]);
-                            }
-                            transformedNodes.Clear();
-                            //postProcessEvent
-                            if (!string.IsNullOrEmpty(trans.postProcessEvent))
-                            {
-                                Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
-                            }
-                            var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
-                                Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
-                            Logger.Debug($"newFileBreak occurs. Saving to new file: {newFileBreakPath}");
-                            docClone.Save(newFileBreakPath);
-                            repeatingRootNode.RemoveAll();
-                            repeatingRootNode.AppendChild(templateNode);
-                            //create new one
-                            docClone = (XmlDocument)doc.Clone();
-                            repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
-                            repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
-                            templateNode = repeatingChildrenNodes.Item(0);
-                        }
-                        filePrimaryKeyVal = newFilePrimaryKeyVal;
-                        foreach (PdtColumn col in arrAbsoluteColumns)
-                        {
-                            if (col.destPaths == null) continue;
-                            var destColInfo = $"Absolute Column={col.name}";
-                            Logger.Debug(destColInfo);
-                            string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
-                            foreach (var destCol in col.destPaths)
-                            {
-                                Logger.Debug($"destPaths: path={destCol.path}, expression={destCol.expression}");
-
-                                var Val = computeLookup(destColInfo, originalVal, lines, null, destCol.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
-                                Val = evaluateExpression(destColInfo, destCol.expression, null, Val, inputLine);
-
-                                XmlNodeList nodeList = docClone.SelectNodes(destCol.path);
-                                for (int j = 0; j < nodeList.Count; j++)
+                                if (csvVals[j].StartsWith("\"") && csvVals[j].EndsWith("\""))
                                 {
-                                    var nodeDest = nodeList.Item(j);
-                                    Logger.Debug(string.Format("src={0}, dest={1}, textContent={2}", Val, nodeDest.Value, nodeDest.InnerText));
-                                    nodeDest.InnerText = Val;
-                                    Logger.Debug(string.Format("new value dest={0}, textContent={1}", nodeDest.Value, nodeDest.InnerText));
+                                    csvVals[j] = csvVals[j].Substring(1, csvVals[j].Length - 2);
+                                    preProcessed = true;
                                 }
                             }
-                        }
-                    }
-
-                    foreach (PdtColumn col in arrRelativeColumns)
-                    {
-                        if (col.destPaths == null) continue;
-                        string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
-                        foreach (var destCol in col.destPaths)
-                        {
-                            if (string.IsNullOrEmpty(destCol.path)) continue;
-                            var destColInfo = string.Format("Column={0}", destCol.path);
-                            Logger.Debug(destColInfo);
-                            var Val = computeLookup(destColInfo, originalVal, lines, Variables, destCol.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
-                            Val = evaluateExpression(destColInfo, destCol.expression, Variables, Val, inputLine);
-
-                            if (!string.IsNullOrEmpty(destCol.processingCondition))
+                            if (preProcessed)
                             {
-                                var result = evaluateExpression("processingCondition", destCol.processingCondition, Variables, Val, inputLine);
-                                lineToProcess = bool.Parse(result);
-                                if (!lineToProcess)
+                                string newInputLine = string.Join(DEFAULT_CSV_SEPARATOR.ToString(), csvVals);
+                                if (inputLine.StartsWith(trans.csvSrcSeparator.ToString()))
                                 {
-                                    Logger.Debug(string.Format("Stop processing the line because of the condition: {0}", destCol.processingCondition));
+                                    Logger.Warn($"inputLine start with empty column, so add new empty column in newInputLine");
+                                    newInputLine = DEFAULT_CSV_SEPARATOR.ToString() + newInputLine;
+                                }
+                                doubleQuotesProcessed = true;
+                                Logger.Debug($"inputLine: {inputLine}");
+                                Logger.Debug($"newInputLine: {newInputLine}");
+                                inputLine = newInputLine;
+                            }
+                        }
+
+                        Logger.Debug(string.Format("Processing line {0}/{1}: {2}", i + 1, lines.Length, inputLine));
+
+                        var Variables = new Dictionary<string, string>(GlobalVariables);
+
+                        //checking constraints
+                        if (trans.uniqueConstraints != null && trans.uniqueConstraints.Length > 0)
+                        {
+                            if (uniqueKeys == null)
+                            {
+                                uniqueKeys = new HashSet<string>[trans.uniqueConstraints.Length];
+                                for (int ic = 0; ic < uniqueKeys.Length; ic++) uniqueKeys[ic] = new HashSet<string>();
+                            }
+                            bool violated = false;
+                            for (int ic = 0; ic < trans.uniqueConstraints.Length; ic++)
+                            {
+                                var keyVal = evaluateExpression($"uniqueConstraint_{ic + 1}", trans.uniqueConstraints[ic], Variables, string.Empty, inputLine);
+                                if (uniqueKeys[ic].Contains(keyVal))
+                                {
+                                    Logger.Error($"UNIQUE CONSTRAINT VIOLATED. Line {i + 1}. Key={keyVal}");
+                                    violated = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    uniqueKeys[ic].Add(keyVal);
+                                }
+                            }
+                            if (violated) continue;
+                        }
+                        if (trans.checkConstraints != null && trans.checkConstraints.Length > 0)
+                        {
+                            bool violated = false;
+                            for (int ic = 0; ic < trans.checkConstraints.Length; ic++)
+                            {
+                                var result = evaluateExpression($"checkConstraint_{ic + 1}", trans.checkConstraints[ic], Variables, string.Empty, inputLine);
+                                if (!bool.Parse(result))
+                                {
+                                    Logger.Error($"CHECK CONSTRAINT VIOLATED. Line {i + 1}. result={result}");
+                                    failureLines.Add(new[] { inputLine, "Constraint Violated" });
+                                    violated = true;
                                     break;
                                 }
                             }
-                            if (Val == null)
+                            if (violated) continue;
+                        }
+
+                        var lineToProcess = true;
+                        if (trans.variables != null)
+                        {
+                            foreach (var Var in trans.variables)
                             {
-                                Logger.Warn($"path={destCol.path} keeps current value as Val is null");
-                            }
-                            else
-                            {
-                                foreach (XmlNode nodeDest in docClone.SelectNodes(destCol.path))
+                                var variableInfo = string.Format("Variable={0}", Var.name);
+                                Logger.Debug(variableInfo);
+                                var Val = Variables.ContainsKey(Var.name) ? Variables[Var.name] : string.Empty;
+                                Val = evaluateExpression(variableInfo, Var.expressionBefore, Variables, Val, inputLine);
+                                //if (Var.Lookup != null) {
+                                //    var key = string.Format("colVal={0}, Expression={1}, Depth={2}", Val, Var.Lookup.Expression, Var.Lookup.Depth);
+                                //    if (!CacheLookupValuesLines.ContainsKey(key))
+                                //    {
+                                Val = computeLookup(variableInfo, Val, lines, Variables, Var.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
+                                //        CacheLookupValuesLines[key] = Val;
+                                //    }
+                                //    else
+                                //    {
+                                //        Val = CacheLookupValuesLines[key];
+                                //        Logger.Debug(string.Format("Lookup return value from cache={0}, key={1}", Val, key));
+                                //    }
+                                //}
+                                Val = evaluateExpression(variableInfo, Var.expressionAfter, Variables, Val, inputLine);
+                                Variables[Var.name] = Val;
+                                if (GlobalVariables.ContainsKey(Var.name)) GlobalVariables[Var.name] = Val;
+                                if (!string.IsNullOrEmpty(Var.expressionStorage) && Var.expressionStorage != "NoStorage" && i == lines.Length - 1)
                                 {
-                                    nodeDest.InnerText = Val;
-                                    Logger.Debug($"path={destCol.path}, Val={Val}");
+                                    var storeVal = evaluateExpression(variableInfo, Var.expressionStorage, Variables, string.Empty);
+                                    Utils.AddOrUpdateAppSettings(Var.name, storeVal);
                                 }
                             }
                         }
+
+                        if (!string.IsNullOrEmpty(trans.processingCondition))
+                        {
+                            var result = evaluateExpression("processingCondition", trans.processingCondition, Variables, string.Empty, inputLine);
+                            Logger.Debug(string.Format("result={0}", result));
+                            if (!bool.Parse(result)) continue;
+                        }
+
+                        string[] inputLineSplitted = null;
+                        if (doubleQuotesProcessed)
+                        {
+                            inputLineSplitted = inputLine.Split(DEFAULT_CSV_SEPARATOR);
+                        }
+                        else if (trans.csvSrcSeparator != '\0')
+                        {
+                            var CSVParser = new Regex(string.Format("{0}(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", trans.csvSrcSeparator == '|' ? "\\|" : trans.csvSrcSeparator.ToString()));
+                            inputLineSplitted = CSVParser.Split(inputLine); // separator placed within double quotes
+                                                                            //inputLineSplitted = inputLine.Split(trans.csvSrcSeparator);
+                        }
+
+                        var createNewFile = filePrimaryKeyVal == null;
+                        var newFilePrimaryKeyVal = evaluateExpression("newFileBreakExpression", trans.fileBreakExpression, Variables, string.Empty, inputLine);
+                        createNewFile = createNewFile || newFilePrimaryKeyVal != filePrimaryKeyVal;
+                        if (createNewFile)
+                        {
+                            if (string.IsNullOrEmpty(filePrimaryKeyVal))
+                            {
+                                for (int j = 1; j < repeatingChildrenNodes.Count; j++)
+                                {
+                                    repeatingRootNode.RemoveChild(repeatingChildrenNodes.Item(j));
+                                }
+                            }
+                            else
+                            {//new primary key found --> break into new file. save current file.
+                                repeatingRootNode.RemoveChild(templateNode);
+                                for (int j = 0; j < transformedNodes.Count; j++)
+                                {
+                                    repeatingRootNode.AppendChild(transformedNodes[j]);
+                                }
+                                transformedNodes.Clear();
+                                //postProcessEvent
+                                if (!string.IsNullOrEmpty(trans.postProcessEvent))
+                                {
+                                    Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                                }
+                                var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
+                                    Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
+                                Logger.Debug($"newFileBreak occurs. Saving to new file: {newFileBreakPath}");
+                                docClone.Save(newFileBreakPath);
+                                repeatingRootNode.RemoveAll();
+                                repeatingRootNode.AppendChild(templateNode);
+                                //create new one
+                                docClone = (XmlDocument)doc.Clone();
+                                repeatingRootNode = docClone.SelectSingleNode(repeatingRootPath); // un seul noeud
+                                repeatingChildrenNodes = docClone.SelectNodes(repeatingChildrenPath); // tous les noeuds qui ont le meme Path
+                                templateNode = repeatingChildrenNodes.Item(0);
+                            }
+                            filePrimaryKeyVal = newFilePrimaryKeyVal;
+                            foreach (PdtColumn col in arrAbsoluteColumns)
+                            {
+                                if (col.destPaths == null) continue;
+                                var destColInfo = $"Absolute Column={col.name}";
+                                Logger.Debug(destColInfo);
+                                string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
+                                foreach (var destCol in col.destPaths)
+                                {
+                                    Logger.Debug($"destPaths: path={destCol.path}, expression={destCol.expression}");
+
+                                    var Val = computeLookup(destColInfo, originalVal, lines, null, destCol.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
+                                    Val = evaluateExpression(destColInfo, destCol.expression, null, Val, inputLine);
+
+                                    XmlNodeList nodeList = docClone.SelectNodes(destCol.path);
+                                    for (int j = 0; j < nodeList.Count; j++)
+                                    {
+                                        var nodeDest = nodeList.Item(j);
+                                        Logger.Debug(string.Format("src={0}, dest={1}, textContent={2}", Val, nodeDest.Value, nodeDest.InnerText));
+                                        nodeDest.InnerText = Val;
+                                        Logger.Debug(string.Format("new value dest={0}, textContent={1}", nodeDest.Value, nodeDest.InnerText));
+                                    }
+                                }
+                            }
+                        }
+
+                        foreach (PdtColumn col in arrRelativeColumns)
+                        {
+                            if (col.destPaths == null) continue;
+                            string originalVal = GetCsvVal(csvHeaders, inputLineSplitted, col.name);
+                            foreach (var destCol in col.destPaths)
+                            {
+                                if (string.IsNullOrEmpty(destCol.path)) continue;
+                                var destColInfo = string.Format("Column={0}", destCol.path);
+                                Logger.Debug(destColInfo);
+                                var Val = computeLookup(destColInfo, originalVal, lines, Variables, destCol.Lookup, Path.GetDirectoryName(inputCsvFile), Setting.Tables, inputLine);
+                                Val = evaluateExpression(destColInfo, destCol.expression, Variables, Val, inputLine);
+
+                                if (!string.IsNullOrEmpty(destCol.processingCondition))
+                                {
+                                    var result = evaluateExpression("processingCondition", destCol.processingCondition, Variables, Val, inputLine);
+                                    lineToProcess = bool.Parse(result);
+                                    if (!lineToProcess)
+                                    {
+                                        Logger.Debug(string.Format("Stop processing the line because of the condition: {0}", destCol.processingCondition));
+                                        break;
+                                    }
+                                }
+                                if (Val == null)
+                                {
+                                    Logger.Warn($"path={destCol.path} keeps current value as Val is null");
+                                }
+                                else
+                                {
+                                    foreach (XmlNode nodeDest in docClone.SelectNodes(destCol.path))
+                                    {
+                                        nodeDest.InnerText = Val;
+                                        Logger.Debug($"path={destCol.path}, Val={Val}");
+                                    }
+                                }
+                            }
+                        }
+                        transformedNodes.Add(templateNode.Clone());
+                        lastLineVariables = Variables;
                     }
-                    transformedNodes.Add(templateNode.Clone());
-                    lastLineVariables = Variables;
+                    catch (Exception e)
+                    {
+                        failureLines.Add(new[] { inputLine, e.Message });
+                        Logger.Error(e, $"Error while processing line: {inputLine}");
+                    }
                 }
 
                 if (trans.bunchSize > 0)
@@ -11288,30 +11691,42 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                 //swFailure.WriteLine(headerLine);
                 using (var swFailure = new StreamWriter(failureFile))
                 {
-                    foreach (var fl in failureLines) swFailure.WriteLine(fl);
+                    //swFailure.WriteLine($"{headerLine};Error");
+                    foreach (var fl in failureLines) swFailure.WriteLine($"{fl[0]};{fl[1]}");
+                }
+                if (transIO.SendFailureReport)
+                {
+                    Logger.Debug($"Sending Failure Report email: TransName={transName}, File={failureFile}, lines={failureLines.Count}");
+                    string errEmailubject = ConfigurationManager.AppSettings["ErrEmailSubject"];
+                    errEmailubject = errEmailubject.Replace("$transName", transName);
+                    Utils.SendErrorEmail(errEmailubject, failureFile);
                 }
             }
             Compiler.CleanUp();
-            //postProcessEvent
-            if (!string.IsNullOrEmpty(trans.postProcessEvent))
+            if (repeatingRootNode.HasChildNodes || !trans.ClearEmptyOutput)
             {
-                Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                //postProcessEvent
+                if (!string.IsNullOrEmpty(trans.postProcessEvent))
+                {
+                    Compiler.EvaluateDocEvent(trans.postProcessEvent, lastLineVariables, docClone);
+                }
+                if (!string.IsNullOrEmpty(filePrimaryKeyVal))
+                {
+                    var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
+                        Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
+                    Logger.Debug($"Saving all to new file: {newFileBreakPath}");
+                    docClone.Save(newFileBreakPath);
+                    repeatingRootNode.RemoveAll();
+                    repeatingRootNode.AppendChild(templateNode);
+                }
+                else
+                {
+                    // save the output file
+                    Logger.Debug($"Saving to file: {outputXmlFile}");
+                    docClone.Save(outputXmlFile);
+                }
             }
-            if (!string.IsNullOrEmpty(filePrimaryKeyVal))
-            {
-                var newFileBreakPath = Path.Combine(Path.GetDirectoryName(outputXmlFile),
-                    Path.GetFileNameWithoutExtension(outputXmlFile) + $"_{filePrimaryKeyVal}" + "_" + string.Format("{0:0000}", ++bunchIndexPrimaryKey) + Path.GetExtension(outputXmlFile));
-                Logger.Debug($"Saving all to new file: {newFileBreakPath}");
-                docClone.Save(newFileBreakPath);
-                repeatingRootNode.RemoveAll();
-                repeatingRootNode.AppendChild(templateNode);
-            }
-            else
-            {
-                // save the output file
-                Logger.Debug($"Saving to file: {outputXmlFile}");
-                docClone.Save(outputXmlFile);
-            }
+            else Logger.Debug("Empty output XML file is ignored");
             Logger.Debug("Transform2Xml.END");
         }
 
@@ -11364,7 +11779,7 @@ WHERE A.ACCOUNT_AT_CUSTODIAN IS NOT NULL AND A.ACCOUNT_AT_CUSTODIAN = '"" + colV
                         }
                     }
                 }
-                if (!string.IsNullOrEmpty(transIO.EmailRecipientTo) && !string.IsNullOrEmpty(transIO.EmailBody)
+                if (!string.IsNullOrEmpty(transIO.EmailRecipientTo) && !string.IsNullOrEmpty(transIO.EmailSubject)
                     && !string.IsNullOrEmpty(transIO.EmailBody))
                 {
                     Logger.Debug($"Sending email to {transIO.EmailRecipientTo} ({outputCsvFile})");

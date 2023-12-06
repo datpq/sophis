@@ -20,6 +20,13 @@ namespace DataTransformation
         private static string EvaluateTemplateCode = null;
         private static string EvaluateDocEventTemplateCode = null;
 
+        public static string ToLiteral(this string valueTextForCompiler)
+        {
+
+            return valueTextForCompiler?.Replace("\"", "\\\"");
+            //return Microsoft.CodeAnalysis.CSharp.SymbolDisplay.FormatLiteral(valueTextForCompiler, false);
+        }
+
         public static string Evaluate(string expression, string colVal, string lineVal = "")
         {
             var key = string.Format("expression={0}@colVal={1}@lineVal={2}", expression, colVal, lineVal);
@@ -97,7 +104,7 @@ namespace DataTransformation
             {
                 foreach (var Var in Variables)
                 {
-                    expression = expression.Replace("$" + Var.Key, Var.Value);
+                    expression = expression.Replace("$" + Var.Key, Var.Value.ToLiteral());
                 }
             }
             string fileContent = EvaluateDocEventTemplateCode.Replace("//123456789", expression);

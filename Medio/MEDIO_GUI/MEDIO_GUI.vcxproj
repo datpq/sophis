@@ -60,6 +60,8 @@
     <ClCompile Include="BrokerFeeCondition\CSxBrokerFeesException.cpp" />
     <ClCompile Include="CSxCDSPriceAction.cpp" />
     <ClCompile Include="CSxGrossConsiderationAction.cpp" />
+    <ClCompile Include="CSxIsBrokerDIMCondition.cpp" />
+    <ClCompile Include="CSxNACKTemplateCondition.cpp" />
     <ClCompile Include="CSxReportingHedge.cpp" />
     <ClCompile Include="CSxThirdPartyActionCountryCode.cpp" />
     <ClCompile Include="DealCheck\CSxFXCheckDeal.cpp" />
@@ -129,6 +131,8 @@
     <ClInclude Include="BrokerFeeCondition\CSxBrokerFeesException.h" />
     <ClInclude Include="CSxCDSPriceAction.h" />
     <ClInclude Include="CSxGrossConsiderationAction.h" />
+    <ClInclude Include="CSxIsBrokerDIMCondition.h" />
+    <ClInclude Include="CSxNACKTemplateCondition.h" />
     <ClInclude Include="CSxReportingHedge.h" />
     <ClInclude Include="CSxThirdPartyActionCountryCode.h" />
     <ClInclude Include="DealCheck\CSxFXCheckDeal.h" />
