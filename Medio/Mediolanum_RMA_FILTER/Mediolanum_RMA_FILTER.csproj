@@ -179,6 +179,7 @@
     <Compile Include="TicketCreator\CSxSwapCreator.cs" />
     <Compile Include="TicketCreator\CSxTACashCreator.cs" />
     <Compile Include="TicketCreator\CSxUnknownCreator.cs" />
+    <Compile Include="TicketCreator\CSxSSBOTCDataPointsCreator.cs" />
     <Compile Include="Tools\G.cs" />
   </ItemGroup>
   <ItemGroup>

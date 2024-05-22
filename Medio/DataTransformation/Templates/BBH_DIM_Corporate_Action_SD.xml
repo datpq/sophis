@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<exch:importMarketData version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" exch:batchType="AllRegardlessOfErrors">
+<ns0:CA_DVCA xmlns:ns0="http://www.sophis.net/MisysCorporateActions" xmlns:ns1="http://www.sophis.net/Instrument" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns0:GeneralInformation>
+    <ns0:References>
+      
+      
+     
+      <ns1:reference ns1:checkIfDefined="false" ns1:name="SophisName" ns1:tradeUpdateMode="NoUpdate">TestSD2</ns1:reference>
+    </ns0:References>
+  </ns0:GeneralInformation>
+
+  <ns0:UnderlyingSecurities>
+    <ns0:References>
+      <ns1:sophis></ns1:sophis>
+      
+    </ns0:References>
+  </ns0:UnderlyingSecurities>
+
+  <ns0:CorporateActionDetails>
+    <ns0:RecordDate>2023-10-24</ns0:RecordDate>
+    <ns0:ExDate>2023-10-24</ns0:ExDate>
+    <ns0:PaymentDate>2023-10-27</ns0:PaymentDate>
+  </ns0:CorporateActionDetails>
+
+  <ns0:CorporateActionOptions>
+    <ns0:Dividend_Amount>10.000000000000</ns0:Dividend_Amount>
+    <ns0:Currency>USD</ns0:Currency>
+    <ns0:Exchange_Rate xsi:nil="true"></ns0:Exchange_Rate>
+  </ns0:CorporateActionOptions>
+
+</ns0:CA_DVCA>
+</exch:importMarketData>

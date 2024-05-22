@@ -93,6 +93,9 @@
     <Reference Include="SophisDotNetValue">
       <Private>False</Private>
     </Reference>
+	<Reference Include="SophisWcfFramework">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -129,10 +132,12 @@
     <Compile Include="src\KernelEngine\CSxMedioEmailReport.cs" />
     <Compile Include="src\KernelEngine\CSxRefreshFeesKernelEngine.cs" />
     <Compile Include="src\KernelEngine\CSxSendToBBHKernelEngine.cs" />
+    <Compile Include="src\Scenario\CSxSSBOTCMatchingScenario.cs" />
     <Compile Include="src\Scenario\CSxStrategyFilter.cs" />
     <Compile Include="src\Thirdparty\CSxThirdpartyAction.cs" />
     <Compile Include="src\Thirdparty\CSxThirdpartySettlementCondition.cs" />
     <Compile Include="src\Thirdparty\CSxThridpartyListener.cs" />
+	<Compile Include="src\Thirdparty\CSxMergedSSICondition.cs" />
     <Compile Include="src\Utils\Email\CSxEmailSender.cs" />
   </ItemGroup>
   <ItemGroup>

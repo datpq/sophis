@@ -20,6 +20,9 @@
         public int csvSkipLines { get; set; }
         public char csvSrcSeparator { get; set; } // empty --> fixed length file
         public char csvDestSeparator { get; set; }
+        public string ExtraEvalCode { get; set; }
+        public bool UseHeaderColumnNames { get; set; }
+        public bool ShouldSerializeUseHeaderColumnNames() { return UseHeaderColumnNames; }
         public bool ClearEmptyOutput { get; set; }
         public bool ShouldSerializeClearEmptyOutput() { return ClearEmptyOutput; }
         public string fileBreakExpression { get; set; }

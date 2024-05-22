@@ -40,12 +40,15 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 string _eventId = fields.GetValue(RBCTicketType.GenericTrade.EventId);
                 string _currency = fields.GetValue(RBCTicketType.GenericTrade.Currency);
                 string _isin = fields.GetValue(RBCTicketType.GenericTrade.Isin);
+                string _marketFees = fields.GetValue(RBCTicketType.GenericTrade.MarketFees);
+                string _brokerFees = fields.GetValue(RBCTicketType.GenericTrade.BrokerFees);
+                string _counterPartyFees = fields.GetValue(RBCTicketType.GenericTrade.CounterPartyFees);
                 string _comments = fields.GetValue(RBCTicketType.GenericTrade.Comments);
                 string _userId = fields.GetValue(RBCTicketType.GenericTrade.UserId);
                 string _extraFields = fields.GetValue(RBCTicketType.GenericTrade.ExtraFields);
                 string _info = fields.GetValue(RBCTicketType.GenericTrade.Info);
 
-                logger.log(Severity.debug, $"SetTicketMessage.BEGIN(_tradeType={_tradeType}, _instrumentRef={_instrumentRef}, _bookId={_bookId}, _externalRef ={_externalRef}, _quantity={_quantity}, _spot={_spot}, _amount={_amount}, _tradeDate={_tradeDate}, _valueDate={_valueDate}, _counterpartyId={_counterpartyId}, _depositaryId={_depositaryId}, _brokerId={_brokerId}, _entity={_entity}, _eventId={_eventId}, _currency={_currency}, _isin={_isin}, _userId={_userId}, _extraFields={_extraFields}, _info={_info})");
+                logger.log(Severity.debug, $"SetTicketMessage.BEGIN(_tradeType={_tradeType}, _instrumentRef={_instrumentRef}, _bookId={_bookId}, _externalRef ={_externalRef}, _quantity={_quantity}, _spot={_spot}, _amount={_amount}, _tradeDate={_tradeDate}, _valueDate={_valueDate}, _counterpartyId={_counterpartyId}, _depositaryId={_depositaryId}, _brokerId={_brokerId}, _entity={_entity}, _eventId={_eventId}, _currency={_currency}, _isin={_isin}, _marketFees={_marketFees}, _brokerFees={_brokerFees}, _counterPartyFees={_counterPartyFees}, _userId={_userId}, _extraFields={_extraFields}, _info={_info})");
 
                 ticketMessage.SetTicketField(FieldId.TRADETYPE_PROPERTY_NAME, _BusinessEvents[_tradeType]);
                 if (!string.IsNullOrEmpty(_instrumentRef)) ticketMessage.SetTicketField(FieldId.INSTRUMENTREF_PROPERTY_NAME, _instrumentRef);
@@ -93,6 +96,9 @@ namespace Mediolanum_RMA_FILTER.TicketCreator
                 ticketMessage.SetTicketField(FieldId.ENTITY_PROPERTY_NAME, _entity);
                 ticketMessage.SetTicketField(FieldId.CREATION_UPDATE_EVENT_ID, _eventId);
                 ticketMessage.SetTicketField(FieldId.FX_CURRENCY_NAME, _currency);
+                ticketMessage.SetTicketField(FieldId.MARKETFEES_PROPERTY_NAME, _marketFees);
+                ticketMessage.SetTicketField(FieldId.BROKERFEES_PROPERTY_NAME, _brokerFees);
+                ticketMessage.SetTicketField(FieldId.COUNTERPARTYFEES_PROPERTY_NAME, _counterPartyFees);
                 if (!string.IsNullOrEmpty(_extraFields)) _comments = $"{_comments}{COMMENT_SEPA}{_extraFields}";
                 ticketMessage.SetTicketField(FieldId.COMMENTS_PROPERTY_NAME, _comments);
                 ticketMessage.SetTicketField(FieldId.USERID_PROPERTY_NAME, _userId);

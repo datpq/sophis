@@ -212,6 +212,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medio.UserColumns.net", "Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransformation", "DataTransformation\DataTransformation.csproj", "{6367B30C-5E97-4D2A-B6D9-5329AD39B018}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolkitService", "ToolkitService\ToolkitService.csproj", "{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -472,6 +474,18 @@ Global
 		{6367B30C-5E97-4D2A-B6D9-5329AD39B018}.Release|x64.Build.0 = Release|x64
 		{6367B30C-5E97-4D2A-B6D9-5329AD39B018}.Release|x86.ActiveCfg = Release|x86
 		{6367B30C-5E97-4D2A-B6D9-5329AD39B018}.Release|x86.Build.0 = Release|x86
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|x64.ActiveCfg = Debug|x64
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|x64.Build.0 = Debug|x64
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Debug|x86.Build.0 = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|x64.ActiveCfg = Debug|x64
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|x64.Build.0 = Debug|x64
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|x86.ActiveCfg = Debug|Any CPU
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -527,6 +541,7 @@ Global
 		{33079AFB-9EE2-4278-B8B4-25F95F3220C8} = {042F9EED-60FA-4A5A-8099-290277AE2929}
 		{41D94C50-33C3-4C6A-8A55-6EB379793718} = {042F9EED-60FA-4A5A-8099-290277AE2929}
 		{6367B30C-5E97-4D2A-B6D9-5329AD39B018} = {042F9EED-60FA-4A5A-8099-290277AE2929}
+		{DEAD6EC8-0E17-42AE-86D3-973FDC354FC1} = {042F9EED-60FA-4A5A-8099-290277AE2929}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47837A5B-F2B3-4A59-A7FF-26A8DA4F6166}

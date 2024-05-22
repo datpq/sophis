@@ -122,6 +122,7 @@
     <Compile Include="DataTransformationService.Designer.cs">
       <DependentUpon>DataTransformationService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="Models\PdtColumn.cs" />
     <Compile Include="Models\PdtColumnDest.cs" />
     <Compile Include="Models\PdtColumnLookup.cs" />
@@ -181,6 +182,9 @@
     <EmbeddedResource Include="Templates\SSB_AllCustodyTransactions.csv" />
     <EmbeddedResource Include="Templates\RMA_GenericTrade.csv" />
     <EmbeddedResource Include="Templates\NACK_Reponse.csv" />
+    <EmbeddedResource Include="Templates\GenericList1.txt" />
+    <EmbeddedResource Include="Templates\SSC_Transactions_template.csv" />
+    <EmbeddedResource Include="Templates\SSB_OTC_Margin_Calculation.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dt.xml" />
@@ -246,6 +250,29 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\SWIFT_ACK_NACK.xml" />
     <EmbeddedResource Include="Templates\SWIFT_ACK_NACK_Mir.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\TradeUpdate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\TradeKernelEvent.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SBRI.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SCDR.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SD.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SEO.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SMA.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SRI.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_SS.xml" />
+    <EmbeddedResource Include="Templates\BBH_DIM_Corporate_Action_STO.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\IRS.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DTS.sql" />
+    <EmbeddedResource Include="Templates\FxOptions.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

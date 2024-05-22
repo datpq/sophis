@@ -130,8 +130,16 @@
     <Compile Include="..\MediolanumVersion.cs">
       <Link>MediolanumVersion.cs</Link>
     </Compile>
+    <Compile Include="CsxTag10005Plugin.cs" />
     <Compile Include="CsxTag7055Plugin.cs" />
     <Compile Include="CSxTag79Plugin.cs" />
+    <Compile Include="CSxTagAllocQtyPlugin.cs" />
+    <Compile Include="CSxTagEXCHCODEPlugin.cs" />
+    <Compile Include="CSxTagFundNamePlugin.cs" />
+    <Compile Include="CSxTagInstRefPlugin.cs" />
+    <Compile Include="CSxTagISINPlugin.cs" />
+    <Compile Include="CSxTagOrderCreatorPlugin.cs" />
+    <Compile Include="CSxTagStratNamePlugin.cs" />
     <Compile Include="CSxTradingAccountPlugin.cs" />
     <Compile Include="MediolanumFIXTSOXDirtyPricePlugin.cs" />
     <Compile Include="MediolanumFXSwapsPlugin.cs" />

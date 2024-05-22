@@ -63,6 +63,8 @@ namespace Medio.BackOffice.net
                 foreach (var model in CSxGenericAllotmentCondition.GetModels())
                     CSMAllotmentCondition.Register(model.ConditionName, new CSxGenericAllotmentCondition(model));
  
+				sophis.backoffice_cash.CSMSettlementRulesCondition.Register("MEDIO FI Safekeeping Policy", new CSxMergedSSICondition());
+
 
                 CSMCheckDeal.Register("Check Operator", new CheckOperatorCheckDeal());
                 CSMCheckDeal.Register("Check FXALL Trade ID", new CheckFXALLExternalReference());
@@ -77,6 +79,11 @@ namespace Medio.BackOffice.net
 
                 sophis.portfolio.CSMPortfolioColumn.Register("MEDIO Pay DirtyPrice", new SwapPayLegDirtyPrice());
                 sophis.portfolio.CSMPortfolioColumn.Register("MEDIO Rec DirtyPrice", new SwapRecLegDirtyPrice());
+
+                if (CSMApi.IsInBatchMode())
+                {
+                    sophis.scenario.CSMScenario.Register("Medio SSB OTC Matching Scenario", new CSxSSBOTCMatchingScenario());
+                }
             }
             catch(Exception ex)
             {

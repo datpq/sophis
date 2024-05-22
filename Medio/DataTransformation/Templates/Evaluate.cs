@@ -20,12 +20,7 @@ public class Program
         }
     }
 
-    private static DateTime LastDayOfWeek(DateTime dt)
-    {
-        if (dt.DayOfWeek == DayOfWeek.Sunday) return dt.AddDays(-2);
-        if (dt.DayOfWeek == DayOfWeek.Saturday) return dt.AddDays(-1);
-        return dt;
-    }
+    //ExtraCode
 
     private static void solve(string colVal, string lineVal)
     {

@@ -109,10 +109,10 @@ namespace DataTransformation
 
         private void Initialize()
         {
-            Logger.Info("Initializing.BEGIN");
+            Logger.Info("BEGIN");
 
             if (debugMode) Setting = Transformation.InitializeAndSaveConfig(DEFAULT_CONFIG);
-            else Setting = Transformation.LoadConfigFromFile(DEFAULT_CONFIG);
+            else Setting = Helper.LoadConfigFromFile(DEFAULT_CONFIG);
 
             //SQL Connection parameters
             var connectionStrings = ConfigurationManager.AppSettings["OracleConnectionString"];
@@ -146,7 +146,7 @@ namespace DataTransformation
                 watchers.Add(new TransformationWatcher(transIO));
             }
 
-            Logger.Info("Initializing.END");
+            Logger.Info("END");
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -154,7 +154,7 @@ namespace DataTransformation
         {
             //lock(syncLock)
             //{
-            Logger.Debug(string.Format("Process.BEGIN(filePath={0}, Name={1})", filePath, transIO.Name));
+            Logger.Debug(string.Format("BEGIN(filePath={0}, Name={1})", filePath, transIO.Name));
 
             var subfix = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var backupFile = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(filePath), subfix, Path.GetExtension(filePath));
@@ -235,6 +235,7 @@ namespace DataTransformation
             try
             {
                 var processedFile = Path.Combine(Path.GetDirectoryName(filePath), $"{Path.GetFileNameWithoutExtension(filePath)}_processed{Path.GetExtension(filePath)}");
+                if (transIO.ProceesedFlagAsExtension) processedFile = Path.Combine(Path.GetDirectoryName(filePath), $"{Path.GetFileNameWithoutExtension(filePath)}{Path.GetExtension(filePath)}.processed");
                 if (!File.Exists(processedFile))
                 {
                     Logger.Debug($"Renaming file to {processedFile}...");
@@ -245,6 +246,7 @@ namespace DataTransformation
                     while (count <= 1000)
                     {
                         processedFile = Path.Combine(Path.GetDirectoryName(filePath), $"{Path.GetFileNameWithoutExtension(filePath)}_processed_{count++}{Path.GetExtension(filePath)}");
+                        if (transIO.ProceesedFlagAsExtension) processedFile = Path.Combine(Path.GetDirectoryName(filePath), $"{Path.GetFileNameWithoutExtension(filePath)}_{count++}{Path.GetExtension(filePath)}.processed");
                         if (!File.Exists(processedFile))
                         {
                             Logger.Debug($"Renaming file to {processedFile}...");
@@ -264,7 +266,7 @@ namespace DataTransformation
                 Logger.Error(e, "Error while renaming file to processed");
             }
 
-            Logger.Debug("Process.END");
+            Logger.Debug("END");
             //}
         }
     }
@@ -305,9 +307,9 @@ namespace DataTransformation
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
-            Logger.Debug(string.Format("OnCreated.BEGIN(FullPath={0})", e.FullPath));
+            Logger.Debug(string.Format("BEGIN(FullPath={0})", e.FullPath));
             DataTransformationService.Process(e.FullPath, (sender as TransformationWatcher).TransIO);
-            Logger.Debug("OnCreated.END");
+            Logger.Debug("END");
         }
 
         private void OnRenamed(object sender, RenamedEventArgs e)
@@ -315,26 +317,14 @@ namespace DataTransformation
             if (Directory.GetFiles(TransIO.InputDir, TransIO.InputFilter).Any(
                 x => x.Equals(e.FullPath, StringComparison.InvariantCultureIgnoreCase)))
             {
-                Logger.Debug(string.Format("OnRenamed.BEGIN(FullPath={0})", e.FullPath));
+                Logger.Debug(string.Format("BEGIN(FullPath={0})", e.FullPath));
                 DataTransformationService.Process(e.FullPath, (sender as TransformationWatcher).TransIO);
-                Logger.Debug("OnRenamed.END");
+                Logger.Debug("END");
             }
             else
             {
                 //Logger.Warn($"File {e.FullPath} already processed.");
             }
         }
-
-        //private static void OnChanged(object sender, FileSystemEventArgs e)
-        //{
-        //    if (e.ChangeType != WatcherChangeTypes.Changed)
-        //    {
-        //        return;
-        //    }
-        //    Logger.Info($"OnChanged.BEGIN(FullPath={e.FullPath})");
-        //    Process(e.FullPath, (sender as TransformationWatcher)?.TransIO);
-        //    Logger.Info("OnChanged.END");
-        //}
-
     }
 }

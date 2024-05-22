@@ -95,6 +95,9 @@ namespace Mediolanum_RMA_FILTER.Interfaces
                         return new CSxAllCustodyTransCreator(type);
                     case eRBCTicketType.GenericTrade:
                         return new CSxGenericTrade(type);
+                    //Adding The new Ticket Creator
+                    case eRBCTicketType.SSBOTCDataPoints:
+                        return new CSxSSBOTCDataPointsCreator(type);
                     case eRBCTicketType.Unknown:
                     default:
                         return new CSxUnknownCreator(type);

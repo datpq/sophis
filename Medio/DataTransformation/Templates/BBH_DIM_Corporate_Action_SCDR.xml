@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<exch:importMarketData version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" exch:batchType="AllRegardlessOfErrors">
+<ns0:CA_DRIP xmlns:ns0="http://www.sophis.net/MisysCorporateActions" xmlns:ns1="http://www.sophis.net/Instrument" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns0:GeneralInformation>
+    <ns0:References>
+      
+      <ns1:reference ns1:checkIfDefined="false" ns1:name="SophisName" ns1:tradeUpdateMode="NoUpdate">TestDRIP2</ns1:reference>
+    </ns0:References>
+  </ns0:GeneralInformation>
+
+  <ns0:UnderlyingSecurities>
+    <ns0:References>
+      <ns1:sophis></ns1:sophis>
+     
+    </ns0:References>
+  </ns0:UnderlyingSecurities>
+
+  <ns0:CorporateActionDetails>
+    <ns0:RecordDate>2023-10-20</ns0:RecordDate>
+    <ns0:ExDate>2023-10-20</ns0:ExDate>
+    <ns0:ElectionStartDate xsi:nil="true"></ns0:ElectionStartDate>
+    <ns0:ElectionEndDate xsi:nil="true"></ns0:ElectionEndDate>
+    <ns0:PaymentDate>2023-10-26</ns0:PaymentDate>
+  </ns0:CorporateActionDetails>
+
+  <ns0:CorporateActionOptions>
+    <ns0:CashDividend>
+      <ns0:Amount>50.000000000000</ns0:Amount>
+      <ns0:Currency></ns0:Currency>
+      <ns0:ForexRate xsi:nil="true"></ns0:ForexRate>
+    </ns0:CashDividend>
+    <ns0:DripDividend>
+      <ns0:Type>ByRatio</ns0:Type>
+      <ns0:ReinvestmentFixingDate xsi:nil="true"></ns0:ReinvestmentFixingDate>
+      <ns0:ReinvestmentPriceFinal>No</ns0:ReinvestmentPriceFinal>
+      <ns0:ReinvestmentPrice>
+        <ns0:Price>0</ns0:Price>
+        <ns0:Currency></ns0:Currency>
+      </ns0:ReinvestmentPrice>
+      <ns0:NewSharesForOldShares>
+        <ns0:NewShares>0.000000000000</ns0:NewShares>
+        <ns0:OldShares>0.000000000000</ns0:OldShares>
+      </ns0:NewSharesForOldShares>
+      <ns0:RFactor xsi:nil="true"></ns0:RFactor>
+    </ns0:DripDividend>
+  </ns0:CorporateActionOptions>
+
+</ns0:CA_DRIP>
+</exch:importMarketData>
+

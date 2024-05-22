@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" 
+	xmlns:fpml="http://www.fpml.org/2005/FpML-4-2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" 
+	xmlns:common="http://sophis.net/sophis/common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:party="http://www.sophis.net/party" xmlns:trade="http://www.sophis.net/trade" 
+	xmlns:instrument="http://www.sophis.net/Instrument" xmlns:folio="http://www.sophis.net/folio" xmlns:user="http://www.sophis.net/user">
+
+	<trade:tradeKernelEvent common:persistenceType="UpdateOrCreate">
+		<trade:tradeIdentifier>
+			<trade:tradeId trade:tradeIdScheme="http://www.sophis.net/trade/tradeId/id"></trade:tradeId>
+		</trade:tradeIdentifier>
+		<trade:eventId/>
+    <trade:finalStatus/>
+	</trade:tradeKernelEvent>
+	<trade:tradeKernelEvent common:persistenceType="UpdateOrCreate">
+		<trade:tradeIdentifier>
+			<trade:tradeId trade:tradeIdScheme="http://www.sophis.net/trade/tradeId/id"></trade:tradeId>
+		</trade:tradeIdentifier>
+    <trade:eventId/>
+    <trade:finalStatus/>
+  </trade:tradeKernelEvent>
+</exch:import>

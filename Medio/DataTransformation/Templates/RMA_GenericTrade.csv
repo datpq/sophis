@@ -1,1 +1,1 @@
-TradeType;InstrumentRef;BookId;ExternalRef;Quantity;Spot;SpotType;Amount;TradeDate;ValueDate;CounterpartyId;DepositaryId;BrokerId;Entity;EventId;Currency;Isin;Comments;UserId;ExtraFields;Info
+TradeType;InstrumentRef;BookId;ExternalRef;Quantity;Spot;SpotType;Amount;TradeDate;ValueDate;CounterpartyId;DepositaryId;BrokerId;Entity;EventId;Currency;Isin;PaymentCcy;MarketFees;BrokerFees;CounterPartyFees;Comments;UserId;ExtraFields;Info

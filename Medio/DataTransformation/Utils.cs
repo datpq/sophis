@@ -1,4 +1,6 @@
 ﻿using NLog;
+using Oracle.DataAccess.Client;
+using Oracle.DataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -61,13 +63,55 @@ namespace DataTransformation
             if (!string.IsNullOrEmpty(recipientCC)) mailMessage.CC.Add(recipientCC);
             if (attachments != null)
             {
-                foreach(var filePath in attachments)
+                foreach (var filePath in attachments)
                 {
                     var attachment = new Attachment(filePath);
                     mailMessage.Attachments.Add(attachment);
                 }
             }
             smtpClient.Send(mailMessage);
+        }
+
+        public static void RunCommandLineWithOutputFile(string commandLine, string commandLineArgs, string outputFile)
+        {
+            if (!string.IsNullOrEmpty(commandLine))
+            {
+                Logger.Debug($"PostTransCommandLine={commandLine}, PostTransCommandLineArgs={commandLineArgs}");
+                var args = $"\"{outputFile}\"";
+                if (!string.IsNullOrEmpty(commandLineArgs))
+                {
+                    if (commandLineArgs.Contains("@OutputFile"))
+                    {
+                        args = commandLineArgs.Replace("@OutputFile", args);
+                    }
+                    else
+                    {
+                        args = commandLineArgs + " " + args;
+                    }
+                }
+                Logger.Debug($"Command Line: {commandLine} {args}");
+                try
+                {
+                    RunCommandLine(commandLine, args);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e, "Error when executing the command line");
+                }
+            }
+
+        }
+
+        public static void RunCommandLine(string fileName, string args)
+        {
+            var p = new System.Diagnostics.Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            p.StartInfo.FileName = fileName;
+            p.StartInfo.Arguments = args;
+            p.Start();
         }
 
         public static bool IsFileClosed(string filepath, bool wait = true)
@@ -144,6 +188,7 @@ namespace DataTransformation
 
         public static void AddOrUpdateAppSettings(string key, string value)
         {
+            Logger.Debug($"BEGIN(key={key}, value={value})");
             try
             {
                 var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -163,6 +208,63 @@ namespace DataTransformation
             {
                 Logger.Error("Error writing app settings");
             }
+            Logger.Debug($"END");
+        }
+
+        public static int AuditStart(string transName, string transType, string inputFile, string outputFile, string failureFile = null)
+        {
+            Logger.Debug($"BEGIN({transName}, {transType})");
+            int auditId = 0;
+            try
+            {
+                using (var command = new OracleCommand($@"
+BEGIN
+    INSERT INTO DTS(ID, TRANS_NAME, TRANS_TYPE, START_TIME, INPUT_FILE, OUTPUT_FILE, FAILURE_FILE)
+    VALUES (DTS_SEQ.NEXTVAL, :transName, :transType, SYSDATE, :inputFile, :outputFile, :failureFile)
+    RETURNING ID INTO :p_RC;
+END;", DataTransformationService.DbConnection))
+                {
+                    command.Parameters.Add(new OracleParameter("transName", OracleDbType.Varchar2) { Value = transName});
+                    command.Parameters.Add(new OracleParameter("transType", OracleDbType.Varchar2) { Value = transType});
+                    command.Parameters.Add(new OracleParameter("inputFile", OracleDbType.Varchar2) { Value = inputFile});
+                    command.Parameters.Add(new OracleParameter("outputFile", OracleDbType.Varchar2) { Value = outputFile});
+                    command.Parameters.Add(new OracleParameter("failureFile", OracleDbType.Varchar2) { Value = failureFile});
+                    command.Parameters.Add(new OracleParameter("p_RC", OracleDbType.Int32, System.Data.ParameterDirection.Output));
+                    command.ExecuteNonQuery();
+                    auditId = ((OracleDecimal)command.Parameters["p_RC"].Value).ToInt32();
+                }
+            } catch(Exception e)
+            {
+                Logger.Error(e, "Error when inserting in Audit DTS");
+            }
+            Logger.Debug($"END({auditId})");
+            return auditId;
+        }
+
+        public static void AuditEnd(int auditId, int totalLines, int processedLines, int failureLines = 0)
+        {
+            Logger.Debug($"BEGIN(auditId={auditId})");
+            try
+            {
+                using (var command = new OracleCommand(@"
+UPDATE DTS SET END_TIME=SYSDATE,
+    DURATION = TO_CHAR(TRUNC((SYSDATE - START_TIME) * 24), 'FM00') || ':' || 
+       TO_CHAR(ROUND(MOD((SYSDATE - START_TIME) * 1440, 60)), 'FM00') || ':' || 
+       TO_CHAR(ROUND(MOD((SYSDATE - START_TIME) * 86400, 60)), 'FM00'),
+    TOTAL_LINES=:totalLines, PROCESSED_LINES=:processedLines, FAILURE_LINES=:failureLines WHERE ID=:auditId", DataTransformationService.DbConnection))
+                {
+                    command.Parameters.Add(new OracleParameter("totalLines", OracleDbType.Int32) { Value = totalLines });
+                    command.Parameters.Add(new OracleParameter("processedLines", OracleDbType.Int32) { Value = processedLines });
+                    command.Parameters.Add(new OracleParameter("failureLines", OracleDbType.Int32) { Value = failureLines });
+                    command.Parameters.Add(new OracleParameter("auditId", OracleDbType.Int32) { Value = auditId });
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Error when inserting in Audit DTS");
+            }
+            Logger.Debug($"END");
         }
     }
 }

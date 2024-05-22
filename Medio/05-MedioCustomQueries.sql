@@ -16,6 +16,7 @@ whenever sqlerror continue;
 --------------------------------------------------------
 --  File created - Monday-May-25-2021   
 --------------------------------------------------------
+
 update expression_style set expression=replace(upper(expression),'INITIAL NOMINAL','Notional (bonds)') where upper(EXPRESSION) like '%INITIAL NOMINAL%';
 update expression_style set expression=replace(upper(expression),'INITIAL NOTIONAL','Number of securities') where upper(EXPRESSION) like '%INITIAL NOTIONAL%';
 

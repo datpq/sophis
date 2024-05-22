@@ -33,7 +33,8 @@ namespace Mediolanum_RMA_FILTER
         TermDeposit,
         AllCustodyTrans,
         GenericTrade,
-        Unknown
+        SSBOTCDataPoints,//Adding The eRBCTicketType
+        Unknown,
     };
 
     public enum eCorporateActionType
@@ -104,7 +105,12 @@ namespace Mediolanum_RMA_FILTER
                 {eRBCTicketType.TermDeposit, TermDepositColumns.TotalCount},
                 {eRBCTicketType.AllCustodyTrans, AllCustodyTransColumns.TotalCount},
                 {eRBCTicketType.GenericTrade, GenericTrade.TotalCount},
+                //(maarrouk) Adding The RBCTicketType this Type has a single value of Total Count which is 4 So no worries
+                {eRBCTicketType.SSBOTCDataPoints, SSBOTCDataPointsColumns.TotalCount},
+                //
                 {eRBCTicketType.Unknown, 0},
+                
+
             };
 
         public static class EquityColumns
@@ -583,11 +589,23 @@ namespace Mediolanum_RMA_FILTER
             public const int EventId = 14;
             public const int Currency = 15;
             public const int Isin = 16;
-            public const int Comments = 17;
-            public const int UserId = 18;
-            public const int ExtraFields = 19;
-            public const int Info = 20;
-            public const int TotalCount = 21;
+            public const int BrokerFees = 17;
+            public const int MarketFees = 18;
+            public const int CounterPartyFees = 19;
+            public const int Comments = 20;
+            public const int UserId = 21;
+            public const int ExtraFields = 22;
+            public const int Info = 23;
+            public const int TotalCount = 24;
+        }
+
+        public static class SSBOTCDataPointsColumns
+        {
+            public const int FundCode = 0;
+            public const int CUSIPPrefix = 1;
+            public const int Date = 2;
+            public const int NetAmount = 3;
+            public const int TotalCount = 4;
         }
     }
 
@@ -660,6 +678,8 @@ namespace Mediolanum_RMA_FILTER
         public string RBCTransType = "TKT_RBC_TRANSTYPE";
         public string SSBAllCustCollateralCashRelatedTradeIDs = string.Empty;
         public string SSBAllCustMarginRelatedTradeIDs = string.Empty;
+        public string SSBFundCodesTableName = "MEDIO_SSB_OTC_FUND_CODES";
+        public string SSBDataPointsTableName = "MEDIO_SSB_OTC_DATA_POINTS";
 
         string grossAmountEpsilonStr = "0.1";
         string netAmountEpsilonStr = "0.1";
@@ -793,6 +813,7 @@ namespace Mediolanum_RMA_FILTER
                 CSMConfigurationFile.getEntryValue(MEDIO_RMA_CUSTOM_SECTION, "ABSBondNotionalOne", ref ABSBondNotionalOne, false);
                 CSMConfigurationFile.getEntryValue(MEDIO_RMA_CUSTOM_SECTION, "SSBAllCustCollateralCashRelatedTradeIDs", ref SSBAllCustCollateralCashRelatedTradeIDs, "CCPM,CCPC,SWCC,SWBC,TBCC");
                 CSMConfigurationFile.getEntryValue(MEDIO_RMA_CUSTOM_SECTION, "SSBAllCustMarginRelatedTradeIDs", ref SSBAllCustMarginRelatedTradeIDs, "MARG,MGCC");
+                CSMConfigurationFile.getEntryValue(MEDIO_RMA_CUSTOM_SECTION, "SSBOTCMiflFundCodes", ref CSxSSBOTCDataPointsCreator._MIFLFundCodes, "GFJG,GFJH,GFJL,GFJN,GFJ1,GFJ2,GFJ3,GFJ4");
 
                 Double.TryParse(grossAmountEpsilonStr, out GrossAmountEpsilon);
                 Double.TryParse(netAmountEpsilonStr, out NetAmountEpsilon);

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<exch:import version="4-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:exch="http://sophis.net/sophis/gxml/dataExchange" xmlns:fpml="http://www.fpml.org/2005/FpML-4-2"
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:common="http://sophis.net/sophis/common"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:party="http://www.sophis.net/party"
+             xmlns:trade="http://www.sophis.net/trade" xmlns:instrument="http://www.sophis.net/Instrument"
+             xmlns:sph="http://www.sophis.net/Instrument" xmlns:folio="http://www.sophis.net/folio"
+             xmlns:user="http://www.sophis.net/user" exch:batchType="AllRegardlessOfErrors">
+
+<sph:fxOption xmlns:sph="http://www.sophis.net/Instrument" xmlns:common="http://sophis.net/sophis/common">
+
+  <sph:productType>FX-All|FX-Option|FX-Vanilla Option</sph:productType>
+
+  <sph:feature>Average-No Average|Barrier-None|Option Style-European|Vanilla|Without Market</sph:feature>
+
+  <sph:identifier>
+    <sph:reference sph:modifiable="UniqueNotPrioritary" sph:name="Sophisref"></sph:reference>
+  </sph:identifier>
+
+  <sph:name></sph:name>
+
+  <sph:currency></sph:currency>
+
+
+  <sph:pointValue>
+    <sph:quotationType>InPercentage</sph:quotationType>
+    <sph:averagePrice>0.010000000000</sph:averagePrice>
+    <sph:unrealized>0.010000000000</sph:unrealized>
+    <sph:realized>1.000000000000</sph:realized>
+    <sph:inAmount>1.000000000000</sph:inAmount>
+    <sph:inAnotherCurrency>1.000000000000</sph:inAnotherCurrency>
+    <sph:inPercent>0.010000000000</sph:inPercent>
+  </sph:pointValue>
+
+  <sph:allotment>OTC FX OPTION SINGLE</sph:allotment>
+
+  <sph:status>Available</sph:status>
+
+  <sph:notional>
+    <sph:currency></sph:currency>
+    <sph:amount>1.000000000000</sph:amount>
+  </sph:notional>
+
+  <sph:extraFields/>
+
+  <sph:pricing>
+    <sph:nature>D</sph:nature>
+    <sph:model>FX Option</sph:model>
+	<sph:isCleared></sph:isCleared>
+    <sph:optimisation>Simple</sph:optimisation>
+    <sph:underlyingModel>Nmu</sph:underlyingModel>
+    <sph:numberOfPoints>100</sph:numberOfPoints>
+    <sph:dialog>General</sph:dialog>
+    <sph:pricingModel>{00000000-0000-0000-0000-000000000000}</sph:pricingModel>
+  </sph:pricing>
+
+  <sph:strike>
+    <sph:strikeValue>
+      <sph:strikePrice>
+        <sph:currency></sph:currency>
+        <sph:amount></sph:amount>
+      </sph:strikePrice>
+    </sph:strikeValue>
+    <sph:fixingType>Last</sph:fixingType>
+  </sph:strike>
+
+  <sph:optionType></sph:optionType>
+
+  <sph:exercise>
+    <sph:americanExercise>
+      <sph:expirationDate>
+        <common:adjustableDate>
+          <common:unadjustedDate></common:unadjustedDate>
+          <common:dateAdjustments>
+            <common:businessDayConvention>NONE</common:businessDayConvention>
+          </common:dateAdjustments>
+        </common:adjustableDate>
+      </sph:expirationDate>
+    </sph:americanExercise>
+    <sph:bermudaExercise>
+      <sph:expirationDate>
+        <common:adjustableDate>
+          <common:unadjustedDate></common:unadjustedDate>
+          <common:dateAdjustments>
+            <common:businessDayConvention>NONE</common:businessDayConvention>
+          </common:dateAdjustments>
+        </common:adjustableDate>
+      </sph:expirationDate>
+    </sph:bermudaExercise>
+    <sph:europeanExercise>
+      <sph:expirationDate>
+        <common:adjustableDate>
+          <common:unadjustedDate></common:unadjustedDate>
+          <common:dateAdjustments>
+            <common:businessDayConvention>NONE</common:businessDayConvention>
+          </common:dateAdjustments>
+        </common:adjustableDate>
+      </sph:expirationDate>
+    </sph:europeanExercise>
+    <sph:settlementDate>
+      <common:adjustableDate>
+        <common:unadjustedDate></common:unadjustedDate>
+        <common:dateAdjustments>
+          <common:businessDayConvention>NONE</common:businessDayConvention>
+        </common:dateAdjustments>
+      </common:adjustableDate>
+    </sph:settlementDate>
+    <sph:settlementCurrency></sph:settlementCurrency>
+  </sph:exercise>
+
+  <sph:settlementType></sph:settlementType>
+
+  <sph:optionFeatures/>
+
+  <sph:underlyer>
+    <sph:sophis></sph:sophis>
+  </sph:underlyer>
+
+  <sph:fixedIncome>
+    <sph:creditSpread>0.000000000000</sph:creditSpread>
+    <sph:spreadType>Undefined</sph:spreadType>
+    <sph:couponFrequency>
+      <sph:periodMultiplier>0</sph:periodMultiplier>
+      <sph:periodEnum>Day</sph:periodEnum>
+    </sph:couponFrequency>
+    <sph:impliedType>Undefined</sph:impliedType>
+  </sph:fixedIncome>
+
+  <sph:FXOptionType>Vanilla</sph:FXOptionType>
+
+  <sph:StrikeOffset>0.000000000000</sph:StrikeOffset>
+
+  <sph:FixedNotionalCurrency></sph:FixedNotionalCurrency>
+
+</sph:fxOption>
+</exch:import>

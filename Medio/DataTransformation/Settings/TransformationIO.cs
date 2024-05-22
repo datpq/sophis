@@ -2,6 +2,13 @@
 
 namespace DataTransformation.Settings
 {
+    public enum TransAttachedFile
+    {
+        Output,
+        Unprocessed,
+        Both
+    }
+
     public class TransformationIO : ConfigurationElement
     {
         private const string NameKey = "Name";
@@ -13,10 +20,14 @@ namespace DataTransformation.Settings
         private const string BackupKey = "BackupDir";
         private const string FailureKey = "FailureDir";
         private const string SendFailureReportKey = "SendFailureReport";
+        private const string EmailAttachedFileKey = "EmailAttachedFile";
         private const string EmailSubjectKey = "EmailSubject";
         private const string EmailRecipientToKey = "EmailRecipientTo";
         private const string EmailRecipientCCKey = "EmailRecipientCC";
         private const string EmailBodyKey = "EmailBody";
+        private const string PostTransCommandLineKey = "PostTransCommandLine";
+        private const string PostTransCommandLineArgsKey = "PostTransCommandLineArgs";
+        private const string ProceesedFlagAsExtensionKey = "ProceesedFlagAsExtension";
 
         [ConfigurationProperty(NameKey, IsRequired = true)]
         public string Name {
@@ -74,6 +85,13 @@ namespace DataTransformation.Settings
             set { this[FailureKey] = value; }
         }
 
+        [ConfigurationProperty(EmailAttachedFileKey, IsRequired = false)]
+        public TransAttachedFile? EmailAttachedFile
+        {
+            get { return (TransAttachedFile?)this[EmailAttachedFileKey]; }
+            set { this[EmailAttachedFileKey] = value; }
+        }
+
         [ConfigurationProperty(EmailSubjectKey, IsRequired = false)]
         public string EmailSubject
         {
@@ -100,6 +118,26 @@ namespace DataTransformation.Settings
         {
             get { return (string)this[EmailBodyKey]; }
             set { this[EmailBodyKey] = value; }
+        }
+
+        [ConfigurationProperty(PostTransCommandLineKey, IsRequired = false)]
+        public string PostTransCommandLine
+        {
+            get { return (string)this[PostTransCommandLineKey]; }
+            set { this[PostTransCommandLineKey] = value; }
+        }
+
+        [ConfigurationProperty(PostTransCommandLineArgsKey, IsRequired = false)]
+        public string PostTransCommandLineArgs
+        {
+            get { return (string)this[PostTransCommandLineArgsKey]; }
+            set { this[PostTransCommandLineArgsKey] = value; }
+        }
+        [ConfigurationProperty(ProceesedFlagAsExtensionKey, DefaultValue = false, IsRequired = false)]
+        public bool ProceesedFlagAsExtension
+        {
+            get { return (bool)this[ProceesedFlagAsExtensionKey]; }
+            set { this[FailureKey] = value; }
         }
     }
 }

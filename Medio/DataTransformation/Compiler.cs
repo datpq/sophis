@@ -27,7 +27,7 @@ namespace DataTransformation
             //return Microsoft.CodeAnalysis.CSharp.SymbolDisplay.FormatLiteral(valueTextForCompiler, false);
         }
 
-        public static string Evaluate(string expression, string colVal, string lineVal = "")
+        public static string Evaluate(string expression, string colVal, string lineVal = "", string extraCode = null)
         {
             var key = string.Format("expression={0}@colVal={1}@lineVal={2}", expression, colVal, lineVal);
             if (CacheExpressionValues.ContainsKey(key))
@@ -50,6 +50,10 @@ namespace DataTransformation
                     Logger.Debug($"Reading code from template: \n{EvaluateTemplateCode}");
                 }
                 string fileContent = EvaluateTemplateCode.Replace("123456789", expression);
+                if (!string.IsNullOrEmpty(extraCode))
+                {
+                    fileContent = fileContent.Replace("//ExtraCode", extraCode);
+                }
                 File.WriteAllText(sourceFile, fileContent);
                 CompileExecutable(sourceFile, destFile);
 
@@ -71,27 +75,32 @@ namespace DataTransformation
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = exeFile;
+            //p.StartInfo.CreateNoWindow = true;
             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            p.StartInfo.Arguments = string.Format("\"{0}\" \"{1}\"", colVal.Replace("\"", "\\\""), lineVal.Replace("\"", "\\\""));
+            p.StartInfo.Arguments = string.Format("\"{0}\" \"{1}\"", colVal?.Replace("\"", "\\\""), lineVal.Replace("\"", "\\\""));
             if (keepSourceFile)
             {
                 Logger.Debug(string.Format("Arguments: {0}", p.StartInfo.Arguments));
             }
             p.Start();
-            // Do not wait for the child process to exit before
-            // reading to the end of its redirected stream.
-            // p.WaitForExit();
+            var lines = new List<string>();
+            while (!p.StandardOutput.EndOfStream)
+            {
+                string line = p.StandardOutput.ReadLine();
+                lines.Add(line);
+            }
             // Read the output stream first and then wait.
-            string output = p.StandardOutput.ReadToEnd();
+            //string output = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
 
+            var output = string.Join(Environment.NewLine, lines);
             CacheExpressionValues.Add(key, output);
             return output;
         }
 
         public static void EvaluateDocEvent(string expression, Dictionary<string, string> Variables, XmlDocument doc)
         {
-            Logger.Debug($"EvaluateDocEvent.BEGIN(expression={expression})");
+            Logger.Debug($"BEGIN(expression={expression})");
             var csc = new CSharpCodeProvider();
             var parameters = new CompilerParameters(new[] {
                 "System.dll", "System.Xml.dll"});
@@ -108,6 +117,7 @@ namespace DataTransformation
                 }
             }
             string fileContent = EvaluateDocEventTemplateCode.Replace("//123456789", expression);
+            //Logger.Debug($"File content:\n{ fileContent}");
             var results = csc.CompileAssemblyFromSource(parameters, fileContent);
             if (!results.Errors.HasErrors)
             {
@@ -121,12 +131,12 @@ namespace DataTransformation
                     results.Errors.Cast<CompilerError>().Select(x => x.ErrorText));
                 throw new Exception(errors);
             }
-            Logger.Debug("EvaluateDocEvent.END");
+            Logger.Debug("END");
         }
 
         public static void CleanUp()
         {
-            Logger.Debug($"CleanUp.BEGIN");
+            Logger.Debug($"BEGIN");
             foreach (var exeFile in CacheExpressionExeFiles.Values)
             {
                 try
@@ -138,7 +148,7 @@ namespace DataTransformation
                 }
             }
             CacheExpressionExeFiles.Clear();
-            Logger.Debug("CleanUp.END");
+            Logger.Debug("END");
         }
 
         public static void CompileExecutable(string sourceFile, string destFile)
